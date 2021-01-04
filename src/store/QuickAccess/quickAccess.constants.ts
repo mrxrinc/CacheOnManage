@@ -1,0 +1,17 @@
+/**
+ * @module QuickAccess
+ * @desc QuickAccess constants and its sagas
+ */
+export const QUICKACCESS_ROOT_PAGE = "QUICKACCESS_ROOT_PAGE";
+
+// Mobile TopUp
+export const QUICKACCESS_OPERATORNAME = "QUICKACCESS_OPERATORNAME";
+export const QUICKACCESS_CHILDPHONE = "QUICKACCESS_CHILDPHONE";
+
+// mobile Bill
+export const BILLPAYMENT = "BILLPAYMENT";
+export const SAGAS_BILLPAYMNET = "SAGAS_BILLPAYMNET";
+
+// mobileTopUp
+export const QUICKACCESS_MOBILETOPUP = "QUICKACCESS_MOBILETOPUP";
+export const QUICKACCESS_SAGAS_MOBILETOPUP = "QUICKACCESS_SAGAS_MOBILETOPUP";

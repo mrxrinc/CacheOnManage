@@ -1,0 +1,19 @@
+/**
+ * @module Saving
+ * @desc Saving constants and its sagas
+ */
+export const SAVING_LIST = "SAVING_LIST";
+export const SAGAS_SAVING_LIST = "SAGAS_SAVING_LIST";
+
+export const SELECTED_TARGETS_DATA = "SELECTED_TARGETS_DATA";
+export const SAGAS_SELECTED_TARGETS_DATA = "SAGAS_SELECTED_TARGETS_DATA";
+
+export const DELETE_TARGET = "DELETE_TARGET";
+export const SAGAS_DELETE_TARGET = "SAGAS_DELETE_TARGET";
+
+export const TRANSFER_MONEY_TO_TARGET = "TRANSFER_MONEY_TO_TARGET";
+export const SAGAS_TRANSFER_MONEY_TO_TARGET = "SAGAS_TRANSFER_MONEY_TO_TARGET";
+
+export const SET_EDIT_MODAL = "SET_EDIT_MODAL";
+
+export const LOADING = "LOADING";

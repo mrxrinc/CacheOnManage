@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 43 43">
+    <defs>
+        <filter id="Ellipse_8" width="50" height="50" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-2,.cls-3{fill:none}.cls-3{stroke:#2af598;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-width:.5px}
+        </style>
+    </defs>
+    <g id="Group_132" data-name="Group 132" transform="translate(-281 -3260)">
+        <g filter="url(#Ellipse_8)" transform="translate(281 3260)">
+            <circle id="Ellipse_8-2" cx="16" cy="16" r="16" fill="rgba(42,245,152,0.1)" data-name="Ellipse 8" transform="translate(9 6)"/>
+        </g>
+        <g id="Component_2_9" data-name="Component 2 – 9" transform="translate(294 3270)">
+            <path id="Rectangle_128" d="M0 0H24V24H0z" class="cls-2" data-name="Rectangle 128"/>
+            <g id="Group_42" data-name="Group 42" transform="translate(-1551 -1695)">
+                <g id="Group_41" data-name="Group 41" transform="translate(1 106.223)">
+                    <g id="iconfinder_money_172506" transform="translate(1552 1591)">
+                        <path id="Rectangle_127" d="M0 0H21V21H0z" class="cls-2" data-name="Rectangle 127" transform="translate(0 -.223)"/>
+                        <ellipse id="Ellipse_6" cx="5.5" cy="2" class="cls-3" data-name="Ellipse 6" rx="5.5" ry="2" transform="translate(9 .777)"/>
+                        <path id="Path_680" d="M21 7v2.493c0 1.147 2.6 2.078 5.818 2.078s5.818-.93 5.818-2.078V7" class="cls-3" data-name="Path 680" transform="translate(-12.274 -4.091)"/>
+                        <path id="Path_681" d="M28.55 18.338a14.855 14.855 0 0 0 2.68.233c3.214 0 5.818-.93 5.818-2.078V14" class="cls-3" data-name="Path 681" transform="translate(-16.686 -8.182)"/>
+                        <path id="Path_682" d="M21 14v1.774" class="cls-3" data-name="Path 682" transform="translate(-12.274 -8.182)"/>
+                        <path id="Path_683" d="M29.025 25.373a15.041 15.041 0 0 0 2.483.2c3.214 0 5.818-.93 5.818-2.078V21" class="cls-3" data-name="Path 683" transform="translate(-16.964 -12.274)"/>
+                        <path id="Path_684" d="M28.948 32.367a15.016 15.016 0 0 0 2.515.2c3.214 0 5.818-.93 5.818-2.078V28" class="cls-3" data-name="Path 684" transform="translate(-16.919 -16.365)"/>
+                        <ellipse id="Ellipse_7" cx="6" cy="2" class="cls-3" data-name="Ellipse 7" rx="6" ry="2" transform="translate(0 7.777)"/>
+                        <path id="Path_685" d="M1 24v2.493c0 1.148 2.6 2.078 5.818 2.078s5.818-.93 5.818-2.078V24" class="cls-3" data-name="Path 685" transform="translate(-.584 -14.027)"/>
+                        <path id="Path_686" d="M1 31v2.493c0 1.148 2.6 2.078 5.818 2.078s5.818-.93 5.818-2.078V31" class="cls-3" data-name="Path 686" transform="translate(-.584 -18.118)"/>
+                        <path id="Path_687" d="M1 38v2.493c0 1.148 2.6 2.078 5.818 2.078s5.818-.93 5.818-2.078V38" class="cls-3" data-name="Path 687" transform="translate(-.584 -22.21)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

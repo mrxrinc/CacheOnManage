@@ -1,0 +1,184 @@
+import React, { useState } from "react";
+import { View, ScrollView } from "react-native";
+import ActionModalFullScreen from "components/modal/actionModalFullScreen";
+import { FormattedText } from "components/format-text";
+import { colors } from "constants/index";
+import Button from "components/button";
+import Input from "components/input";
+import Checkbox from "components/checkbox";
+import { formatNumber } from "utils";
+import styles from "./styles";
+
+type PaymentMethodType = {
+  method: string;
+  amount: string;
+};
+
+const initialData = [
+  {
+    title: "پرداخت قبض موبایل",
+    description: "سقف ماهیانه پرداخت قبض موبایل",
+    amount: "",
+    method: "mobileBill",
+  },
+  {
+    title: "خرید بسته اینترنتی",
+    description: "سقف ماهیانه خرید بسته اینترنت",
+    amount: "",
+    method: "internetPackage",
+  },
+  {
+    title: "خرید شارژ سیم کارت",
+    description: "سقف ماهیانه خرید شارژ سیم‌کارت",
+    amount: "",
+    method: "mobilePerPayment",
+  },
+  {
+    title: "پرداخت با QR",
+    description: "سقف ماهیانه پرداخت با QR",
+    amount: "",
+    method: "qrPayment",
+  },
+];
+
+const renderPaymentMethodItem = (
+  title: string,
+  description: string,
+  amount: string,
+  method: string,
+  paymentMethods: any,
+  setPaymentMethods: any
+) => {
+  let itemData = {
+    title,
+    description,
+    amount,
+    method,
+  };
+  const activeMethod =
+    paymentMethods.filter((n: any) => n.method === method).length > 0;
+  let rowAmount = paymentMethods.filter((n: any) => n.method === method)[0];
+  rowAmount = rowAmount ? rowAmount["amount"] : "";
+  return (
+    <View style={styles.itemsWrapper} key={itemData.title}>
+      <View style={styles.item}>
+        <View style={styles.itemTitleWrapper}>
+          <Checkbox
+            showActive={activeMethod}
+            onChange={() => {
+              if (activeMethod) {
+                setPaymentMethods(
+                  paymentMethods.filter((n: any) => n.method !== method)
+                );
+                itemData.amount = "";
+              } else {
+                setPaymentMethods([
+                  ...paymentMethods,
+                  {
+                    amount: itemData.amount,
+                    method: itemData.method,
+                  },
+                ]);
+              }
+            }}
+            disabled={false}
+            color={colors.buttonSubmitActive}
+          />
+          <View>
+            <FormattedText style={styles.itemTitle}>{title}</FormattedText>
+            <FormattedText style={styles.itemDescription}>
+              {description}
+            </FormattedText>
+          </View>
+        </View>
+        <View style={styles.itemInputWrapper}>
+          <View>
+            <Input
+              boxMode
+              keyboardType="number-pad"
+              customStyle={styles.itemInput}
+              value={formatNumber(rowAmount)}
+              onChangeText={(value: string) => {
+                itemData = {
+                  ...itemData,
+                  amount: value.replace(/,/g, ""),
+                };
+                if (activeMethod) {
+                  setPaymentMethods([
+                    ...paymentMethods.filter(
+                      (n: any) => n.method !== itemData.method
+                    ),
+                    {
+                      amount: itemData.amount,
+                      method: itemData.method,
+                    },
+                  ]);
+                }
+              }}
+            />
+          </View>
+          <View>
+            <FormattedText id={"home.rial"} style={styles.currencyUnit} />
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default ({
+  showModal,
+  setShowModal,
+  handleGetPaymentLimits,
+  childId,
+  data,
+}: any) => {
+  const [paymentMethods, setPaymentMethods] = useState<
+    Array<PaymentMethodType>
+  >(data ? data : []);
+
+  const handleSubmit = () => {
+    if (childId) {
+      // will put edit child payment method API here when it be ready!
+      setShowModal(false);
+    } else {
+      handleGetPaymentLimits(paymentMethods);
+      setShowModal(false);
+    }
+  };
+
+  return (
+    <ActionModalFullScreen
+      showModal={showModal}
+      title="تعیین سقف پرداخت"
+      setShowModal={(val: boolean) => setShowModal(val)}
+    >
+      <ScrollView>
+        <View style={styles.container}>
+          <FormattedText style={styles.title}>
+            لطفا نوع پرداخت و سقف آن را مشخص نمائید.
+          </FormattedText>
+
+          {initialData.map((item: any) =>
+            renderPaymentMethodItem(
+              item.title,
+              item.description,
+              item.amount,
+              item.method,
+              paymentMethods,
+              setPaymentMethods
+            )
+          )}
+        </View>
+      </ScrollView>
+      <View style={styles.buttonWrapper}>
+        <Button
+          title="ذخیره"
+          onPress={handleSubmit}
+          color={colors.buttonSubmitActive}
+          disabled={false}
+        />
+      </View>
+    </ActionModalFullScreen>
+  );
+};

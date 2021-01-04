@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="31.721" viewBox="0 0 44 31.721">
+    <defs>
+        <style>
+            .cls-2{fill:none;stroke:#8d8d8d;stroke-miterlimit:10;stroke-width:.5px}
+        </style>
+    </defs>
+    <g id="Group_4952" transform="translate(-724 -284.128)">
+        <rect id="Rectangle_17679" width="44" height="31.721" fill="#fffebc" rx="9.392" transform="translate(724 284.128)"/>
+        <g id="Group_3891" transform="translate(.5 .225)">
+            <rect id="Rectangle_17680" width="15.69" height="5.798" class="cls-2" rx="2.899" transform="translate(746.5 288.903)"/>
+            <rect id="Rectangle_17681" width="15.69" height="5.798" class="cls-2" rx="2.899" transform="translate(746.5 297.089)"/>
+            <rect id="Rectangle_17682" width="15.69" height="5.798" class="cls-2" rx="2.899" transform="translate(746.5 305.275)"/>
+            <rect id="Rectangle_17683" width="15.69" height="5.798" class="cls-2" rx="2.899" transform="translate(728.5 305.275)"/>
+            <rect id="Rectangle_17684" width="15.69" height="5.798" class="cls-2" rx="2.899" transform="translate(728.5 297.089)"/>
+            <rect id="Rectangle_17685" width="15.69" height="5.798" class="cls-2" rx="2.899" transform="translate(728.5 288.903)"/>
+        </g>
+    </g>
+</svg>
