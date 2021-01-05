@@ -31,13 +31,13 @@ const PaymentTransactionResult: React.FC<Props> = (props) => {
         {props.data.map((item: any) => {
           return (
             <View style={styles.modalResultRow}>
-              <View>
+              <View style={styles.modalResultKey}>
                 <FormattedText style={styles.modalResultKeyText}>
                   {item.name}
                 </FormattedText>
               </View>
               <View style={styles.modalResultMiddleLine} />
-              <View>
+              <View style={styles.modalResultVal}>
                 <FormattedText style={styles.modalResultKeyText}>
                   {item.title}
                 </FormattedText>

@@ -1,22 +1,30 @@
 import React from "react";
-import { Text, View } from "react-native";
+// Hooks
+import { useDispatch } from "react-redux";
+// UI Frameworks
+import { Button, Text, View } from "react-native";
 import { RNCamera } from "react-native-camera";
-import styles from "./styles";
-import Modal from "react-native-modal";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { FormattedText } from "components/format-text";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+// Actions
+import QRPaymentActions from "store/QRPayment/qrPayment.actions";
+// Common components
 import Layout from "components/layout";
 import Header from "components/header";
+import { FormattedText } from "components/format-text";
+// Local components
 import ByHandPayment from "./components/ByHandPayment";
 import PayAmount from "./components/PayAmount";
-import { useDispatch } from "react-redux";
-import QRPaymentActions from "store/QRPayment/qrPayment.actions";
+// Styles
+import styles from "./styles";
 
 interface BarcodeInfo {
-  type: any;
+  type: string;
   data: any;
 }
-const QRPayment: React.FC = (props: any) => {
+interface Props {
+  navigation: any;
+}
+const QRPayment: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const camera = React.useRef(null);
   const [barcode, setBarcode] = React.useState("");
@@ -58,6 +66,7 @@ const QRPayment: React.FC = (props: any) => {
     setQrBtnActive(true);
   }
   function handleHandPayment() {
+    setShowModal(false);
     setPayAmount(false);
     setQrBtnActive(false);
     setByHandPaymentBtnActive(true);
@@ -69,14 +78,16 @@ const QRPayment: React.FC = (props: any) => {
         staticTitle={"qrHeader"}
         handleBack={() => props.navigation.goBack()}
       />
-      <View style={styles.container}>
+      <ScrollView
+        style={[styles.container, showModal && styles.containerBgColor]}
+      >
         {payAmount ? (
           <PayAmount guId={barcode ? barcode : ""} />
         ) : (
-          <>
+          <ScrollView>
             <View style={styles.buttonsWrapper}>
               <TouchableOpacity
-                style={[styles.button, byHandBtnActive && styles.activeButton]}
+                style={[styles.button, byHandBtnActive && styles.activeButton1]}
                 onPress={handleHandPayment}
               >
                 <FormattedText
@@ -86,7 +97,7 @@ const QRPayment: React.FC = (props: any) => {
                 </FormattedText>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.button, qrBtnActive && styles.activeButton]}
+                style={[styles.button, qrBtnActive && styles.activeButton2]}
                 onPress={handleQRScan}
               >
                 <FormattedText
@@ -99,32 +110,32 @@ const QRPayment: React.FC = (props: any) => {
             {byHandBtnActive && (
               <ByHandPayment payAmount={() => setPayAmount(true)} />
             )}
-            <Modal
-              isVisible={showModal}
-              onBackdropPress={() => setShowModal(false)}
-            >
-              <View>
-                <RNCamera
-                  ref={camera}
-                  flashMode={cameraInfo.flashMode}
-                  onBarCodeRead={onBarCodeRead.bind(this)}
-                  permissionDialogTitle={"Permission to use camera"}
-                  permissionDialogMessage={
-                    "We need your permission to use your camera phone"
-                  }
-                  style={styles.preview}
-                  type={cameraInfo.type}
-                />
+
+            {showModal && (
+              <View style={styles.qrContainer}>
+                <View style={styles.qrPreview}>
+                  <RNCamera
+                    ref={camera}
+                    flashMode={cameraInfo.flashMode}
+                    onBarCodeRead={onBarCodeRead.bind(this)}
+                    permissionDialogTitle={"Permission to use camera"}
+                    permissionDialogMessage={
+                      "We need your permission to use your camera phone"
+                    }
+                    style={styles.preview}
+                    type={cameraInfo.type}
+                  />
+                </View>
+                <View style={[styles.topOverlay, styles.overlay]}>
+                  <Text style={styles.scanScreenMessage}>
+                    لطفا بارکد را داخل کادر قرار دهید و نگه دارید.
+                  </Text>
+                </View>
               </View>
-              <View style={[styles.overlay, styles.topOverlay]}>
-                <Text style={styles.scanScreenMessage}>
-                  لطفا بارکد را داخل کادر قرار دهید و نگه دارید.
-                </Text>
-              </View>
-            </Modal>
-          </>
+            )}
+          </ScrollView>
         )}
-      </View>
+      </ScrollView>
     </Layout>
   );
 };

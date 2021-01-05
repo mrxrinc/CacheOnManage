@@ -20,8 +20,7 @@ export default StyleSheet.create({
     color: colors.gray500,
     flexShrink: 0,
     backgroundColor: colors.white,
-    zIndex: 1,
-    paddingLeft: 10,
+    zIndex: 2,
   },
   modalResultMiddleLine: {
     width: "100%",
@@ -29,6 +28,18 @@ export default StyleSheet.create({
     zIndex: 0,
     height: 1,
     backgroundColor: colors.gray800,
+  },
+  modalResultKey: {
+    backgroundColor: "#fff",
+    height: 30,
+    paddingRight: 10,
+    zIndex: 1,
+  },
+  modalResultVal: {
+    backgroundColor: "#fff",
+    height: 30,
+    paddingLeft: 10,
+    zIndex: 1,
   },
   modalResultValueTextWrapper: {
     flexDirection: "row",

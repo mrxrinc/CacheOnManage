@@ -19,16 +19,26 @@ import PaymentTransactionResult from "components/PaymentTransactionResult";
 import { useNavigation } from "@react-navigation/native";
 import { SavingState } from "store/Saving/saving.reducer";
 import { StateNetwork } from "store/index.reducer";
+import { colors } from "constants/index";
+import { SelectedTargetsData } from "types/saving";
+import messages from "utils/fa";
+
+const MessagesContext = React.createContext(messages);
 
 const TransferMoneyToTarget: FC = (props: any) => {
   const dispatch = useDispatch();
+  const navigation = useNavigation<any>();
+  const translate = React.useContext(MessagesContext);
+
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
 
-  const selectedTargetData = useSelector<RootState, any>(
+  // Store
+  const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
     (state) => state.saving.selectedTargetsData
   );
-  const navigation = useNavigation<any>();
-  // Store
+  const profileInfo = useSelector<RootState, any>(
+    (state) => state.home.homeData
+  );
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
   );
@@ -38,15 +48,15 @@ const TransferMoneyToTarget: FC = (props: any) => {
     if (savingStore.transferMoneyToTargetTransactionResult) {
       const result = R.map((key: string) => {
         return {
-          name: key,
+          name: translate[key],
           title: savingStore.transferMoneyToTargetTransactionResult[key],
         };
       }, Object.keys(savingStore.transferMoneyToTargetTransactionResult));
-
       const filteredResult = R.filter(
         (item) => item.name !== "description" && item.name !== "success",
         result
       );
+
       return [...filteredResult];
     }
   }, [savingStore.transferMoneyToTargetTransactionResult]);
@@ -59,13 +69,12 @@ const TransferMoneyToTarget: FC = (props: any) => {
     }
   }, [selectedTargetData.targets]);
 
-  const profileInfo = useSelector<RootState, any>(
-    (state) => state.home.homeData
-  );
-
   const formik = useFormik({
     initialValues: {
-      target: filterActiveTargets?.length > 0 ? filterActiveTargets[0].id : "",
+      target:
+        filterActiveTargets && filterActiveTargets.length > 0
+          ? filterActiveTargets[0].id
+          : "",
       amount: "",
     },
     validateOnChange: firstSubmitted,
@@ -74,7 +83,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
       const errors: any = {};
       setFirstSubmitted(true);
       if (!values.amount) {
-        errors.title = "لطفا مبلغ را وارد نمایید";
+        errors.amount = "لطفا مبلغ را وارد نمایید";
       }
 
       return errors;
@@ -157,6 +166,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
                 keyboardType={"number-pad"}
                 maxLength={10}
                 onChangeText={(value: string) => handleAmountChange(value)}
+                error={formik.errors.amount}
               />
             </>
           </Formik>
@@ -168,6 +178,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
             onPress={formik.handleSubmit}
             disabled={!formik.isValid || savingStore.loading}
             loading={savingStore.loading}
+            color={colors.buttonOpenActive}
           />
         </View>
       </>

@@ -7,11 +7,11 @@ import * as types from "./saving.constants";
 // Utilities
 import * as R from "ramda";
 import { Action } from "store/index.reducer";
-import { SavingListData } from "types/saving";
+import { SavingListData, SelectedTargetsData } from "types/saving";
 
 export interface SavingState {
   savingList: SavingListData[];
-  selectedTargetsData: any;
+  selectedTargetsData: SelectedTargetsData;
   loading: boolean;
   transferMoneyToTargetTransactionResult: any;
   showEditModal: boolean;
@@ -19,7 +19,7 @@ export interface SavingState {
 
 export const initialState: SavingState = {
   savingList: [],
-  selectedTargetsData: [],
+  selectedTargetsData: {} as SelectedTargetsData,
   loading: false,
   transferMoneyToTargetTransactionResult: {},
   showEditModal: false,

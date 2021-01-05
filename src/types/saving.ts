@@ -6,3 +6,6 @@ export interface AddTarget {
   weeklySavings: string;
   targetDate: string;
 }
+export interface SelectedTargetsData {
+  targets: any[];
+}

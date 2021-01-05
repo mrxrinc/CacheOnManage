@@ -1,11 +1,10 @@
 import React, { FC, useState, useEffect } from "react";
 import {
   View,
-  TouchableOpacity as Button,
   Image,
   ScrollView,
-  ActivityIndicator,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from "react-native";
 import Header from "components/header";
 import style from "./styles";
@@ -19,9 +18,6 @@ import { Formik, useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "customType";
 import { FormattedText } from "components/format-text";
-import CloseIcon from "components/icons/close.svg";
-import TickIcon from "components/icons/tick.svg";
-import Modal from "react-native-modal";
 import Layout from "components/layout";
 import Switch from "images/switch.svg";
 import TransferMoneyActions from "store/TransferMoney/transferMoney.actions";
@@ -31,6 +27,8 @@ import { StateNetwork } from "store/index.reducer";
 import { TransferMoneyState } from "store/TransferMoney/transferMoney.reducer";
 import * as R from "ramda";
 import { useNavigation } from "@react-navigation/native";
+import Button from "components/button";
+import MaterialTextField from "components/materialTextfield";
 
 export interface Errors {
   child?: string;
@@ -46,10 +44,7 @@ const TransferMoney: FC = (props: any) => {
   const [parentName, setParentName] = useState<string>("");
   const [parentId, setParentId] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const [isFromParent, setIsFromParent] = useState<boolean>(true);
-  const [transactionResultData, setTransactionResultData] = useState<any>();
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
 
   const token = useSelector<RootState, any>((state) => state.user.token);
@@ -105,7 +100,9 @@ const TransferMoney: FC = (props: any) => {
     validate: (values: any) => {
       const errors: Errors = {};
       setFirstSubmitted(true);
-
+      if (!values.amount) {
+        errors.amount = "لطفا مبلغ را وارد نمایید";
+      }
       return errors;
     },
     onSubmit: (values: any) => {
@@ -123,7 +120,6 @@ const TransferMoney: FC = (props: any) => {
     dispatch(TransferMoneyActions.transferMoney([], { sagas: false }));
     navigation.navigate("home");
   }
- 
 
   function handleSwitch() {
     setIsFromParent(!isFromParent);
@@ -216,25 +212,22 @@ const TransferMoney: FC = (props: any) => {
                   )}
                 </View>
                 <View style={style.leftCol}>
-                  <Button onPress={handleSwitch}>
+                  <TouchableOpacity onPress={handleSwitch}>
                     <Switch height={60} width={60} />
-                  </Button>
+                  </TouchableOpacity>
                 </View>
               </View>
 
-              <Input
-                style={style.input}
-                placeholder={"مبلغ"}
-                placeholderTextColor={colors.gray600}
-                hasUnit
-                maxLength={13}
-                keyboardType={"number-pad"}
-                selectTextOnFocus
+              <MaterialTextField
+                label="مبلغ"
                 value={formatNumber(formik.values.amount)}
                 onChangeText={(value: string) =>
                   formik.setFieldValue("amount", value.replace(/,/g, ""))
                 }
-                type="amount"
+                hasUnit
+                maxLength={13}
+                error={formik.errors.amount}
+                keyboardType={"number-pad"}
               />
 
               <Input
@@ -248,21 +241,13 @@ const TransferMoney: FC = (props: any) => {
               />
               <View style={style.submitButtonWrapper}>
                 <Button
-                  style={[
-                    style.submitButton,
-                    (!formik.isValid || loading) && style.disabledButton,
-                  ]}
+                  title="انتقال وجه"
+                  style={style.submitButton}
                   onPress={formik.handleSubmit}
-                  disabled={!formik.isValid || loading}
-                >
-                  {!loading && (
-                    <FormattedText
-                      id={"transferMoney"}
-                      style={style.submitButtonTitle}
-                    />
-                  )}
-                  {loading && <ActivityIndicator />}
-                </Button>
+                  disabled={!formik.isValid || transferMoneyStore.loading}
+                  loading={transferMoneyStore.loading}
+                  color={colors.buttonOpenActive}
+                />
               </View>
             </>
           </Formik>
@@ -280,7 +265,6 @@ const TransferMoney: FC = (props: any) => {
           onClose={handleCloseModal}
         />
       </ActionModalCentered>
- 
     </Layout>
   );
 };

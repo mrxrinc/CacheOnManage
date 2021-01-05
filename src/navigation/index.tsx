@@ -4,13 +4,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import SplashNavigator from "./splash-stack-navigator";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { DrawerContent } from "pages/drawerContent";
-import EntryType from "pages/entry-type";
-import LoginNavigator from "pages/user";
+import { navigationRef } from "navigation/rootNavigation";
 
 const Drawer = createDrawerNavigator();
 const createAppContainer = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Drawer.Navigator
         initialRouteName="splash"
         drawerContent={(props) => {

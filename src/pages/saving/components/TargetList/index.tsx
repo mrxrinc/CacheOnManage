@@ -90,11 +90,11 @@ const TargetList: FC<Props> = (props) => {
   return (
     <View>
       {props.data.targets.length > 0 ? (
-        props.data.targets.map((target: any, i: any) => {
+        props.data.targets.map((target: any, index: any) => {
           const targetPercent =
-            (target.paidAmount / target.targetAmount) * 100 + "%";
+            Math.round(target.paidAmount / target.targetAmount) * 100 + "%";
           return (
-            <View style={styles.targetBox}>
+            <View style={styles.targetBox} key={index}>
               <View style={gStyles.row}>
                 <FormattedText style={styles.targetTitle}>
                   {target.title}

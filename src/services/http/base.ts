@@ -3,6 +3,7 @@ import * as R from "ramda";
 import { AxiosInstance } from "axios";
 import AsyncStorage from "@react-native-community/async-storage";
 import showNotify from "helpers/notify";
+import * as RootNavigation from "navigation/rootNavigation";
 
 interface Config {
   suffix?: string;
@@ -43,8 +44,7 @@ abstract class BaseAPI {
       (error) => {
         const errorMessage = R.path(["response", "data", "message"])(error);
         if (R.pathEq(["response", "status"], 401)(error)) {
-          // TODO: shoud sign out user but cant use useNavigation hook here , should find a solution.
-          console.log("error");
+          RootNavigation.navigate("login", null);
         }
         if (R.pathEq(["response", "status"], 500)(error)) {
           showNotify({

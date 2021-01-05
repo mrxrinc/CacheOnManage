@@ -23,9 +23,8 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from "react-native/Libraries/NewAppScreen";
-import "locales";
 
-const App: () => React$Node = () => {
+const App: React.FC = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -35,7 +34,7 @@ const App: () => React$Node = () => {
           style={styles.scrollView}
         >
           <Header />
-          {global.HermesInternal == null ? null : (
+          {(global as any).HermesInternal === null ? null : (
             <View style={styles.engine}>
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
