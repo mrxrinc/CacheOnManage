@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Money</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">a2duM1gK-mgaydDzyFygVOVZbWLBp_ffvjEIu</string>
+</resources>

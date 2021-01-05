@@ -61,5 +61,4 @@ buck-out/
 ios/Pods
 
 #android studio temp files
-android/
-*.hprof
+android/*.hprof
