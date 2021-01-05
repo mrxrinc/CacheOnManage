@@ -24,6 +24,7 @@ const PaymentTransactionResult: React.FC<Props> = (props) => {
           style={{
             color: props.status ? "#00015d" : "#ff0000",
             fontSize: 16,
+            marginBottom: 20,
           }}
         >
           {props.description}
@@ -38,7 +39,10 @@ const PaymentTransactionResult: React.FC<Props> = (props) => {
               </View>
               <View style={styles.modalResultMiddleLine} />
               <View style={styles.modalResultVal}>
-                <FormattedText style={styles.modalResultKeyText}>
+                <FormattedText
+                  style={styles.modalResultKeyText}
+                  fontFamily="Regular-FaNum"
+                >
                   {item.title}
                 </FormattedText>
               </View>

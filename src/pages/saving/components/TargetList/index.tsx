@@ -209,7 +209,7 @@ const TargetList: FC<Props> = (props) => {
                   setShowModal={() => setShowDeleteModal(false)}
                   handleMainAction={handleDelete}
                   backOpacity={0.15}
-                  title=" هدف"
+                  title="حذف هدف"
                   description="آیا از حذف هدف اطمینان دارید؟"
                 />
                 <AlertController

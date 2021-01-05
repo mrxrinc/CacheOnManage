@@ -27,9 +27,7 @@ export interface Errors {
 }
 
 const EditTarget: FC = (props: any) => {
-  const targetDateRef = React.useRef();
   const dispatch = useDispatch();
-  const navigation = useNavigation<any>();
   const [loading, setLoading] = useState<boolean>(false);
   const [finishTargetloading, setFinishTargetLoading] = useState<boolean>(
     false
@@ -39,8 +37,7 @@ const EditTarget: FC = (props: any) => {
   const [weeklyAmount, setWeeklyAmount] = useState(props.data.weeklySavings);
   const [targetAmount, setTargetAmount] = useState(props.data.targetAmount);
   const [firstSubmitted, setFirstSubmitted] = useState(false);
-  console.log("Debug~ weeklyAmount", weeklyAmount);
-  console.log("Debug~ targetAmount", targetAmount);
+
   React.useEffect(() => {
     console.log("useeffect");
     if (targetAmount || weeklyAmount) {
@@ -150,7 +147,7 @@ const EditTarget: FC = (props: any) => {
         initialValues={formik.initialValues}
         onSubmit={(values: any) => formik.handleSubmit(values)}
       >
-        <>
+        <ScrollView>
           <View style={styles.titleInputWrapper}>
             <MaterialTextField
               label="عنوان هدف"
@@ -266,7 +263,7 @@ const EditTarget: FC = (props: any) => {
               </View>
             </View>
           </Modal>
-        </>
+        </ScrollView>
       </Formik>
     </ScrollView>
   );
