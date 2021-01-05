@@ -1,4 +1,9 @@
 import React, { FC, useState, useEffect } from "react";
+// Constants
+import { colors, IOS } from "constants/index";
+// Libraries
+import * as R from "ramda";
+// UI Frameworks
 import {
   View,
   Image,
@@ -6,30 +11,38 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from "react-native";
-import Header from "components/header";
-import style from "./styles";
-import { colors, IOS } from "constants/index";
 import { Picker } from "@react-native-community/picker";
-import Input from "components/input";
-import { formatNumber } from "utils";
-import { getHomePageData } from "utils/api";
-import { BalanceCardType } from "constants/types";
+// Hooks
+import { useNavigation } from "@react-navigation/native";
 import { Formik, useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "customType";
+// API
+import { getHomePageData } from "utils/api";
+// Shared components
+import Header from "components/header";
 import { FormattedText } from "components/format-text";
+import Input from "components/input";
 import Layout from "components/layout";
-import Switch from "images/switch.svg";
-import TransferMoneyActions from "store/TransferMoney/transferMoney.actions";
 import ActionModalCentered from "components/modal/actionModalCentered";
 import PaymentTransactionResult from "components/PaymentTransactionResult";
-import { StateNetwork } from "store/index.reducer";
-import { TransferMoneyState } from "store/TransferMoney/transferMoney.reducer";
-import * as R from "ramda";
-import { useNavigation } from "@react-navigation/native";
 import Button from "components/button";
 import MaterialTextField from "components/materialTextfield";
+// Utils
+import { formatNumber } from "utils";
+import messages from "utils/fa";
+// Types
+import { TransferMoneyState } from "store/TransferMoney/transferMoney.reducer";
+import { BalanceCardType } from "constants/types";
+import { RootState } from "customType";
+import { StateNetwork } from "store/index.reducer";
+// Actions
+import TransferMoneyActions from "store/TransferMoney/transferMoney.actions";
+// Images
+import Switch from "images/switch.svg";
+// Styles
+import style from "./styles";
 
+const MessagesContext = React.createContext(messages);
 export interface Errors {
   child?: string;
   parent?: string;
@@ -40,6 +53,8 @@ export interface Errors {
 const TransferMoney: FC = (props: any) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const translate = React.useContext(MessagesContext);
+
   const [cards, setCards] = useState<Array<BalanceCardType>>([]);
   const [parentName, setParentName] = useState<string>("");
   const [parentId, setParentId] = useState<string>("");
@@ -47,12 +62,11 @@ const TransferMoney: FC = (props: any) => {
   const [isFromParent, setIsFromParent] = useState<boolean>(true);
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
 
-  const token = useSelector<RootState, any>((state) => state.user.token);
-
   // Store
   const transferMoneyStore = useSelector<StateNetwork, TransferMoneyState>(
     (state) => state.transferMoney
   );
+  const token = useSelector<RootState, any>((state) => state.user.token);
 
   useEffect(() => {
     (async () => {
@@ -75,16 +89,16 @@ const TransferMoney: FC = (props: any) => {
     if (transferMoneyStore.transactionResult) {
       const result = R.map((key: string) => {
         return {
-          name: key,
+          name: translate[key],
           title: transferMoneyStore.transactionResult[key],
         };
       }, Object.keys(transferMoneyStore.transactionResult));
 
-      const filteredResult = R.filter(
-        (item) => item.name !== "description" && item.name !== "success",
-        result
-      );
-      return [...filteredResult];
+      // const filteredResult = R.filter(
+      //   (item) => item.name !== "description" && item.name !== "success",
+      //   result
+      // );
+      return result;
     }
   }, [transferMoneyStore.transactionResult]);
 
@@ -260,8 +274,10 @@ const TransferMoney: FC = (props: any) => {
       >
         <PaymentTransactionResult
           data={transactionResults}
-          status={transferMoneyStore.transactionResult.success}
-          description={transferMoneyStore.transactionResult.description}
+          //status={transferMoneyStore.transactionResult.success}
+          status={true}
+          description="پرداخت موفق"
+          //description={transferMoneyStore.transactionResult.description}
           onClose={handleCloseModal}
         />
       </ActionModalCentered>

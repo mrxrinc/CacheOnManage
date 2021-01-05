@@ -31,6 +31,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
   const translate = React.useContext(MessagesContext);
 
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
+  const [paidAmount, setPaidAmount] = React.useState(0);
 
   // Store
   const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
@@ -53,7 +54,9 @@ const TransferMoneyToTarget: FC = (props: any) => {
         };
       }, Object.keys(savingStore.transferMoneyToTargetTransactionResult));
       const filteredResult = R.filter(
-        (item) => item.name !== "description" && item.name !== "success",
+        (item) =>
+          item.name !== translate["description"] &&
+          item.name !== translate["success"],
         result
       );
 
@@ -86,6 +89,14 @@ const TransferMoneyToTarget: FC = (props: any) => {
         errors.amount = "لطفا مبلغ را وارد نمایید";
       }
 
+      if (
+        values.amount &&
+        (paidAmount || paidAmount === 0) &&
+        values.amount > paidAmount
+      ) {
+        errors.amount =
+          "مبلغ انتقال نمی‌تواند از مبلغ باقیمانده پس‌انداز بیشتر باشد.";
+      }
       return errors;
     },
     onSubmit: (values: any) => {
@@ -99,6 +110,14 @@ const TransferMoneyToTarget: FC = (props: any) => {
       dispatch(SavingActions.transferMoneyToTarget(data, { sagas: true }));
     },
   });
+
+  React.useEffect(() => {
+    const foundTarget = R.find<any>(
+      (target) => target.id === formik.values.target,
+      filterActiveTargets
+    );
+    setPaidAmount(foundTarget.paidAmount);
+  }, [formik.values.target]);
 
   function handleAmountChange(value: string) {
     formik.setFieldValue("amount", value.replace(/,/g, ""));
@@ -187,6 +206,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
         showModal={!R.isEmpty(transactionResults)}
         setShowModal={handleCloseModal}
         onBackdropPress={handleCloseModal}
+        title="رسید تراکنش"
       >
         <PaymentTransactionResult
           data={transactionResults}
