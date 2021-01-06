@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
+import { useSelector } from "react-redux";
 import ActionModalFullScreen from "components/modal/actionModalFullScreen";
 import { FormattedText } from "components/format-text";
 import { colors } from "constants/index";
 import Button from "components/button";
 import Input from "components/input";
 import Checkbox from "components/checkbox";
+import { RootState } from "../../../customType";
 import { formatNumber } from "utils";
 import styles from "./styles";
+import { chargingPayments } from "utils/api";
 
 type PaymentMethodType = {
   method: string;
@@ -47,7 +50,8 @@ const renderPaymentMethodItem = (
   amount: string,
   method: string,
   paymentMethods: any,
-  setPaymentMethods: any
+  setPaymentMethods: any,
+  isChild: boolean
 ) => {
   let itemData = {
     title,
@@ -81,7 +85,7 @@ const renderPaymentMethodItem = (
                 ]);
               }
             }}
-            disabled={false}
+            disabled={isChild ? true : false}
             color={colors.buttonSubmitActive}
           />
           <View>
@@ -98,6 +102,7 @@ const renderPaymentMethodItem = (
               keyboardType="number-pad"
               customStyle={styles.itemInput}
               value={formatNumber(rowAmount)}
+              editable={isChild || !activeMethod ? false : true}
               onChangeText={(value: string) => {
                 itemData = {
                   ...itemData,
@@ -133,14 +138,21 @@ export default ({
   childId,
   data,
 }: any) => {
+  const token = useSelector<RootState, any>((state) => state.user.token);
+  const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   const [paymentMethods, setPaymentMethods] = useState<
     Array<PaymentMethodType>
   >(data ? data : []);
 
   const handleSubmit = () => {
     if (childId) {
-      // will put edit child payment method API here when it be ready!
-      setShowModal(false);
+      chargingPayments(token, childId, paymentMethods)
+        .then(() => {
+          setShowModal(false);
+        })
+        .catch((err: any) => {
+          console.warn("err", err.response.data);
+        });
     } else {
       handleGetPaymentLimits(paymentMethods);
       setShowModal(false);
@@ -166,19 +178,22 @@ export default ({
               item.amount,
               item.method,
               paymentMethods,
-              setPaymentMethods
+              setPaymentMethods,
+              isChild
             )
           )}
         </View>
       </ScrollView>
-      <View style={styles.buttonWrapper}>
-        <Button
-          title="ذخیره"
-          onPress={handleSubmit}
-          color={colors.buttonSubmitActive}
-          disabled={false}
-        />
-      </View>
+      {!isChild && (
+        <View style={styles.buttonWrapper}>
+          <Button
+            title="ذخیره"
+            onPress={handleSubmit}
+            color={colors.buttonSubmitActive}
+            disabled={false}
+          />
+        </View>
+      )}
     </ActionModalFullScreen>
   );
 };

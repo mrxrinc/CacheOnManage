@@ -4,7 +4,7 @@ import Modal from "react-native-modal";
 import LinearGradient from "react-native-linear-gradient";
 import { FormattedText } from "components/format-text";
 import CloseIcon from "components/icons/close.svg";
-import { colors } from "constants/index";
+import { colors, IOS } from "constants/index";
 
 export default ({ showModal, setShowModal, title, children }: any) => {
   return (
@@ -18,7 +18,7 @@ export default ({ showModal, setShowModal, title, children }: any) => {
           colors={[colors.gradientRight, colors.gradientLeft]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
-          style={styles.modalHead}
+          style={[styles.modalHead, { height: IOS ? 73 : 50 }]}
         >
           <View style={styles.modalTitleWrapper}>
             <FormattedText style={styles.modalTitle}>{title}</FormattedText>
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   },
   modalHead: {
     width: "100%",
-    height: 73,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",

@@ -138,6 +138,21 @@ export const getHomePageData = async (token: string) => {
   };
 };
 
+export const chargingPayments = (
+  token: string,
+  childId: number,
+  paymentMethods: any
+) =>
+  instance.put(
+    "/api/v1/charging-payment/settings",
+    { childId, paymentMethods },
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
 type TopUpType = {
   sourcePan: string;
   amount: number;
