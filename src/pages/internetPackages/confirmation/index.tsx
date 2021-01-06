@@ -71,11 +71,20 @@ export const Confirmation: FC = (props: any) => {
       .catch((err: any) => {
         console.warn("ERROR: ", err.response);
         const { status, data } = err.response;
-        if (status === 400) {
-          const code = data?.code;
+        const code = data?.code;
+        if (status === 400 && code === "99104") {
+          props.navigation.navigate("result", {
+            success: false,
+            description: data.message,
+            mobile: data.detail.mobile,
+            amount: data.detail.amount,
+            date: data.detail.date,
+            followupNumber: data.detail.followupNumber,
+          });
+        } else if (status === 403) {
           if (code === "99102") {
-            setSpent(data.spent);
-            setTotalLimit(data.totalLimit);
+            setSpent(data.detail.spent);
+            setTotalLimit(data.detail.totalLimit);
             setLimitedQuotaModal(true);
           } else if (code === "99103") {
             setNotEnoughMoneyModal(true);

@@ -17,6 +17,10 @@ export type BalanceCardType = {
   avatar: string;
   onPress?: (T: any) => void;
   children?: JSX.Element;
+  paymentMethods: {
+    amount: string;
+    method: string;
+  }[];
 };
 
 export type InputType = {
