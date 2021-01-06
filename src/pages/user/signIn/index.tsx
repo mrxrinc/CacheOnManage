@@ -28,6 +28,7 @@ import { RootState, RootStateType } from "../../../../customType";
 import SupportController from "components/supportController";
 import { setLocalData, getLocalData } from "utils/localStorage";
 import FanBoutton from "./fanBoutton";
+import { withTheme } from "../../../themeCore/themeProvider";
 
 type Navigation = NavigationProp<StackParamList>;
 interface IError {
@@ -37,7 +38,7 @@ interface IError {
 
 // type BiometricType = "Fingerprint" | "Face" | "TouchID" | "FaceID" | null;
 
-const SignIn = () => {
+const SignIn = ({ theme }: any) => {
   const navigation = useNavigation<Navigation>();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -178,7 +179,12 @@ const SignIn = () => {
   };
 
   return (
-    <View style={styles.inputContainer}>
+    <View
+      style={[
+        styles.inputContainer,
+        { backgroundColor: theme.backgroundColor },
+      ]}
+    >
       <View style={styles.inputBox}>
         <View style={styles.inputPack}>
           <View style={styles.textInputBox}>
@@ -333,4 +339,4 @@ const SignIn = () => {
     </View>
   );
 };
-export default SignIn;
+export default withTheme(SignIn);

@@ -1,0 +1,16 @@
+[
+    {
+      "key": "FATHER BLU JUNIOR",
+      "BlueGradient_Left": "#307fe2",
+      "BlueGradient_Right": "#307fe2",
+      "backgroundColor": "#307fe2",
+      "color": "#ffffff" 
+    },
+    {
+      "key": "CHILD MONEY",
+      "BlueGradient_Left": "#397fff",
+      "BlueGradient_Right": "#bb6aff",
+      "backgroundColor": "#f4f6fa",
+      "color": "#ffffff"
+    }
+  ]

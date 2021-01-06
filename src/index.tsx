@@ -1,6 +1,7 @@
 import * as React from "react";
 import AppNavigator from "./navigation";
 import { Provider } from "react-redux";
+import { ThemeContextProvider } from "./themeCore/themeProvider";
 // import { store } from "./redux/store";
 import "./utils/localize";
 import { codePushify } from "./utils/codepush";
@@ -15,7 +16,9 @@ globalAny.XMLHttpRequest =
 const App = () => {
   return (
     <Provider store={appStore}>
-      <AppNavigator />
+      <ThemeContextProvider>
+        <AppNavigator />
+      </ThemeContextProvider>
     </Provider>
   );
 };
