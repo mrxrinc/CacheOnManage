@@ -23,12 +23,9 @@ export default ({
   avatar,
   onPress,
   nickname,
+  paymentMethods,
 }: BalanceCardType) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-
-  const handleGetPaymentLimits = (data: any) => {
-    console.log(data);
-  };
 
   return (
     <>
@@ -92,8 +89,8 @@ export default ({
         title="تعیین سقف پرداخت"
         showModal={showModal}
         setShowModal={() => setShowModal(false)}
-        // handleGetPaymentLimits={handleGetPaymentLimits}
         childId={id}
+        data={paymentMethods}
       />
     </>
   );
