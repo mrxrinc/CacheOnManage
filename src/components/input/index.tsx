@@ -14,11 +14,13 @@ export default ({
   maxLength,
   keyboardType,
   titleColor,
+  containerCustomStyle,
+  inputCustomStyle,
   boxMode,
   ...rest
-}: InputType) => {
+}: any) => {
   return (
-    <View style={[style.container]}>
+    <View style={[style.container, containerCustomStyle]}>
       <FormattedText style={style.title} titleColor={titleColor} id={title} />
       <View
         style={[
@@ -29,7 +31,7 @@ export default ({
         ]}
       >
         <TextInput
-          style={style.input}
+          style={[style.input, inputCustomStyle]}
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
