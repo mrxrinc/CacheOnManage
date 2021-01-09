@@ -14,20 +14,22 @@ export default ({
   setShowModal,
   title,
   description,
-  handleMainAction,
-  handleNewAction,
   backOpacity,
-  acceptButton,
-  isNewAction,
   centerText,
   mainLoading,
+  rightTitle,
+  rightColor,
+  rightAction,
+  leftTitle,
+  leftColor,
+  leftAction,
 }: any) => {
   return (
     <Modal
       isVisible={showModal}
       onBackdropPress={() => setShowModal(false)}
       style={style.modal}
-      backdropOpacity={backOpacity}
+      backdropOpacity={backOpacity ?? 0.3}
     >
       <View style={style.modalContainer}>
         <View style={style.modalContent}>
@@ -44,32 +46,27 @@ export default ({
           </FormattedText>
         </View>
         <View style={style.footer}>
-          <Button style={style.button} onPress={handleMainAction}>
+          <Button style={style.button} onPress={rightAction}>
             <FormattedText
               style={[
                 style.buttonTitle,
-                { color: isNewAction ? colors.accent : colors.red },
+                { color: rightColor ? rightColor : colors.title },
               ]}
             >
-              {isNewAction ? isNewAction : "بله"}
+              {rightTitle}
             </FormattedText>
           </Button>
 
           <View style={style.footerMiddleBorder} />
           {!mainLoading ? (
-            <Button
-              style={style.button}
-              onPress={() =>
-                isNewAction ? handleNewAction() : setShowModal(false)
-              }
-            >
+            <Button style={style.button} onPress={leftAction}>
               <FormattedText
                 style={[
                   style.buttonTitle,
-                  { color: acceptButton ? colors.red : colors.accent },
+                  { color: leftColor ? leftColor : colors.title },
                 ]}
               >
-                {acceptButton ? acceptButton : "انصراف"}
+                {leftTitle}
               </FormattedText>
             </Button>
           ) : (
@@ -88,7 +85,7 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   modalContainer: {
-    minHeight: 190,
+    minHeight: 162,
     width: "100%",
     maxWidth: 300,
     backgroundColor: colors.white,
@@ -99,25 +96,24 @@ const style = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: 16,
   },
   title: {
-    color: colors.gray200,
-    fontSize: 20,
-    marginTop: 10,
+    color: colors.gray100,
+    fontSize: 16,
+    lineHeight: 18,
     textAlign: "center",
   },
   description: {
     color: colors.gray500,
-    fontSize: 14,
-    lineHeight: 23,
+    fontSize: 12,
+    lineHeight: 22,
     marginTop: 5,
-    marginBottom: 20,
   },
   footer: {
     width: "100%",
     height: 44,
-    borderTopWidth: 1,
+    borderTopWidth: 0.7,
     borderTopColor: colors.gray600,
     position: "absolute",
     bottom: 0,
@@ -131,11 +127,12 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   footerMiddleBorder: {
-    width: 1,
+    width: 0.7,
     backgroundColor: colors.gray600,
   },
   buttonTitle: {
-    fontSize: 18,
+    fontSize: 16,
     textAlign: "center",
+    lineHeight: 22,
   },
 });
