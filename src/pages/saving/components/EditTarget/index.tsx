@@ -26,7 +26,7 @@ export interface Errors {
   targetDate?: string;
 }
 
-const EditTarget: FC = (props: any) => {
+const EditTarget: FC<any> = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const [finishTargetloading, setFinishTargetLoading] = useState<boolean>(
@@ -172,6 +172,9 @@ const EditTarget: FC = (props: any) => {
                 keyboardType={"number-pad"}
                 maxLength={11}
                 boxMode
+                customStyle={styles.input}
+                containerCustomStyle={styles.inputContainer}
+                inputCustomStyle={styles.inputInner}
               />
             </View>
             <FormattedText style={[styles.unit]}>ریال</FormattedText>
@@ -197,6 +200,9 @@ const EditTarget: FC = (props: any) => {
                 keyboardType={"number-pad"}
                 boxMode
                 maxLength={11}
+                customStyle={styles.input}
+                containerCustomStyle={styles.inputContainer}
+                inputCustomStyle={styles.inputInner}
               />
             </View>
             <FormattedText style={[styles.unit]}>ریال</FormattedText>

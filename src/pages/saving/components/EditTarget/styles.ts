@@ -7,9 +7,7 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     padding: 20,
   },
-  content: {
-    padding: 10,
-  },
+
   titleInput: {
     width: "100%",
     fontSize: 17,
@@ -25,21 +23,26 @@ export default StyleSheet.create({
     width: "45%",
   },
   input: {
-    backgroundColor: "#f4f6fa",
-    borderRadius: 5,
-    padding: 5,
-    textAlign: "center",
-    fontSize: 17,
+    width: "100%",
+    color: "#00015d",
+    height: 25,
+  },
+  inputInner: {
+    lineHeight: 15,
+    color: "#00015d",
+  },
+  inputContainer: {
+    height: 50,
   },
   startDate: {
     backgroundColor: "#f4f6fa",
     borderRadius: 8,
     padding: 5,
     textAlign: "center",
-    height: 40,
+    height: 25,
     width: "45%",
-    lineHeight: 40,
-    fontSize: 13,
+    lineHeight: 24,
+    fontSize: 16,
   },
   alignLeft: {
     textAlign: "left",
@@ -55,11 +58,12 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 10,
+    height: 25,
   },
   submitButton: {
     width: "47%",
-    height: 43,
+    height: 44,
     borderRadius: 30,
     backgroundColor: "#43e6c5",
     justifyContent: "center",
