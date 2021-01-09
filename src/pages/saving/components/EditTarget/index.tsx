@@ -141,7 +141,7 @@ const EditTarget: FC<any> = (props) => {
   }
 
   return (
-    <ScrollView style={styles.content}>
+    <ScrollView>
       <Formik
         initialValues={formik.initialValues}
         onSubmit={(values: any) => formik.handleSubmit(values)}
@@ -180,7 +180,7 @@ const EditTarget: FC<any> = (props) => {
           </View>
           <FormattedText style={styles.amountHint} fontFamily="Regular-FaNum">
             {` ${props.childName} مبلغ ${formatNumber(
-              props.data.paidAmount
+              props.data.paidAmount ? props.data.paidAmount : "0"
             )} از ${formatNumber(
               props.data.targetAmount
             )} ریال را ذخیره کرده است `}

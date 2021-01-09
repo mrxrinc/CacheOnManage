@@ -131,9 +131,9 @@ const AddNewTarget: FC = (props: any) => {
       const data = {
         childId: selectedTargetData.childId,
         title: values.title,
-        targetAmount: values.targetAmount,
+        targetAmount: removeCommas(values.targetAmount),
         targetDate: targetDate,
-        weeklySavings: values.weeklySavings,
+        weeklySavings: removeCommas(values.weeklySavings),
       };
       try {
         setLoading(true);
