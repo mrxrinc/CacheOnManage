@@ -17,7 +17,6 @@ import SavingActions from "store/Saving/saving.actions";
 import { formatNumber, removeCommas } from "utils";
 import { AddTarget } from "types/saving";
 import moment from "moment-jalaali";
-import { useNavigation } from "@react-navigation/native";
 
 export interface Errors {
   title?: string;
@@ -179,8 +178,12 @@ const EditTarget: FC<any> = (props) => {
             </View>
             <FormattedText style={[styles.unit]}>ریال</FormattedText>
           </View>
-          <FormattedText style={styles.amountHint}>
-            {` ${props.childName} مبلغ ${props.data.paidAmount} از ${props.data.targetAmount} ریال را ذخیره کرده است `}
+          <FormattedText style={styles.amountHint} fontFamily="Regular-FaNum">
+            {` ${props.childName} مبلغ ${formatNumber(
+              props.data.paidAmount
+            )} از ${formatNumber(
+              props.data.targetAmount
+            )} ریال را ذخیره کرده است `}
           </FormattedText>
           {formik.errors.targetAmount && (
             <FormattedText style={styles.error}>

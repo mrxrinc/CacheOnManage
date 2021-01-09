@@ -28,7 +28,7 @@ export default StyleSheet.create({
     height: 25,
   },
   inputInner: {
-    lineHeight: 15,
+    lineHeight: 4,
     color: "#00015d",
   },
   inputContainer: {
