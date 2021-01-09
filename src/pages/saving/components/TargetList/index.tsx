@@ -11,6 +11,7 @@ import Delete from "images/trash.svg";
 import { View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import ActionModalBottom from "components/modal/actionModalBottom";
+import { ScrollView } from "react-native-gesture-handler";
 // Common Components
 import { FormattedText } from "components/format-text";
 import AlertController from "components/alertController";
@@ -21,6 +22,7 @@ import EditTarget from "../EditTarget";
 import SavingService from "services/http/endpoints/saving";
 // Types
 import { RootState } from "customType";
+import { StateNetwork } from "store/index.reducer";
 // Actions
 import SavingActions from "store/Saving/saving.actions";
 // Styles
@@ -35,7 +37,9 @@ interface Props {
 }
 const TargetList: FC<Props> = (props) => {
   const dispatch = useDispatch();
-  const isChild = useSelector<RootState, any>((state) => state.user.ischild);
+  const isChild = useSelector<RootState, boolean>(
+    (state) => state.user.ischild
+  );
 
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showFinishTargetModal, setShowFinishTargetModal] = useState<boolean>(
@@ -45,10 +49,10 @@ const TargetList: FC<Props> = (props) => {
   const [finishTargetId, setFinishTargetId] = useState(0);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const selectedTargetData = useSelector<RootState, any>(
+  const selectedTargetData = useSelector<StateNetwork, any>(
     (state) => state.saving.selectedTargetsData
   );
-  const { showEditModal } = useSelector<RootState, any>(
+  const { showEditModal } = useSelector<StateNetwork, any>(
     (state) => state.saving
   );
   function handleEdit(target: any) {
@@ -65,18 +69,22 @@ const TargetList: FC<Props> = (props) => {
     setDeleteId(id);
   }
 
-  async function handleDelete() {
-    setLoading(true);
-    const res = await SavingService.deleteTarget(deleteId);
+  function handleDelete() {
     setShowFinishTargetModal(false);
-    dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
+    dispatch(
+      SavingActions.deleteTarget(
+        // @ts-ignore
+        { targetId: deleteId, childId: props.data.childId },
+        { sagas: true }
+      )
+    );
     setShowDeleteModal(false);
-    setLoading(false);
   }
 
-  function handleShowFinishModal(id: number) {
+  function handleShowFinishModal(target: any) {
+    dispatch(SavingActions.getTargetsData(target));
     setShowFinishTargetModal(true);
-    setFinishTargetId(id);
+    setFinishTargetId(target.id);
   }
 
   async function handleFinishTarget() {
@@ -90,9 +98,12 @@ const TargetList: FC<Props> = (props) => {
   return (
     <View>
       {props.data.targets.length > 0 ? (
-        props.data.targets.map((target: any, index: any) => {
+        props.data.targets.map((target: any, index: number) => {
           const targetPercent =
-            Math.round(target.paidAmount / target.targetAmount) * 100 + "%";
+            Math.round(
+              (target.paidAmount / target.targetAmount + Number.EPSILON) * 100
+            ) + "%";
+
           return (
             <View style={styles.targetBox} key={index}>
               <View style={gStyles.row}>
@@ -195,12 +206,12 @@ const TargetList: FC<Props> = (props) => {
                     <Button
                       style={styles.button}
                       titleStyle={{ color: colors.white }}
-                      onPress={() => handleShowFinishModal(target.id)}
+                      onPress={() => handleShowFinishModal(target)}
                       title="اتمام هدف"
                     />
                   ) : (
                     <FormattedText style={styles.targetInfo}>
-                      تا {formatNumber(target.targetDate)}
+                      تا {target.targetDate}
                     </FormattedText>
                   )}
                 </View>
@@ -219,9 +230,11 @@ const TargetList: FC<Props> = (props) => {
                   backOpacity={0.15}
                   title="اتمام هدف"
                   description={`${
-                    target.paidAmount ? target.paidAmount : "0"
+                    selectedTargetData?.paidAmount
+                      ? selectedTargetData?.paidAmount
+                      : "0"
                   } ریال از ${
-                    target.targetAmount
+                    selectedTargetData.targetAmount
                   }  ریال را پس‌انداز کرده‌اید. آیا از پایان هدف اطمینان دارید؟`}
                 />
 
@@ -232,12 +245,14 @@ const TargetList: FC<Props> = (props) => {
                   style={styles.modal}
                   title="ویرایش هدف پس انداز"
                 >
-                  <EditTarget
-                    data={selectedTargetData}
-                    onCloseModal={handleCloseModal}
-                    allowance={props.data.allowance}
-                    childName={props.data.childName}
-                  />
+                  <ScrollView style={styles.editContent}>
+                    <EditTarget
+                      data={selectedTargetData}
+                      onCloseModal={handleCloseModal}
+                      allowance={props.data.allowance}
+                      childName={props.data.childName}
+                    />
+                  </ScrollView>
                 </ActionModalBottom>
               </View>
             </View>

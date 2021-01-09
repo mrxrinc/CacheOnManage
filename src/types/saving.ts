@@ -9,3 +9,8 @@ export interface AddTarget {
 export interface SelectedTargetsData {
   targets: any[];
 }
+
+export interface DeleteTarget {
+  childId: number;
+  targetId: number;
+}

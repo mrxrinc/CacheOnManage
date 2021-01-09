@@ -40,9 +40,9 @@ export const persianDigits = (text: string) => {
 
 export const formatNumber = (value: string | null = null) => {
   if (value) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `${value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
-  return null;
+  return "";
 };
 export const removeCommas = (number?: string | number): number | undefined => {
   if (!number) return;

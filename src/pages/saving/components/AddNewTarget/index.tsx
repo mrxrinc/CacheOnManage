@@ -39,9 +39,10 @@ const AddNewTarget: FC = (props: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showDateModal, setShowDateModal] = useState<boolean>(false);
   const [targetDate, setTargetDate] = useState<string>("");
-  const [weeklyAmount, setWeeklyAmount] = useState("");
-  const [targetAmount, setTargetAmount] = useState("");
+  const [weeklyAmount, setWeeklyAmount] = useState<string>("");
+  const [targetAmount, setTargetAmount] = useState<string>("");
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
+  const [changedBy, setChangedBy] = React.useState<string>();
 
   const selectedTargetData = useSelector<StateNetwork, SavingState>(
     (state) => state.saving.selectedTargetsData
@@ -49,45 +50,45 @@ const AddNewTarget: FC = (props: any) => {
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
 
   React.useEffect(() => {
-    console.log("weeklyAmount useeffect");
-    if (targetAmount && weeklyAmount) {
-      const week =
-        (Number(removeCommas(targetAmount)) /
-          Number(removeCommas(weeklyAmount))) *
-        7;
-      let targetDate = moment(new Date())
-        .utc()
-        .add(week, "d")
-        .format("jYYYY/jMM/jDD");
+    const $targetAmount = Number(targetAmount);
+    const $weeklyAmount = Number(weeklyAmount);
+    if ($targetAmount >= 1 && $weeklyAmount >= 1 && changedBy !== "field") {
+      const week = ($targetAmount / $weeklyAmount) * 7;
+      let targetDate = moment().add(week, "days").format("jYYYY/jMM/jDD");
       setTargetDate(targetDate);
+      if (moment(targetDate).isValid()) {
+        setChangedBy("system");
+      }
     }
   }, [targetAmount, weeklyAmount]);
 
   React.useEffect(() => {
-    console.log("targetDate useeffect");
-    setWeeklyAmount("");
-    if (targetAmount && targetDate) {
-      const targetDateSplit = targetDate.split("/").map((i) => Number(i));
-      const currentDate = moment(new Date())
-        .utc()
-        .format("jYYYY/jMM/jDD")
-        .split("/")
-        .map((i) => Number(i));
+    if (!moment(targetDate).isValid()) return;
 
-      const currentAndTargetDateDiff = moment(
-        targetDateSplit,
-        "jYYYY/jMM/jDD"
-      ).diff(moment(currentDate, "jYYYY/jMM/jDD"), "days");
-      const week = currentAndTargetDateDiff / 7;
-      const weeklyAmount = Math.floor(
-        Number(removeCommas(targetAmount)) / Math.floor(week)
-      ).toString();
-      if (weeklyAmount > targetAmount) {
-        setWeeklyAmount("");
+    const $targetAmount = Number(targetAmount);
+    // این شرط زمانی اجراء میشود که مبلغ هدف پر شده است و همچنین کاربر تاریخ هدف را نیز انتخاب است
+    // حال میبایست ما مبلغ پس اندازه هفتگی را محاسبه کنیم
+    if ($targetAmount && changedBy === "targetDate") {
+      const currentDate = moment();
+      const $targetDate = moment(targetDate, "jYYYY/jMM/jDD");
+      let diff = $targetDate.diff(currentDate, "days");
+      diff = diff < 0 ? diff * -1 : diff;
+      // محاسبه تعداد هفته ها باتوجه به نسبت تغییر تاریخ فعلی با تاریخ رسیدن به هدف
+      const weeks = Math.round(diff / 7);
+      const calculateWeeklySavingAmount = Math.round(
+        $targetAmount > weeks ? $targetAmount / weeks : weeks / $targetAmount
+      );
+      if (
+        calculateWeeklySavingAmount &&
+        !isNaN(calculateWeeklySavingAmount) &&
+        calculateWeeklySavingAmount !== Infinity
+      ) {
+        setChangedBy("field");
+        setWeeklyAmount(`${calculateWeeklySavingAmount}`);
+        formik.setFieldValue("weeklySavings", calculateWeeklySavingAmount);
       }
-      formik.setFieldValue("weeklySavings", weeklyAmount);
     }
-  }, [targetAmount, targetDate]);
+  }, [targetDate]);
 
   const formik = useFormik({
     initialValues: {
@@ -130,11 +131,10 @@ const AddNewTarget: FC = (props: any) => {
       const data = {
         childId: selectedTargetData.childId,
         title: values.title,
-        targetAmount: values.targetAmount,
+        targetAmount: removeCommas(values.targetAmount),
         targetDate: targetDate,
-        weeklySavings: values.weeklySavings,
+        weeklySavings: removeCommas(values.weeklySavings),
       };
-      console.log("onSubmit: ~ data", data);
       try {
         setLoading(true);
         await SavingService.addTarget(data);
@@ -152,19 +152,40 @@ const AddNewTarget: FC = (props: any) => {
   };
 
   function handleChangeTargetDate(value: string) {
-    setTargetDate(value);
-    formik.setFieldValue("targetDate", value);
+    if (moment(value).isValid()) {
+      setChangedBy("targetDate");
+      setTargetDate(value);
+      formik.setFieldValue("targetDate", value);
+    }
   }
 
   function handleWeeklyAmountChange(value: string) {
-    formik.setFieldValue("weeklySavings", value.replace(/,/g, ""));
-
-    setWeeklyAmount(value);
+    const amount = value.includes(",")
+      ? Number(removeCommas(value))
+      : Number(value);
+    if (amount <= Number(targetAmount)) {
+      setChangedBy("weeklyAmount");
+      addCommasToField("weeklySavings", value);
+      setWeeklyAmount(`${removeCommas(value)}`);
+    }
   }
 
   function handleTargetAmountChange(value: string) {
-    formik.setFieldValue("targetAmount", value.replace(/,/g, ""));
-    setTargetAmount(value);
+    addCommasToField("targetAmount", value);
+    setTargetAmount(`${removeCommas(value)}`);
+    setChangedBy("system");
+  }
+
+  function addCommasToField(field: keyof typeof formik.values, value: string) {
+    if (Number(removeCommas(value))) {
+      if (value.length > 3) {
+        formik.setFieldValue(field, formatNumber(`${removeCommas(value)}`));
+      } else {
+        formik.setFieldValue(field, value);
+      }
+    } else {
+      formik.setFieldValue(field, "");
+    }
   }
 
   return (
@@ -201,7 +222,7 @@ const AddNewTarget: FC = (props: any) => {
                 </FormattedText>
                 <View style={[styles.halfWidth]}>
                   <Input
-                    value={formatNumber(formik.values.targetAmount)}
+                    value={formik.values.targetAmount}
                     onChangeText={(value: string) =>
                       handleTargetAmountChange(value)
                     }
@@ -224,6 +245,7 @@ const AddNewTarget: FC = (props: any) => {
                 </FormattedText>
                 <View style={[styles.halfWidth]}>
                   <Input
+                    editable={!!formik.values.targetAmount}
                     value={formatNumber(formik.values.weeklySavings)}
                     onChangeText={(value: string) =>
                       handleWeeklyAmountChange(value)
@@ -246,7 +268,10 @@ const AddNewTarget: FC = (props: any) => {
                   تاریخ رسیدن به هدف
                 </FormattedText>
                 <TouchableWithoutFeedback
-                  onPress={() => setShowDateModal(!showDateModal)}
+                  onPress={() =>
+                    formik.values.targetAmount &&
+                    setShowDateModal(!showDateModal)
+                  }
                 >
                   <FormattedText
                     style={[styles.halfWidth, styles.startDate]}

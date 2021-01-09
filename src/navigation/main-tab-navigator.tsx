@@ -57,7 +57,7 @@ const TabBar = ({
                 }}
                 onPress={() => {
                   navigation.reset({
-                    index,
+                    index: 0,
                     routes: [{ name: route.name }],
                   });
                 }}

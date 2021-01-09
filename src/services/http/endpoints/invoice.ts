@@ -6,7 +6,7 @@ class InvoiceServiceProvider extends HttpService {
   }
 
   /**
-   * fetching the Saving list data
+   * fetching the Invoice list data
    *
    * @async
    * @version 1.0.0
