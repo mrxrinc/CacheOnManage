@@ -26,6 +26,7 @@ import SavingActions from "store/Saving/saving.actions";
 // Styles
 import styles from "./styles";
 import gStyles from "theme";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface TargetsData {
   targets: any;
@@ -65,13 +66,16 @@ const TargetList: FC<Props> = (props) => {
     setDeleteId(id);
   }
 
-  async function handleDelete() {
-    setLoading(true);
-    const res = await SavingService.deleteTarget(deleteId);
+  function handleDelete() {
     setShowFinishTargetModal(false);
-    dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
+    dispatch(
+      SavingActions.deleteTarget(
+        // @ts-ignore
+        { targetId: deleteId, childId: props.data.childId },
+        { sagas: true }
+      )
+    );
     setShowDeleteModal(false);
-    setLoading(false);
   }
 
   function handleShowFinishModal(id: number) {
@@ -90,9 +94,12 @@ const TargetList: FC<Props> = (props) => {
   return (
     <View>
       {props.data.targets.length > 0 ? (
-        props.data.targets.map((target: any, index: any) => {
+        props.data.targets.map((target: any, index: number) => {
           const targetPercent =
-            Math.round(target.paidAmount / target.targetAmount) * 100 + "%";
+            Math.round(
+              (target.paidAmount / target.targetAmount + Number.EPSILON) * 100
+            ) + "%";
+
           return (
             <View style={styles.targetBox} key={index}>
               <View style={gStyles.row}>
@@ -200,7 +207,7 @@ const TargetList: FC<Props> = (props) => {
                     />
                   ) : (
                     <FormattedText style={styles.targetInfo}>
-                      تا {formatNumber(target.targetDate)}
+                      تا {target.targetDate}
                     </FormattedText>
                   )}
                 </View>
@@ -232,12 +239,14 @@ const TargetList: FC<Props> = (props) => {
                   style={styles.modal}
                   title="ویرایش هدف پس انداز"
                 >
-                  <EditTarget
-                    data={selectedTargetData}
-                    onCloseModal={handleCloseModal}
-                    allowance={props.data.allowance}
-                    childName={props.data.childName}
-                  />
+                  <ScrollView style={styles.editContent}>
+                    <EditTarget
+                      data={selectedTargetData}
+                      onCloseModal={handleCloseModal}
+                      allowance={props.data.allowance}
+                      childName={props.data.childName}
+                    />
+                  </ScrollView>
                 </ActionModalBottom>
               </View>
             </View>

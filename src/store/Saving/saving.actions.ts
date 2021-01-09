@@ -4,6 +4,7 @@
  */
 import * as types from "./saving.constants";
 import { Action } from "store/index.reducer";
+import { DeleteTarget } from "types/saving";
 
 export interface ExtraActionInfo {
   sagas: boolean | undefined;
@@ -32,10 +33,13 @@ class Actions {
     };
   }
 
-  public deleteTarget(id: number, options?: ExtraActionInfo): Action<any> {
+  public deleteTarget(
+    data: DeleteTarget,
+    options?: ExtraActionInfo
+  ): Action<DeleteTarget> {
     return {
       type: options?.sagas ? types.SAGAS_DELETE_TARGET : types.DELETE_TARGET,
-      payload: id,
+      payload: data,
     };
   }
   public transferMoneyToTarget(
@@ -59,6 +63,14 @@ class Actions {
     return {
       type: types.SET_EDIT_MODAL,
       payload: status,
+    };
+  }
+  public setChildTargets(data: any, options?: ExtraActionInfo): Action<any> {
+    return {
+      type: options?.sagas
+        ? types.SAGAS_SET_CHILD_TARGETS
+        : types.SET_CHILD_TARGETS,
+      payload: data,
     };
   }
 }

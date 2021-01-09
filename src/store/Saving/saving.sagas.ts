@@ -2,14 +2,16 @@
  * @module Sagas/Saving
  * @desc All Saving sagas
  */
-import { all, call, put, takeLatest } from "redux-saga/effects";
+import { all, call, put, takeLatest, select } from "redux-saga/effects";
 import * as types from "./saving.constants";
+import * as R from "ramda";
 // Actions
 import SavingActions from "./saving.actions";
 // Services
 import SavingService from "services/http/endpoints/saving";
 // Types
 import { Action } from "store/index.reducer";
+import { DeleteTarget } from "types/saving";
 
 function* fetchSavingList(action: Action) {
   try {
@@ -58,10 +60,17 @@ function* fetchTransfetMoneyTransaction(action: Action) {
     yield put(SavingActions.setLoading(false));
   }
 }
-
+function* deleteTarget(action: Action<DeleteTarget>) {
+  yield put(
+    SavingActions.deleteTarget(action.payload!, {
+      sagas: false,
+    })
+  );
+}
 export default function* networkListeners() {
   yield all([
     takeLatest(types.SAGAS_SAVING_LIST, fetchSavingList),
+    takeLatest(types.SAGAS_DELETE_TARGET, deleteTarget),
     takeLatest(
       types.SAGAS_TRANSFER_MONEY_TO_TARGET,
       fetchTransfetMoneyTransaction
