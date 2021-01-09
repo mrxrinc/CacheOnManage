@@ -17,19 +17,30 @@ export default StyleSheet.create({
     width: "45%",
   },
   input: {
-    backgroundColor: "#f4f6fa",
-    borderRadius: 5,
-    padding: 5,
-    textAlign: "center",
+    width: "100%",
+    color: "#00015d",
+    height: 30,
+    padding: 0,
+    margin: 0,
   },
-  startDate: {
+  inputInner: {
+    color: "#00015d",
+    padding: 0,
+    margin: 0,
+    height: 30,
+  },
+  inputContainer: {
+    height: 60,
+  },
+
+  targetDate: {
     backgroundColor: "#f4f6fa",
     borderRadius: 7,
     padding: 5,
     textAlign: "center",
-    height: 40,
+    height: 30,
     width: "45%",
-    lineHeight: 40,
+    lineHeight: 28,
   },
   alignLeft: {
     textAlign: "left",

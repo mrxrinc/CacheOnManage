@@ -25,7 +25,7 @@ import { colors } from "constants";
 const contentContainerStyle: StyleProp<ViewStyle> = {
   alignItems: "center",
   backgroundColor: "#f4f6fa",
-  paddingBottom: 20,
+  paddingBottom: 70,
 };
 
 const ChildPage = (props: any) => {

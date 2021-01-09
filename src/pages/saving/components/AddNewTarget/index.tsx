@@ -1,29 +1,35 @@
 import React, { FC, useState } from "react";
+import { removeCommas, formatNumber } from "utils";
+// Hooks
+import { useFormik } from "formik";
+import { useNavigation } from "@react-navigation/core";
+import { useDispatch, useSelector } from "react-redux";
+// API
+import SavingService from "services/http/endpoints/saving";
+// Actions
+import SavingActions from "store/Saving/saving.actions";
+// UI Frameworks
 import { Formik } from "formik";
 import { View, TouchableWithoutFeedback } from "react-native";
 import Modal from "react-native-modal";
+import moment from "moment-jalaali";
+import { ScrollView } from "react-native-gesture-handler";
+// Common Components
+import Input from "components/input";
 import Layout from "components/layout";
 import Header from "components/header";
 import { FormattedText } from "components/format-text";
-import Input from "components/input";
-import { ScrollView } from "react-native-gesture-handler";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "components/button";
-import DatePicker from "components/datePicker";
-import { colors } from "constants/index";
-import { useFormik } from "formik";
-import { useNavigation } from "@react-navigation/core";
-import { RootState } from "../../../../../customType";
-import styles from "./styles";
-import { removeCommas, formatNumber } from "utils";
-import SavingService from "services/http/endpoints/saving";
-import { AddTarget } from "types/saving";
-import SavingActions from "store/Saving/saving.actions";
-import { StateNetwork } from "store/index.reducer";
-import { SavingState } from "store/Saving/saving.reducer";
 import MaterialTextField from "components/materialTextfield";
-import moment from "moment-jalaali";
-
+import DatePicker from "components/datePicker";
+// Constants
+import { colors } from "constants/index";
+// Types
+import { RootState } from "../../../../../customType";
+import { AddTarget, SelectedTargetsData } from "types/saving";
+import { StateNetwork } from "store/index.reducer";
+// Styles
+import styles from "./styles";
 export interface Errors {
   title?: string;
   targetAmount?: string;
@@ -31,7 +37,11 @@ export interface Errors {
   targetDate?: string;
 }
 
-const AddNewTarget: FC = (props: any) => {
+interface Props {
+  navigation: any;
+}
+
+const AddNewTarget: FC<Props> = (props) => {
   const targetDateRef = React.useRef();
   const navigation = useNavigation<any>();
   const dispatch = useDispatch();
@@ -44,7 +54,7 @@ const AddNewTarget: FC = (props: any) => {
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
   const [changedBy, setChangedBy] = React.useState<string>();
 
-  const selectedTargetData = useSelector<StateNetwork, SavingState>(
+  const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
     (state) => state.saving.selectedTargetsData
   );
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
@@ -137,7 +147,7 @@ const AddNewTarget: FC = (props: any) => {
       };
       try {
         setLoading(true);
-        await SavingService.addTarget(data);
+        await SavingService.addTarget(data as AddTarget);
         navigation.navigate("saving");
         dispatch(SavingActions.setSavingsDataList(null, { sagas: true }));
         setLoading(false);
@@ -229,6 +239,9 @@ const AddNewTarget: FC = (props: any) => {
                     keyboardType={"number-pad"}
                     maxLength={11}
                     boxMode
+                    customStyle={styles.input}
+                    containerCustomStyle={styles.inputContainer}
+                    inputCustomStyle={styles.inputInner}
                   />
                 </View>
                 <FormattedText style={[styles.unit]}>ریال</FormattedText>
@@ -253,6 +266,9 @@ const AddNewTarget: FC = (props: any) => {
                     keyboardType={"number-pad"}
                     boxMode
                     maxLength={11}
+                    customStyle={styles.input}
+                    containerCustomStyle={styles.inputContainer}
+                    inputCustomStyle={styles.inputInner}
                   />
                 </View>
                 <FormattedText style={[styles.unit]}>ریال</FormattedText>
@@ -274,7 +290,7 @@ const AddNewTarget: FC = (props: any) => {
                   }
                 >
                   <FormattedText
-                    style={[styles.halfWidth, styles.startDate]}
+                    style={[styles.halfWidth, styles.targetDate]}
                     fontFamily="Regular-FaNum"
                   >
                     {targetDate}
@@ -284,12 +300,14 @@ const AddNewTarget: FC = (props: any) => {
               </View>
             </ScrollView>
 
-            <Button
-              onPress={formik.handleSubmit}
-              disabled={!formik.isValid || loading}
-              title="تعریف هدف جدید"
-              color={colors.buttonSubmitActive}
-            />
+            <View style={{ marginTop: 20 }}>
+              <Button
+                onPress={formik.handleSubmit}
+                disabled={!formik.isValid || loading}
+                title="تعریف هدف جدید"
+                color={colors.buttonSubmitActive}
+              />
+            </View>
             <Modal
               isVisible={showDateModal}
               onBackdropPress={() => setShowDateModal(false)}
