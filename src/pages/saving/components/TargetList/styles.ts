@@ -2,6 +2,9 @@ import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "constants/index";
 const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
+  editContent: {
+    padding: 20,
+  },
   targetBox: {
     width: "90%",
     borderRadius: 10,

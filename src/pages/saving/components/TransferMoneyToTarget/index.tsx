@@ -32,6 +32,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
 
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
   const [paidAmount, setPaidAmount] = React.useState(0);
+  const [targetAmount, setTargetAmount] = React.useState(0);
 
   // Store
   const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
@@ -89,10 +90,11 @@ const TransferMoneyToTarget: FC = (props: any) => {
         errors.amount = "لطفا مبلغ را وارد نمایید";
       }
 
+      const remainingSaving = targetAmount - paidAmount;
       if (
         values.amount &&
-        (paidAmount || paidAmount === 0) &&
-        values.amount > paidAmount
+        (remainingSaving || remainingSaving === 0) &&
+        values.amount > remainingSaving
       ) {
         errors.amount =
           "مبلغ انتقال نمی‌تواند از مبلغ باقیمانده پس‌انداز بیشتر باشد.";
@@ -117,6 +119,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
       filterActiveTargets
     );
     setPaidAmount(foundTarget.paidAmount);
+    setTargetAmount(foundTarget.targetAmount);
   }, [formik.values.target]);
 
   function handleAmountChange(value: string) {

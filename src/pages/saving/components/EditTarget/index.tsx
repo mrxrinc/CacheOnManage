@@ -17,7 +17,6 @@ import SavingActions from "store/Saving/saving.actions";
 import { formatNumber, removeCommas } from "utils";
 import { AddTarget } from "types/saving";
 import moment from "moment-jalaali";
-import { useNavigation } from "@react-navigation/native";
 
 export interface Errors {
   title?: string;
@@ -26,7 +25,7 @@ export interface Errors {
   targetDate?: string;
 }
 
-const EditTarget: FC = (props: any) => {
+const EditTarget: FC<any> = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const [finishTargetloading, setFinishTargetLoading] = useState<boolean>(
@@ -142,7 +141,7 @@ const EditTarget: FC = (props: any) => {
   }
 
   return (
-    <ScrollView style={styles.content}>
+    <ScrollView>
       <Formik
         initialValues={formik.initialValues}
         onSubmit={(values: any) => formik.handleSubmit(values)}
@@ -172,12 +171,19 @@ const EditTarget: FC = (props: any) => {
                 keyboardType={"number-pad"}
                 maxLength={11}
                 boxMode
+                customStyle={styles.input}
+                containerCustomStyle={styles.inputContainer}
+                inputCustomStyle={styles.inputInner}
               />
             </View>
             <FormattedText style={[styles.unit]}>ریال</FormattedText>
           </View>
-          <FormattedText style={styles.amountHint}>
-            {` ${props.childName} مبلغ ${props.data.paidAmount} از ${props.data.targetAmount} ریال را ذخیره کرده است `}
+          <FormattedText style={styles.amountHint} fontFamily="Regular-FaNum">
+            {` ${props.childName} مبلغ ${formatNumber(
+              props.data.paidAmount ? props.data.paidAmount : "0"
+            )} از ${formatNumber(
+              props.data.targetAmount
+            )} ریال را ذخیره کرده است `}
           </FormattedText>
           {formik.errors.targetAmount && (
             <FormattedText style={styles.error}>
@@ -197,6 +203,9 @@ const EditTarget: FC = (props: any) => {
                 keyboardType={"number-pad"}
                 boxMode
                 maxLength={11}
+                customStyle={styles.input}
+                containerCustomStyle={styles.inputContainer}
+                inputCustomStyle={styles.inputInner}
               />
             </View>
             <FormattedText style={[styles.unit]}>ریال</FormattedText>

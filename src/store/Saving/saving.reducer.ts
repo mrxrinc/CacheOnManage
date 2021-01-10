@@ -15,6 +15,7 @@ export interface SavingState {
   loading: boolean;
   transferMoneyToTargetTransactionResult: any;
   showEditModal: boolean;
+  childTargets: any;
 }
 
 export const initialState: SavingState = {
@@ -23,6 +24,7 @@ export const initialState: SavingState = {
   loading: false,
   transferMoneyToTargetTransactionResult: {},
   showEditModal: false,
+  childTargets: [],
 };
 
 const reducer: React.Reducer<SavingState, Action> = (
@@ -35,9 +37,25 @@ const reducer: React.Reducer<SavingState, Action> = (
       return update({
         savingList: action.payload,
       });
+    case types.DELETE_TARGET:
+      return update({
+        savingList: R.map<any, any>((child) => {
+          if (R.propEq("childId", action.payload.childId)(child)) {
+            child.targets = R.filter(
+              R.complement(R.propEq("id", action.payload.targetId))
+            )(child.targets);
+          }
+
+          return child;
+        })(state.savingList),
+      });
     case types.SELECTED_TARGETS_DATA:
       return update({
         selectedTargetsData: action.payload,
+      });
+    case types.SET_CHILD_TARGETS:
+      return update({
+        childTargets: action.payload,
       });
     case types.DELETE_TARGET:
       return {
