@@ -217,13 +217,7 @@ const CardItems = (props: any) => {
       )}
       <AlertController
         showModal={showModal}
-        setShowModal={() => {
-          setShowModal(false);
-        }}
-        handleNewAction={isBlock ? handleBlock : handleDeactive}
-        backOpacity={0.15}
-        mainLoading={loading}
-        sh
+        setShowModal={() => setShowModal(false)}
         title={
           isBlock
             ? "مسدود کردن"
@@ -238,14 +232,23 @@ const CardItems = (props: any) => {
             ? "با انتخاب این گزینه کارت موقتا غیرفعال میشود.شما میتوانید دوباره کارت را فعال کنید."
             : "با انتخاب این گزینه کارت موقتا فعال میشود. شما میتوانید دوباره کارت را غیرفعال کنید."
         }
-        acceptButton={
+        mainLoading={loading}
+        leftTitle={
           isBlock
             ? "ابطال کارت"
             : cardInfo.status == "ACTIVE"
             ? "غیرفعالسازی"
             : "فعالسازی"
         }
-        isNewAction="انصراف"
+        leftColor={
+          cardInfo.status == "ACTIVE" || isBlock
+            ? colors.red
+            : colors.buttonSubmitPressed
+        }
+        leftAction={isBlock ? handleBlock : handleDeactive}
+        rightTitle="انصراف"
+        rightAction={() => setShowModal(false)}
+        centerText
       />
       <ActionModalCentered
         title="تغییر رمز"

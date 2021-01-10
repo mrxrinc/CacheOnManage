@@ -225,17 +225,17 @@ const AddAllowance = (props: any) => {
             <AlertController
               showModal={deleteAllowance}
               setShowModal={() => setDeleteAllowance(false)}
-              handleMainAction={() => setDeleteAllowance(false)}
-              handleNewAction={() => {
+              title="حذف پول توجیبی"
+              description="با انجام این عمل دیگر پول توجیبی بصورت اتوماتیک از حساب شما کسر نمی‌شود.آیا از حذف پول توجیبی اطمینان دارید؟"
+              rightTitle="انصراف"
+              rightAction={() => setDeleteAllowance(false)}
+              leftTitle="حذف"
+              leftColor={colors.red}
+              leftAction={() => {
                 setAllowance("0");
                 handleAddAllowance({ remove: true });
               }}
-              backOpacity={0.15}
               centerText
-              title="حذف پول توجیبی"
-              description="با انجام این عمل دیگر پول توجیبی بصورت اتوماتیک از حساب شما کسر نمی‌شود.آیا از حذف پول توجیبی اطمینان دارید؟"
-              acceptButton="حذف"
-              isNewAction="انصراف"
             />
           </View>
         </Modal>
@@ -293,6 +293,7 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: 3,
   },
   daysContainer: {
     justifyContent: "flex-start",

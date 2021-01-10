@@ -1,22 +1,31 @@
 import React, { FC, useState } from "react";
+import moment from "moment-jalaali";
+// API
+import SavingService from "services/http/endpoints/saving";
+// Helpers
+import { formatNumber, removeCommas } from "utils";
+// Hooks
 import { Formik } from "formik";
+import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+// Actions
+import SavingActions from "store/Saving/saving.actions";
+// UI Frameworks
 import { View, TouchableWithoutFeedback } from "react-native";
 import Modal from "react-native-modal";
+import { ScrollView } from "react-native-gesture-handler";
+// Common Components
 import { FormattedText } from "components/format-text";
 import Input from "components/input";
-import { useDispatch } from "react-redux";
 import Button from "components/button";
 import DatePicker from "components/datePicker";
-import { colors } from "constants/index";
-import { useFormik } from "formik";
-import styles from "./styles";
-import { ScrollView } from "react-native-gesture-handler";
 import MaterialTextField from "components/materialTextfield";
-import SavingService from "services/http/endpoints/saving";
-import SavingActions from "store/Saving/saving.actions";
-import { formatNumber, removeCommas } from "utils";
-import { AddTarget } from "types/saving";
-import moment from "moment-jalaali";
+// Types
+import { AddTarget, TargetsData } from "types/saving";
+// Constants
+import { colors } from "constants/index";
+// Styles
+import styles from "./styles";
 
 export interface Errors {
   title?: string;
@@ -24,8 +33,12 @@ export interface Errors {
   weeklySavings?: string;
   targetDate?: string;
 }
-
-const EditTarget: FC<any> = (props) => {
+interface Props {
+  data: TargetsData;
+  childName: string;
+  allowance: number;
+}
+const EditTarget: FC<Props> = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const [finishTargetloading, setFinishTargetLoading] = useState<boolean>(
@@ -33,24 +46,55 @@ const EditTarget: FC<any> = (props) => {
   );
   const [targetDate, setTargetDate] = useState(props.data.targetDate);
   const [showDateModal, setShowDateModal] = useState<boolean>(false);
-  const [weeklyAmount, setWeeklyAmount] = useState(props.data.weeklySavings);
-  const [targetAmount, setTargetAmount] = useState(props.data.targetAmount);
+  const [weeklyAmount, setWeeklyAmount] = useState<string>(
+    String(props.data.weeklySavings)
+  );
+  const [targetAmount, setTargetAmount] = useState<string>(
+    String(props.data.targetAmount)
+  );
   const [firstSubmitted, setFirstSubmitted] = useState(false);
+  const [changedBy, setChangedBy] = React.useState<string>();
 
   React.useEffect(() => {
-    console.log("useeffect");
-    if (targetAmount || weeklyAmount) {
-      const week =
-        (Number(removeCommas(targetAmount)) /
-          Number(removeCommas(weeklyAmount))) *
-        7;
-      let targetDate = moment(new Date())
-        .utc()
-        .add(week, "d")
-        .format("jYYYY/jMM/jDD");
+    const $targetAmount = Number(targetAmount);
+    const $weeklyAmount = Number(weeklyAmount);
+    if ($targetAmount >= 1 && $weeklyAmount >= 1 && changedBy !== "field") {
+      const week = ($targetAmount / $weeklyAmount) * 7;
+      let targetDate = moment().add(week, "days").format("jYYYY/jMM/jDD");
       setTargetDate(targetDate);
+      if (moment(targetDate).isValid()) {
+        setChangedBy("system");
+      }
     }
   }, [targetAmount, weeklyAmount]);
+
+  React.useEffect(() => {
+    if (!moment(targetDate).isValid()) return;
+
+    const $targetAmount = Number(targetAmount);
+    // این شرط زمانی اجراء میشود که مبلغ هدف پر شده است و همچنین کاربر تاریخ هدف را نیز انتخاب است
+    // حال میبایست ما مبلغ پس اندازه هفتگی را محاسبه کنیم
+    if ($targetAmount && changedBy === "targetDate") {
+      const currentDate = moment();
+      const $targetDate = moment(targetDate, "jYYYY/jMM/jDD");
+      let diff = $targetDate.diff(currentDate, "days");
+      diff = diff < 0 ? diff * -1 : diff;
+      // محاسبه تعداد هفته ها باتوجه به نسبت تغییر تاریخ فعلی با تاریخ رسیدن به هدف
+      const weeks = Math.round(diff / 7);
+      const calculateWeeklySavingAmount = Math.round(
+        $targetAmount > weeks ? $targetAmount / weeks : weeks / $targetAmount
+      );
+      if (
+        calculateWeeklySavingAmount &&
+        !isNaN(calculateWeeklySavingAmount) &&
+        calculateWeeklySavingAmount !== Infinity
+      ) {
+        setChangedBy("field");
+        setWeeklyAmount(`${calculateWeeklySavingAmount}`);
+        formik.setFieldValue("weeklySavings", calculateWeeklySavingAmount);
+      }
+    }
+  }, [targetDate]);
 
   const formik = useFormik({
     initialValues: {
@@ -93,13 +137,13 @@ const EditTarget: FC<any> = (props) => {
       const data = {
         id: props.data.id,
         title: values.title,
-        targetAmount: values.targetAmount,
+        targetAmount: removeCommas(values.targetAmount),
         targetDate: targetDate,
-        weeklySavings: values.weeklySavings,
+        weeklySavings: removeCommas(values.weeklySavings),
       };
       try {
         setLoading(true);
-        await SavingService.updateTarget(data);
+        await SavingService.updateTarget(data as TargetsData);
         dispatch(SavingActions.setEditModal(false));
         dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
         setLoading(false);
@@ -114,20 +158,41 @@ const EditTarget: FC<any> = (props) => {
   };
 
   function handleChangeTargetDate(value: string) {
-    setTargetDate(value);
-    formik.setFieldValue("targetDate", value);
+    if (moment(value).isValid()) {
+      setChangedBy("targetDate");
+      setTargetDate(value);
+      formik.setFieldValue("targetDate", value);
+    }
   }
 
   function handleWeeklyAmountChange(value: string) {
-    formik.setFieldValue("weeklySavings", value.replace(/,/g, ""));
-    setWeeklyAmount(value);
+    const amount = value.includes(",")
+      ? Number(removeCommas(value))
+      : Number(value);
+    if (amount <= Number(targetAmount)) {
+      setChangedBy("weeklyAmount");
+      addCommasToField("weeklySavings", value);
+      setWeeklyAmount(`${removeCommas(value)}`);
+    }
   }
 
   function handleTargetAmountChange(value: string) {
-    formik.setFieldValue("targetAmount", value.replace(/,/g, ""));
-    setTargetAmount(value);
+    addCommasToField("targetAmount", value);
+    setTargetAmount(`${removeCommas(value)}`);
+    setChangedBy("system");
   }
 
+  function addCommasToField(field: keyof typeof formik.values, value: string) {
+    if (Number(removeCommas(value))) {
+      if (value.length > 3) {
+        formik.setFieldValue(field, formatNumber(`${removeCommas(value)}`));
+      } else {
+        formik.setFieldValue(field, value);
+      }
+    } else {
+      formik.setFieldValue(field, "");
+    }
+  }
   async function handleFinishTarget() {
     try {
       setFinishTargetLoading(true);
@@ -196,6 +261,7 @@ const EditTarget: FC<any> = (props) => {
             </FormattedText>
             <View style={[styles.halfWidth]}>
               <Input
+                editable={!!formik.values.targetAmount}
                 value={formatNumber(formik.values.weeklySavings)}
                 onChangeText={(value: string) =>
                   handleWeeklyAmountChange(value)
@@ -215,19 +281,18 @@ const EditTarget: FC<any> = (props) => {
               {formik.errors.weeklySavings}
             </FormattedText>
           )}
+
           <View style={styles.dateWrapper}>
             <FormattedText style={[styles.halfWidth, styles.gray]}>
               تاریخ رسیدن به هدف
             </FormattedText>
             <TouchableWithoutFeedback
-              onPress={
-                weeklyAmount && targetAmount
-                  ? () => setShowDateModal(false)
-                  : () => setShowDateModal(!showDateModal)
+              onPress={() =>
+                formik.values.targetAmount && setShowDateModal(!showDateModal)
               }
             >
               <FormattedText
-                style={[styles.halfWidth, styles.startDate]}
+                style={[styles.halfWidth, styles.targetDate]}
                 fontFamily="Regular-FaNum"
               >
                 {targetDate}

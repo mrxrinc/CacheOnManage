@@ -218,16 +218,17 @@ const TargetList: FC<Props> = (props) => {
                 <AlertController
                   showModal={showDeleteModal}
                   setShowModal={() => setShowDeleteModal(false)}
-                  handleMainAction={handleDelete}
-                  backOpacity={0.15}
                   title="حذف هدف"
                   description="آیا از حذف هدف اطمینان دارید؟"
+                  leftAction={handleDelete}
+                  leftTitle="بله"
+                  leftColor={colors.red}
+                  rightTitle="انصراف"
+                  rightAction={() => setShowDeleteModal(false)}
                 />
                 <AlertController
                   showModal={showFinishTargetModal}
                   setShowModal={() => setShowFinishTargetModal(false)}
-                  handleMainAction={handleFinishTarget}
-                  backOpacity={0.15}
                   title="اتمام هدف"
                   description={`${
                     selectedTargetData?.paidAmount
@@ -236,6 +237,10 @@ const TargetList: FC<Props> = (props) => {
                   } ریال از ${
                     selectedTargetData.targetAmount
                   }  ریال را پس‌انداز کرده‌اید. آیا از پایان هدف اطمینان دارید؟`}
+                  rightAction={handleFinishTarget}
+                  rightTitle="اتمام هدف"
+                  leftTitle="انصراف"
+                  leftAction={() => setShowFinishTargetModal(false)}
                 />
 
                 <ActionModalBottom

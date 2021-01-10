@@ -13,8 +13,8 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
-    marginTop: 15,
-    marginBottom: 20,
+    position: "absolute",
+    bottom: 20,
   },
   button: {
     width: "48%",

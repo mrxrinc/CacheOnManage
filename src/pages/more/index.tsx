@@ -96,8 +96,8 @@ export default () => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-              // style={styles.itemsBox}
-              // onPress={() => navigation.navigate("QRPayment")}
+                // style={styles.itemsBox}
+                onPress={() => navigation.navigate("spent")}
               ></TouchableOpacity>
             </View>
           </View>

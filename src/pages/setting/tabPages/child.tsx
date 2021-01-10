@@ -199,7 +199,7 @@ export default ({ childData, handleUpdateData }: any) => {
         onChangeText={(value: any) => {
           setNickname(value);
         }}
-        value={nickname}
+        value={childData.nickname !== childData.firstname ? nickname : ""}
         error={error.field === "nickname" ? error.message : null}
       />
     </>
@@ -358,7 +358,12 @@ export default ({ childData, handleUpdateData }: any) => {
               <View style={style.cardRow}>
                 <KeyValuePair
                   rowKey="نام مستعار:"
-                  value={childData.nickname ?? "نام مستعاری ثبت نشده"}
+                  value={
+                    childData.nickname &&
+                    childData.nickname !== childData.firstname
+                      ? childData.nickname
+                      : "نام مستعاری ثبت نشده"
+                  }
                 />
                 <TouchableOpacity
                   onPress={() =>
