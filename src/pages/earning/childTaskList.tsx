@@ -71,37 +71,37 @@ const TaskList = (props: any) => {
       });
   };
 
-  const handleVerifyStatusTask = () => {
-    let data = {
-      id: taskId,
-      status: "ACCEPT",
-    };
-    childStatusTask(token, data)
-      .then((response) => {
-        console.log("handleVerifyStatusTask res", response);
-        dispatch(getEarningData(taskId));
-        setStatusTask(false);
-      })
-      .catch(function (error) {
-        console.log("handleVerifyStatusTask err", error);
-        throw error;
-      });
-  };
+  // const handleVerifyStatusTask = () => {
+  //   let data = {
+  //     id: taskId,
+  //     status: "ACCEPT",
+  //   };
+  //   childStatusTask(token, data)
+  //     .then((response) => {
+  //       console.log("handleVerifyStatusTask res", response);
+  //       dispatch(getEarningData(taskId));
+  //       setStatusTask(false);
+  //     })
+  //     .catch(function (error) {
+  //       console.log("handleVerifyStatusTask err", error);
+  //       throw error;
+  //     });
+  // };
 
-  const handleFailedStatusTask = () => {
-    let data = {
-      id: taskId,
-      status: "FAILED",
-    };
-    childStatusTask(token, data)
-      .then((response) => {
-        dispatch(getEarningData(taskId));
-        setStatusTask(false);
-      })
-      .catch(function (error) {
-        throw error;
-      });
-  };
+  // const handleFailedStatusTask = () => {
+  //   let data = {
+  //     id: taskId,
+  //     status: "FAILED",
+  //   };
+  //   childStatusTask(token, data)
+  //     .then((response) => {
+  //       dispatch(getEarningData(taskId));
+  //       setStatusTask(false);
+  //     })
+  //     .catch(function (error) {
+  //       throw error;
+  //     });
+  // };
 
   type TagType = {
     status?: boolean;
@@ -372,26 +372,26 @@ const TaskList = (props: any) => {
       <AlertController
         showModal={deleteTask}
         setShowModal={() => setDeleteTask(false)}
-        handleMainAction={() => setDeleteTask(false)}
-        handleNewAction={handleDeleteTask}
-        backOpacity={0.15}
-        centerText
         title="حذف فعالیت"
         description={`آیا از حذف فعالیت “${taskName}” اطمینان دارید؟`}
-        acceptButton="بله"
-        isNewAction="انصراف"
+        rightTitle="انصراف"
+        rightAction={() => setDeleteTask(false)}
+        leftTitle="بله"
+        leftColor={colors.red}
+        leftAction={handleDeleteTask}
+        centerText
       />
-      <AlertController
+      {/* <AlertController
         showModal={statusTask}
         setShowModal={() => setStatusTask(false)}
-        handleMainAction={handleVerifyStatusTask}
-        handleNewAction={handleFailedStatusTask}
-        backOpacity={0.15}
         title="تائید انجام فعالیت"
         description=" با تائید انجام فعالیت، درآمد حاصل از این فعالیت از حساب شما کسر و به حساب فرزندتان منتقل میگردد."
-        acceptButton="عدم تایید"
-        isNewAction="تایید"
-      />
+        rightTitle="تایید"
+        rightColor={colors.buttonSubmitPressed}
+        rightAction={handleVerifyStatusTask}
+        leftTile="عدم تایید"
+        leftAction={handleFailedStatusTask}
+      /> */}
       <AlertController
         showModal={endTaskModal}
         setShowModal={() => setEndTaskModal(false)}

@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Image,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import LinearGradient from "react-native-linear-gradient";
 import { FormattedText } from "components/format-text";
@@ -15,14 +8,15 @@ import { DrawerActions } from "@react-navigation/native";
 import { Icon } from "images";
 import HighDesign from "images/drawer/top-design.svg";
 import BottomDesign from "images/drawer/bottom-design.svg";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../customType";
 import AlertController from "components/alertController";
 import SupportController from "components/supportController";
 import { signout } from "utils/api";
+import { colors, height } from "constants/index";
+
 var pkg = require("../../../package.json");
 
-const { width, height } = Dimensions.get("window");
 export function DrawerContent(props: any) {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<any, any>((state) => state.user.ischild);
@@ -47,10 +41,8 @@ export function DrawerContent(props: any) {
 
   return (
     <LinearGradient
-      colors={["#bb6aff", "#397fff"]}
-      style={{
-        height: height,
-      }}
+      colors={[colors.gradientRight, colors.gradientLeft]}
+      style={{ height }}
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 0 }}
     >
@@ -152,9 +144,14 @@ export function DrawerContent(props: any) {
       <AlertController
         showModal={exitModal}
         setShowModal={() => setExitModal(false)}
-        handleMainAction={handleSignout}
         title="خروج"
         description="آیا می‌خواهید از برنامه خارج شوید؟"
+        rightAction={handleSignout}
+        rightTitle="بله"
+        rightColor={colors.red}
+        leftTitle="انصراف"
+        leftColor={colors.buttonSubmitPressed}
+        leftAction={() => setExitModal(false)}
       />
       <SupportController
         showModal={supportModal}
