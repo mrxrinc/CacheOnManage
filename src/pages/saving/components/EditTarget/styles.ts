@@ -25,23 +25,26 @@ export default StyleSheet.create({
   input: {
     width: "100%",
     color: "#00015d",
-    height: 25,
+    height: 30,
+    padding: 0,
+    margin: 0,
   },
   inputInner: {
-    lineHeight: 4,
     color: "#00015d",
+    padding: 0,
+    margin: 0,
+    height: 30,
   },
   inputContainer: {
-    height: 50,
+    height: 60,
   },
-  startDate: {
+  targetDate: {
     backgroundColor: "#f4f6fa",
     borderRadius: 8,
-    padding: 5,
     textAlign: "center",
-    height: 25,
+    height: 30,
     width: "45%",
-    lineHeight: 24,
+    lineHeight: 28,
     fontSize: 16,
   },
   alignLeft: {
