@@ -76,15 +76,15 @@ export const Confirmation: FC = (props: any) => {
           props.navigation.navigate("result", {
             success: false,
             description: data.message,
-            mobile: data.detail.mobile,
-            amount: data.detail.amount,
-            date: data.detail.date,
-            followupNumber: data.detail.followupNumber,
+            mobile: data.details.mobile,
+            amount: data.details.amount,
+            date: data.details.date,
+            followupNumber: data.details.followupNumber,
           });
         } else if (status === 403) {
           if (code === "99102") {
-            setSpent(data.detail.spent);
-            setTotalLimit(data.detail.totalLimit);
+            setSpent(data.details.spent);
+            setTotalLimit(data.details.totalLimit);
             setLimitedQuotaModal(true);
           } else if (code === "99103") {
             setNotEnoughMoneyModal(true);

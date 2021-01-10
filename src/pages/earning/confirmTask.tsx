@@ -116,26 +116,26 @@ const confirmTaskPage = ({ route }: any) => {
       <AlertController
         showModal={confirmationModal}
         setShowModal={() => setConfirmationModal(false)}
-        handleMainAction={() => handleAction("ACCEPT")}
-        handleNewAction={() => setConfirmationModal(false)}
-        backOpacity={0.15}
-        centerText
         title={"تائید انجام فعالیت"}
         description=" با تائید انجام فعالیت، درآمد حاصل از این فعالیت از حساب شما کسر و به حساب فرزندتان منتقل میگردد."
-        acceptButton="انصراف"
-        isNewAction={"تائید"}
+        rightTitle={"تائید"}
+        rightColor={colors.buttonSubmitPressed}
+        rightAction={() => handleAction("ACCEPT")}
+        leftTitle="انصراف"
+        leftAction={() => setConfirmationModal(false)}
+        centerText
       />
       <AlertController
         showModal={rejectionModal}
         setShowModal={() => setRejectionModal(false)}
-        handleMainAction={() => setRejectionModal(false)}
-        handleNewAction={() => handleAction("FAILED")}
-        backOpacity={0.15}
-        centerText
         title={"رد انجام فعالیت"}
         description=" با رد انجام فعالیت، درآمدی به فرزندتان تعلق نمیگیرد!"
-        isNewAction="انصراف"
-        acceptButton={"رد"}
+        rightTitle="رد"
+        rightColor={colors.red}
+        rightAction={() => handleAction("FAILED")}
+        leftTitle="انصراف"
+        leftAction={() => setRejectionModal(false)}
+        centerText
       />
     </Layout>
   );

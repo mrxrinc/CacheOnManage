@@ -293,6 +293,7 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: 3,
   },
   daysContainer: {
     justifyContent: "flex-start",

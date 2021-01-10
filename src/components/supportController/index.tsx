@@ -26,7 +26,7 @@ export default ({
           <FormattedText style={style.title}>{title}</FormattedText>
           <FormattedText style={style.description}>
             <FormattedText>تماس با </FormattedText>
-            <FormattedText style={style.phoneNumber}>
+            <FormattedText style={style.phoneNumber} fontFamily="Regular-FaNum">
               {phoneNumber}
             </FormattedText>
           </FormattedText>

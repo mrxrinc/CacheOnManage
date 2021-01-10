@@ -33,7 +33,9 @@ export default ({
     >
       <View style={style.modalContainer}>
         <View style={style.modalContent}>
-          <FormattedText style={style.title}>{title}</FormattedText>
+          <FormattedText style={style.title} fontFamily="Regular-FaNum">
+            {title}
+          </FormattedText>
           <FormattedText
             style={[
               style.description,
@@ -41,6 +43,7 @@ export default ({
                 textAlign: "center",
               },
             ]}
+            fontFamily="Regular-FaNum"
           >
             {description}
           </FormattedText>
@@ -87,7 +90,7 @@ const style = StyleSheet.create({
   modalContainer: {
     minHeight: 162,
     width: "100%",
-    maxWidth: 300,
+    maxWidth: 270,
     backgroundColor: colors.white,
     borderRadius: 15,
     elevation: 15,
