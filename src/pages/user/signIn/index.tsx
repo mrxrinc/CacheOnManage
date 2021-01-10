@@ -193,7 +193,6 @@ const SignIn = ({ theme }: any) => {
               keyboardType="default"
               maxLength={30}
               onChange={clearError}
-              style={{ fontFamily: "IRANSansMobile" }}
               onChangeText={(value: any) => {
                 setUsername(value);
               }}
@@ -203,7 +202,8 @@ const SignIn = ({ theme }: any) => {
           <View style={[styles.textInputBox]}>
             <MaterialTextField
               label="رمز عبور"
-              keyboardType="default"
+              keyboardType="password"
+              secureTextEntry={true}
               maxLength={30}
               icon="password"
               onChange={clearError}
@@ -216,45 +216,31 @@ const SignIn = ({ theme }: any) => {
           <View style={styles.errorBox}>
             {error.isError && (
               <View>
-                <FormattedText style={styles.errorText}>
+                <FormattedText
+                  style={[styles.errorText, { color: theme.warningColor }]}
+                >
                   {error.errorText}
                 </FormattedText>
               </View>
             )}
           </View>
-
-          <View style={styles.forgetTouch}>
-            {!isChild && (
-              <TouchableOpacity onPress={() => setSupportModal(true)}>
-                <FormattedText
-                  style={styles.blueText}
-                  id="signIn.forgetPassword"
-                  fontFamily="Light"
-                />
-              </TouchableOpacity>
-            )}
-          </View>
         </View>
       </View>
-      {!isChild && (
-        <View style={styles.button}>
-          <Button
-            title="ورود"
-            color={colors.buttonSubmitActive}
-            onPress={() => handleTouch(username, password)}
-            disabled={(username == "" || password == "" || loading) && true}
-            loading={loading}
-          />
-        </View>
-      )}
 
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         {(biometricType === "TouchID" || biometricType === "Fingerprint") && (
           <View style={styles.fingerBox}>
             <TouchableOpacity onPress={handleBiometricsAction}>
-              <Fingerprint />
+              <Fingerprint
+                fill={theme.svg.fingerprint}
+                width={55}
+                height={70}
+              />
             </TouchableOpacity>
-            <FormattedText style={styles.modalTitle} id="login.fingerprint" />
+            <FormattedText
+              style={[styles.modalTitle, { color: theme.text.loginText }]}
+              id="login.fingerprint"
+            />
           </View>
         )}
 
@@ -266,40 +252,22 @@ const SignIn = ({ theme }: any) => {
             <FormattedText style={styles.modalTitle} id="login.FaceId" />
           </View>
         )}
-        {isChild && (
-          <View style={styles.button}>
-            <Button
-              title="ورود"
-              color={colors.buttonSubmitActive}
-              onPress={() => handleTouch(username, password)}
-              disabled={(username == "" || password == "" || loading) && true}
-              loading={loading}
-            />
-          </View>
-        )}
+
+        <View style={styles.button}>
+          <Button
+            title="ورود"
+            color={colors.buttonSubmitActive}
+            onPress={() => handleTouch(username, password)}
+            disabled={(username == "" || password == "" || loading) && true}
+            loading={loading}
+          />
+        </View>
 
         <View style={styles.noRegister}>
-          {!isChild ? (
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(showTreeChanged(true));
-                dispatch(signUpStepChanged("otp"));
-                setUsername("");
-                setPassword("");
-              }}
-            >
-              <FormattedText
-                style={styles.blueText}
-                id="signIn.noRegister"
-                fontFamily="Light"
-              />
-            </TouchableOpacity>
-          ) : (
-            !!childPhoneNum && (
-              <View style={{ marginTop: "40%" }}>
-                <FanBoutton navigation={navigation} />
-              </View>
-            )
+          {isChild && !!childPhoneNum && (
+            <View style={{ marginTop: "40%" }}>
+              <FanBoutton navigation={navigation} />
+            </View>
           )}
         </View>
       </View>

@@ -15,14 +15,14 @@ export default StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     width: width * 0.8,
-    height: height < 700 ? height * 0.28 : height * 0.2,
+    // height: height < 700 ? height * 0.28 : height * 0.2,
   },
   textInputBox: {
     width: width * 0.89,
     height: 80,
   },
   errorBox: {
-    width: width * 0.8,
+    width: width * 0.89,
     height: height * 0.04,
     justifyContent: "flex-start",
     alignItems: "center",
@@ -30,7 +30,6 @@ export default StyleSheet.create({
   },
   errorText: {
     fontSize: 12,
-    color: "#f52727",
     marginRight: "10%",
     width: width,
   },
@@ -90,7 +89,6 @@ export default StyleSheet.create({
   },
   modalTitle: {
     fontSize: 14,
-    color: colors.title,
   },
   modalIconWrapper: {
     paddingTop: 35,
