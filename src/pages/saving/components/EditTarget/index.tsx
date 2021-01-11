@@ -311,7 +311,7 @@ const EditTarget: FC<Props> = (props) => {
               onPress={formik.handleSubmit}
               disabled={!formik.isValid || loading}
               title="ذخیره"
-              color="43e6c5"
+              color="#43e6c5"
               style={styles.submitButton}
               loading={loading}
             />
