@@ -61,7 +61,7 @@ export default StyleSheet.create({
   },
   input: {
     color: colors.gray200,
-   
+
     width: "100%",
     height: 50,
     textAlign: "right",
@@ -75,7 +75,6 @@ export default StyleSheet.create({
   submitButton: {
     height: 43,
     borderRadius: 30,
-    backgroundColor: "#43e6c5",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
