@@ -23,6 +23,9 @@ export default ({
   leftTitle,
   leftColor,
   leftAction,
+  middleAction,
+  middleTitle,
+  middleColor,
 }: any) => {
   return (
     <Modal
@@ -49,31 +52,50 @@ export default ({
           </FormattedText>
         </View>
         <View style={style.footer}>
-          <Button style={style.button} onPress={rightAction}>
-            <FormattedText
-              style={[
-                style.buttonTitle,
-                { color: rightColor ? rightColor : colors.title },
-              ]}
+          {middleTitle && (
+            <Button
+              style={[style.button, style.middleButton]}
+              onPress={middleAction}
             >
-              {rightTitle}
-            </FormattedText>
-          </Button>
-
-          <View style={style.footerMiddleBorder} />
-          {!mainLoading ? (
-            <Button style={style.button} onPress={leftAction}>
               <FormattedText
                 style={[
                   style.buttonTitle,
-                  { color: leftColor ? leftColor : colors.title },
+                  { color: middleColor ? middleColor : colors.title },
                 ]}
               >
-                {leftTitle}
+                {middleTitle}
               </FormattedText>
             </Button>
-          ) : (
-            <ActivityIndicator style={style.button} />
+          )}
+          {!middleTitle && (
+            <>
+              <Button style={style.button} onPress={rightAction}>
+                <FormattedText
+                  style={[
+                    style.buttonTitle,
+                    { color: rightColor ? rightColor : colors.title },
+                  ]}
+                >
+                  {rightTitle}
+                </FormattedText>
+              </Button>
+
+              <View style={style.footerMiddleBorder} />
+              {!mainLoading ? (
+                <Button style={style.button} onPress={leftAction}>
+                  <FormattedText
+                    style={[
+                      style.buttonTitle,
+                      { color: leftColor ? leftColor : colors.title },
+                    ]}
+                  >
+                    {leftTitle}
+                  </FormattedText>
+                </Button>
+              ) : (
+                <ActivityIndicator style={style.button} />
+              )}
+            </>
           )}
         </View>
       </View>
@@ -128,6 +150,9 @@ const style = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  middleButton: {
+    width: "100%",
   },
   footerMiddleBorder: {
     width: 0.7,
