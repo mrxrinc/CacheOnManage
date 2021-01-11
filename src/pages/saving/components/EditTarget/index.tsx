@@ -311,17 +311,15 @@ const EditTarget: FC<Props> = (props) => {
               onPress={formik.handleSubmit}
               disabled={!formik.isValid || loading}
               title="ذخیره"
-              color={colors.buttonSubmitActive}
+              color="43e6c5"
               style={styles.submitButton}
               loading={loading}
             />
             <Button
               onPress={handleFinishTargetModal}
-              disabled={finishTargetloading}
               title="اتمام هدف"
               color={colors.buttonSubmitActive}
               style={styles.submitButton}
-              loading={finishTargetloading}
             />
           </View>
           <Modal
