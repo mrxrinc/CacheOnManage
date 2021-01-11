@@ -9,6 +9,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Leafs from "images/drawer/top-design.svg";
 import { useDispatch } from "react-redux";
 import { isChild } from "redux/actions/User";
+import { withTheme } from "../../themeCore/themeProvider";
 import {
   getLocalData,
   setLocalData,
@@ -17,7 +18,7 @@ import {
 
 type Navigation = NavigationProp<StackParamList, "splash">;
 
-const EntryType = () => {
+const EntryType = ({ setTheme }: any) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<Navigation>();
 
@@ -55,13 +56,19 @@ const EntryType = () => {
         <View style={styles.bouttonBox}>
           <Button
             style={styles.button}
-            onPress={() => handleTouch(false)}
+            onPress={() => {
+              handleTouch(false);
+              setTheme("FATHER BLU JUNIOR");
+            }}
             title="ورود والدین"
           />
 
           <Button
             style={styles.button}
-            onPress={() => handleTouch(true)}
+            onPress={() => {
+              handleTouch(true);
+              setTheme("CHILD MONEY");
+            }}
             title="ورود فرزندان"
           />
         </View>
@@ -109,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EntryType;
+export default withTheme(EntryType);
