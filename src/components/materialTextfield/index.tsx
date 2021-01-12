@@ -28,6 +28,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
             height: 52,
             backgroundColor: "#f5f7fa",
             borderRadius: 10,
+            justifyContent: "center",
           }}
         >
           <TextInput
