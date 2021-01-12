@@ -58,9 +58,17 @@ const EntryType = ({ setTheme }: any) => {
             style={styles.button}
             onPress={() => {
               handleTouch(false);
+              setTheme("FATHER MONEY");
+            }}
+            title="ورود والدین مانی"
+          />
+          <Button
+            style={styles.button}
+            onPress={() => {
+              handleTouch(false);
               setTheme("FATHER BLU JUNIOR");
             }}
-            title="ورود والدین"
+            title=" ورود والدین بلوجونیور"
           />
 
           <Button
@@ -105,7 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     width: width * 0.89,
-    height: height * 0.19,
+    height: height * 0.21,
   },
   button: {
     justifyContent: "center",
