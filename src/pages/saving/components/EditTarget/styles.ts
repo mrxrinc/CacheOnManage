@@ -6,6 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     padding: 20,
+    maxHeight: 450,
   },
 
   titleInput: {
@@ -63,7 +64,7 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 10,
-    height: 25,
+    height: 30,
   },
   submitButton: {
     width: "47%",
@@ -72,7 +73,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 45,
-    marginBottom: 20,
+    marginBottom: 15,
   },
   gray: {
     color: "#8b8b8b",

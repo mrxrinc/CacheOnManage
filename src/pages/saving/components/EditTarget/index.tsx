@@ -215,8 +215,8 @@ const EditTarget: FC<Props> = (props) => {
       initialValues={formik.initialValues}
       onSubmit={(values: any) => formik.handleSubmit(values)}
     >
-      <View>
-        <ScrollView style={{ borderWidth: 1 }}>
+      <View style={styles.container}>
+        <ScrollView>
           <View style={styles.titleInputWrapper}>
             <MaterialTextField
               label="عنوان هدف"
