@@ -25,5 +25,19 @@
       "svg" : {
         "fingerprint": "#00015d"
       }
+    },
+    {
+      "key": "FATHER MONEY",
+      "BlueGradient_Left": "#397fff",
+      "BlueGradient_Right": "#bb6aff",
+      "backgroundColor": "#f4f6fa",
+      "warningColor":"#f73e3e",
+      "color": "#ffffff",
+      "text":{
+        "loginText":"#00015d"
+      },
+      "svg" : {
+        "fingerprint": "#00015d"
+      }
     }
   ]

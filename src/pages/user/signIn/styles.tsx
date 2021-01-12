@@ -20,6 +20,8 @@ export default StyleSheet.create({
   textInputBox: {
     width: width * 0.89,
     height: 80,
+    justifyContent: "center",
+    alignItems: "center",
   },
   errorBox: {
     width: width * 0.89,
