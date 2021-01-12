@@ -258,14 +258,12 @@ const TargetList: FC<Props> = (props) => {
                   style={styles.modal}
                   title="ویرایش هدف پس انداز"
                 >
-                  <ScrollView style={styles.editContent}>
-                    <EditTarget
-                      data={selectedTargetData}
-                      onCloseModal={handleCloseModal}
-                      allowance={props.data.allowance}
-                      childName={props.data.childName}
-                    />
-                  </ScrollView>
+                  <EditTarget
+                    data={selectedTargetData}
+                    onCloseModal={handleCloseModal}
+                    allowance={props.data.allowance}
+                    childName={props.data.childName}
+                  />
                 </ActionModalBottom>
               </View>
             </View>

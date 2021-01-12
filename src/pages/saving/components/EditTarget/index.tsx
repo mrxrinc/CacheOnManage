@@ -211,12 +211,12 @@ const EditTarget: FC<Props> = (props) => {
     dispatch(SavingActions.setEditModal(false));
   }
   return (
-    <ScrollView>
-      <Formik
-        initialValues={formik.initialValues}
-        onSubmit={(values: any) => formik.handleSubmit(values)}
-      >
-        <ScrollView>
+    <Formik
+      initialValues={formik.initialValues}
+      onSubmit={(values: any) => formik.handleSubmit(values)}
+    >
+      <View>
+        <ScrollView style={{ borderWidth: 1 }}>
           <View style={styles.titleInputWrapper}>
             <MaterialTextField
               label="عنوان هدف"
@@ -248,6 +248,7 @@ const EditTarget: FC<Props> = (props) => {
             </View>
             <FormattedText style={[styles.unit]}>ریال</FormattedText>
           </View>
+
           <FormattedText style={styles.amountHint} fontFamily="Regular-FaNum">
             {` ${props.childName} مبلغ ${formatNumber(
               props.data.paidAmount ? props.data.paidAmount : "0"
@@ -305,67 +306,67 @@ const EditTarget: FC<Props> = (props) => {
             </TouchableWithoutFeedback>
             <FormattedText style={[styles.unit]}></FormattedText>
           </View>
-          <View style={styles.inputWrapper}>
-            <Button
-              onPress={formik.handleSubmit}
-              disabled={!formik.isValid || loading}
-              title="ذخیره"
-              color="#43e6c5"
-              style={styles.submitButton}
-              loading={loading}
-            />
-            <Button
-              onPress={handleFinishTargetModal}
-              title="اتمام هدف"
-              color={colors.buttonSubmitActive}
-              style={styles.submitButton}
-            />
-          </View>
-          <Modal
-            isVisible={showDateModal}
-            onBackdropPress={() => setShowDateModal(false)}
-            style={styles.modal}
-          >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalSwipeHandle} />
-              <DatePicker
-                birthDate={(value: any) => handleChangeTargetDate(value)}
-              />
-              <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
-                <Button
-                  title="انتخاب"
-                  onPress={handleStartDate}
-                  color={colors.links}
-                />
-              </View>
-            </View>
-          </Modal>
-          <AlertController
-            showModal={showFinishTargetModal}
-            setShowModal={() => setShowFinishTargetModal(false)}
-            title="اتمام هدف"
-            description={`با تایید اتمام هدف ${props.data.title} , مبلغ ${
-              props.data.paidAmount ? formatNumber(props.data.paidAmount) : "0"
-            } ریال از حساب پس انداز شما کسر شده و به کارت شما منتقل می شود.`}
-            rightAction={handleFinishTarget}
-            rightTitle="اتمام هدف"
-            leftTitle="انصراف"
-            leftAction={() => setShowFinishTargetModal(false)}
-          />
-
-          <AlertController
-            showModal={showInfoModal}
-            setShowModal={() => setShowInfoModal(false)}
-            title="ویرایش هدف پس انداز"
-            description={`شما تا حالا ${formatNumber(
-              props.data.paidAmount
-            )} ریال پس انداز کرده اید. مبلغ جدید هدف نمی تواند از این مقدار کمتر باشد.`}
-            middleAction={() => setShowInfoModal(false)}
-            middleTitle="متوجه شدم"
-          />
         </ScrollView>
-      </Formik>
-    </ScrollView>
+        <View style={styles.inputWrapper}>
+          <Button
+            onPress={formik.handleSubmit}
+            disabled={!formik.isValid || loading}
+            title="ذخیره"
+            color="#43e6c5"
+            style={styles.submitButton}
+            loading={loading}
+          />
+          <Button
+            onPress={handleFinishTargetModal}
+            title="اتمام هدف"
+            color={colors.buttonSubmitActive}
+            style={styles.submitButton}
+          />
+        </View>
+        <Modal
+          isVisible={showDateModal}
+          onBackdropPress={() => setShowDateModal(false)}
+          style={styles.modal}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalSwipeHandle} />
+            <DatePicker
+              birthDate={(value: any) => handleChangeTargetDate(value)}
+            />
+            <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
+              <Button
+                title="انتخاب"
+                onPress={handleStartDate}
+                color={colors.links}
+              />
+            </View>
+          </View>
+        </Modal>
+        <AlertController
+          showModal={showFinishTargetModal}
+          setShowModal={() => setShowFinishTargetModal(false)}
+          title="اتمام هدف"
+          description={`با تایید اتمام هدف ${props.data.title} , مبلغ ${
+            props.data.paidAmount ? formatNumber(props.data.paidAmount) : "0"
+          } ریال از حساب پس انداز شما کسر شده و به کارت شما منتقل می شود.`}
+          rightAction={handleFinishTarget}
+          rightTitle="اتمام هدف"
+          leftTitle="انصراف"
+          leftAction={() => setShowFinishTargetModal(false)}
+        />
+
+        <AlertController
+          showModal={showInfoModal}
+          setShowModal={() => setShowInfoModal(false)}
+          title="ویرایش هدف پس انداز"
+          description={`شما تا حالا ${formatNumber(
+            props.data.paidAmount
+          )} ریال پس انداز کرده اید. مبلغ جدید هدف نمی تواند از این مقدار کمتر باشد.`}
+          middleAction={() => setShowInfoModal(false)}
+          middleTitle="متوجه شدم"
+        />
+      </View>
+    </Formik>
   );
 };
 
