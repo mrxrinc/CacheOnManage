@@ -20,6 +20,7 @@ import Input from "components/input";
 import Button from "components/button";
 import DatePicker from "components/datePicker";
 import MaterialTextField from "components/materialTextfield";
+import AlertController from "components/alertController";
 // Types
 import { AddTarget, TargetsData } from "types/saving";
 // Constants
@@ -37,6 +38,7 @@ interface Props {
   data: TargetsData;
   childName: string;
   allowance: number;
+  showFinishTargetModal: (data: any) => void;
 }
 const EditTarget: FC<Props> = (props) => {
   const dispatch = useDispatch();
@@ -53,6 +55,7 @@ const EditTarget: FC<Props> = (props) => {
     String(props.data.targetAmount)
   );
   const [firstSubmitted, setFirstSubmitted] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
   const [changedBy, setChangedBy] = React.useState<string>();
 
   React.useEffect(() => {
@@ -133,7 +136,7 @@ const EditTarget: FC<Props> = (props) => {
 
       return errors;
     },
-    onSubmit: async (values: any) => {
+    onSubmit: (values: any) => {
       const data = {
         id: props.data.id,
         title: values.title,
@@ -143,9 +146,19 @@ const EditTarget: FC<Props> = (props) => {
       };
       try {
         setLoading(true);
-        await SavingService.updateTarget(data as TargetsData);
-        dispatch(SavingActions.setEditModal(false));
-        dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
+
+        if (
+          removeCommas(values.targetAmount) <
+          removeCommas(props.data.paidAmount)
+        ) {
+          console.log("error");
+          setShowInfoModal(true);
+        } else {
+          dispatch(
+            SavingActions.updateTarget(data as TargetsData, { sagas: true })
+          );
+          dispatch(SavingActions.setEditModal(false));
+        }
         setLoading(false);
       } catch {
         setLoading(false);
@@ -193,16 +206,9 @@ const EditTarget: FC<Props> = (props) => {
       formik.setFieldValue(field, "");
     }
   }
-  async function handleFinishTarget() {
-    try {
-      setFinishTargetLoading(true);
-      await SavingService.finishTarget(props.data.id);
-      setFinishTargetLoading(false);
-      dispatch(SavingActions.setEditModal(false));
-      await dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
-    } catch {
-      setFinishTargetLoading(false);
-    }
+
+  function handleFinishTargetModal() {
+    props.showFinishTargetModal(props.data);
   }
 
   return (
@@ -305,17 +311,15 @@ const EditTarget: FC<Props> = (props) => {
               onPress={formik.handleSubmit}
               disabled={!formik.isValid || loading}
               title="ذخیره"
-              color={colors.buttonSubmitActive}
+              color="#43e6c5"
               style={styles.submitButton}
               loading={loading}
             />
             <Button
-              onPress={handleFinishTarget}
-              disabled={finishTargetloading}
+              onPress={handleFinishTargetModal}
               title="اتمام هدف"
               color={colors.buttonSubmitActive}
               style={styles.submitButton}
-              loading={finishTargetloading}
             />
           </View>
           <Modal
@@ -337,6 +341,16 @@ const EditTarget: FC<Props> = (props) => {
               </View>
             </View>
           </Modal>
+          <AlertController
+            showModal={showInfoModal}
+            setShowModal={() => setShowInfoModal(false)}
+            title="ویرایش هدف پس انداز"
+            description={`شما تا حالا ${formatNumber(
+              props.data.paidAmount
+            )} ریال پس انداز کرده اید. مبلغ جدید هدف نمی تواند از این مقدار کمتر باشد.`}
+            middleAction={() => setShowInfoModal(false)}
+            middleTitle="متوجه شدم"
+          />
         </ScrollView>
       </Formik>
     </ScrollView>
