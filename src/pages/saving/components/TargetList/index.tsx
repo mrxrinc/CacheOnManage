@@ -261,9 +261,6 @@ const TargetList: FC<Props> = (props) => {
                   <ScrollView style={styles.editContent}>
                     <EditTarget
                       data={selectedTargetData}
-                      showFinishTargetModal={() =>
-                        handleShowFinishModal(target)
-                      }
                       onCloseModal={handleCloseModal}
                       allowance={props.data.allowance}
                       childName={props.data.childName}

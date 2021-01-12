@@ -38,7 +38,6 @@ interface Props {
   data: TargetsData;
   childName: string;
   allowance: number;
-  showFinishTargetModal: (data: any) => void;
 }
 const EditTarget: FC<Props> = (props) => {
   const dispatch = useDispatch();
@@ -57,6 +56,9 @@ const EditTarget: FC<Props> = (props) => {
   const [firstSubmitted, setFirstSubmitted] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [changedBy, setChangedBy] = React.useState<string>();
+  const [showFinishTargetModal, setShowFinishTargetModal] = useState<boolean>(
+    false
+  );
 
   React.useEffect(() => {
     const $targetAmount = Number(targetAmount);
@@ -144,24 +146,16 @@ const EditTarget: FC<Props> = (props) => {
         targetDate: targetDate,
         weeklySavings: removeCommas(values.weeklySavings),
       };
-      try {
-        setLoading(true);
 
-        if (
-          removeCommas(values.targetAmount) <
-          removeCommas(props.data.paidAmount)
-        ) {
-          console.log("error");
-          setShowInfoModal(true);
-        } else {
-          dispatch(
-            SavingActions.updateTarget(data as TargetsData, { sagas: true })
-          );
-          dispatch(SavingActions.setEditModal(false));
-        }
-        setLoading(false);
-      } catch {
-        setLoading(false);
+      if (
+        removeCommas(values.targetAmount) < removeCommas(props.data.paidAmount)
+      ) {
+        setShowInfoModal(true);
+      } else {
+        dispatch(
+          SavingActions.updateTarget(data as TargetsData, { sagas: true })
+        );
+        dispatch(SavingActions.setEditModal(false));
       }
     },
   });
@@ -208,9 +202,14 @@ const EditTarget: FC<Props> = (props) => {
   }
 
   function handleFinishTargetModal() {
-    props.showFinishTargetModal(props.data);
+    setShowFinishTargetModal(true);
   }
 
+  function handleFinishTarget() {
+    dispatch(SavingActions.finishTarget(props.data.id, { sagas: true }));
+    setShowFinishTargetModal(false);
+    dispatch(SavingActions.setEditModal(false));
+  }
   return (
     <ScrollView>
       <Formik
@@ -235,7 +234,7 @@ const EditTarget: FC<Props> = (props) => {
             </FormattedText>
             <View style={[styles.halfWidth]}>
               <Input
-                value={formatNumber(formik.values.targetAmount)}
+                value={formatNumber(String(formik.values.targetAmount))}
                 onChangeText={(value: string) =>
                   handleTargetAmountChange(value)
                 }
@@ -341,6 +340,19 @@ const EditTarget: FC<Props> = (props) => {
               </View>
             </View>
           </Modal>
+          <AlertController
+            showModal={showFinishTargetModal}
+            setShowModal={() => setShowFinishTargetModal(false)}
+            title="اتمام هدف"
+            description={`با تایید اتمام هدف ${props.data.title} , مبلغ ${
+              props.data.paidAmount ? formatNumber(props.data.paidAmount) : "0"
+            } ریال از حساب پس انداز شما کسر شده و به کارت شما منتقل می شود.`}
+            rightAction={handleFinishTarget}
+            rightTitle="اتمام هدف"
+            leftTitle="انصراف"
+            leftAction={() => setShowFinishTargetModal(false)}
+          />
+
           <AlertController
             showModal={showInfoModal}
             setShowModal={() => setShowInfoModal(false)}

@@ -137,7 +137,7 @@ const AddNewTarget: FC<Props> = (props) => {
 
       return errors;
     },
-    onSubmit: async (values: any) => {
+    onSubmit: async (values: AddTarget) => {
       const data = {
         childId: selectedTargetData.childId,
         title: values.title,
@@ -145,15 +145,8 @@ const AddNewTarget: FC<Props> = (props) => {
         targetDate: targetDate,
         weeklySavings: removeCommas(values.weeklySavings),
       };
-      try {
-        setLoading(true);
-        await SavingService.addTarget(data as AddTarget);
-        navigation.navigate("saving");
-        dispatch(SavingActions.setSavingsDataList(null, { sagas: true }));
-        setLoading(false);
-      } catch {
-        setLoading(false);
-      }
+      dispatch(SavingActions.addTarget(data as AddTarget, { sagas: true }));
+      navigation.navigate("saving");
     },
   });
 
