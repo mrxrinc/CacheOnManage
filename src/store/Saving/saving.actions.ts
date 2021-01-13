@@ -38,6 +38,15 @@ class Actions {
       payload: data,
     };
   }
+  public addTarget(
+    data: AddTarget | TargetsData,
+    options?: ExtraActionInfo
+  ): Action<AddTarget | TargetsData> {
+    return {
+      type: options?.sagas ? types.SAGAS_ADD_TARGET : types.ADD_TARGET,
+      payload: data,
+    };
+  }
   public updateTarget(
     data: TargetsData,
     options?: ExtraActionInfo

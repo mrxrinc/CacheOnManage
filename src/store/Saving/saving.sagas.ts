@@ -11,7 +11,7 @@ import SavingActions from "./saving.actions";
 import SavingService from "services/http/endpoints/saving";
 // Types
 import { Action } from "store/index.reducer";
-import { AddTarget, DeleteTarget } from "types/saving";
+import { AddTarget, DeleteTarget, TargetsData } from "types/saving";
 
 function* fetchSavingList(action: Action) {
   try {
@@ -72,10 +72,36 @@ function* deleteTarget(action: Action<DeleteTarget>) {
     })
   );
 }
+
+function* addTarget(action: Action<AddTarget | TargetsData>) {
+  yield call(
+    SavingService.addTarget.bind(SavingService),
+    action.payload as AddTarget
+  );
+  const savingListRes = yield call(
+    SavingService.fetchSavingList.bind(SavingService)
+  );
+  // const findSelectedChildTargets = R.find<AddTarget>(
+  //   (target) => target.childId === action.payload?.childId,
+  //   savingListRes
+  // );
+  yield put(
+    // @ts-ignore
+    SavingActions.addTarget(savingListRes, { sagas: false })
+  );
+}
+
 function* finishTarget(action: Action<number>) {
   yield call(
     SavingService.finishTarget.bind(SavingService),
     action.payload as number
+  );
+  const savingListRes = yield call(
+    SavingService.fetchSavingList.bind(SavingService)
+  );
+  yield put(
+    // @ts-ignore
+    SavingActions.finishTarget(savingListRes, { sagas: false })
   );
 }
 function* updateTarget(action: Action<AddTarget>) {
@@ -83,10 +109,18 @@ function* updateTarget(action: Action<AddTarget>) {
     SavingService.updateTarget.bind(SavingService),
     action.payload as AddTarget
   );
+  const savingListRes = yield call(
+    SavingService.fetchSavingList.bind(SavingService)
+  );
+  yield put(
+    // @ts-ignore
+    SavingActions.updateTarget(savingListRes, { sagas: false })
+  );
 }
 export default function* networkListeners() {
   yield all([
     takeLatest(types.SAGAS_SAVING_LIST, fetchSavingList),
+    takeLatest(types.SAGAS_ADD_TARGET, addTarget),
     takeLatest(types.SAGAS_FINISH_TARGET, finishTarget),
     takeLatest(types.SAGAS_DELETE_TARGET, deleteTarget),
     takeLatest(types.SAGAS_UPDATE_TARGET, updateTarget),
