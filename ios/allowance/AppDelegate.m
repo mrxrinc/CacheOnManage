@@ -21,6 +21,9 @@ static void InitializeFlipper(UIApplication *application) {
   [client addPlugin:[FlipperKitReactPlugin new]];
   [client addPlugin:[[FlipperKitNetworkPlugin alloc] initWithNetworkAdapter:[SKIOSNetworkAdapter new]]];
   [client start];
+  
+  [[RCTI18nUtil sharedInstance] allowRTL:YES];
+  [[RCTI18nUtil sharedInstance] forceRTL:YES];
 }
 #endif
 
@@ -28,8 +31,6 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [[RCTI18nUtil sharedInstance] allowRTL:YES];
-  [[RCTI18nUtil sharedInstance] forceRTL:YES];
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
