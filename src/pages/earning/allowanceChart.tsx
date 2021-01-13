@@ -11,7 +11,7 @@ const AllowanceChart = ({ childInfo }: any) => {
   const remaining = childInfo.doneTaskAmount + childInfo.acceptTaskAmount;
   const incomes = childInfo.incoms;
   const paidTaskAmount = childInfo.paiedTaskAmount;
-  const sum = allowanceAmount + remaining + incomes + paidTaskAmount;
+  const sum = allowanceForChart + remaining + incomes + paidTaskAmount;
 
   const handleChartValueWidth = (val1: number, val2: number) => {
     const res = (val1 / val2) * 100;
@@ -39,7 +39,7 @@ const AllowanceChart = ({ childInfo }: any) => {
           <View
             style={{
               backgroundColor: colors.buttonOpenActive,
-              width: handleChartValueWidth(allowanceAmount, sum) + "%",
+              width: handleChartValueWidth(allowanceForChart, sum) + "%",
               borderTopLeftRadius: 15,
               borderBottomLeftRadius: 15,
             }}
@@ -89,7 +89,7 @@ const AllowanceChart = ({ childInfo }: any) => {
               fontFamily="Regular-FaNum"
               style={styles.detailAmountText}
             >
-              {formatNumber(allowanceAmount) || 0} ریال
+              {formatNumber(allowanceForChart) || 0} ریال
             </FormattedText>
           </View>
 

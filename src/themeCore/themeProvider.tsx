@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, forwardRef } from "react";
 import AsyncStorage from "@react-native-community/async-storage";
 import THEMES from "./themes.json";
 
@@ -27,8 +27,8 @@ export const ThemeContextProvider = ({ children }: any) => {
   );
 };
 
-export function withTheme(Component: any) {
-  return (props: any) => {
+export const withTheme = (Component: any) =>
+  forwardRef((props: any, ref: any) => {
     const { themeID, setThemeID } = useContext(ThemeContext);
 
     const getTheme = (themeID: string) =>
@@ -44,7 +44,7 @@ export function withTheme(Component: any) {
         themes={THEMES}
         theme={getTheme(themeID)}
         setTheme={setTheme}
+        ref={ref}
       />
     );
-  };
-}
+  });
