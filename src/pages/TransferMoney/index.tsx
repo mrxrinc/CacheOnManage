@@ -245,7 +245,7 @@ const TransferMoney: FC = (props: any) => {
               />
 
               <Input
-                onChangeText={(text) =>
+                onChangeText={(text: string) =>
                   formik.setFieldValue("description", text)
                 }
                 value={formik.values.description}
@@ -260,7 +260,7 @@ const TransferMoney: FC = (props: any) => {
                   onPress={formik.handleSubmit}
                   disabled={!formik.isValid || transferMoneyStore.loading}
                   loading={transferMoneyStore.loading}
-                  color={colors.buttonOpenActive}
+                  color="#43e6c5"
                 />
               </View>
             </>

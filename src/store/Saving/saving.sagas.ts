@@ -11,7 +11,7 @@ import SavingActions from "./saving.actions";
 import SavingService from "services/http/endpoints/saving";
 // Types
 import { Action } from "store/index.reducer";
-import { DeleteTarget } from "types/saving";
+import { AddTarget, DeleteTarget } from "types/saving";
 
 function* fetchSavingList(action: Action) {
   try {
@@ -61,16 +61,35 @@ function* fetchTransfetMoneyTransaction(action: Action) {
   }
 }
 function* deleteTarget(action: Action<DeleteTarget>) {
+  yield call(
+    //@ts-ignore
+    SavingService.deleteTarget.bind(SavingService),
+    action.payload?.targetId
+  );
   yield put(
     SavingActions.deleteTarget(action.payload!, {
       sagas: false,
     })
   );
 }
+function* finishTarget(action: Action<number>) {
+  yield call(
+    SavingService.finishTarget.bind(SavingService),
+    action.payload as number
+  );
+}
+function* updateTarget(action: Action<AddTarget>) {
+  yield call(
+    SavingService.updateTarget.bind(SavingService),
+    action.payload as AddTarget
+  );
+}
 export default function* networkListeners() {
   yield all([
     takeLatest(types.SAGAS_SAVING_LIST, fetchSavingList),
+    takeLatest(types.SAGAS_FINISH_TARGET, finishTarget),
     takeLatest(types.SAGAS_DELETE_TARGET, deleteTarget),
+    takeLatest(types.SAGAS_UPDATE_TARGET, updateTarget),
     takeLatest(
       types.SAGAS_TRANSFER_MONEY_TO_TARGET,
       fetchTransfetMoneyTransaction

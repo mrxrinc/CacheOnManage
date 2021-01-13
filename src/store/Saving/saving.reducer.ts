@@ -57,10 +57,15 @@ const reducer: React.Reducer<SavingState, Action> = (
       return update({
         childTargets: action.payload,
       });
-    case types.DELETE_TARGET:
+    case types.FINISH_TARGET:
       return {
         ...state,
       };
+    case types.UPDATE_TARGET:
+      return update({
+        savingList: action.payload,
+      });
+
     case types.LOADING:
       return update({
         loading: action.payload,

@@ -18,9 +18,8 @@ import AlertController from "components/alertController";
 import Button from "components/button";
 // Local components
 import EditTarget from "../EditTarget";
-// API
-import SavingService from "services/http/endpoints/saving";
 // Types
+import { SavingState } from "store/Saving/saving.reducer";
 import { RootState } from "customType";
 import { StateNetwork } from "store/index.reducer";
 // Actions
@@ -47,7 +46,6 @@ const TargetList: FC<Props> = (props) => {
   );
   const [deleteId, setDeleteId] = useState(0);
   const [finishTargetId, setFinishTargetId] = useState(0);
-  const [loading, setLoading] = useState<boolean>(false);
 
   const selectedTargetData = useSelector<StateNetwork, any>(
     (state) => state.saving.selectedTargetsData
@@ -55,6 +53,12 @@ const TargetList: FC<Props> = (props) => {
   const { showEditModal } = useSelector<StateNetwork, any>(
     (state) => state.saving
   );
+
+  // Store
+  const savingStore = useSelector<StateNetwork, SavingState>(
+    (state) => state.saving
+  );
+
   function handleEdit(target: any) {
     dispatch(SavingActions.setEditModal(true));
     dispatch(SavingActions.getTargetsData(target));
@@ -87,12 +91,10 @@ const TargetList: FC<Props> = (props) => {
     setFinishTargetId(target.id);
   }
 
-  async function handleFinishTarget() {
-    setLoading(true);
-    const res = await SavingService.finishTarget(finishTargetId);
+  function handleFinishTarget() {
+    dispatch(SavingActions.finishTarget(finishTargetId, { sagas: true }));
     setShowFinishTargetModal(false);
-    dispatch(SavingActions.getTargetsData([]));
-    setLoading(false);
+    dispatch(SavingActions.setEditModal(false));
   }
 
   return (
@@ -190,24 +192,30 @@ const TargetList: FC<Props> = (props) => {
                   ) : (
                     <FormattedText style={styles.targetInfo}>
                       {isChild
-                        ? target.state === "DONE" || target.state === "SAVING"
+                        ? target.state === "DONE" ||
+                          target.state === "SAVING" ||
+                          target.state === "COMPLETED"
                           ? "شمابه هدفت رسیدی!"
                           : target.state === "CANCELED"
                           ? "شما به هدفت خاتمه دادی"
                           : ""
-                        : target.state === "DONE" || target.state === "SAVING"
+                        : target.state === "DONE" ||
+                          target.state === "SAVING" ||
+                          target.state === "COMPLETED"
                         ? props.data.childName + " " + "به هدفش رسید!"
                         : target.state === "CANCELED"
                         ? props.data.childName + " " + "به هدفش خاتمه داد!"
                         : ""}
                     </FormattedText>
                   )}
-                  {targetPercent === "100%" && target.state === "SAVING" ? (
+                  {(targetPercent === "100%" && target.state === "SAVING") ||
+                  target.state === "COMPLETED" ? (
                     <Button
                       style={styles.button}
                       titleStyle={{ color: colors.white }}
                       onPress={() => handleShowFinishModal(target)}
                       title="اتمام هدف"
+                      loading={savingStore.loading}
                     />
                   ) : (
                     <FormattedText style={styles.targetInfo}>
@@ -230,13 +238,13 @@ const TargetList: FC<Props> = (props) => {
                   showModal={showFinishTargetModal}
                   setShowModal={() => setShowFinishTargetModal(false)}
                   title="اتمام هدف"
-                  description={`${
+                  description={`با تایید اتمام هدف ${
+                    selectedTargetData.title
+                  } , مبلغ ${
                     selectedTargetData?.paidAmount
-                      ? selectedTargetData?.paidAmount
+                      ? formatNumber(selectedTargetData?.paidAmount)
                       : "0"
-                  } ریال از ${
-                    selectedTargetData.targetAmount
-                  }  ریال را پس‌انداز کرده‌اید. آیا از پایان هدف اطمینان دارید؟`}
+                  } ریال از حساب پس انداز شما کسر شده و به کارت شما منتقل می شود.`}
                   rightAction={handleFinishTarget}
                   rightTitle="اتمام هدف"
                   leftTitle="انصراف"
@@ -253,6 +261,9 @@ const TargetList: FC<Props> = (props) => {
                   <ScrollView style={styles.editContent}>
                     <EditTarget
                       data={selectedTargetData}
+                      showFinishTargetModal={() =>
+                        handleShowFinishModal(target)
+                      }
                       onCloseModal={handleCloseModal}
                       allowance={props.data.allowance}
                       childName={props.data.childName}

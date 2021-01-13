@@ -79,7 +79,6 @@ export default StyleSheet.create({
   submitButton: {
     height: 44,
     borderRadius: 30,
-    backgroundColor: "#43e6c5",
     width: "100%",
   },
   submitButtonWrapper: {

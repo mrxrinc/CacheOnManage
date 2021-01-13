@@ -46,6 +46,7 @@ export default StyleSheet.create({
     width: "45%",
     lineHeight: 28,
     fontSize: 16,
+    color: "#00015d",
   },
   alignLeft: {
     textAlign: "left",
@@ -68,7 +69,6 @@ export default StyleSheet.create({
     width: "47%",
     height: 44,
     borderRadius: 30,
-    backgroundColor: "#43e6c5",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 45,
@@ -138,5 +138,6 @@ export default StyleSheet.create({
   unit: {
     width: "10%",
     textAlign: "right",
+    color: "#00015d",
   },
 });

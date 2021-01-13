@@ -202,7 +202,7 @@ const SignIn = ({ theme }: any) => {
           <View style={[styles.textInputBox]}>
             <MaterialTextField
               label="رمز عبور"
-              keyboardType="password"
+              keyboardType="default"
               secureTextEntry={true}
               maxLength={30}
               icon="password"

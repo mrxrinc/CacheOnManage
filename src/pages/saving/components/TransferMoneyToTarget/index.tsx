@@ -200,7 +200,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
             onPress={formik.handleSubmit}
             disabled={!formik.isValid || savingStore.loading}
             loading={savingStore.loading}
-            color={colors.buttonOpenActive}
+            color="#43e6c5"
           />
         </View>
       </>

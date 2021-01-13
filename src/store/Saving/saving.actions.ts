@@ -4,7 +4,7 @@
  */
 import * as types from "./saving.constants";
 import { Action } from "store/index.reducer";
-import { DeleteTarget } from "types/saving";
+import { AddTarget, DeleteTarget, TargetsData } from "types/saving";
 
 export interface ExtraActionInfo {
   sagas: boolean | undefined;
@@ -32,7 +32,21 @@ class Actions {
       payload: data,
     };
   }
-
+  public finishTarget(data: number, options?: ExtraActionInfo): Action<number> {
+    return {
+      type: options?.sagas ? types.SAGAS_FINISH_TARGET : types.FINISH_TARGET,
+      payload: data,
+    };
+  }
+  public updateTarget(
+    data: TargetsData,
+    options?: ExtraActionInfo
+  ): Action<TargetsData> {
+    return {
+      type: options?.sagas ? types.SAGAS_UPDATE_TARGET : types.UPDATE_TARGET,
+      payload: data,
+    };
+  }
   public deleteTarget(
     data: DeleteTarget,
     options?: ExtraActionInfo
