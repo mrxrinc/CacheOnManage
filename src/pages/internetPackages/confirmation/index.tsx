@@ -55,7 +55,7 @@ export const Confirmation: FC = (props: any) => {
       planId,
       packageId: chosenPackage.packageId,
       title: chosenPackage.title,
-      amount: parseInt(chosenPackage.amount) + parseInt(chosenPackage.tax),
+      amount: parseInt(chosenPackage.tax),
     })
       .then((response: any) => {
         const data = response.data;
@@ -132,22 +132,14 @@ export const Confirmation: FC = (props: any) => {
                     مبلغ با احتساب مالیات بر ارزش افزوده
                   </FormattedText>
                   <FormattedText fontFamily="Medium" style={styles.amount}>
-                    {formatNumber(
-                      `${
-                        Number(chosenPackage.amount) + Number(chosenPackage.tax)
-                      }`
-                    )}{" "}
-                    ریال
+                    {formatNumber(`${Number(chosenPackage.tax)}`)} ریال
                   </FormattedText>
                   <FormattedText
                     fontFamily="Light"
                     style={[styles.amount, { paddingHorizontal: 20 }]}
                   >
                     {/* {chosenPackage.amountLetteral} */}
-                    {numberToWords(
-                      Number(chosenPackage.amount) + Number(chosenPackage.tax)
-                    )}{" "}
-                    ریال
+                    {numberToWords(Number(chosenPackage.tax))} ریال
                   </FormattedText>
                 </View>
               </>

@@ -79,8 +79,6 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
   );
 });
 
-export default withTheme(MaterialTextField);
-
 const renderIcon = ({ icon, error, showPassword, setShowPassword }: any) => {
   if (icon === "arrow") {
     return () => (
@@ -130,3 +128,5 @@ const renderIcon = ({ icon, error, showPassword, setShowPassword }: any) => {
     );
   }
 };
+
+export default withTheme(MaterialTextField);
