@@ -10,6 +10,11 @@
       },
       "svg" : {
         "fingerprint": "#fff"
+      },
+      "buttonBorderRadius":10,
+      "home":{
+        "bgColorButton":"#307fe2",
+        "linearColor":"#bbbcbc"
       }
     },
     {
@@ -24,6 +29,11 @@
       },
       "svg" : {
         "fingerprint": "#00015d"
+      },
+      "buttonBorderRadius":30,
+      "home":{
+        "bgColorButton":"#43e6c5",
+        "linearColor":"#baeffc"
       }
     },
     {
@@ -38,6 +48,11 @@
       },
       "svg" : {
         "fingerprint": "#00015d"
+      },
+      "buttonBorderRadius":30,
+      "home":{
+        "bgColorButton":"#43e6c5",
+        "linearColor":"#baeffc"
       }
     }
   ]

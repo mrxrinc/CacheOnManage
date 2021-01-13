@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Animated } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import Modal from "react-native-modal";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,11 +7,7 @@ import * as Keychain from "react-native-keychain";
 import { FormattedText } from "components/format-text";
 import { useNavigation, NavigationProp } from "@react-navigation/core";
 import { StackParamList } from "navigation/splash-stack-navigator";
-import {
-  signUpStepChanged,
-  showTreeChanged,
-  otpTokenChanged,
-} from "redux/actions/User";
+import { otpTokenChanged } from "redux/actions/User";
 import {
   childPhoneNumber,
   mobileOperatorName,
@@ -28,7 +24,7 @@ import { RootState, RootStateType } from "../../../../customType";
 import SupportController from "components/supportController";
 import { setLocalData, getLocalData } from "utils/localStorage";
 import FanBoutton from "./fanBoutton";
-import { withTheme } from "../../../themeCore/themeProvider";
+import { withTheme } from "themeCore/themeProvider";
 
 type Navigation = NavigationProp<StackParamList>;
 interface IError {
@@ -282,7 +278,7 @@ const SignIn = ({ theme }: any) => {
         <View style={styles.modalContainer}>
           <FormattedText style={styles.modalTitle} id="login.fingerprint" />
           <View style={styles.modalIconWrapper}>
-            <Fingerprint />
+            <Fingerprint width={55} height={70} fill={theme.svg.fingerprint} />
           </View>
           <FormattedText
             style={styles.modalDescription}
