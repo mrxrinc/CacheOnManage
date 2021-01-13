@@ -31,8 +31,6 @@ export default StyleSheet.create({
   button: {
     width: "47%",
     height: 44,
-    borderRadius: 100,
-    backgroundColor: colors.buttonSubmitActive,
     elevation: 5,
   },
   list: {

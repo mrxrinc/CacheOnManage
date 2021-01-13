@@ -34,7 +34,6 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
     borderBottomWidth: 1,
-    borderBottomColor: "#baeffc",
     marginHorizontal: 16,
     marginTop: 7,
   },
@@ -60,7 +59,6 @@ export default StyleSheet.create({
     paddingBottom: 5,
     justifyContent: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#baeffc",
     marginHorizontal: 16,
   },
   chartTitle: {

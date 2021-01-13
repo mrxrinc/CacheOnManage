@@ -14,6 +14,7 @@ import { getHomePageData } from "utils/api";
 import { getHomeData } from "redux/actions/Home";
 import { RootState } from "../../../customType";
 import style from "./style";
+import { withTheme } from "themeCore/themeProvider";
 
 type Navigation = NavigationProp<StackParamList, "home">;
 
@@ -22,7 +23,7 @@ type Cards = {
   firstPayment: number;
 };
 
-const Home: FC = () => {
+const Home: FC = ({ theme }: any) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<Navigation>();
   const isChild = useSelector<any, any>((state) => state.user.ischild);
@@ -35,6 +36,7 @@ const Home: FC = () => {
     balance: "0",
     avatar: "",
     title: "",
+    theme: {},
   });
   useEffect(() => {
     if (isChild) {
@@ -84,13 +86,23 @@ const Home: FC = () => {
       )}
       <View style={[style.buttonsWrapper]}>
         <Button
-          style={style.button}
+          style={{
+            width: "47%",
+            height: 44,
+            elevation: 5,
+            backgroundColor: theme.home.bgColorButton,
+          }}
           titleStyle={{ color: colors.white }}
           onPress={() => navigation.navigate("transferMoney")}
           title="انتقال وجه"
         />
         <Button
-          style={style.button}
+          style={{
+            width: "47%",
+            height: 44,
+            elevation: 5,
+            backgroundColor: theme.home.bgColorButton,
+          }}
           titleStyle={{ color: colors.white }}
           onPress={() => navigation.navigate("cashDeposit")}
           title="افزایش حساب"
@@ -123,4 +135,4 @@ const Home: FC = () => {
   );
 };
 
-export default Home;
+export default withTheme(Home);
