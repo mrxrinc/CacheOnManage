@@ -11,13 +11,10 @@ import { colors } from "constants/index";
 import { useDispatch, useSelector } from "react-redux";
 import { mobileOperatorName } from "store/QuickAccess/quickAccess.actions";
 import { RootStateType } from "../../../../../customType";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { StackParamList } from "navigation/quick-access";
-
-type Navigation = NavigationProp<StackParamList>;
+import { useNavigation } from "@react-navigation/native";
 
 const MNP = () => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const operatorName = useSelector<RootStateType, any>(
     (state) => state.quickAccess.operatorName

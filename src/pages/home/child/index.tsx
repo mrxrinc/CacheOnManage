@@ -8,9 +8,8 @@ import {
   ActivityIndicator,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 import LinearGradient from "react-native-linear-gradient";
-import { StackParamList } from "navigation/splash-stack-navigator";
 import { FormattedText } from "components/format-text";
 import { formatNumber } from "utils";
 import MainHeader from "components/mainHeader/child";
@@ -26,8 +25,6 @@ import ArrowIcon from "components/icons/arrow.svg";
 import { RootState } from "../../../../customType";
 import { getHomeData } from "redux/actions/Home";
 import ChildrenPaymentLimits from "components/childrenPaymentLimits";
-
-type Navigation = NavigationProp<StackParamList, "home">;
 
 type ChildData = {
   id: number;

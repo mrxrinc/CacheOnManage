@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+
+    <g id="cards" transform="translate(2552 -4769)">
+        <path id="Rectangle_17445" fill="#fff" d="M0 0H32V32H0z" opacity="0.001" transform="translate(-2552 4769)"/>
+        <g id="Group_2967" transform="translate(-2560.5 4759)">
+            <g id="Group_2962" transform="translate(15.7 19.88)">
+                <g id="Group_2961">
+                    <path id="Path_2486" d="M40.688 40.562H25.435a2.938 2.938 0 0 1-2.935-2.935v-8.692A2.938 2.938 0 0 1 25.435 26h15.253a2.938 2.938 0 0 1 2.935 2.935v8.692a2.938 2.938 0 0 1-2.935 2.935zM25.435 26.96a1.977 1.977 0 0 0-1.975 1.975v8.692a1.977 1.977 0 0 0 1.975 1.973h15.253a1.977 1.977 0 0 0 1.975-1.975v-8.69a1.977 1.977 0 0 0-1.975-1.975z" class="cls-2" transform="translate(-22.5 -26)"/>
+                </g>
+            </g>
+            <g id="Group_2964" transform="translate(15.7 22.921)">
+                <g id="Group_2963">
+                    <path id="Path_2487" d="M43.143 38.7H22.5v-3.2h20.643v.96H23.46v1.28h19.683z" class="cls-2" transform="translate(-22.5 -35.5)"/>
+                </g>
+            </g>
+            <g id="Group_2966" transform="translate(12.5 17)">
+                <g id="Group_2965">
+                    <path id="Path_2488" d="M16.18 31.562h-.746a2.938 2.938 0 0 1-2.934-2.935v-8.692A2.938 2.938 0 0 1 15.435 17h15.253a2.938 2.938 0 0 1 2.935 2.935v.426h-.96v-.426a1.977 1.977 0 0 0-1.975-1.975H15.435a1.977 1.977 0 0 0-1.975 1.975v8.692a1.977 1.977 0 0 0 1.975 1.973h.746z" class="cls-2" transform="translate(-12.5 -17)"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -13,7 +13,6 @@ const instance = axios.create({
   },
 });
 AsyncStorage.getItem("token").then((token) => {
-  console.log("token is is:", token);
   instance.defaults.headers.authorization = `Bearer ${token}`;
 });
 

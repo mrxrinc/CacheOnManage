@@ -7,8 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Button from "components/button";
 import Background from "components/background";
 import Slide from "./components/slide";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/splash-stack-navigator";
+import { useNavigation } from "@react-navigation/core";
 import { RootState } from "../../../customType";
 import styles from "./styles";
 import ParentImage01 from "images/intro/intro-parent-01.png";
@@ -19,8 +18,6 @@ import ChildImage01 from "images/intro/intro-child-01.png";
 import ChildImage02 from "images/intro/intro-child-02.png";
 import ChildImage03 from "images/intro/intro-child-03.png";
 import ChildImage04 from "images/intro/intro-child-04.png";
-
-type Navigation = NavigationProp<StackParamList, "splash">;
 
 const PARENT_DATA = [
   {
@@ -76,7 +73,7 @@ const CHILD_DATA = [
 ];
 
 export default () => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   return (

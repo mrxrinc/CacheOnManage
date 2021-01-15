@@ -2,8 +2,7 @@ import React from "react";
 import { View, StyleSheet, Dimensions, Image, StatusBar } from "react-native";
 import logo from "images/logo.png";
 import Mony from "components/icons/money.svg";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/splash-stack-navigator";
+import { useNavigation } from "@react-navigation/core";
 import Button from "components/button";
 import LinearGradient from "react-native-linear-gradient";
 import Leafs from "images/drawer/top-design.svg";
@@ -16,11 +15,9 @@ import {
   logLocalStorage,
 } from "utils/localStorage";
 
-type Navigation = NavigationProp<StackParamList, "splash">;
-
 const EntryType = ({ setTheme }: any) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
 
   const handleTouch = async (child: boolean) => {
     dispatch(isChild(child));
