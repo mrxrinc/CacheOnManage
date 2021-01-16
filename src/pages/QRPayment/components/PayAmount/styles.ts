@@ -10,6 +10,7 @@ export default StyleSheet.create({
   },
   content: {
     marginTop: 20,
+    height: height - 200,
   },
   title: {
     color: "#00015d",

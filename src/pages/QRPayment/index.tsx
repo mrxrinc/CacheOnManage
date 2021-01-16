@@ -40,12 +40,11 @@ const QRPayment: React.FC<Props> = (props) => {
   function onBarCodeRead(scanResult: BarcodeInfo) {
     console.warn(scanResult.type);
     console.warn(scanResult.data);
-    if (scanResult.data != null) {
+    if (scanResult.data === null) {
       setShowModal(false);
       setQrBtnActive(false);
       setByHandPaymentBtnActive(true);
     }
-
     const guId = scanResult.data.split("=");
 
     setBarcode(guId[1]);
@@ -55,6 +54,8 @@ const QRPayment: React.FC<Props> = (props) => {
     dispatch(QRPaymentActions.getQrInquiry(data as any, { sagas: true }));
 
     if (barcode) {
+      setShowModal(false);
+
       setPayAmount(true);
     }
   }
@@ -84,7 +85,7 @@ const QRPayment: React.FC<Props> = (props) => {
         {payAmount ? (
           <PayAmount guId={barcode ? barcode : ""} />
         ) : (
-          <ScrollView>
+          <>
             <View style={styles.buttonsWrapper}>
               <TouchableOpacity
                 style={[styles.button, byHandBtnActive && styles.activeButton1]}
@@ -133,7 +134,7 @@ const QRPayment: React.FC<Props> = (props) => {
                 </View>
               </View>
             )}
-          </ScrollView>
+          </>
         )}
       </ScrollView>
     </Layout>
