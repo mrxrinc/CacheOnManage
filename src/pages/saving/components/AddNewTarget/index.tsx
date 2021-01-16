@@ -137,7 +137,7 @@ const AddNewTarget: FC<Props> = (props) => {
 
       return errors;
     },
-    onSubmit: async (values: AddTarget) => {
+    onSubmit: (values: AddTarget) => {
       const data = {
         childId: selectedTargetData.childId,
         title: values.title,
