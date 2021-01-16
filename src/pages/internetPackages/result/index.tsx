@@ -16,7 +16,7 @@ type Error = {
   errorText: string;
   isError: boolean;
 };
-export const Result = (props: any) => {
+export const TransactionResult = (props: any) => {
   const success = props.route.params?.success;
   const description = props.route.params?.description;
   const mobile = props.route.params?.mobile;

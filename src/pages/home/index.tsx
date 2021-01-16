@@ -1,9 +1,8 @@
 import React, { FC, useState, useEffect } from "react";
 import { View, FlatList } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "components/button";
-import { StackParamList } from "navigation/splash-stack-navigator";
 import { FormattedText } from "components/format-text";
 import MainHeader from "components/mainHeader";
 import BalanceCard from "./components/balanceCard";
@@ -14,17 +13,16 @@ import { getHomePageData } from "utils/api";
 import { getHomeData } from "redux/actions/Home";
 import { RootState } from "../../../customType";
 import style from "./style";
-
-type Navigation = NavigationProp<StackParamList, "home">;
+import { withTheme } from "themeCore/themeProvider";
 
 type Cards = {
   cards: Array<BalanceCardType>;
   firstPayment: number;
 };
 
-const Home: FC = () => {
+const Home: FC = ({ theme }: any) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const isChild = useSelector<any, any>((state) => state.user.ischild);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [cards, setCards] = useState<Cards>({ cards: [], firstPayment: 0 });
@@ -35,10 +33,11 @@ const Home: FC = () => {
     balance: "0",
     avatar: "",
     title: "",
+    theme: {},
   });
   useEffect(() => {
     if (isChild) {
-      navigation.reset({ index: 0, routes: [{ name: "childHome" }] });
+      // navigation.reset({ index: 0, routes: [{ name: "childHome" }] });
     } else {
       getData();
     }
@@ -84,13 +83,23 @@ const Home: FC = () => {
       )}
       <View style={[style.buttonsWrapper]}>
         <Button
-          style={style.button}
+          style={{
+            width: "47%",
+            height: 44,
+            elevation: 5,
+            backgroundColor: theme.home.bgColorButton,
+          }}
           titleStyle={{ color: colors.white }}
           onPress={() => navigation.navigate("transferMoney")}
           title="انتقال وجه"
         />
         <Button
-          style={style.button}
+          style={{
+            width: "47%",
+            height: 44,
+            elevation: 5,
+            backgroundColor: theme.home.bgColorButton,
+          }}
           titleStyle={{ color: colors.white }}
           onPress={() => navigation.navigate("cashDeposit")}
           title="افزایش حساب"
@@ -123,4 +132,4 @@ const Home: FC = () => {
   );
 };
 
-export default Home;
+export default withTheme(Home);

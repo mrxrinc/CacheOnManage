@@ -7,11 +7,13 @@ export type HomeHeaderType = {
   title?: string;
   children?: React.ReactNode;
   hasBack?: boolean;
+  theme: any;
 };
 
 export type BalanceCardType = {
   id: number;
   nickname: string;
+  theme: any;
   balance: number;
   liable: number;
   avatar: string;

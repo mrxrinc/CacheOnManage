@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Animated } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import Modal from "react-native-modal";
 import { useSelector, useDispatch } from "react-redux";
 import * as Keychain from "react-native-keychain";
 import { FormattedText } from "components/format-text";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/splash-stack-navigator";
-import {
-  signUpStepChanged,
-  showTreeChanged,
-  otpTokenChanged,
-} from "redux/actions/User";
+import { otpTokenChanged } from "redux/actions/User";
+import { useNavigation } from "@react-navigation/core";
 import {
   childPhoneNumber,
   mobileOperatorName,
@@ -28,9 +23,8 @@ import { RootState, RootStateType } from "../../../../customType";
 import SupportController from "components/supportController";
 import { setLocalData, getLocalData } from "utils/localStorage";
 import FanBoutton from "./fanBoutton";
-import { withTheme } from "../../../themeCore/themeProvider";
+import { withTheme } from "themeCore/themeProvider";
 
-type Navigation = NavigationProp<StackParamList>;
 interface IError {
   errorText: string;
   isError: boolean;
@@ -39,7 +33,7 @@ interface IError {
 // type BiometricType = "Fingerprint" | "Face" | "TouchID" | "FaceID" | null;
 
 const SignIn = ({ theme }: any) => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -101,13 +95,13 @@ const SignIn = ({ theme }: any) => {
                 if (!checkWasAssigened) {
                   setShowBiometricModal(true);
                 } else {
-                  navigation.reset({ index: 0, routes: [{ name: "main" }] });
+                  navigation.navigate("app");
                   setUsername("");
                   setPassword("");
                 }
               })();
             } else {
-              navigation.reset({ index: 0, routes: [{ name: "main" }] });
+              navigation.navigate("app");
               setUsername("");
               setPassword("");
             }
@@ -140,7 +134,7 @@ const SignIn = ({ theme }: any) => {
       setUsername("");
       setPassword("");
       setTimeout(() => {
-        navigation.reset({ index: 0, routes: [{ name: "main" }] });
+        navigation.navigate("app");
       }, 500);
     } catch (error) {
       console.warn("ERROR ON SETTING BIOMETCIS ", error);
@@ -282,7 +276,7 @@ const SignIn = ({ theme }: any) => {
         <View style={styles.modalContainer}>
           <FormattedText style={styles.modalTitle} id="login.fingerprint" />
           <View style={styles.modalIconWrapper}>
-            <Fingerprint />
+            <Fingerprint width={55} height={70} fill={theme.svg.fingerprint} />
           </View>
           <FormattedText
             style={styles.modalDescription}

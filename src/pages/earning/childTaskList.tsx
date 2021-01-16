@@ -13,8 +13,7 @@ import { colors, iosBoxShadow, width, IOS } from "constants/index";
 import Tick from "components/icons/tick.svg";
 import Edit from "components/icons/edit.svg";
 import Trash from "components/icons/trash.svg";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/earing-stack-navigator";
+import { useNavigation } from "@react-navigation/core";
 import AlertController from "components/alertController";
 import { deleteChildTask, childStatusTask } from "utils/api";
 import { RootState } from "../../../customType";
@@ -25,11 +24,9 @@ import { formatNumber, jalaliDate } from "utils";
 import SoilClockIcon from "components/icons/soilClock.svg";
 import FailIcon from "components/icons/fail.svg";
 
-type Navigation = NavigationProp<StackParamList>;
-
 const TaskList = (props: any) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const [deleteTask, setDeleteTask] = useState<boolean>(false);
   const [statusTask, setStatusTask] = useState<boolean>(false);
   const [endTaskModal, setEndTaskModal] = useState<boolean>(false);

@@ -8,6 +8,8 @@ import "./utils/localize";
 import { codePushify } from "./utils/codepush";
 // Redux
 import appStore from "./store";
+import { NavigationContainer } from "@react-navigation/native";
+import { navigationRef } from "navigation/rootNavigation";
 
 LogBox.ignoreAllLogs();
 
@@ -19,9 +21,11 @@ globalAny.XMLHttpRequest =
 const App = () => {
   return (
     <Provider store={appStore}>
-      <ThemeContextProvider>
-        <AppNavigator />
-      </ThemeContextProvider>
+      <NavigationContainer ref={navigationRef}>
+        <ThemeContextProvider>
+          <AppNavigator />
+        </ThemeContextProvider>
+      </NavigationContainer>
     </Provider>
   );
 };

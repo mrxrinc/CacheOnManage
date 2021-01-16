@@ -1,7 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { StackParamList } from "navigation/quick-access";
+import { useNavigation } from "@react-navigation/native";
 import Layout from "components/layout";
 import Header from "components/header";
 import { useSelector } from "react-redux";
@@ -9,10 +8,8 @@ import { RootStateType } from "../../../../customType";
 import MobileInfo from "./mobileInfo";
 import MNP from "./mobileNumberPortability";
 
-type Navigation = NavigationProp<StackParamList>;
-
 const MobileServices = () => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
 
   const rootPage = useSelector<RootStateType, any>(
     (state) => state.quickAccess.rootPage

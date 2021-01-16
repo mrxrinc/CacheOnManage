@@ -59,7 +59,7 @@ export const Confirmation: FC = (props: any) => {
     })
       .then((response: any) => {
         const data = response.data;
-        props.navigation.navigate("result", {
+        props.navigation.navigate("transactionResult", {
           success: data.success,
           description: data.description,
           mobile: data.mobile,
@@ -73,7 +73,7 @@ export const Confirmation: FC = (props: any) => {
         const { status, data } = err.response;
         const code = data?.code;
         if (status === 400 && code === "99104") {
-          props.navigation.navigate("result", {
+          props.navigation.navigate("transactionResult", {
             success: false,
             description: data.message,
             mobile: data.details.mobile,
