@@ -8,8 +8,6 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from "react-native";
-import { TabParamList } from "navigation/main-tab-navigator";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
 import MainHeader from "components/mainHeader";
 import Header from "components/header";
 import Layout from "components/layout";

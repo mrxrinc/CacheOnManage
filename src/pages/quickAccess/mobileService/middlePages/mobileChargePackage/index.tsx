@@ -7,8 +7,7 @@ import Button from "components/button";
 import { colors } from "constants/index";
 import Input from "components/input";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/mobileTopUp-stack-navigator";
+import { useNavigation } from "@react-navigation/core";
 import { formatNumber } from "utils/index";
 import MobileInfo from "../../mobileInfo";
 import Layout from "components/layout";
@@ -24,9 +23,6 @@ const data = [
   { id: 5, amount: "150000" },
   { id: 6, amount: "200000" },
 ];
-
-type Navigation = NavigationProp<StackParamList>;
-
 const SelectChargePackage = () => {
   const navigation = useNavigation();
   const rootPage = useSelector<RootStateType, any>(

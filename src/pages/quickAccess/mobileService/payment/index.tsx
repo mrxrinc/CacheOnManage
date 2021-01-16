@@ -5,8 +5,7 @@ import Layout from "components/layout";
 import Header from "components/header";
 import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/mobileTopUp-stack-navigator";
+import { useNavigation } from "@react-navigation/core";
 import Rightel from "images/mobile-topup/oprators/rightel.svg";
 import Irancell from "images/mobile-topup/oprators/irancell.svg";
 import Hamrahaval from "images/mobile-topup/oprators/hamrahaval.svg";
@@ -24,12 +23,9 @@ import ActionModalCentered from "components/modal/actionModalCentered";
 import * as R from "ramda";
 import PaymentTransactionResult from "components/PaymentTransactionResult";
 
-type Navigation = NavigationProp<StackParamList>;
-
 const Payment = (props: any) => {
-  console.log("payment props is", props.route);
   const dispatch = useDispatch();
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const data = props.route.params?.data;
   const childPhoneNum = useSelector<RootStateType, any>(

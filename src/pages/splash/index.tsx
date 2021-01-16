@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { View, StyleSheet, StatusBar } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/splash-stack-navigator";
+import { useNavigation } from "@react-navigation/core";
 import LinearGradient from "react-native-linear-gradient";
 import LottieView from "lottie-react-native";
 
-type Navigation = NavigationProp<StackParamList, "splash">;
-
 const Splash = () => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
 
   const [birdProcces, setBirdProcces] = useState(false);
   const [step, setStep] = useState("1");
@@ -43,9 +40,7 @@ const Splash = () => {
             autoPlay
             resizeMode="cover"
             loop={birdProcces}
-            onAnimationFinish={() =>
-              navigation.reset({ index: 0, routes: [{ name: "entryType" }] })
-            }
+            onAnimationFinish={() => navigation.navigate("auth")}
           />
         )}
       </LinearGradient>

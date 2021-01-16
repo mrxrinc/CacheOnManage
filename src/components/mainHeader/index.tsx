@@ -8,14 +8,12 @@ import MenuIcon from "components/icons/menu.svg";
 import { colors } from "constants/index";
 import styles from "./styles";
 import BackIcon from "components/icons/back.svg";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 import { DrawerActions } from "@react-navigation/native";
-import { StackParamList } from "navigation/home-stack-navigator";
 import { withTheme } from "themeCore/themeProvider";
 
 const View = Animated.View;
 
-type Navigation = NavigationProp<StackParamList>;
 const Header: FC<HomeHeaderType> = ({
   theme,
   balance,
@@ -24,7 +22,7 @@ const Header: FC<HomeHeaderType> = ({
   title,
   hasBack,
 }) => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   return (
     <LinearGradient
       colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}

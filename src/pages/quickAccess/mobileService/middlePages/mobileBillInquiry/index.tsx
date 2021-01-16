@@ -15,13 +15,10 @@ import { RootStateType } from "../../../../../../customType";
 import { formatNumber } from "utils/index";
 import Button from "components/button";
 import { colors } from "constants/index";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/mobileBillPay-stack-navigator";
+import { useNavigation } from "@react-navigation/core";
 import Layout from "components/layout";
 import Header from "components/header";
 import MobileInfo from "../../mobileInfo";
-
-type Navigation = NavigationProp<StackParamList>;
 
 const MobileBillInquiry = () => {
   const navigation = useNavigation();
