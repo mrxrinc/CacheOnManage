@@ -13,8 +13,7 @@ import { FormattedText } from "components/format-text";
 import Header from "components/header";
 import Layout from "components/layout";
 import MaterialTextField from "components/materialTextfield";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/earing-stack-navigator";
+import { useNavigation } from "@react-navigation/core";
 import Tick from "components/icons/tick.svg";
 import { getDefaultTask, getChildInfo, addNewTask } from "utils/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,10 +25,9 @@ import BlueArrowIcon from "components/icons/blueArrow.svg";
 import NoteIcon from "components/icons/note.svg";
 import { formatNumber } from "utils";
 
-type Navigation = NavigationProp<StackParamList>;
 const childIdList = [];
 const AddNewTask = () => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const [onFocus, setOnFocus] = useState(false);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [defaulTask, setDefualtTask] = useState([]);

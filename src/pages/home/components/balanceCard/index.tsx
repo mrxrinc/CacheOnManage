@@ -4,19 +4,14 @@ import LinearGradient from "react-native-linear-gradient";
 import { FormattedText } from "components/format-text";
 import { formatNumber } from "utils";
 import { BalanceCardType } from "constants/types";
-import { colors } from "constants/index";
 import ChildrenPaymentLimits from "components/childrenPaymentLimits";
 import CashIcon from "components/icons/cash.svg";
 import SavingIcon from "components/icons/saving.svg";
 import ArrowIcon from "components/icons/blueArrow.svg";
 import style from "./style";
+import { withTheme } from "themeCore/themeProvider";
 
-type PaymentMethodType = {
-  method: string;
-  amount: string;
-};
-
-export default ({
+const BalanceCard = ({
   id,
   balance,
   liable,
@@ -24,6 +19,7 @@ export default ({
   onPress,
   nickname,
   paymentMethods,
+  theme,
 }: BalanceCardType) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -41,28 +37,38 @@ export default ({
             style={style.avatar}
           />
         </View>
-        <View style={style.accountDetailSection}>
+        <View
+          style={[
+            style.accountDetailSection,
+            { borderBottomColor: theme.home.linearColor },
+          ]}
+        >
           <View style={style.amountWrapper}>
             <CashIcon />
             <FormattedText style={style.balances} fontFamily="Regular-FaNum">
-              {formatNumber(`${balance}`)}{" "}
+              {formatNumber(`${balance}`)}
               <FormattedText style={style.currency} id={"home.rial"} />
             </FormattedText>
           </View>
           <View style={style.amountWrapper}>
             <SavingIcon />
             <FormattedText style={style.balances} fontFamily="Regular-FaNum">
-              {formatNumber(`${liable}`)}{" "}
+              {formatNumber(`${liable}`)}
               <FormattedText style={style.currency} id={"home.rial"} />
             </FormattedText>
           </View>
         </View>
 
-        <View style={style.chartSection}>
+        <View
+          style={[
+            style.chartSection,
+            { borderBottomColor: theme.home.linearColor },
+          ]}
+        >
           <FormattedText style={style.chartTitle}>روند خرج هفتگی</FormattedText>
           <View style={style.chart}>
             <LinearGradient
-              colors={[colors.gradientRight, colors.gradientLeft]}
+              colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={[
@@ -95,3 +101,5 @@ export default ({
     </>
   );
 };
+
+export default withTheme(BalanceCard);

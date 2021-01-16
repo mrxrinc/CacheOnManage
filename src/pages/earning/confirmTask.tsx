@@ -5,8 +5,7 @@ import { FormattedText } from "components/format-text";
 import Header from "components/header";
 import Layout from "components/layout";
 import AlertController from "components/alertController";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
-import { StackParamList } from "navigation/earing-stack-navigator";
+import { useNavigation } from "@react-navigation/core";
 import { confirmTask } from "utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "components/button";
@@ -15,13 +14,11 @@ import { RootState } from "../../../customType";
 import { formatNumber } from "utils";
 import { getEarningData } from "redux/actions/Earning";
 
-type Navigation = NavigationProp<StackParamList>;
-
 const confirmTaskPage = ({ route }: any) => {
   const dispatch = useDispatch();
   const { item } = route.params;
   console.log({ item });
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [rejectionModal, setRejectionModal] = useState(false);

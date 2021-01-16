@@ -3,6 +3,7 @@ import { TouchableOpacity, ActivityIndicator } from "react-native";
 import { FormattedText } from "components/format-text";
 import { colors, IOS } from "constants/index";
 import styles from "./styles";
+import { withTheme } from "themeCore/themeProvider";
 
 type Props = {
   title: string;
@@ -14,6 +15,7 @@ type Props = {
   color?: string;
   disabled?: boolean;
   loading?: boolean;
+  theme: any;
 };
 
 function handleBackground(
@@ -27,7 +29,8 @@ function handleBackground(
   return colors.gray700;
 }
 
-export default ({
+const Button = ({
+  theme,
   title,
   outline,
   onPress,
@@ -49,6 +52,7 @@ export default ({
           borderColor: outline ? color : "transparent",
           elevation: disabled ? 0 : 3,
           shadowOpacity: disabled ? 0 : 0.18,
+          borderRadius: theme.buttonBorderRadius,
           ...style,
         },
       ]}
@@ -74,3 +78,5 @@ export default ({
     </TouchableOpacity>
   );
 };
+
+export default withTheme(Button);

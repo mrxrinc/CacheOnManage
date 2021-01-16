@@ -1,5 +1,5 @@
 import React, { FC, useState, useRef } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Keyboard } from "react-native";
 import DatePicker from "components/datePicker";
 import Modal from "react-native-modal";
 import { FormattedText } from "components/format-text";
@@ -66,8 +66,9 @@ const AddChild: FC = (props: any) => {
     setShowDateModal(false);
     // const formattedBirthday =
     //   birthday[2] + "/" + birthday[1] + "/" + birthday[0];
-    birthdayRef.current.blur();
-    birthdayRef.current.setValue(birthday);
+    // birthdayRef.current.blur();
+    Keyboard.dismiss();
+    // birthdayRef.current.setValue(birthday);
     _updateForm("birthday", birthday);
   };
 

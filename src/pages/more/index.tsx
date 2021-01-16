@@ -8,25 +8,16 @@ import Spending from "components/icons/spending.svg";
 import { FormattedText } from "components/format-text";
 import MainHeader from "components/mainHeader";
 import Layout from "components/layout";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../customType";
 import { QuickAccessRootPage } from "store/QuickAccess/quickAccess.actions";
 
 const { width, height } = Dimensions.get("window");
 
-interface StackParamList {
-  quickAccess: undefined;
-  QRPayment: undefined;
-  mobileTopUp: undefined;
-  internetPackages: undefined;
-}
-
-type Navigation = NavigationProp<StackParamList>;
-
 export default () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   return (
     <Layout>
@@ -60,8 +51,7 @@ export default () => {
               <TouchableOpacity
                 style={styles.itemsBox}
                 onPress={() => {
-                  dispatch(QuickAccessRootPage("mobileBillPayment"));
-                  navigation.navigate("internetPackages");
+                  navigation.navigate("selectCarrier");
                 }}
               >
                 <Internet />
@@ -72,7 +62,10 @@ export default () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.itemsBox}
-                onPress={() => navigation.navigate("quickAccess")}
+                onPress={() => {
+                  dispatch(QuickAccessRootPage("mobileBillPayment"));
+                  navigation.navigate("quickAccess");
+                }}
               >
                 <Bill />
                 <FormattedText

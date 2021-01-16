@@ -1,12 +1,12 @@
 import HomeIcon from "./home.png";
 import HomeActiveIcon from "./home-active.png";
-import CardsIcon from "./cards.png";
+import CardsIcon from "./cards.svg";
 import CardsActiveIcon from "./cards-active.png";
-import MagicIcon from "./magic.png";
+import MagicIcon from "./earning.svg";
 import MagicActiveIcon from "./magic-active.png";
-import PigIcon from "./pig.png";
-import PigActiveIcon from "./pig-active.png";
-import MoreIcon from "./more.png";
+import SavingIcon from "./saving.svg";
+import SavingActiveIcon from "./saving-active.png";
+import MoreIcon from "./more.svg";
 import MoreActiveIcon from "./more-active.png";
 import AddChildIcon from "./add-child.png";
 import BillsIcon from "./bills.png";
@@ -22,8 +22,8 @@ const icons = {
   cardsActive: CardsActiveIcon,
   magic: MagicIcon,
   magicActive: MagicActiveIcon,
-  pig: PigIcon,
-  pigActive: PigActiveIcon,
+  saving: SavingIcon,
+  savingActive: SavingActiveIcon,
   more: MoreIcon,
   moreActive: MoreActiveIcon,
   addCild: AddChildIcon,

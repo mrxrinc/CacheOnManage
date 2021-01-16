@@ -8,23 +8,24 @@ import MenuIcon from "components/icons/menu.svg";
 import { colors } from "constants/index";
 import styles from "./styles";
 import BackIcon from "components/icons/back.svg";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 import { DrawerActions } from "@react-navigation/native";
-import { StackParamList } from "navigation/home-stack-navigator";
+import { withTheme } from "themeCore/themeProvider";
+
 const View = Animated.View;
 
-type Navigation = NavigationProp<StackParamList>;
 const Header: FC<HomeHeaderType> = ({
+  theme,
   balance,
   avatar,
   homePage,
   title,
   hasBack,
 }) => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   return (
     <LinearGradient
-      colors={[colors.gradientRight, colors.gradientLeft]}
+      colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
       style={styles.container}
@@ -54,9 +55,9 @@ const Header: FC<HomeHeaderType> = ({
       {homePage && (
         <View style={[styles.cashAvatarWrapper]}>
           {/* TODO: there is a warning (balance is string & cant use ">" ) */}
-          {balance > 0 && (
+          {Number(balance) > 0 && (
             <FormattedText style={styles.balance} fontFamily="Bold-FaNum">
-              {formatNumber(balance)}{" "}
+              {formatNumber(balance)}
               <FormattedText style={styles.currency} id={"home.rial"} />
             </FormattedText>
           )}
@@ -70,4 +71,4 @@ const Header: FC<HomeHeaderType> = ({
   );
 };
 
-export default Header;
+export default withTheme(Header);

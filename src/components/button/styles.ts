@@ -6,7 +6,6 @@ export default StyleSheet.create({
     height: 45,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 30,
     shadowColor: "#000",
     shadowRadius: 3,
     shadowOffset: { width: 0, height: 3 },

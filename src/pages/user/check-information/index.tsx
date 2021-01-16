@@ -2,17 +2,16 @@ import React, { useEffect } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import { FormattedText } from "components/format-text";
 import { useDispatch } from "react-redux";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 import { currentStepChanged, signUpStepChanged } from "redux/actions/User";
 import Button from "components/button";
 import { colors } from "constants/index";
-import { StackParamList } from "navigation/splash-stack-navigator";
-type Navigation = NavigationProp<StackParamList>;
+
 const CheckInfo = () => {
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleClick = () => {
-    navigation.reset({ index: 0, routes: [{ name: "main" }] });
+    // navigation.reset({ index: 0, routes: [{ name: "main" }] });
     dispatch(currentStepChanged(""));
   };
   useEffect(() => {

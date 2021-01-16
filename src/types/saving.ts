@@ -5,6 +5,7 @@ export interface AddTarget {
   targetAmount: string | number;
   weeklySavings: string | number;
   targetDate: string;
+  childId?: number;
 }
 export interface SelectedTargetsData {
   targets: any[];

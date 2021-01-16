@@ -4,9 +4,8 @@ import * as R from "ramda";
 // Hooks
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
 // Types
-import { StackParamList } from "navigation/saving-stack-navigator";
 import { StateNetwork } from "store/index.reducer";
 import { SavingState } from "store/Saving/saving.reducer";
 // Common Components
@@ -22,14 +21,12 @@ import SavingActions from "store/Saving/saving.actions";
 import styles from "./styles";
 import ChildPage from "./components/ChildPage";
 
-type Navigation = NavigationProp<StackParamList>;
-
 const Saving: FC = () => {
   const dispatch = useDispatch();
   const isChild = useSelector<StateNetwork, boolean>(
     (state) => state.user.ischild
   );
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
 
   const [selectedTab, setSelectedTab] = React.useState<number>(0);
   const [targetsList, setTargetsList] = React.useState([]);
