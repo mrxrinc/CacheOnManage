@@ -15,6 +15,10 @@
       "home":{
         "bgColorButton":"#307fe2",
         "linearColor":"#bbbcbc"
+      },
+      "tabbar":{
+        "deactiveLabelColor":"#110820",
+        "activeLabelColor":"#307fe2"
       }
     },
     {
@@ -34,6 +38,10 @@
       "home":{
         "bgColorButton":"#43e6c5",
         "linearColor":"#baeffc"
+      },
+      "tabbar":{
+        "deactiveLabelColor":"#00015d",
+        "activeLabelColor":"#8387fc"
       }
     },
     {
@@ -51,8 +59,12 @@
       },
       "buttonBorderRadius":30,
       "home":{
-        "bgColorButton":"#43e6c5",
-        "linearColor":"#baeffc"
+        "bgColorButton":"#8387fc",
+        "linearColor":"#8387fc"
+      },
+      "tabbar":{
+        "deactiveLabelColor":"#00015d",
+        "activeLabelColor":"#8387fc"
       }
     }
   ]

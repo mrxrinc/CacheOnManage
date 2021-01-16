@@ -66,7 +66,6 @@ function AppStack() {
       <Stack.Screen name="setting" component={Setting} />
       <Stack.Screen name="spent" component={Spent} />
       <Stack.Screen name="more" component={More} />
-      <Stack.Screen name="intro" component={Intro} />
       <Stack.Screen name="earning" component={Earning} />
       <Stack.Screen name="addNewTask" component={AddNewTask} />
       <Stack.Screen name="confirmTask" component={confirmTask} />
@@ -101,6 +100,7 @@ function AuthStack() {
     >
       <Stack.Screen name="entryType" component={EntryType} />
       <Stack.Screen name="login" component={LoginNavigator} />
+      <Stack.Screen name="intro" component={Intro} />
     </Stack.Navigator>
   );
 }
