@@ -7,6 +7,7 @@ export default StyleSheet.create({
     width: "100%",
     padding: 20,
     height: "100%",
+    flex: 1,
   },
   containerBgColor: {
     backgroundColor: "#c7c7c7",
