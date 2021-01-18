@@ -34,7 +34,7 @@ const PaymentTransactionResult: React.FC<Props> = (props) => {
             <View style={styles.modalResultRow}>
               <View style={styles.modalResultKey}>
                 <FormattedText style={styles.modalResultKeyText}>
-                  {item.name}
+                  {item.key}
                 </FormattedText>
               </View>
               <View style={styles.modalResultMiddleLine} />
@@ -43,7 +43,7 @@ const PaymentTransactionResult: React.FC<Props> = (props) => {
                   style={styles.modalResultKeyText}
                   fontFamily="Regular-FaNum"
                 >
-                  {item.title}
+                  {item.value}
                 </FormattedText>
               </View>
             </View>
