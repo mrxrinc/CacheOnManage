@@ -1,17 +1,24 @@
 import React from "react";
+// UI Frameworks
 import { View } from "react-native";
-import styles from "./styles";
+import { ScrollView } from "react-native-gesture-handler";
+// Utils
+import { formatNumber } from "utils";
 import { FormattedText } from "components/format-text";
+import Button from "components/button";
+import MaterialTextfield from "components/materialTextfield";
+// Hooks
+import { useNavigation } from "@react-navigation/native";
 import { Formik, useFormik } from "formik";
 import { useSelector } from "react-redux";
-import { RootState } from "customType";
-import { useNavigation } from "@react-navigation/native";
-import { formatNumber } from "utils";
-import Shop from "images/shop.svg";
-import Button from "components/button";
+// Types
+import { QRPaymentState } from "store/QRPayment/qrPayment.reducer";
+import { StateNetwork } from "store/index.reducer";
+// images
 import { colors } from "constants/index";
-import MaterialTextfield from "components/materialTextfield";
-import { ScrollView } from "react-native-gesture-handler";
+import Shop from "images/shop.svg";
+// Styles
+import styles from "./styles";
 
 interface Props {
   guId: string;
@@ -26,7 +33,7 @@ export interface PayValues {
 
 const PayAmount: React.FC<Props> = (props) => {
   const navigation = useNavigation();
-  const qrStore = useSelector<RootState, any>(
+  const qrStore = useSelector<StateNetwork, QRPaymentState>(
     (state) => state.qrPayment.qrData
   );
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);

@@ -34,7 +34,7 @@ export default StyleSheet.create({
     color: "#00015d",
     lineHeight: 30,
     marginBottom: 30,
-    marginTop: 30,
+    marginTop: 50,
   },
   submitButton: {
     width: 180,

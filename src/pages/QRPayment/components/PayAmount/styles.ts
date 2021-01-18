@@ -6,6 +6,7 @@ export default StyleSheet.create({
   container: {
     width: "100%",
     marginTop: 20,
+    padding: 20,
   },
   content: { marginBottom: 60 },
   title: {

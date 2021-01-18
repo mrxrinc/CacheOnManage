@@ -5,7 +5,6 @@ const { height } = Dimensions.get("window");
 export default StyleSheet.create({
   container: {
     width: "100%",
-    padding: 20,
     height: "100%",
     flex: 1,
   },
@@ -13,34 +12,17 @@ export default StyleSheet.create({
     backgroundColor: "#c7c7c7",
   },
   qrContainer: {
-    display: "flex",
-    alignContent: "center",
-  },
-  preview: {
-    width: 280,
-    height: 200,
+    height: height - 10,
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
   },
+
   qrPreview: {
-    height: 200,
-    width: 284,
-    left: "12%",
-    borderWidth: 2,
-    borderColor: "#24ddb5",
-    marginTop: 200,
-    marginBottom: 20,
+    height: "100%",
+    width: "100%",
+    position: "absolute",
+    zIndex: 0,
   },
-  overlay: {
-    // position: "absolute",
-    // padding: 16,
-    // right: 0,
-    // left: 0,
-    // alignItems: "center",
-    // zIndex: 100,
-    // marginTop: 500,
-  },
+
   topOverlay: {
     // height: 200,
     width: "100%",
@@ -75,28 +57,29 @@ export default StyleSheet.create({
     marginTop: 15,
     borderWidth: 2,
     borderColor: "#1daffc",
-    borderRadius: 10,
+    borderRadius: 5,
     backgroundColor: "#fff",
+    position: "absolute",
+    top: 20,
+    zIndex: 5,
+    right: 20,
   },
   button: {
     width: width * 0.45,
     alignItems: "center",
     padding: 6,
-    //borderRadius: 9,
   },
   activeButton1: {
     backgroundColor: "#1daffc",
-    borderRadius: 8,
+    borderRadius: 3,
     borderBottomRightRadius: 0,
     borderTopRightRadius: 0,
-
-    // width: "100%",
   },
   activeButton2: {
     backgroundColor: "#1daffc",
     borderBottomLeftRadius: 0,
     borderTopLeftRadius: 0,
-    borderRadius: 13,
+    borderRadius: 8,
   },
   diactiveButton: {
     backgroundColor: "#fff",
@@ -107,5 +90,11 @@ export default StyleSheet.create({
   },
   whiteText: {
     color: "#fff",
+  },
+
+  preview: {
+    width: width,
+    flex: 1,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
 });
