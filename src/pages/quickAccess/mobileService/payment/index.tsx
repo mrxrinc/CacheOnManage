@@ -22,6 +22,9 @@ import {
 import ActionModalCentered from "components/modal/actionModalCentered";
 import * as R from "ramda";
 import PaymentTransactionResult from "components/PaymentTransactionResult";
+import messages from "utils/fa";
+
+const MessagesContext = React.createContext(messages);
 
 const Payment = (props: any) => {
   const dispatch = useDispatch();
@@ -36,8 +39,6 @@ const Payment = (props: any) => {
   );
   const quickAccessStore = useSelector<any, any>((state) => state.quickAccess);
 
-  console.log("quickAccess>> ", quickAccessStore);
-
   const [showSigninModal, setShowSigninModal] = useState<boolean>(false);
   const rootPage = useSelector<RootStateType, any>(
     (state) => state.quickAccess.rootPage
@@ -45,18 +46,17 @@ const Payment = (props: any) => {
   const [showInquiryResponseModal, setShowInquiryResponseModal] = useState<
     boolean
   >(false);
+  const translate = React.useContext(MessagesContext);
+
   const amount = data.amount + "";
   const handlePayment = () => {
-    console.log("handlePayment called0", data.type);
     if (data.type == "mobileTopUp") {
-      // delete data.type;
       const mobileTopUpData = {
         mobile: childPhoneNum,
         operator: operatorName,
         amount: data.amount,
       };
       setShowSigninModal(false);
-      console.log("handlePayment called1");
       dispatch(setMobileTopUpPayment(mobileTopUpData, { sagas: true }));
       setShowInquiryResponseModal(true);
       // navigation.navigate("paymentTransactionResult");
@@ -72,18 +72,21 @@ const Payment = (props: any) => {
   const transactionResults = React.useMemo(() => {
     const transactionMainKeys = [
       {
-        name: "عملیات",
-        title: "خرید شارژ موبایل",
+        kay: "عملیات",
+        value: "خرید شارژ موبایل",
       },
     ];
     const result = R.map((key: string) => {
       return {
-        name: key,
-        title: quickAccessStore.data[key],
+        key: translate[key],
+        value: quickAccessStore.data[key],
       };
     }, Object.keys(quickAccessStore.data));
+
     const filteredResult = R.filter(
-      (item) => item.name !== "description" && item.name !== "success",
+      (item) =>
+        item.key !== translate["description"] &&
+        item.key !== translate["success"],
       result
     );
     return [...transactionMainKeys, ...filteredResult];

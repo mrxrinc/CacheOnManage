@@ -5,13 +5,10 @@ const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
   container: {
     width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  content: {
     marginTop: 20,
-    height: height - 200,
+    padding: 20,
   },
+  content: { marginBottom: 60 },
   title: {
     color: "#00015d",
     fontSize: 16,

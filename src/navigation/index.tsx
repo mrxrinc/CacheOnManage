@@ -101,6 +101,10 @@ function AuthStack() {
       <Stack.Screen name="entryType" component={EntryType} />
       <Stack.Screen name="login" component={LoginNavigator} />
       <Stack.Screen name="intro" component={Intro} />
+      <Stack.Screen name="QRPayment" component={QRPayment} />
+      <Stack.Screen name="quickAccess" component={QuickAccess} />
+      <Stack.Screen name="selectCarrier" component={SelectCarrier} />
+      <Stack.Screen name="confirmQRPayment" component={ConfirmQRPayment} />
     </Stack.Navigator>
   );
 }
