@@ -20,7 +20,11 @@ import { useDispatch, useSelector } from "react-redux";
 // Styles
 import styles from "./styles";
 
-const Invoice: FC = (props: any) => {
+interface Props {
+  navigation: any;
+}
+
+const Invoice: FC<Props> = (props) => {
   const dispatch = useDispatch();
 
   const [refinedData, setRefinedData] = useState<any>([]);
@@ -35,7 +39,11 @@ const Invoice: FC = (props: any) => {
     dispatch(InvoiceActions.getInvoiceList({}, { sagas: true }));
   }, []);
 
-  const getData = async () => {
+  useEffect(() => {
+    getData();
+  }, [invoiceState.invoiceList]);
+
+  const getData = () => {
     const currentDate = moment();
 
     const filteredCurrentWeekData = invoiceState.invoiceList.filter(

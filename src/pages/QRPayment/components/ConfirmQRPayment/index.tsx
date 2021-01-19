@@ -1,39 +1,37 @@
 import React, { useState } from "react";
-import { View } from "react-native";
-import { ActivityIndicator, TouchableOpacity } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../../customType";
-import * as Keychain from "react-native-keychain";
 import * as R from "ramda";
-import styles from "./styles";
+// Hooks
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+// Utils
+import { numberToWords } from "utils/formaters/numberToWords";
+import { formatNumber } from "utils";
+import messages from "utils/fa";
+// UI Frameworks
+import { View } from "react-native";
+// Common Components
 import { FormattedText } from "components/format-text";
+import Button from "components/button";
 import Layout from "components/layout";
 import Header from "components/header";
-import QRPaymentActions from "store/QRPayment/qrPayment.actions";
-import { login } from "utils/api";
-import { validateUserName } from "utils/validators";
-import ActionModalCentered from "components/modal/actionModalCentered";
-import {
-  setLocalData,
-  getLocalData,
-  removeLocalData,
-} from "utils/localStorage";
+import SigninModal from "components/signinModal";
 import PaymentTransactionResult from "components/PaymentTransactionResult";
-import { formatNumber } from "utils";
+import ActionModalCentered from "components/modal/actionModalCentered";
+// Actions
+import QRPaymentActions from "store/QRPayment/qrPayment.actions";
+// Types
 import { QRPaymentState } from "store/QRPayment/qrPayment.reducer";
 import { StateNetwork } from "store/index.reducer";
-import { useTranslation } from "react-i18next";
-import { useNavigation } from "@react-navigation/native";
-import { numberToWords } from "utils/formaters/numberToWords";
+// Styles
+import styles from "./styles";
 
 interface Props {
   barcode: string;
+  navigation: any;
+  route: any;
 }
 
-interface IError {
-  errorText: string;
-  isError: boolean;
-}
+const MessagesContext = React.createContext(messages);
 export interface PaymentResultData {
   key: string;
   value: string | number;
@@ -41,131 +39,44 @@ export interface PaymentResultData {
 
 const ConfirmQRPayment: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [qrPaymentInfo, setQrPaymentInfo] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showBiometricModal, setShowBiometricModal] = useState(false);
-  const [showInquiryResponseModal, setShowInquiryResponseModal] = useState<
-    boolean
-  >(false);
-  const [error, setError] = useState<IError>({
-    errorText: "",
-    isError: false,
-  });
-  const [
-    biometricType,
-    setBiometricType,
-  ] = useState<Keychain.BIOMETRY_TYPE | null>(null);
-
+  const [showSigninModal, setShowSigninModal] = useState<boolean>(false);
   const qrStore = useSelector<StateNetwork, QRPaymentState>(
     (state) => state.qrPayment
   );
-  console.log("Debug ~ file: index.tsx ~ line 66 ~ qrStore", qrStore);
-  const isChild = useSelector<RootState, boolean>(
-    (state) => state.user.ischild
-  );
-
+  const translate = React.useContext(MessagesContext);
   const { amount } = props.route.params.data;
 
   const transactionResults = React.useMemo(() => {
     const transactionMainKeys = [
       {
-        name: "عملیات",
-        title: "پرداخت با qr",
+        key: "عملیات",
+        value: "پرداخت با qr",
       },
     ];
     const result = R.map((key: string) => {
-      return { name: key, title: qrStore.paymentResult[key] };
+      return { key: translate[key], value: qrStore.paymentResult[key] };
     }, Object.keys(qrStore.paymentResult));
 
     const filteredResult = R.filter(
-      (item) => item.name !== "description" && item.name !== "success",
+      (item) =>
+        item.key !== translate["description"] &&
+        item.key !== translate["success"],
       result
     );
     return [...transactionMainKeys, ...filteredResult];
   }, [qrStore.paymentResult]);
 
-  const handleTouch = async (username: string, password: string) => {
-    setLoading(true);
+  const handlePayment = () => {
     const data = {
       qrGuidId: qrStore.qrData.qrGuid,
       terminalId: qrStore.qrData.termID,
       amount: amount,
     };
-    if (validateUserName(username)) {
-      login(username, password, isChild)
-        .then((response: any) => {
-          if (response.status == 200) {
-            const token = response.data.access_token;
-            console.log("topUp response is0:", token);
-            if (biometricType) {
-              (async () => {
-                const checkWasAssigened = await getLocalData("biometrics");
-                console.log({ checkWasAssigened });
-                if (!checkWasAssigened) {
-                  setShowBiometricModal(true);
-                } else {
-                }
-              })();
-            } else {
-              dispatch(QRPaymentActions.setQrPayment(data, { sagas: true }));
-              setShowInquiryResponseModal(true);
-            }
-          } else {
-            setError({
-              errorText: "نام کاربری یا کلمه عبور اشتباه است",
-              isError: true,
-            });
-          }
-        })
-        .catch((err) => {
-          console.warn("SIGNIN ERROR: ", err.response);
-          setLoading(false);
-          setError({ errorText: err.response.data.message, isError: true });
-        });
-    }
-  };
-  const handleBiometricsAction = async () => {
-    try {
-      // Retrieve the credentials
-      const options = {
-        service: "MoneyApp",
-        accessControl: "BIOMETRY_ANY_OR_DEVICE_PASSCODE",
-        authenticationPrompt: {
-          title: "ورود با اثر انگشت",
-          description: "لطفا انگشت خود را بر روی حسگر گوشی قرار دهید",
-          cancel: "انصراف",
-        },
-      };
-      const credentials = await Keychain.getGenericPassword(options as any);
-      if (credentials) {
-        console.log(
-          "Credentials successfully loaded for user " +
-            credentials.username +
-            " " +
-            credentials.password
-        );
-        setUsername(credentials.username);
-        setPassword(credentials.password);
-        handleTouch(credentials.username, credentials.password);
-      } else {
-        console.warn("No credentials stored");
-        setError({
-          errorText: "اثر انگشت شما ثبت نشده است",
-          isError: true,
-        });
-      }
-    } catch (error) {
-      console.warn("Keychain couldn't be accessed!", error);
-      setError({
-        errorText: "شناسایی اثر انگشت با مشکل روبرو شد",
-        isError: true,
-      });
-    }
+    setShowSigninModal(false);
+    dispatch(QRPaymentActions.setQrPayment(data, { sagas: true }));
+    // setShowInquiryResponseModal(true);
   };
   function handleCloseQrPayment() {
     dispatch(QRPaymentActions.setQrPayment([] as any));
@@ -187,25 +98,26 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
             {qrStore.qrData.merchantName}
           </FormattedText>
           <FormattedText>{formatNumber(amount)} ریال </FormattedText>
-          <FormattedText>{numberToWords(amount)} تومان</FormattedText>
+          <FormattedText>{numberToWords(amount)} ریال</FormattedText>
           <View style={styles.btnWrapper}>
-            <TouchableOpacity
-              style={[styles.submitButton]}
-              onPress={handleBiometricsAction}
-            >
-              {!qrStore.loading && (
-                <FormattedText id={"pay"} style={styles.submitButtonTitle} />
-              )}
-              {qrStore.loading && <ActivityIndicator />}
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.editButton]}
-              onPress={() => props.navigation.goBack()}
-            >
-              {!qrStore.loading && (
-                <FormattedText id={"edit"} style={styles.submitButtonTitle} />
-              )}
-            </TouchableOpacity>
+            <View style={styles.submitButton}>
+              <Button
+                onPress={() => {
+                  setShowSigninModal(true);
+                }}
+                title="پرداخت"
+                color="#43e6c5"
+                loading={qrStore.loading}
+              />
+            </View>
+            <View style={styles.editButton}>
+              <Button
+                onPress={() => props.navigation.goBack()}
+                title="ویرایش"
+                color="#00afff"
+                disabled={qrStore.loading ? true : false}
+              />
+            </View>
           </View>
         </View>
         <ActionModalCentered
@@ -223,6 +135,11 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
           />
         </ActionModalCentered>
       </View>
+      <SigninModal
+        showModal={showSigninModal}
+        setShowModal={setShowSigninModal}
+        handleSignIn={handlePayment}
+      />
     </Layout>
   );
 };

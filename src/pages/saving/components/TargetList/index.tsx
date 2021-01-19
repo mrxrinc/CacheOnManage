@@ -11,7 +11,6 @@ import Delete from "images/trash.svg";
 import { View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import ActionModalBottom from "components/modal/actionModalBottom";
-import { ScrollView } from "react-native-gesture-handler";
 // Common Components
 import { FormattedText } from "components/format-text";
 import AlertController from "components/alertController";
@@ -260,7 +259,6 @@ const TargetList: FC<Props> = (props) => {
                 >
                   <EditTarget
                     data={selectedTargetData}
-                    onCloseModal={handleCloseModal}
                     allowance={props.data.allowance}
                     childName={props.data.childName}
                   />

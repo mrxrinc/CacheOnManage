@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+// UI Frameworks
 import { View } from "react-native";
-import styles from "./styles";
+import { ScrollView } from "react-native-gesture-handler";
+// Common Components
 import { FormattedText } from "components/format-text";
-import { Formik, useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "customType";
-import QRPaymentActions from "store/QRPayment/qrPayment.actions";
 import MaterialTextField from "components/materialTextfield";
 import Button from "components/button";
-import { ScrollView } from "react-native-gesture-handler";
+// Hooks
+import { Formik, useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+// Actions
+import QRPaymentActions from "store/QRPayment/qrPayment.actions";
+// Types
+import { StateNetwork } from "store/index.reducer";
+import { QRPaymentState } from "store/QRPayment/qrPayment.reducer";
+// Styles
+import styles from "./styles";
 
 interface Props {
   payAmount: () => void;
@@ -18,7 +25,9 @@ interface Errors {
 }
 const ByHandPayment: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
-  const qrStore = useSelector<RootState, any>((state) => state.qrPayment);
+  const qrStore = useSelector<StateNetwork, QRPaymentState>(
+    (state) => state.qrPayment
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +38,7 @@ const ByHandPayment: React.FC<Props> = (props) => {
       const errors: Errors = {};
 
       if (!values.qrGuid) {
-        errors.qrGuid = ".لطفا شماره پذیرنده را وارد نمایید";
+        errors.qrGuid = "لطفا شماره پذیرنده را وارد نمایید.";
       }
 
       return errors;
@@ -39,7 +48,14 @@ const ByHandPayment: React.FC<Props> = (props) => {
         qrGuidId: values.qrGuid,
       };
       dispatch(QRPaymentActions.getQrInquiry(data as any, { sagas: true }));
-      props.payAmount();
+      if (
+        qrStore.qrData.qrGuidId &&
+        values.qrGuid === qrStore.qrData.qrGuidId
+      ) {
+        props.payAmount();
+      } else {
+        formik.setFieldError("qrGuid", "شماره پذیرنده صحیح نمی باشد");
+      }
     },
   });
 
@@ -77,6 +93,7 @@ const ByHandPayment: React.FC<Props> = (props) => {
           disabled={!formik.isValid}
           title="ادامه"
           color="#00afff"
+          loading={qrStore.loading}
         />
       </View>
     </ScrollView>
