@@ -153,7 +153,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
         handleBack={() => props.navigation.goBack()}
       />
       <>
-        <ScrollView style={[style.content]}>
+        <ScrollView contentContainerStyle={[style.content]}>
           <Formik
             initialValues={formik.initialValues}
             onSubmit={(values: any) => formik.handleSubmit(values)}
