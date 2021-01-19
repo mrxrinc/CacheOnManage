@@ -1,50 +1,76 @@
 import React from "react";
 import { StyleSheet, Text, Platform } from "react-native";
 import messages from "../../utils/fa";
+import { withTheme } from "themeCore/themeProvider";
 
 const MessagesContext = React.createContext(messages);
 
-type Props = {
-  id?: string;
-  fontFamily?: string;
-  style?: any;
-};
+const FormattedText = withTheme(
+  ({
+    style,
+    id,
+    fontFamily,
+    theme,
+    ...props
+  }: {
+    style: any;
+    id?: string;
+    fontFamily?: string;
+    theme: any;
+  }) => {
+    const _messages = React.useContext(MessagesContext);
+    const Bold =
+      theme.key == "FATHER BLU JUNIOR"
+        ? "IRANYekanMobile-Bold"
+        : "IRANSansMobile-Bold";
+    const Light =
+      theme.key == "FATHER BLU JUNIOR"
+        ? "IRANYekanMobile"
+        : "IRANSansMobile-Light";
 
-const FormattedText: React.FC<Props> = ({
-  style,
-  id,
-  fontFamily,
-  ...props
-}) => {
-  const _messages = React.useContext(MessagesContext);
-  const setFont = {
-    fontFamily:
-      fontFamily == "Bold"
-        ? "IRANSansMobile-Bold"
-        : fontFamily == "Black"
-        ? "IRANSansMobile-Black"
-        : fontFamily == "Light"
-        ? "IRANSansMobile-Light"
-        : fontFamily == "Medium"
-        ? "IRANSansMobile-Medium"
-        : fontFamily == "UltraLight"
-        ? "IRANSansMobile-UltraLight"
-        : fontFamily == "Regular-FaNum"
-        ? "IRANSansFaNum"
-        : fontFamily == "Bold-FaNum"
-        ? "IRANSansFaNum-Bold"
-        : "IRANSansMobile",
-  };
-  if (id) {
-    return (
-      <Text style={[styles.persian, style, setFont]} {...props}>
-        {_messages[id]}
-      </Text>
-    );
-  } else {
-    return <Text style={[styles.persian, style, setFont]} {...props} />;
+    const Medium =
+      theme.key == "FATHER BLU JUNIOR"
+        ? "IRANYekanMobile-Medium"
+        : "IRANSansMobile-Medium";
+
+    const RegularFaNum =
+      theme.key == "FATHER BLU JUNIOR"
+        ? "IRANYekanMobileFaNum"
+        : "IRANSansMobileFaNum";
+
+    const BoldFaNum =
+      theme.key == "FATHER BLU JUNIOR"
+        ? "IRANYekanMobileFaNum-Bold"
+        : "IRANSansFaNum-Bold";
+
+    const Regular =
+      theme.key == "FATHER BLU JUNIOR" ? "IRANYekanMobile" : "IRANSansMobile";
+
+    const setFont = {
+      fontFamily:
+        fontFamily == "Bold"
+          ? Bold
+          : fontFamily == "Light"
+          ? Light
+          : fontFamily == "Medium"
+          ? Medium
+          : fontFamily == "Regular-FaNum"
+          ? RegularFaNum
+          : fontFamily == "Bold-FaNum"
+          ? BoldFaNum
+          : Regular,
+    };
+    if (id) {
+      return (
+        <Text style={[styles.persian, style, setFont]} {...props}>
+          {_messages[id]}
+        </Text>
+      );
+    } else {
+      return <Text style={[styles.persian, style, setFont]} {...props} />;
+    }
   }
-};
+);
 
 export { FormattedText };
 
