@@ -50,7 +50,6 @@ export default StyleSheet.create({
     width: 100,
     height: 43,
     borderRadius: 30,
-    backgroundColor: "#00afff",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,

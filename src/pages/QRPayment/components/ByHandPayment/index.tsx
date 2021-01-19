@@ -48,7 +48,14 @@ const ByHandPayment: React.FC<Props> = (props) => {
         qrGuidId: values.qrGuid,
       };
       dispatch(QRPaymentActions.getQrInquiry(data as any, { sagas: true }));
-      props.payAmount();
+      if (
+        qrStore.qrData.qrGuidId &&
+        values.qrGuid === qrStore.qrData.qrGuidId
+      ) {
+        props.payAmount();
+      } else {
+        formik.setFieldError("qrGuid", "شماره پذیرنده صحیح نمی باشد");
+      }
     },
   });
 

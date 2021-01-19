@@ -134,13 +134,14 @@ const QRPayment: React.FC<Props> = (props) => {
                       showAnimatedLine={false}
                       edgeColor={"#24ddb5"}
                       edgeBorderWidth={6}
+                      outerMaskOpacity={0.27}
                     />
+                    <View style={[styles.topOverlay]}>
+                      <Text style={styles.scanScreenMessage}>
+                        لطفا بارکد را داخل کادر قرار دهید و نگه دارید.
+                      </Text>
+                    </View>
                   </RNCamera>
-                  {/* <View style={[styles.topOverlay, styles.overlay]}>
-                    <Text style={styles.scanScreenMessage}>
-                      لطفا بارکد را داخل کادر قرار دهید و نگه دارید.
-                    </Text>
-                  </View> */}
                 </View>
               </View>
             )}

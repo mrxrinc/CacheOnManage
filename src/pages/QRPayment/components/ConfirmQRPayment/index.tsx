@@ -115,7 +115,7 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
                 onPress={() => props.navigation.goBack()}
                 title="ویرایش"
                 color="#00afff"
-                loading={qrStore.loading}
+                disabled={qrStore.loading ? true : false}
               />
             </View>
           </View>

@@ -24,12 +24,11 @@ export default StyleSheet.create({
   },
 
   topOverlay: {
-    // height: 200,
     width: "100%",
-    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 150,
+    position: "absolute",
+    bottom: height - 620,
   },
 
   bottomOverlay: {
