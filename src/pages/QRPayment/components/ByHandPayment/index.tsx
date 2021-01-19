@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import styles from "./styles";
-import Input from "components/input";
 import { FormattedText } from "components/format-text";
-import * as Yup from "yup";
 import { Formik, useFormik } from "formik";
-import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "customType";
 import QRPaymentActions from "store/QRPayment/qrPayment.actions";
+import MaterialTextField from "components/materialTextfield";
+import Button from "components/button";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface Props {
   payAmount: () => void;
+}
+interface Errors {
+  qrGuid?: string;
 }
 const ByHandPayment: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
@@ -21,8 +24,17 @@ const ByHandPayment: React.FC<Props> = (props) => {
     initialValues: {
       qrGuid: "",
     },
+    validateOnBlur: false,
+    validate: (values) => {
+      const errors: Errors = {};
+
+      if (!values.qrGuid) {
+        errors.qrGuid = ".لطفا شماره پذیرنده را وارد نمایید";
+      }
+
+      return errors;
+    },
     onSubmit: (values) => {
-      console.log("values", values);
       const data = {
         qrGuidId: values.qrGuid,
       };
@@ -31,51 +43,43 @@ const ByHandPayment: React.FC<Props> = (props) => {
     },
   });
 
-  const validationSchema = Yup.object().shape({
-    qrGuid: Yup.string().required("لطفا شماره پذیرنده را وارد نمایید"),
-  });
-
   return (
-    <View style={styles.content}>
-      <FormattedText style={styles.title}>
-        لطفا شماره پذیرنده را وارد کنید.
-      </FormattedText>
+    <ScrollView contentContainerStyle={[styles.container]}>
+      <>
+        <FormattedText style={styles.title}>
+          لطفا شماره پذیرنده را وارد کنید.
+        </FormattedText>
 
-      <Formik
-        initialValues={formik.initialValues}
-        onSubmit={(values: any) => formik.handleSubmit(values)}
-        validationSchema={validationSchema}
-      >
-        <>
-          <View>
-            <Input
-              //style={styles.titleInput}
-              placeholder={"شماره پذیرنده"}
-              selectTextOnFocus
-              value={formik.values.qrGuid}
-              onChangeText={(value: string) =>
-                formik.setFieldValue("qrGuid", value)
-              }
-            />
-          </View>
-          <FormattedText> شماره پذیرنده را از فروشنده بخواهید</FormattedText>
-
-          <TouchableOpacity
-            style={[
-              styles.submitButton,
-              (!formik.isValid || qrStore.loading) && styles.disabledButton,
-            ]}
-            onPress={(values: any) => formik.handleSubmit(values)}
-            disabled={!formik.isValid || qrStore.loading}
-          >
-            {!qrStore.loading && (
-              <FormattedText id={"continue"} style={styles.submitButtonTitle} />
-            )}
-            {qrStore.loading && <ActivityIndicator />}
-          </TouchableOpacity>
-        </>
-      </Formik>
-    </View>
+        <Formik
+          initialValues={formik.initialValues}
+          onSubmit={(values: any) => formik.handleSubmit(values)}
+        >
+          <ScrollView>
+            <View>
+              <MaterialTextField
+                label="شماره پذیرنده"
+                value={formik.values.qrGuid}
+                onChangeText={(value: string) =>
+                  formik.setFieldValue("qrGuid", value)
+                }
+                error={formik.errors.qrGuid}
+              />
+            </View>
+            <FormattedText style={{ color: "#00015d", fontSize: 13 }}>
+              شماره پذیرنده را از فروشنده بخواهید.
+            </FormattedText>
+          </ScrollView>
+        </Formik>
+      </>
+      <View style={{ marginTop: 100 }}>
+        <Button
+          onPress={formik.handleSubmit}
+          disabled={!formik.isValid}
+          title="ادامه"
+          color="#00afff"
+        />
+      </View>
+    </ScrollView>
   );
 };
 

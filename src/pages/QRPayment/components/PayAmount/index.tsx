@@ -13,6 +13,8 @@ import * as R from "ramda";
 import Shop from "images/shop.svg";
 import Button from "components/button";
 import { colors } from "constants/index";
+import MaterialTextfield from "components/materialTextfield";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface Props {
   guId: string;
@@ -90,60 +92,48 @@ const PayAmount: React.FC<Props> = (props) => {
   }
 
   return (
-    <View style={styles.content}>
-      <View style={styles.wrapper}>
-        <View style={styles.icon}>
-          <Shop height={60} width={60} />
+    <>
+      <ScrollView style={styles.content}>
+        <View style={styles.wrapper}>
+          <View style={styles.icon}>
+            <Shop height={60} width={60} />
+          </View>
+          <View>
+            <FormattedText>{qrStore.merchantName}</FormattedText>
+            <FormattedText>{qrStore.termID}</FormattedText>
+          </View>
         </View>
-        <View>
-          <FormattedText>{qrStore.merchantName}</FormattedText>
-          <FormattedText>{qrStore.termID}</FormattedText>
-        </View>
-      </View>
-      <FormattedText style={styles.title}>
-        لطفا مبلغ خرید را وارد کنید.
-      </FormattedText>
+        <FormattedText style={styles.title}>
+          لطفا مبلغ خرید را وارد کنید.
+        </FormattedText>
 
-      <Formik
-        initialValues={formik.initialValues}
-        onSubmit={(values: any) => formik.handleSubmit(values)}
-      >
-        <>
-          <Input
-            placeholder={"مبلغ"}
-            selectTextOnFocus
-            value={formatNumber(formik.values.amount)}
-            onChangeText={(value: string) => handleChangeText(value)}
-            keyboardType={"number-pad"}
-            maxLength={11}
-            hasUnit
-          />
-          <Text style={styles.error}>{formik.errors.amount}</Text>
-
-          {/* <TouchableOpacity
-            style={[
-              styles.submitButton,
-              (!formik.isValid || qrStore.loading) && styles.disabledButton,
-            ]}
-            onPress={(values: any) => formik.handleSubmit(values)}
-            disabled={!R.isEmpty(formik.errors) || qrStore.loading}
-          >
-            {!qrStore.loading && (
-              <FormattedText id={"confirm"} style={styles.submitButtonTitle} />
-            )}
-            {qrStore.loading && <ActivityIndicator />}
-          </TouchableOpacity> */}
-          <Button
-            title="تایید"
-            style={styles.submitButton}
-            onPress={formik.handleSubmit}
-            loading={qrStore.loading}
-            disabled={!formik.isValid || qrStore.loading}
-            color={colors.buttonSubmitActive}
-          />
-        </>
-      </Formik>
-    </View>
+        <Formik
+          initialValues={formik.initialValues}
+          onSubmit={(values: any) => formik.handleSubmit(values)}
+        >
+          <>
+            <View>
+              <MaterialTextfield
+                label="مبلغ"
+                value={formatNumber(formik.values.amount)}
+                onChangeText={(value: string) => handleChangeText(value)}
+                error={formik.errors.amount}
+                maxLength={11}
+                hasUnit
+                keyboardType={"number-pad"}
+              />
+            </View>
+          </>
+        </Formik>
+      </ScrollView>
+      <Button
+        title="تایید"
+        onPress={formik.handleSubmit}
+        loading={qrStore.loading}
+        disabled={!formik.isValid || qrStore.loading}
+        color={colors.buttonSubmitActive}
+      />
+    </>
   );
 };
 

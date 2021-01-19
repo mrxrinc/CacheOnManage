@@ -22,6 +22,8 @@ import MoreSvg from "images/tabbar/more.svg";
 import SavingSvg from "images/tabbar/saving.svg";
 import CardsSvg from "images/tabbar/cards.svg";
 import HomeSvg from "images/tabbar/home.svg";
+import BluejrHome from "images/tabbar/bluejrHome.svg"
+import {withTheme} from "themeCore/themeProvider"
 
 const SIZE = {
   nano: 16,
@@ -44,57 +46,49 @@ const Tab = createBottomTabNavigator<TabParamList>();
 
 const fullWidth = Dimensions.get("window").width;
 
-const TabBar = ({
-  state,
-  navigation,
-  descriptors,
-}: {
-  state: any;
-  navigation: any;
-  descriptors: any;
-}) => {
-  const focusedOptions = descriptors[state.routes[state.index].key].options;
+const TabBar = (props: any) => {
+  const focusedOptions = props.descriptors[props.state.routes[props.state.index].key].options;
   if (focusedOptions.tabBarVisible === false) {
     return null;
   }
   return (
     <View style={styles.tabbarContainer}>
       <View style={styles.tabbarBox}>
-        {state.routes.map((route: any, index: number) => {
-          const focused = state.index === index;
-          const iconColor = focused ? "#8387fc" : "#01065d";
+        {props.state.routes.map((route: any, index: number) => {
+          const focused = props.state.index === index;
+          const iconColor = focused ? props.theme.theme.tabbar.activeLabelColor : props.theme.theme.tabbar.deactiveLabelColor;
           return (
             <View key={index}>
               <TouchableOpacity
                 style={[styles.tabbarButton, { bottom: index == 2 ? 20 : 0 }]}
                 key={index}
-                onPress={() => navigation.navigate(route.name)}
+                onPress={() => props.navigation.navigate(route.name)}
               >
                 <View style={[styles.imgBox]}>
                   {index != 2 ? (
                     <View>
                       {route.name == "saving" ? (
                         <SavingSvg
-                          width={SIZE.small}
-                          height={SIZE.small}
+                          width={SIZE.tiny}
+                          height={SIZE.tiny}
                           fill={iconColor}
                         />
                       ) : route.name == "earning" ? (
                         <EarningSvg
-                          width={SIZE.small}
-                          height={SIZE.small}
+                          width={SIZE.tiny}
+                          height={SIZE.tiny}
                           fill={iconColor}
                         />
                       ) : route.name == "cards" ? (
                         <CardsSvg
-                          width={SIZE.small}
-                          height={SIZE.small}
+                          width={SIZE.tiny}
+                          height={SIZE.tiny}
                           fill={iconColor}
                         />
                       ) : (
                         <MoreSvg
-                          width={SIZE.small}
-                          height={SIZE.small}
+                          width={SIZE.tiny}
+                          height={SIZE.tiny}
                           fill={iconColor}
                         />
                       )}
@@ -102,12 +96,23 @@ const TabBar = ({
                   ) : (
                     <View style={styles.homeBox}>
                       <Image source={curve} style={styles.curve} />
-                      <HomeSvg
+                      {props.theme.theme.key == "FATHER BLU JUNIOR" ?
+                      (
+                      <BluejrHome
                         width={62}
                         height={62}
                         style={{ position: "absolute" }}
-                        fill={focused ? "#8387fc" : "#01065d"}
+                        // fill={focused ? "#8387fc" : "#01065d"}
                       />
+                      ):(
+                        <HomeSvg
+                        width={62}
+                        height={62}
+                        style={{ position: "absolute" }}
+                        // fill={focused ? "#8387fc" : "#01065d"}
+                      />
+                      )
+        }
                     </View>
                   )}
                   <FormattedText
@@ -127,10 +132,10 @@ const TabBar = ({
   );
 };
 
-const TabNavigator = () => {
+const TabNavigator = (theme:any) => {
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   return (
-    <Tab.Navigator initialRouteName="home" tabBar={TabBar}>
+    <Tab.Navigator initialRouteName="home" tabBar={props => <TabBar theme = {theme} {...props} />}>
       <Tab.Screen name="saving" component={Saving} />
       <Tab.Screen name="earning" component={Earning} />
       <Tab.Screen name="home" component={isChild ? ChildHome : Home} />
@@ -178,4 +183,4 @@ const styles = StyleSheet.create({
   homeBox: { justifyContent: "center", alignItems: "center" },
 });
 
-export default TabNavigator;
+export default withTheme(TabNavigator);
