@@ -18,7 +18,6 @@ export default ({
       onBackdropPress={setShowModal}
       style={style.modal}
       avoidKeyboard
-      backdropColor="transparent"
     >
       <View style={style.modalContainer}>
         <View style={style.modalHead}>
