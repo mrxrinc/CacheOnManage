@@ -17,7 +17,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   materialInput: {
-    fontFamily: "IRANSansFaNum",
+    fontFamily: "IRANSansMobileFaNum",
     textAlign: "right",
   },
   input: {

@@ -141,7 +141,7 @@ const OrderBabyCard = (props: any) => {
                   <MaterialTextField
                     label="کد پستی"
                     // onChange={clearError}
-                    style={{ fontFamily: "IRANSansFaNum" }}
+                    style={{ fontFamily: "IRANSansMobileFaNum" }}
                     maxLength={10}
                     keyboardType="number-pad"
                     onSubmitEditing={() => {}}
@@ -224,7 +224,7 @@ const OrderBabyCard = (props: any) => {
             <MaterialTextField
               label="شماره کارت"
               // onChange={clearError}
-              style={{ fontFamily: "IRANSansFaNum" }}
+              style={{ fontFamily: "IRANSansMobileFaNum" }}
               maxLength={16}
               keyboardType="number-pad"
               onSubmitEditing={() => {}}
