@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import { View, Image, ScrollView } from "react-native";
+import { View, Image, ScrollView, Picker } from "react-native";
 import Header from "components/header";
 import style from "./styles";
-import { Picker } from "@react-native-community/picker";
+// import { Picker } from "@react-native-community/picker";
 import { formatNumber } from "utils";
 import { Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "customType";
+import { RootState } from "../../../../../customType";
 import { FormattedText } from "components/format-text";
 import Layout from "components/layout";
 import MaterialTextField from "components/materialTextfield";
@@ -19,7 +19,6 @@ import PaymentTransactionResult from "components/PaymentTransactionResult";
 import { useNavigation } from "@react-navigation/native";
 import { SavingState } from "store/Saving/saving.reducer";
 import { StateNetwork } from "store/index.reducer";
-import { colors } from "constants/index";
 import { SelectedTargetsData } from "types/saving";
 import messages from "utils/fa";
 
@@ -137,7 +136,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
         handleBack={() => props.navigation.goBack()}
       />
       <>
-        <ScrollView style={[style.content]}>
+        <ScrollView contentContainerStyle={[style.content]}>
           <Formik
             initialValues={formik.initialValues}
             onSubmit={(values: any) => formik.handleSubmit(values)}
