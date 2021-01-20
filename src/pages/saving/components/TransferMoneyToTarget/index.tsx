@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 // Ui Frameworks
 import { Formik } from "formik";
-import { Picker } from "@react-native-community/picker";
-import { View, Image, ScrollView } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 // Common Components
 import Header from "components/header";
 import MaterialTextField from "components/materialTextfield";
@@ -28,6 +27,7 @@ import { SelectedTargetsData } from "types/saving";
 import SavingActions from "store/Saving/saving.actions";
 // Styles
 import style from "./styles";
+import Tick from "components/icons/tick.svg";
 
 interface Props {
   navigation: any;
@@ -42,6 +42,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
   const [paidAmount, setPaidAmount] = React.useState(0);
   const [targetAmount, setTargetAmount] = React.useState(0);
+  const [checkedTarget, setCheckedTarget] = React.useState("");
 
   // Store
   const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
@@ -91,10 +92,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      target:
-        filterActiveTargets && filterActiveTargets.length > 0
-          ? filterActiveTargets[0].id
-          : "",
+      target: "",
       amount: "",
     },
     validateOnChange: firstSubmitted,
@@ -115,28 +113,32 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
         errors.amount =
           "مبلغ انتقال نمی‌تواند از مبلغ باقیمانده پس‌انداز بیشتر باشد.";
       }
+      if (!values.target) {
+        errors.target = "لطفا هدف را انتخاب کنید.";
+      }
       return errors;
     },
     onSubmit: (values: any) => {
       const data = {
         from: profileInfo.id,
-        to: values.target,
+        to: checkedTarget,
         amount: Number(values.amount),
         description: " ",
       };
-      console.log(" onSubmit: ~ data", data);
       dispatch(SavingActions.transferMoneyToTarget(data, { sagas: true }));
     },
   });
 
   React.useEffect(() => {
-    const foundTarget = R.find<any>(
-      (target) => target.id === formik.values.target,
-      filterActiveTargets
-    );
-    setPaidAmount(foundTarget.paidAmount);
-    setTargetAmount(foundTarget.targetAmount);
-  }, [formik.values.target]);
+    if (checkedTarget && filterActiveTargets) {
+      const foundTarget = R.find<any>(
+        (target) => target.id === checkedTarget,
+        filterActiveTargets
+      );
+      setPaidAmount(foundTarget.paidAmount);
+      setTargetAmount(foundTarget.targetAmount);
+    }
+  }, [checkedTarget]);
 
   function handleAmountChange(value: string) {
     formik.setFieldValue("amount", value.replace(/,/g, ""));
@@ -146,6 +148,12 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
     dispatch(SavingActions.transferMoneyToTarget([], { sagas: false }));
     navigation.navigate("saving");
   }
+
+  function handleCheckedTarget(id: string) {
+    formik.setFieldValue("target", id);
+    setCheckedTarget(id);
+  }
+
   return (
     <Layout>
       <Header
@@ -159,41 +167,59 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
             onSubmit={(values: any) => formik.handleSubmit(values)}
           >
             <>
-              <View style={style.rightCol}>
-                <FormattedText>از</FormattedText>
-
-                <View style={style.parentFeild}>
-                  <Image
-                    source={{
-                      uri: `data:image/png;base64,${profileInfo.avatar}`,
-                    }}
-                    style={style.avatar}
-                  />
-                  <FormattedText style={style.parentText}>
-                    {isChild ? profileInfo.name : profileInfo.nickname}
-                  </FormattedText>
-                </View>
-
-                <FormattedText>به</FormattedText>
-
-                <View style={style.targetFeild}>
-                  <Picker
-                    selectedValue={formik.values.target}
-                    onValueChange={(target) =>
-                      formik.setFieldValue("target", target)
-                    }
-                  >
-                    {filterActiveTargets &&
-                      filterActiveTargets.map((target: any) => {
+              <View>
+                <FormattedText style={{ marginBottom: 30 }}>
+                  لطفا برای انتقال وجه یکی از اهداف را انتخاب نمایید.
+                </FormattedText>
+                <View style={style.radioBtnBox}>
+                  {filterActiveTargets?.length !== 0
+                    ? filterActiveTargets?.map((target: any, index: number) => {
                         return (
-                          <Picker.Item
-                            key={target.id}
-                            label={target.title}
-                            value={target.id}
-                          />
+                          <View key={index}>
+                            {checkedTarget === target.id ? (
+                              <TouchableOpacity style={style.activityButton}>
+                                <View
+                                  style={[
+                                    formik.errors.target
+                                      ? { borderColor: "red" }
+                                      : { borderColor: "#43e6c5" },
+                                    style.radioBtn,
+                                    { backgroundColor: "#43e6c5" },
+                                  ]}
+                                >
+                                  <Tick width={14} height={14} fill={"white"} />
+                                </View>
+
+                                <FormattedText style={style.activityText}>
+                                  {target.title}
+                                </FormattedText>
+                              </TouchableOpacity>
+                            ) : (
+                              <TouchableOpacity
+                                onPress={() => {
+                                  handleCheckedTarget(target.id);
+                                }}
+                                style={style.activityButton}
+                              >
+                                <View
+                                  style={[
+                                    style.radioBtn,
+                                    formik.errors.target
+                                      ? { borderColor: "red" }
+                                      : { borderColor: "#43e6c5" },
+                                    { backgroundColor: "white" },
+                                  ]}
+                                />
+
+                                <FormattedText style={style.activityText}>
+                                  {target.title}
+                                </FormattedText>
+                              </TouchableOpacity>
+                            )}
+                          </View>
                         );
-                      })}
-                  </Picker>
+                      })
+                    : null}
                 </View>
               </View>
 
