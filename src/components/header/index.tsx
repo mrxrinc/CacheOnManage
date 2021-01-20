@@ -3,7 +3,6 @@ import { View, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { FormattedText } from "components/format-text";
 import BackIcon from "components/icons/back.svg";
-import { colors } from "constants/";
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
 
@@ -11,12 +10,17 @@ type Props = {
   handleBack?: any;
   staticTitle?: string;
   dynamicTitle?: string;
-  theme:any
+  theme: any;
 };
-const Header: FC<Props> = ({ staticTitle, dynamicTitle, handleBack,  theme }) => {
+const Header: FC<Props> = ({
+  staticTitle,
+  dynamicTitle,
+  handleBack,
+  theme,
+}) => {
   return (
     <LinearGradient
-    colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
+      colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
       style={styles.container}
