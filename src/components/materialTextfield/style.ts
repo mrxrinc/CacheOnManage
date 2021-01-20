@@ -44,4 +44,14 @@ export default StyleSheet.create({
     fontFamily: "IRANSansMobileFaNum",
     textAlign: "right",
   },
+  iconWrapper: {
+    width: 35,
+    height: "100%",
+    position: "absolute",
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 13,
+    backgroundColor: "red",
+  },
 });

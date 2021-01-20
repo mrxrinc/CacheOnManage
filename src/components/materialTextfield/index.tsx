@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, forwardRef } from "react";
-import { View, TouchableOpacity, TextInput } from "react-native";
+import { View, TouchableOpacity, TextInput, Text } from "react-native";
 import { FilledTextField } from "react-native-material-textfield";
 import { FormattedText } from "components/format-text";
 import { colors } from "constants/index";
@@ -15,10 +15,6 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const inputRef = ref ?? useRef(null);
 
-  // useEffect(() => {
-  //   inputRef.current.setValue(props.value);
-  // }, [props.value]);
-
   return (
     <View style={[style.container, props.style]}>
       {theme.key == "FATHER BLU JUNIOR" ? (
@@ -28,6 +24,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
             placeholder={props.label}
             value={props.value}
             ref={inputRef}
+            secureTextEntry={props.icon === "password" ? !showPassword : false}
             {...props}
           />
         </View>
@@ -46,12 +43,6 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
             defaultValue={props.value}
             ref={inputRef}
             secureTextEntry={props.icon === "password" ? !showPassword : false}
-            renderRightAccessory={renderIcon({
-              icon: props.icon,
-              error: props.error,
-              showPassword,
-              setShowPassword,
-            })}
             {...props}
           />
 
@@ -60,6 +51,14 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
           )}
         </View>
       )}
+      <View style={style.iconWrapper}>
+        {renderIcon({
+          icon: props.icon,
+          error: props.error,
+          showPassword,
+          setShowPassword,
+        })}
+      </View>
     </View>
   );
 });
@@ -88,25 +87,19 @@ const renderIcon = ({ icon, error, showPassword, setShowPassword }: any) => {
       />
     );
   } else if (icon === "password") {
-    return () => (
+    return (
       <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
         {showPassword ? (
           <PasswordIcon
             width={22}
             height={22}
-            style={{
-              color: colors.gray300,
-              right: -10,
-            }}
+            style={{ color: colors.gray300 }}
           />
         ) : (
           <PasswordVisibleIcon
             width={22}
             height={22}
-            style={{
-              color: colors.gray600,
-              right: -10,
-            }}
+            style={{ color: colors.gray600 }}
           />
         )}
       </TouchableOpacity>
