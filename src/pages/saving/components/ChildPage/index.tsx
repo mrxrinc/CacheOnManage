@@ -31,7 +31,6 @@ const contentContainerStyle: StyleProp<ViewStyle> = {
 const ChildPage = (props: any) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
-
   // Store
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
@@ -41,13 +40,12 @@ const ChildPage = (props: any) => {
     dispatch(SavingActions.setChildTargets(props.data.targets));
   }, []);
 
-  const filterActiveTargets = React.useMemo(() => {
-    if (props.data.targets?.length > 0) {
-      return R.filter((target: any) => {
-        return target.state === "SAVING";
-      })(props.data.targets);
-    }
-  }, [props.data.targets]);
+  const filterActiveTargets: any =
+    props.data.targets?.length > 0
+      ? R.filter((target: any) => {
+          return target.state === "SAVING";
+        })(props.data.targets)
+      : [];
 
   function handleAddNewTargetPress(data: any) {
     dispatch(SavingActions.getTargetsData(data));
@@ -70,10 +68,9 @@ const ChildPage = (props: any) => {
           title="تعریف هدف جدید"
           onPress={() => handleAddNewTargetPress(props.data)}
           disabled={
-            (filterActiveTargets && filterActiveTargets?.length < 2) ||
-            savingStore.childTargets.length === 0
-              ? false
-              : true
+            filterActiveTargets?.length >= 2 || savingStore.childTargets.length
+              ? true
+              : false
           }
           color={colors.buttonOpenActive}
         />
@@ -82,9 +79,7 @@ const ChildPage = (props: any) => {
           style={styles.button}
           title="انتقال وجه به هدف"
           onPress={() => handleTransferMoneyToTarget(props.data)}
-          disabled={
-            filterActiveTargets && filterActiveTargets.length > 0 ? false : true
-          }
+          disabled={filterActiveTargets?.length > 0 ? false : true}
           color={colors.buttonOpenActive}
         />
       </View>
