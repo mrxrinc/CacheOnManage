@@ -95,7 +95,7 @@ const DatePicker = (props: any) => {
     </SafeAreaView>
   );
 };
-const { width } = Dimensions.get("window");
+
 const styles = StyleSheet.create({
   dateBox: {
     justifyContent: "space-between",

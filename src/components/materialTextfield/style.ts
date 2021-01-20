@@ -6,6 +6,10 @@ export default StyleSheet.create({
     width: "100%",
     marginBottom: 20,
   },
+  moneyInput: {
+    backgroundColor: "transparent",
+    fontFamily: "IRANSansMobile",
+  },
   label: {
     fontFamily: "IRANSansMobileFaNum",
     paddingTop: 3,
@@ -27,5 +31,17 @@ export default StyleSheet.create({
     position: "absolute",
     right: 5,
     bottom: 12,
+  },
+  blujrInputWrapper: {
+    width: "100%",
+    height: 52,
+    backgroundColor: "#f5f7fa",
+    borderRadius: 10,
+    justifyContent: "center",
+  },
+  blujrInput: {
+    marginLeft: 10,
+    fontFamily: "IRANSansMobileFaNum",
+    textAlign: "right",
   },
 });

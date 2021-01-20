@@ -15,9 +15,6 @@ import { validateNationalId } from "utils/validators";
 import { postOfficeInqury } from "utils/api";
 import ActionModalCentered from "components/modal/actionModalCentered";
 import CloseIcon from "components/icons/close.svg";
-import { englishDigits } from "utils";
-
-import { seasons } from "constants/index";
 
 type FormType = {
   nationalId: string;
@@ -51,7 +48,6 @@ const AddChild: FC = (props: any) => {
   const [birthday, setBirthday] = useState<any>("");
   const [error, setError] = useState<any>({ field: "", message: "" });
   const birthdayRef = useRef();
-  const PersianDatePickerRef = useRef();
 
   const [form, setForm] = useState<FormType>({
     nationalId: "",
@@ -66,9 +62,10 @@ const AddChild: FC = (props: any) => {
     setShowDateModal(false);
     // const formattedBirthday =
     //   birthday[2] + "/" + birthday[1] + "/" + birthday[0];
-    // birthdayRef.current.blur();
-    Keyboard.dismiss();
-    // birthdayRef.current.setValue(birthday);
+    birthdayRef.current.blur();
+    if (typeof birthdayRef.current.setValue === "function") {
+      birthdayRef.current.setValue(birthday);
+    }
     _updateForm("birthday", birthday);
   };
 
@@ -213,6 +210,7 @@ const AddChild: FC = (props: any) => {
           }}
           icon="arrow"
           ref={birthdayRef}
+          value={birthday}
         />
         <Button
           title="استعلام"

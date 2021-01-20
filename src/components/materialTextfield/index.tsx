@@ -13,43 +13,28 @@ import { withTheme } from "../../themeCore/themeProvider";
 const MaterialTextField = forwardRef((props: any, ref: any) => {
   let theme = props.theme;
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const rref = ref ?? useRef(null);
+  const inputRef = ref ?? useRef(null);
 
   // useEffect(() => {
-  //   rref.current.setValue(props.value);
+  //   inputRef.current.setValue(props.value);
   // }, [props.value]);
 
   return (
     <View style={[style.container, props.style]}>
       {theme.key == "FATHER BLU JUNIOR" ? (
-        <View
-          style={{
-            width: "100%",
-            height: 52,
-            backgroundColor: "#f5f7fa",
-            borderRadius: 10,
-            justifyContent: "center",
-          }}
-        >
+        <View style={style.blujrInputWrapper}>
           <TextInput
-            style={{
-              marginLeft: "2%",
-              fontFamily: "IRANSansMobile",
-              textAlign: "right",
-            }}
+            style={style.blujrInput}
             placeholder={props.label}
             value={props.value}
-            ref={rref}
+            ref={inputRef}
             {...props}
           />
         </View>
       ) : (
         <View>
           <FilledTextField
-            inputContainerStyle={[
-              { backgroundColor: "transparent", fontFamily: "IRANSansMobile" },
-              props.inputStyle,
-            ]}
+            inputContainerStyle={[style.moneyInput, props.inputStyle]}
             tintColor={props.tintColor || colors.title}
             label={props.label}
             labelTextStyle={props.labelTextStyle || style.label}
@@ -59,7 +44,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
             style={style.inputStyle}
             onFocus={props.isOnFcous}
             defaultValue={props.value}
-            ref={rref}
+            ref={inputRef}
             secureTextEntry={props.icon === "password" ? !showPassword : false}
             renderRightAccessory={renderIcon({
               icon: props.icon,
