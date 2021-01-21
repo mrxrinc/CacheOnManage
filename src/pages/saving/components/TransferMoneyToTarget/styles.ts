@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flex: 1,
   },
   content: {
-    backgroundColor: "#ffffff",
+    backgroundColor: colors.white,
     padding: 20,
   },
 
@@ -17,27 +17,6 @@ export default StyleSheet.create({
     alignItems: "flex-end",
   },
 
-  parentText: {
-    paddingRight: 10,
-    height: 44,
-  },
-
-  amountInput: {
-    fontFamily: "IRANSansMobileFaNum",
-  },
-  input: {
-    borderBottomColor: "#ddd",
-    width: "100%",
-    fontFamily: "IRANSansMobileFaNum",
-    height: 50,
-    textAlign: "right",
-    fontSize: 17,
-    marginBottom: 10,
-  },
-  button: {
-    borderRadius: 15,
-    backgroundColor: "#43e6c5",
-  },
   submitButton: {
     height: 44,
     borderRadius: 30,
@@ -57,7 +36,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   activityText: {
-    color: "#515c6f",
+    color: colors.text,
     fontSize: 14,
     marginLeft: 5,
   },
@@ -65,13 +44,19 @@ export default StyleSheet.create({
     width: 20,
     height: 20,
     borderWidth: 1,
-    borderColor: "#43e6c5",
+    borderColor: colors.buttonSubmitActive,
     borderRadius: 10,
   },
   redColor: {
-    borderColor: "red",
+    borderColor: colors.red,
   },
   radioBtnBox: {
     marginBottom: 20,
+  },
+  radioGreenBg: {
+    backgroundColor: colors.buttonSubmitActive,
+  },
+  radioWhiteBg: {
+    backgroundColor: colors.white,
   },
 });

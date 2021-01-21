@@ -19,18 +19,32 @@ import PaymentTransactionResult from "components/PaymentTransactionResult";
 import { formatNumber } from "utils";
 import messages from "utils/fa";
 // Types
-import { RootState } from "customType";
 import { StateNetwork } from "store/index.reducer";
 import { SavingState } from "store/Saving/saving.reducer";
 import { SelectedTargetsData } from "types/saving";
 // Actions;
 import SavingActions from "store/Saving/saving.actions";
+// Images
+import Tick from "components/icons/tick.svg";
 // Styles
 import style from "./styles";
-import Tick from "components/icons/tick.svg";
+import { colors } from "constants/index";
 
 interface Props {
   navigation: any;
+}
+
+interface Errors {
+  amount?: string;
+  target?: string;
+}
+
+interface TransferValues {
+  amount: string;
+  from?: string;
+  to?: string;
+  description?: string;
+  target: string;
 }
 const MessagesContext = React.createContext(messages);
 
@@ -48,13 +62,12 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
   const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
     (state) => state.saving.selectedTargetsData
   );
-  const profileInfo = useSelector<RootState, any>(
-    (state) => state.home.homeData
-  );
+
+  const profileInfo = useSelector<any, any>((state) => state.home.homeData);
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
   );
-  const isChild = useSelector<any, any>((state) => state.user.ischild);
+  const isChild = useSelector<any, boolean>((state) => state.user.ischild);
 
   const transactionResults = React.useMemo(() => {
     if (savingStore.transferMoneyToTargetTransactionResult) {
@@ -71,6 +84,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
           unit: isAmount ? "ریال" : null,
         };
       }, Object.keys(savingStore.transferMoneyToTargetTransactionResult));
+
       const filteredResult = R.filter(
         (item) =>
           item.key !== translate["description"] &&
@@ -97,8 +111,8 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
     },
     validateOnChange: firstSubmitted,
     validateOnBlur: false,
-    validate: (values: any) => {
-      const errors: any = {};
+    validate: (values) => {
+      const errors: Errors = {};
       setFirstSubmitted(true);
       if (!values.amount) {
         errors.amount = "لطفا مبلغ را وارد نمایید";
@@ -108,7 +122,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
       if (
         values.amount &&
         (remainingSaving || remainingSaving === 0) &&
-        values.amount > remainingSaving
+        Number(values.amount) > remainingSaving
       ) {
         errors.amount =
           "مبلغ انتقال نمی‌تواند از مبلغ باقیمانده پس‌انداز بیشتر باشد.";
@@ -118,7 +132,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
       }
       return errors;
     },
-    onSubmit: (values: any) => {
+    onSubmit: (values: TransferValues) => {
       const data = {
         from: profileInfo.id,
         to: checkedTarget,
@@ -135,8 +149,8 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
         (target) => target.id === checkedTarget,
         filterActiveTargets
       );
-      setPaidAmount(foundTarget.paidAmount);
-      setTargetAmount(foundTarget.targetAmount);
+      setPaidAmount(foundTarget?.paidAmount);
+      setTargetAmount(foundTarget?.targetAmount);
     }
   }, [checkedTarget]);
 
@@ -169,7 +183,9 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
             <>
               <View>
                 <FormattedText style={{ marginBottom: 30 }}>
-                  لطفا برای انتقال وجه یکی از اهداف را انتخاب نمایید.
+                  {!isChild
+                    ? `لطفا برای انتقال وجه یکی از اهداف ${selectedTargetData.childName} را انتخاب نمایید.`
+                    : "لطفا برای انتقال وجه یکی از اهدافتان را انتخاب نمایید."}
                 </FormattedText>
                 <View style={style.radioBtnBox}>
                   {filterActiveTargets?.length !== 0
@@ -182,9 +198,12 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
                                   style={[
                                     formik.errors.target
                                       ? { borderColor: "red" }
-                                      : { borderColor: "#43e6c5" },
+                                      : {
+                                          borderColor:
+                                            colors.buttonSubmitActive,
+                                        },
                                     style.radioBtn,
-                                    { backgroundColor: "#43e6c5" },
+                                    style.radioGreenBg,
                                   ]}
                                 >
                                   <Tick width={14} height={14} fill={"white"} />
@@ -204,10 +223,13 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
                                 <View
                                   style={[
                                     style.radioBtn,
+                                    style.radioWhiteBg,
                                     formik.errors.target
-                                      ? { borderColor: "red" }
-                                      : { borderColor: "#43e6c5" },
-                                    { backgroundColor: "white" },
+                                      ? { borderColor: colors.red }
+                                      : {
+                                          borderColor:
+                                            colors.buttonSubmitActive,
+                                        },
                                   ]}
                                 />
 
@@ -225,9 +247,9 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
 
               <MaterialTextField
                 value={formatNumber(formik.values.amount)}
-                placeholder={"مبلغ"}
+                placeholder="مبلغ"
                 hasUnit
-                keyboardType={"number-pad"}
+                keyboardType="number-pad"
                 maxLength={10}
                 onChangeText={(value: string) => handleAmountChange(value)}
                 error={formik.errors.amount}
@@ -242,7 +264,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
             onPress={formik.handleSubmit}
             disabled={!formik.isValid || savingStore.loading}
             loading={savingStore.loading}
-            color="#43e6c5"
+            color={colors.buttonSubmitActive}
           />
         </View>
       </>
