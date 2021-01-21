@@ -30,7 +30,6 @@ interface Props {
   data: SavingListData;
 }
 const TargetList: React.FC<Props> = (props) => {
-  console.log("props.data targetlist", props.data);
   const dispatch = useDispatch();
   const isChild = useSelector<any, boolean>((state) => state.user.ischild);
 
@@ -104,7 +103,7 @@ const TargetList: React.FC<Props> = (props) => {
 
           return (
             <View style={styles.targetBox} key={index}>
-              <View style={{ flexDirection: "row" }}>
+              <View style={styles.row}>
                 <FormattedText style={styles.targetTitle}>
                   {target.title}
                 </FormattedText>
@@ -124,7 +123,7 @@ const TargetList: React.FC<Props> = (props) => {
                 )}
               </View>
               <View>
-                <View style={{ flexDirection: "row" }}>
+                <View style={styles.row}>
                   <View style={[styles.halfWidth]}>
                     <FormattedText
                       style={{ fontSize: 12, color: "#515c6f" }}
@@ -133,7 +132,7 @@ const TargetList: React.FC<Props> = (props) => {
                       هدف: {formatNumber(String(target.targetAmount))} ریال
                     </FormattedText>
                   </View>
-                  <View style={[styles.halfWidth, { flexDirection: "row" }]}>
+                  <View style={[styles.halfWidth, styles.row]}>
                     <View
                       style={{
                         flexDirection: "row",
