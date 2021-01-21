@@ -126,7 +126,7 @@ const TargetList: React.FC<Props> = (props) => {
                 <View style={styles.row}>
                   <View style={[styles.halfWidth]}>
                     <FormattedText
-                      style={{ fontSize: 12, color: "#515c6f" }}
+                      style={{ fontSize: 12, color: colors.text }}
                       fontFamily="Regular-FaNum"
                     >
                       هدف: {formatNumber(String(target.targetAmount))} ریال
@@ -152,7 +152,7 @@ const TargetList: React.FC<Props> = (props) => {
                         style={{
                           marginLeft: "4%",
                           fontSize: 12,
-                          color: "#515c6f",
+                          color: colors.text,
                         }}
                       >
                         {target.paidAmount
