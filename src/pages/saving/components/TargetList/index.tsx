@@ -52,7 +52,7 @@ const TargetList: React.FC<Props> = (props) => {
     (state) => state.saving
   );
 
-  function handleEdit(target: any) {
+  function handleEdit(target: TargetsData) {
     dispatch(SavingActions.setEditModal(true));
     dispatch(SavingActions.getTargetsData(target));
   }
