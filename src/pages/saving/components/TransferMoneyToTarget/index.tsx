@@ -1,31 +1,40 @@
 import React, { FC } from "react";
-import { View, Image, ScrollView } from "react-native";
-import Header from "components/header";
-import style from "./styles";
-import { Picker } from "@react-native-community/picker";
-import { formatNumber } from "utils";
-import { Formik } from "formik";
+import * as R from "ramda";
+// Hooks
+import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "customType";
+import { useNavigation } from "@react-navigation/native";
+// Ui Frameworks
+import { Formik } from "formik";
+import { Picker } from "@react-native-community/picker";
+import { View, Image, ScrollView } from "react-native";
+// Common Components
+import Header from "components/header";
+import MaterialTextField from "components/materialTextfield";
 import { FormattedText } from "components/format-text";
 import Layout from "components/layout";
-import MaterialTextField from "components/materialTextfield";
-import SavingActions from "store/Saving/saving.actions";
-import { useFormik } from "formik";
-import * as R from "ramda";
 import Button from "components/button";
 import ActionModalCentered from "components/modal/actionModalCentered";
 import PaymentTransactionResult from "components/PaymentTransactionResult";
-import { useNavigation } from "@react-navigation/native";
-import { SavingState } from "store/Saving/saving.reducer";
-import { StateNetwork } from "store/index.reducer";
-import { colors } from "constants/index";
-import { SelectedTargetsData } from "types/saving";
+// Utils
+import { formatNumber } from "utils";
 import messages from "utils/fa";
+// Types
+import { RootState } from "customType";
+import { StateNetwork } from "store/index.reducer";
+import { SavingState } from "store/Saving/saving.reducer";
+import { SelectedTargetsData } from "types/saving";
+// Actions;
+import SavingActions from "store/Saving/saving.actions";
+// Styles
+import style from "./styles";
 
+interface Props {
+  navigation: any;
+}
 const MessagesContext = React.createContext(messages);
 
-const TransferMoneyToTarget: FC = (props: any) => {
+const TransferMoneyToTarget: FC<Props> = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
   const translate = React.useContext(MessagesContext);
@@ -49,15 +58,22 @@ const TransferMoneyToTarget: FC = (props: any) => {
   const transactionResults = React.useMemo(() => {
     if (savingStore.transferMoneyToTargetTransactionResult) {
       const result = R.map((key: string) => {
+        const isAmount = key === "amount";
+
         return {
-          name: translate[key],
-          title: savingStore.transferMoneyToTargetTransactionResult[key],
+          key: translate[key],
+          value: isAmount
+            ? formatNumber(
+                savingStore.transferMoneyToTargetTransactionResult[key]
+              )
+            : savingStore.transferMoneyToTargetTransactionResult[key],
+          unit: isAmount ? "ریال" : null,
         };
       }, Object.keys(savingStore.transferMoneyToTargetTransactionResult));
       const filteredResult = R.filter(
         (item) =>
-          item.name !== translate["description"] &&
-          item.name !== translate["success"],
+          item.key !== translate["description"] &&
+          item.key !== translate["success"],
         result
       );
 
@@ -137,7 +153,7 @@ const TransferMoneyToTarget: FC = (props: any) => {
         handleBack={() => props.navigation.goBack()}
       />
       <>
-        <ScrollView style={[style.content]}>
+        <ScrollView contentContainerStyle={[style.content]}>
           <Formik
             initialValues={formik.initialValues}
             onSubmit={(values: any) => formik.handleSubmit(values)}

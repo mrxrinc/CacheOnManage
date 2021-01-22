@@ -282,12 +282,14 @@ const AddNewTarget: FC<Props> = (props) => {
                     setShowDateModal(!showDateModal)
                   }
                 >
-                  <FormattedText
-                    style={[styles.halfWidth, styles.targetDate]}
-                    fontFamily="Regular-FaNum"
-                  >
-                    {targetDate}
-                  </FormattedText>
+                  <View style={styles.targetDateBox}>
+                    <FormattedText
+                      style={[styles.halfWidth, styles.targetDate]}
+                      fontFamily="Regular-FaNum"
+                    >
+                      {targetDate}
+                    </FormattedText>
+                  </View>
                 </TouchableWithoutFeedback>
                 <FormattedText style={[styles.unit]}></FormattedText>
               </View>

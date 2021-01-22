@@ -13,12 +13,16 @@ export interface QRPaymentState {
   qrData: any;
   loading: boolean;
   paymentResult: PaymentResult;
+  merchantName: string;
+  termID: string;
 }
 
 export const initialState: QRPaymentState = {
   qrData: {},
   paymentResult: {} as PaymentResult,
   loading: false,
+  merchantName: "",
+  termID: "",
 };
 
 const reducer: React.Reducer<QRPaymentState, Action> = (

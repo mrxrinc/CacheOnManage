@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import LinearGradient from "react-native-linear-gradient";
 import LottieView from "lottie-react-native";
+import { withTheme } from "themeCore/themeProvider";
 
-const Splash = () => {
+const Splash = ({ setTheme }: any) => {
   const navigation = useNavigation();
 
   const [birdProcces, setBirdProcces] = useState(false);
   const [step, setStep] = useState("1");
 
+  useEffect(() => {
+    setTheme("FATHER BLU JUNIOR");
+  }, []);
   return (
     <View style={styles.blackBackground}>
       <StatusBar hidden />
@@ -81,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Splash;
+export default withTheme(Splash);

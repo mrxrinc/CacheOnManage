@@ -32,15 +32,18 @@ export default StyleSheet.create({
   inputContainer: {
     height: 60,
   },
-
-  targetDate: {
+  targetDateBox: {
     backgroundColor: "#f4f6fa",
-    borderRadius: 7,
-    padding: 5,
-    textAlign: "center",
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
     height: 30,
     width: "45%",
+  },
+  targetDate: {
     lineHeight: 28,
+    fontSize: 16,
+    color: "#00015d",
   },
   alignLeft: {
     textAlign: "left",

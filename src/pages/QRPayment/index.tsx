@@ -2,7 +2,8 @@ import React from "react";
 // Hooks
 import { useDispatch } from "react-redux";
 // UI Frameworks
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import Modal from "react-native-modal";
 import { RNCamera } from "react-native-camera";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 // Actions
@@ -16,7 +17,7 @@ import ByHandPayment from "./components/ByHandPayment";
 import PayAmount from "./components/PayAmount";
 // Styles
 import styles from "./styles";
-
+import BarcodeMask from "react-native-barcode-mask";
 interface BarcodeInfo {
   type: string;
   data: any;
@@ -123,14 +124,24 @@ const QRPayment: React.FC<Props> = (props) => {
                     permissionDialogMessage={
                       "We need your permission to use your camera phone"
                     }
-                    style={styles.preview}
+                    style={{
+                      flex: 1,
+                      width: "100%",
+                    }}
                     type={cameraInfo.type}
-                  />
-                </View>
-                <View style={[styles.topOverlay, styles.overlay]}>
-                  <Text style={styles.scanScreenMessage}>
-                    لطفا بارکد را داخل کادر قرار دهید و نگه دارید.
-                  </Text>
+                  >
+                    <BarcodeMask
+                      showAnimatedLine={false}
+                      edgeColor={"#24ddb5"}
+                      edgeBorderWidth={6}
+                      outerMaskOpacity={0.27}
+                    />
+                    <View style={[styles.topOverlay]}>
+                      <Text style={styles.scanScreenMessage}>
+                        لطفا بارکد را داخل کادر قرار دهید و نگه دارید.
+                      </Text>
+                    </View>
+                  </RNCamera>
                 </View>
               </View>
             )}
