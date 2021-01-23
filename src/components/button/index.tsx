@@ -3,7 +3,6 @@ import { TouchableOpacity, ActivityIndicator } from "react-native";
 import { FormattedText } from "components/format-text";
 import { colors, IOS } from "constants/index";
 import styles from "./styles";
-import { Typography } from "styles";
 import { withTheme } from "themeCore/themeProvider";
 
 type Props = {
@@ -62,7 +61,15 @@ const Button = ({
       {...props}
     >
       {!loading ? (
-        <FormattedText fontFamily="Bold" style={styles.test}>
+        <FormattedText
+          fontFamily="Bold"
+          style={{
+            lineHeight: IOS ? 15 : 25,
+            fontSize: fontSize ? fontSize : 16,
+            color: disabled ? colors.white : outline ? color : colors.white,
+            ...titleStyle,
+          }}
+        >
           {title}
         </FormattedText>
       ) : (
