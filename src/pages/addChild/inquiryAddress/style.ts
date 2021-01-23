@@ -10,13 +10,11 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    color: colors.title,
     fontSize: 14,
     paddingVertical: 20,
   },
   addressSection: {
     width: "100%",
-    backgroundColor: colors.gray900,
     padding: 15,
     paddingHorizontal: 20,
     paddingBottom: 5,
@@ -24,10 +22,11 @@ export default StyleSheet.create({
   haveCardWrapper: {
     flexDirection: "row",
     alignItems: "center",
+    borderTopWidth: 2,
+    height:45
   },
   haveCardTitle: {
     fontSize: 16,
-    color: colors.title,
     paddingRight: 4,
     lineHeight: IOS ? 10 : 20,
   },

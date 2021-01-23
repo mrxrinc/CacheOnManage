@@ -12,7 +12,7 @@ import ActionModalButtom from "components/modal/actionModalBottom";
 import EditIcon from "components/icons/edit.svg";
 import Card from "pages/setting/components/card";
 import KeyValuePair from "pages/setting/components/keyValuePair";
-import { setChildrenSettingData } from "utils/api";
+import { setChildrenSettingData, setChildrenChangePassword } from "utils/api";
 import ValidatePassword from "components/validatePassword";
 import { handleUsernameValidator, checkHasNumber } from "utils/validators";
 import SupportController from "components/supportController";
@@ -87,16 +87,34 @@ export default ({ childData, handleUpdateData }: any) => {
 
     try {
       if (newAvatar) requestBody = { avatar: newAvatar, id: childData.id };
-      const { status, data } = await setChildrenSettingData(token, requestBody);
-      setLoading(false);
-      if (status === 200) {
-        handleUpdateData(data);
-        setModal(OFFLOAD_MODAL);
-        if (
-          modal.activeContent === "USERNAME" ||
-          modal.activeContent === "PASSWORD"
-        ) {
-          await Keychain.resetGenericPassword();
+      if (modal.activeContent === "PASSWORD") {
+        const { status, data } = await setChildrenChangePassword(
+          token,
+          requestBody
+        );
+        setLoading(false);
+        if (status === 200) {
+          handleUpdateData(data);
+          setModal(OFFLOAD_MODAL);
+          if (modal.activeContent === "PASSWORD") {
+            await Keychain.resetGenericPassword();
+          }
+        }
+      } else {
+        const { status, data } = await setChildrenSettingData(
+          token,
+          requestBody
+        );
+        setLoading(false);
+        if (status === 200) {
+          handleUpdateData(data);
+          setModal(OFFLOAD_MODAL);
+          if (
+            modal.activeContent === "USERNAME" ||
+            modal.activeContent === "PASSWORD"
+          ) {
+            await Keychain.resetGenericPassword();
+          }
         }
       }
     } catch (err) {

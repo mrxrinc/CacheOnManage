@@ -342,6 +342,18 @@ export const setChildrenChangePassword = (token: any, data: any) =>
       },
     }
   );
+  export const setFatherChangePassword = (token: any, data: any) =>
+  instance.put(
+    `/api/v1/settings/change-password`,
+    {
+      ...data,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
 export const signout = (token: any) =>
   instance.post(`/api/v1/users/logout`, {
     headers: {

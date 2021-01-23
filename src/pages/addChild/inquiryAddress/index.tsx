@@ -10,7 +10,7 @@ import Button from "components/button";
 import Checkbox from "components/checkbox";
 import Switch from "components/switch";
 import { RootState } from "../../../../customType";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import MaterialTextField from "components/materialTextfield";
 import { addressInqury } from "utils/api";
 import { debounce } from "utils";
@@ -18,6 +18,7 @@ import ActionModalBottom from "components/modal/actionModalBottom";
 import ActionModalFullScreen from "components/modal/actionModalFullScreen";
 import ChildrenPaymentLimits from "components/childrenPaymentLimits";
 import { POLICY_URL } from "constants/index";
+import { withTheme } from "themeCore/themeProvider";
 
 type FormType = {
   nickname: string;
@@ -29,7 +30,8 @@ type PaymentMethodType = {
   amount: string;
 };
 
-export default (props: any) => {
+export const InquiryAddress = (props: any) => {
+  const theme = props.theme.addChild;
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [showInquiryAddressModal, setShowInquiryAddressModal] = useState<
     boolean
@@ -122,10 +124,10 @@ export default (props: any) => {
         <View style={style.container}>
           <ScrollView>
             <View style={style.contentWrapper}>
-              <FormattedText style={style.title}>
-                در صورتی‌ که فرزند خود را به نام دیگری صدا می‌زنید، آن را وارد
-                کنید.
-              </FormattedText>
+              <FormattedText
+                id="addChild.nickNameDescription"
+                style={[style.title, { color: theme.subjectFont }]}
+              />
               <MaterialTextField
                 label="نام مستعار (اختیاری)"
                 onChange={clearError}
@@ -134,8 +136,18 @@ export default (props: any) => {
               />
             </View>
 
-            <View style={style.addressSection}>
-              <View style={style.haveCardWrapper}>
+            <View
+              style={[
+                style.addressSection,
+                { backgroundColor: theme.itemsBackground },
+              ]}
+            >
+              <View
+                style={[
+                  style.haveCardWrapper,
+                  { borderColor: theme.linearColor },
+                ]}
+              >
                 <Checkbox
                   color={colors.buttonSubmitActive}
                   showActive={form.enableMobile}
@@ -143,23 +155,33 @@ export default (props: any) => {
                     _updateForm("enableMobile", value)
                   }
                 />
-                <FormattedText style={style.haveCardTitle}>
-                  امکان پرداخت موبایلی برای فرزند
-                </FormattedText>
+                <FormattedText
+                  id="addCild.mobilePaymentTitle"
+                  style={[style.haveCardTitle, { color: theme.subjectFont }]}
+                />
               </View>
-              <FormattedText style={style.haveCardDescription}>
-                در صورت انتخاب این گزینه شما میتوانید خرید‌های موبایلی را برای
-                فرزندتان فعال کنید و برای هریک از آنها سقف تعیین نمائید.
-              </FormattedText>
-
-              <MaterialTextField
-                label="تلفن همراه"
-                disabled={!form.enableMobile}
-                keyboardType="phone-pad"
-                onChange={clearError}
-                onChangeText={(value: any) => setMobileNumber(value)}
-                error={error.field === "mobileNumber" ? error.message : null}
+              <FormattedText
+                id="addCild.mobilePaymentDescription"
+                style={[
+                  style.haveCardDescription,
+                  { color: theme.descriptionFont },
+                ]}
               />
+              <View
+                style={{
+                  height: 92,
+                  justifyContent: "center",
+                }}
+              >
+                <MaterialTextField
+                  label="تلفن همراه"
+                  disabled={!form.enableMobile}
+                  keyboardType="phone-pad"
+                  onChange={clearError}
+                  onChangeText={(value: any) => setMobileNumber(value)}
+                  error={error.field === "mobileNumber" ? error.message : null}
+                />
+              </View>
 
               <View style={style.editAddressButtonWrapper}>
                 <Button
@@ -173,22 +195,36 @@ export default (props: any) => {
 
             <View style={style.verticalSpace} />
 
-            <View style={style.addressSection}>
-              <View style={style.haveCardWrapper}>
+            <View
+              style={[
+                style.addressSection,
+                { backgroundColor: theme.itemsBackground },
+              ]}
+            >
+              <View
+                style={[
+                  style.haveCardWrapper,
+                  { borderColor: theme.linearColor },
+                ]}
+              >
                 <Checkbox
                   color={colors.buttonSubmitActive}
                   onChange={(value: boolean) =>
                     _updateForm("enableAddress", value)
                   }
                 />
-                <FormattedText style={style.haveCardTitle}>
-                  می‌خواهم فرزندم کارت بانکی‌ داشته باشد.
-                </FormattedText>
+                <FormattedText
+                  id="addCild.cardTitle"
+                  style={[style.haveCardTitle, { color: theme.subjectFont }]}
+                />
               </View>
-              <FormattedText style={style.haveCardDescription}>
-                در صورت انتخاب این گزینه و تائید شما در مرحله بعد، کارت صادر شده
-                به آدرس شما ارسال میگردد.
-              </FormattedText>
+              <FormattedText
+                id="addCild.cardDescription"
+                style={[
+                  style.haveCardDescription,
+                  { color: theme.descriptionFont },
+                ]}
+              />
 
               {address && (
                 <FormattedText style={style.address} fontFamily="Regular-FaNum">
@@ -236,10 +272,12 @@ export default (props: any) => {
           onBackdropPress={() => setShowInquiryAddressModal(false)}
         >
           <View style={style.addressModalContent}>
-            <FormattedText style={style.addressModalTitle}>
-              لطفا کد پستی آدرسی که می‌خواهید کارت به آن ارسال شود را وارد
-              نمائید.
-            </FormattedText>
+            <View style={{ height: 50 }}>
+              <FormattedText style={style.addressModalTitle}>
+                لطفا کد پستی آدرسی که می‌خواهید کارت به آن ارسال شود را وارد
+                نمائید.
+              </FormattedText>
+            </View>
             <MaterialTextField
               label="کد پستی"
               onChange={clearError}
@@ -293,3 +331,5 @@ export default (props: any) => {
     </Layout>
   );
 };
+
+export default withTheme(InquiryAddress);

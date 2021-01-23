@@ -15,9 +15,7 @@ import { validateNationalId } from "utils/validators";
 import { postOfficeInqury } from "utils/api";
 import ActionModalCentered from "components/modal/actionModalCentered";
 import CloseIcon from "components/icons/close.svg";
-import { englishDigits } from "utils";
-
-import { seasons } from "constants/index";
+import { withTheme } from "themeCore/themeProvider";
 
 type FormType = {
   nationalId: string;
@@ -50,6 +48,7 @@ const AddChild: FC = (props: any) => {
   });
   const [birthday, setBirthday] = useState<any>("");
   const [error, setError] = useState<any>({ field: "", message: "" });
+  const [loading, setLoading] = useState(false);
   const birthdayRef = useRef();
   const PersianDatePickerRef = useRef();
 
@@ -73,10 +72,11 @@ const AddChild: FC = (props: any) => {
   };
 
   const handleInqury = () => {
-    console.log("INQURY");
+    setLoading(true);
     clearError();
     clearInquiry();
     if (!validateNationalId(form.nationalId)) {
+      setLoading(false);
       setError({
         field: "nationalId",
         message: "کد ملی‌ وارد شده معتبر نمیباشد.",
@@ -88,7 +88,7 @@ const AddChild: FC = (props: any) => {
     setShowInquiryResponseModal(true);
     postOfficeInqury(token, nationalId, birthday)
       .then((response: any) => {
-        console.log({ response });
+        setLoading(false);
         setInquiry({
           status: "success",
           data: {
@@ -98,7 +98,7 @@ const AddChild: FC = (props: any) => {
         });
       })
       .catch((err: any) => {
-        console.log("err", err.response.data);
+        setLoading(false);
         setInquiry({
           status: "fail",
           data: err.response.data,
@@ -194,9 +194,10 @@ const AddChild: FC = (props: any) => {
         handleBack={!noBackButton ? () => props.navigation.goBack() : null}
       />
       <ScrollView contentContainerStyle={[style.content]}>
-        <FormattedText style={style.title}>
-          لطفا کد ملی‌ و تاریخ تولد فرزند خود را جهت استعلام وارد نمائید.
-        </FormattedText>
+        <FormattedText
+          id="addChild.firstInput"
+          style={[style.title, { color: props.theme.addChild.descriptionFont }]}
+        />
         <MaterialTextField
           label="کد ملی"
           keyboardType="number-pad"
@@ -219,6 +220,7 @@ const AddChild: FC = (props: any) => {
           onPress={handleInqury}
           color={colors.buttonSubmitActive}
           style={style.button}
+          loading={loading}
         />
       </ScrollView>
 
@@ -229,9 +231,7 @@ const AddChild: FC = (props: any) => {
       >
         <View style={style.modalContainer}>
           <View style={style.modalSwipeHandle} />
-          <FormattedText style={style.ageWarning}>
-            محدوده سن فرزند باید بین ۹ تا ۱۵ سال باشد
-          </FormattedText>
+          <FormattedText id="addCild.ageWarning" style={style.ageWarning} />
           <DatePicker birthDate={(value: any) => setBirthday(value)} />
           <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
             <Button
@@ -255,4 +255,4 @@ const AddChild: FC = (props: any) => {
   );
 };
 
-export default AddChild;
+export default withTheme(AddChild);

@@ -19,6 +19,12 @@
       "tabbar":{
         "deactiveLabelColor":"#110820",
         "activeLabelColor":"#307fe2"
+      },
+      "addChild":{
+        "subjectFont":"#110820",
+        "descriptionFont":"#707070",
+        "itemsBackground":"#fff",
+        "linearColor":"#f5f7fa"
       }
     },
     {
@@ -42,6 +48,12 @@
       "tabbar":{
         "deactiveLabelColor":"#00015d",
         "activeLabelColor":"#8387fc"
+      },
+      "addChild":{
+        "subjectFont":"#110820",
+        "descriptionFont":"#8d8b8b",
+        "itemsBackground":"#f5f7fa",
+        "linearColor":"#f5f7fa"
       }
     },
     {
@@ -65,6 +77,12 @@
       "tabbar":{
         "deactiveLabelColor":"#00015d",
         "activeLabelColor":"#8387fc"
+      },
+      "addChild":{
+        "subjectFont":"#110820",
+        "descriptionFont":"#8d8b8b",
+        "itemsBackground":"#f5f7fa",
+        "linearColor":"#f5f7fa"
       }
     }
   ]
