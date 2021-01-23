@@ -1,4 +1,11 @@
-export interface SavingListData {}
+export interface SavingListData {
+  totalAmount: string;
+  weeklySavings: string;
+  targets: TargetsData[];
+  childId: number;
+  allowance: number | string;
+  childName: string;
+}
 
 export interface AddTarget {
   title: string;
@@ -6,6 +13,9 @@ export interface AddTarget {
   weeklySavings: string | number;
   targetDate: string;
   childId?: number;
+}
+export interface EditTargetData extends AddTarget {
+  id?: number;
 }
 export interface SelectedTargetsData {
   targets: any[];

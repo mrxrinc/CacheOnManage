@@ -1,13 +1,11 @@
 import React, { FC, useState } from "react";
 import moment from "moment-jalaali";
-// API
-import SavingService from "services/http/endpoints/saving";
 // Helpers
 import { formatNumber, removeCommas } from "utils";
 // Hooks
 import { Formik } from "formik";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Actions
 import SavingActions from "store/Saving/saving.actions";
 // UI Frameworks
@@ -22,7 +20,9 @@ import DatePicker from "components/datePicker";
 import MaterialTextField from "components/materialTextfield";
 import AlertController from "components/alertController";
 // Types
-import { AddTarget, TargetsData } from "types/saving";
+import { EditTargetData, TargetsData } from "types/saving";
+import { SavingState } from "store/Saving/saving.reducer";
+import { StateNetwork } from "store/index.reducer";
 // Constants
 import { colors } from "constants/index";
 // Styles
@@ -37,14 +37,11 @@ export interface Errors {
 interface Props {
   data: TargetsData;
   childName: string;
-  allowance: number;
+  allowance: number | string;
 }
 const EditTarget: FC<Props> = (props) => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [finishTargetloading, setFinishTargetLoading] = useState<boolean>(
-    false
-  );
+
   const [targetDate, setTargetDate] = useState(props.data.targetDate);
   const [showDateModal, setShowDateModal] = useState<boolean>(false);
   const [weeklyAmount, setWeeklyAmount] = useState<string>(
@@ -55,9 +52,13 @@ const EditTarget: FC<Props> = (props) => {
   );
   const [firstSubmitted, setFirstSubmitted] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [changedBy, setChangedBy] = React.useState<string>();
+  const [changedBy, setChangedBy] = useState<string>();
   const [showFinishTargetModal, setShowFinishTargetModal] = useState<boolean>(
     false
+  );
+  // Store
+  const savingStore = useSelector<StateNetwork, SavingState>(
+    (state) => state.saving
   );
 
   React.useEffect(() => {
@@ -110,7 +111,7 @@ const EditTarget: FC<Props> = (props) => {
     },
     validateOnChange: firstSubmitted,
     validateOnBlur: false,
-    validate: (values: AddTarget) => {
+    validate: (values: EditTargetData) => {
       const errors: Errors = {};
       setFirstSubmitted(true);
       if (!values.title) {
@@ -138,7 +139,7 @@ const EditTarget: FC<Props> = (props) => {
 
       return errors;
     },
-    onSubmit: (values: any) => {
+    onSubmit: (values: EditTargetData) => {
       const data = {
         id: props.data.id,
         title: values.title,
@@ -148,6 +149,7 @@ const EditTarget: FC<Props> = (props) => {
       };
 
       if (
+        //@ts-ignore
         removeCommas(values.targetAmount) < removeCommas(props.data.paidAmount)
       ) {
         setShowInfoModal(true);
@@ -251,9 +253,11 @@ const EditTarget: FC<Props> = (props) => {
 
           <FormattedText style={styles.amountHint} fontFamily="Regular-FaNum">
             {` ${props.childName} مبلغ ${formatNumber(
-              props.data.paidAmount ? props.data.paidAmount : "0"
+              String(props.data.paidAmount)
+                ? String(props.data.paidAmount)
+                : "0"
             )} از ${formatNumber(
-              props.data.targetAmount
+              String(props.data.targetAmount)
             )} ریال را ذخیره کرده است `}
           </FormattedText>
           {formik.errors.targetAmount && (
@@ -268,7 +272,7 @@ const EditTarget: FC<Props> = (props) => {
             <View style={[styles.halfWidth]}>
               <Input
                 editable={!!formik.values.targetAmount}
-                value={formatNumber(formik.values.weeklySavings)}
+                value={formatNumber(String(formik.values.weeklySavings))}
                 onChangeText={(value: string) =>
                   handleWeeklyAmountChange(value)
                 }
@@ -312,11 +316,11 @@ const EditTarget: FC<Props> = (props) => {
         <View style={styles.inputWrapper}>
           <Button
             onPress={formik.handleSubmit}
-            disabled={!formik.isValid || loading}
+            disabled={!formik.isValid || savingStore.loading}
             title="ذخیره"
             color="#43e6c5"
             style={styles.submitButton}
-            loading={loading}
+            loading={savingStore.loading}
           />
           <Button
             onPress={handleFinishTargetModal}
@@ -349,7 +353,9 @@ const EditTarget: FC<Props> = (props) => {
           setShowModal={() => setShowFinishTargetModal(false)}
           title="اتمام هدف"
           description={`با تایید اتمام هدف ${props.data.title} , مبلغ ${
-            props.data.paidAmount ? formatNumber(props.data.paidAmount) : "0"
+            props.data.paidAmount
+              ? formatNumber(String(props.data.paidAmount))
+              : "0"
           } ریال از حساب پس انداز شما کسر شده و به کارت شما منتقل می شود.`}
           rightAction={handleFinishTarget}
           rightTitle="اتمام هدف"
@@ -362,7 +368,7 @@ const EditTarget: FC<Props> = (props) => {
           setShowModal={() => setShowInfoModal(false)}
           title="ویرایش هدف پس انداز"
           description={`شما تا حالا ${formatNumber(
-            props.data.paidAmount
+            String(props.data.paidAmount)
           )} ریال پس انداز کرده اید. مبلغ جدید هدف نمی تواند از این مقدار کمتر باشد.`}
           middleAction={() => setShowInfoModal(false)}
           middleTitle="متوجه شدم"
