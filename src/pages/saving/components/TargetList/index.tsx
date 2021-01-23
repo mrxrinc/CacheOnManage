@@ -174,7 +174,7 @@ const TargetList: React.FC<Props> = (props) => {
                     }}
                   />
                 </View>
-                <View style={{ alignItems: "center", flexDirection: "row" }}>
+                <View style={[styles.row, { alignItems: "center" }]}>
                   {targetPercent !== "100%" &&
                   target.state !== "Done" &&
                   target.state !== "CANCELED" ? (
