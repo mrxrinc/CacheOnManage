@@ -330,7 +330,7 @@ const TaskList = (props: any) => {
                   style={styles.otherPaymentsItemTitle}
                   fontFamily="Bold"
                 >
-                  {item.name || "--"}
+                  {item.description || "--"}
                 </FormattedText>
                 <FormattedText
                   style={styles.otherPaymentsAmount}
