@@ -1,112 +1,137 @@
 import React, { useState, useEffect } from "react";
-import { View, SafeAreaView, StyleSheet, Dimensions } from "react-native";
-import { WheelPicker } from "react-native-wheel-picker-android";
-import moment from "moment-jalaali";
+import { View, TouchableOpacity } from "react-native";
+import Modal from "react-native-modal";
+import { FormattedText } from "components/format-text";
+import DatePickerWheel from "components/datePickerWheel";
+import ArrowIcon from "components/icons/arrow.svg";
+import Button from "components/button";
 import { colors } from "constants/index";
-const monthNames = [
-  "فروردین",
-  "اردیبهشت",
-  "خرداد",
-  "تیر",
-  "مرداد",
-  "شهریور",
-  "مهر",
-  "ابان",
-  "آذر",
-  "دی",
-  "بهمن",
-  "اسفند",
-];
+import styles from "./styles";
+import { withTheme } from "../../themeCore/themeProvider";
 
-const DatePicker = (props: any) => {
-  const limited = props?.limited;
-  const currentYear = moment().jYear();
-  //day of birthdate
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
-  const daystring = days.map(String);
-  //year of birthdate
-  const years = Array.from(
-    { length: limited ? 7 : 100 },
-    (_, i) => i + (limited ? currentYear - 15 : 1300)
-  );
-  const yearString = years.map(String);
-  const [selectedDay, setSelectedDay] = useState(days.length / 2);
-  const [selectedMonth, setSelectedMonth] = useState(monthNames.length / 2);
-  const [selectedYear, setSelectedYear] = useState(years.length / 2);
+const DatePicker = ({
+  label = "",
+  modalTitle = "",
+  light = false,
+  noIcon = false,
+  active = true,
+  defaultValue = "",
+  theme,
+  handleChosenDate = () => null,
+}: any) => {
+  const [showDateModal, setShowDateModal] = useState<boolean>(false);
+  const [tempValue, setTempValue] = useState<string>("");
+  const [value, setValue] = useState<string>("");
+  const blujr = theme.key === "FATHER BLU JUNIOR";
 
   useEffect(() => {
-    props.birthDate(
-      yearString[selectedYear] +
-        "/" +
-        (selectedMonth < 9 ? "0" + (selectedMonth + 1) : selectedMonth + 1) +
-        "/" +
-        (selectedDay < 10
-          ? "0" + daystring[selectedDay]
-          : daystring[selectedDay])
-    );
-  }, [selectedDay, selectedMonth, selectedYear]);
+    setValue(defaultValue);
+  }, [defaultValue]);
+
+  const handleOnConfirm = () => {
+    setShowDateModal(false);
+    setValue(tempValue);
+    handleChosenDate(value);
+  };
 
   return (
-    <SafeAreaView>
-      <View style={styles.dateBox}>
-        <View style={styles.column}>
-          <WheelPicker
-            selectedItem={selectedDay}
-            data={daystring}
-            onItemSelected={(index) => setSelectedDay(index)}
-            itemTextColor={colors.gray600}
-            selectedItemTextFontFamily="IRANSansMobileFaNum"
-            itemTextFontFamily="IRANSansMobileFaNum"
-            selectedItemTextColor={colors.title}
-            selectedItemTextSize={22}
-            hideIndicator={true}
-            {...props}
-          />
+    <View>
+      <TouchableOpacity
+        style={
+          light
+            ? styles.buttonLight
+            : blujr
+            ? styles.buttonBlujr
+            : !showDateModal
+            ? styles.buttonMoneyInactive
+            : styles.buttonMoneyActive
+        }
+        onPress={() => active && setShowDateModal(true)}
+      >
+        {light ? (
+          <FormattedText
+            style={[styles.label, { color: colors.gray200 }]}
+            fontFamily="Regular-FaNum"
+          >
+            {value}
+          </FormattedText>
+        ) : blujr ? (
+          <FormattedText
+            style={[
+              styles.label,
+              { color: value ? colors.gray200 : colors.gray500 },
+            ]}
+            fontFamily="Regular-FaNum"
+          >
+            {value || label}
+          </FormattedText>
+        ) : (
+          <>
+            <FormattedText
+              style={[
+                styles.label,
+                {
+                  fontSize: value ? 12 : 16,
+                  color: value ? colors.title : colors.gray500,
+                },
+              ]}
+              fontFamily="Regular-FaNum"
+            >
+              {label}
+            </FormattedText>
+
+            {!!value && (
+              <FormattedText
+                style={[styles.label, { color: colors.gray200 }]}
+                fontFamily="Regular-FaNum"
+              >
+                {value}
+              </FormattedText>
+            )}
+          </>
+        )}
+
+        {!noIcon && (
+          <View
+            style={[
+              styles.iconWrapper,
+              {
+                paddingTop: blujr ? 0 : 10,
+              },
+            ]}
+          >
+            <ArrowIcon
+              width={30}
+              height={30}
+              style={{
+                transform: [{ rotate: showDateModal ? "90deg" : "270deg" }],
+                color: showDateModal ? colors.gray500 : colors.gray700,
+              }}
+            />
+          </View>
+        )}
+      </TouchableOpacity>
+
+      <Modal
+        isVisible={showDateModal}
+        onBackdropPress={() => setShowDateModal(false)}
+        style={styles.modal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalSwipeHandle} />
+          <FormattedText style={styles.ageWarning}>{modalTitle}</FormattedText>
+          <DatePickerWheel value={(value: any) => setTempValue(value)} />
+          <View style={styles.modalButtonWrapper}>
+            <Button
+              title="انتخاب"
+              onPress={handleOnConfirm}
+              color={colors.links}
+            />
+          </View>
         </View>
-        <View style={styles.column}>
-          <WheelPicker
-            selectedItem={selectedMonth}
-            data={monthNames}
-            onItemSelected={(index) => setSelectedMonth(index)}
-            itemTextColor={colors.gray600}
-            selectedItemTextFontFamily="IRANSansMobileFaNum"
-            itemTextFontFamily="IRANSansMobileFaNum"
-            selectedItemTextColor={colors.title}
-            selectedItemTextSize={22}
-            hideIndicator={true}
-            {...props}
-          />
-        </View>
-        <View style={styles.column}>
-          <WheelPicker
-            selectedItem={selectedYear}
-            data={yearString}
-            onItemSelected={(index) => setSelectedYear(index)}
-            itemTextColor={colors.gray600}
-            selectedItemTextFontFamily="IRANSansMobileFaNum"
-            itemTextFontFamily="IRANSansMobileFaNum"
-            selectedItemTextColor={colors.title}
-            selectedItemTextSize={22}
-            hideIndicator={true}
-            {...props}
-          />
-        </View>
-      </View>
-    </SafeAreaView>
+      </Modal>
+    </View>
   );
 };
-const { width } = Dimensions.get("window");
-const styles = StyleSheet.create({
-  dateBox: {
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  column: {
-    width: "33.33333%",
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
-export default DatePicker;
+
+export default withTheme(DatePicker);
