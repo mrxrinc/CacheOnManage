@@ -50,12 +50,6 @@ export default ({ childData, handleUpdateData }: any) => {
     clearError();
   }, [modal]);
 
-  // useEffect(() => {
-  //   setMobile(childData.mobile);
-  //   setNickname(childData.nickname);
-  //   setUsername(childData.username);
-  // }, [modal.visibility === true]);
-
   const handleValidatePassword = (status: boolean) => {
     setPasswordIsValid(status);
   };
@@ -228,10 +222,8 @@ export default ({ childData, handleUpdateData }: any) => {
       <MaterialTextField
         label="نام مستعار"
         onChange={clearError}
-        onChangeText={(value: any) => {
-          setNickname(value);
-        }}
-        value={childData.nickname !== childData.firstname ? nickname : ""}
+        onChangeText={(value: any) => setNickname(value)}
+        value={nickname}
         error={error.field === "nickname" ? error.message : null}
       />
     </>
