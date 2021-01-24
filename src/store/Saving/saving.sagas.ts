@@ -2,7 +2,7 @@
  * @module Sagas/Saving
  * @desc All Saving sagas
  */
-import { all, call, put, takeLatest, select } from "redux-saga/effects";
+import { all, call, put, takeLatest, select, delay } from "redux-saga/effects";
 import * as types from "./saving.constants";
 import * as R from "ramda";
 // Actions
@@ -105,18 +105,29 @@ function* finishTarget(action: Action<number>) {
   );
 }
 function* updateTarget(action: Action<AddTarget>) {
-  yield call(
-    SavingService.updateTarget.bind(SavingService),
-    action.payload as AddTarget
-  );
-  const savingListRes = yield call(
-    SavingService.fetchSavingList.bind(SavingService)
-  );
-  yield put(
-    // @ts-ignore
-    SavingActions.updateTarget(savingListRes, { sagas: false })
-  );
+  try {
+    yield put(SavingActions.setLoading(true));
+    yield call(
+      SavingService.updateTarget.bind(SavingService),
+      action.payload as AddTarget
+    );
+
+    const savingListRes = yield call(
+      SavingService.fetchSavingList.bind(SavingService)
+    );
+    yield put(
+      // @ts-ignore
+      SavingActions.setSavingsDataList(savingListRes, {
+        sagas: false,
+      })
+    );
+    yield put(SavingActions.setLoading(false));
+  } catch (error) {
+    console.log("DEBUG: function*updateTarget -> error", error);
+    yield put(SavingActions.setLoading(false));
+  }
 }
+
 export default function* networkListeners() {
   yield all([
     takeLatest(types.SAGAS_SAVING_LIST, fetchSavingList),
