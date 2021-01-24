@@ -78,8 +78,8 @@ const EditTarget: FC<Props> = (props) => {
     if (!moment(targetDate).isValid()) return;
 
     const $targetAmount = Number(targetAmount);
-    // این شرط زمانی اجراء میشود که مبلغ هدف پر شده است و همچنین کاربر تاریخ هدف را نیز انتخاب است
-    // حال میبایست ما مبلغ پس اندازه هفتگی را محاسبه کنیم
+    // این شرط زمانی اجراء میشود که مبلغ هدف پر شده است و همچنین کاربر تاریخ هدف را نیز انتخاب کرده است
+    // حال میبایست ما مبلغ پس انداز هفتگی را محاسبه کنیم
     if ($targetAmount && changedBy === "targetDate") {
       const currentDate = moment();
       const $targetDate = moment(targetDate, "jYYYY/jMM/jDD");
