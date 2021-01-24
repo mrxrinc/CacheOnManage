@@ -34,8 +34,8 @@ interface IError {
 
 const SignIn = ({ theme }: any) => {
   const navigation = useNavigation();
-  const [username, setUsername] = useState("Nasim_child1");
-  const [password, setPassword] = useState("Nn1234567");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showBiometricModal, setShowBiometricModal] = useState(false);
   const [
