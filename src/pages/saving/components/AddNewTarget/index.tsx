@@ -276,21 +276,18 @@ const AddNewTarget: FC<Props> = (props) => {
                 <FormattedText style={[styles.halfWidth, styles.gray]}>
                   تاریخ رسیدن به هدف
                 </FormattedText>
-                <TouchableWithoutFeedback
-                  onPress={() =>
-                    formik.values.targetAmount &&
-                    setShowDateModal(!showDateModal)
-                  }
-                >
-                  <View style={styles.targetDateBox}>
-                    <FormattedText
-                      style={[styles.halfWidth, styles.targetDate]}
-                      fontFamily="Regular-FaNum"
-                    >
-                      {targetDate}
-                    </FormattedText>
-                  </View>
-                </TouchableWithoutFeedback>
+                <View style={styles.targetDateBox}>
+                  <DatePicker
+                    noIcon
+                    light
+                    defaultValue={targetDate}
+                    active={formik.values.targetAmount}
+                    handleChosenDate={(val: string) => {
+                      handleChangeTargetDate(val);
+                      setShowDateModal(false);
+                    }}
+                  />
+                </View>
                 <FormattedText style={[styles.unit]}></FormattedText>
               </View>
             </ScrollView>
@@ -303,26 +300,6 @@ const AddNewTarget: FC<Props> = (props) => {
                 color={colors.buttonSubmitActive}
               />
             </View>
-            <Modal
-              isVisible={showDateModal}
-              onBackdropPress={() => setShowDateModal(false)}
-              style={styles.modal}
-            >
-              <View style={styles.modalContainer}>
-                <View style={styles.modalSwipeHandle} />
-
-                <DatePicker
-                  birthDate={(value: any) => handleChangeTargetDate(value)}
-                />
-                <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
-                  <Button
-                    title="انتخاب"
-                    onPress={handleStartDate}
-                    color={colors.links}
-                  />
-                </View>
-              </View>
-            </Modal>
           </>
         </Formik>
       </ScrollView>

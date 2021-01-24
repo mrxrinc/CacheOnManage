@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, forwardRef } from "react";
-import { View, TouchableOpacity, TextInput, Text } from "react-native";
+import React, { useState, useRef, forwardRef } from "react";
+import { View, TouchableOpacity, TextInput } from "react-native";
 import { FilledTextField } from "react-native-material-textfield";
 import { FormattedText } from "components/format-text";
 import { colors } from "constants/index";
-import ArrowIcon from "components/icons/arrow.svg";
 import ErrorIcon from "components/icons/error.svg";
 import PasswordIcon from "components/icons/password.svg";
 import PasswordVisibleIcon from "components/icons/passwordVisible.svg";
@@ -15,18 +14,54 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const inputRef = ref ?? useRef(null);
 
+  const renderIcon = () => {
+    if (props.icon === "error") {
+      return (
+        <ErrorIcon
+          width={20}
+          height={20}
+          style={{
+            transform: [{ translateX: -10 }],
+            color: colors.red,
+          }}
+        />
+      );
+    } else if (props.icon === "password") {
+      return showPassword ? (
+        <PasswordIcon
+          width={22}
+          height={22}
+          style={{ color: colors.gray300 }}
+        />
+      ) : (
+        <PasswordVisibleIcon
+          width={22}
+          height={22}
+          style={{ color: colors.gray600 }}
+        />
+      );
+    } else {
+      return props.icon;
+    }
+  };
+
   return (
     <View style={[style.container, props.style]}>
-      {theme.key == "FATHER BLU JUNIOR" ? (
-        <View style={style.blujrInputWrapper}>
-          <TextInput
-            style={style.blujrInput}
-            placeholder={props.label}
-            value={props.value}
-            ref={inputRef}
-            secureTextEntry={props.icon === "password" ? !showPassword : false}
-            {...props}
-          />
+      {theme.key === "FATHER BLU JUNIOR" ? (
+        <View style={style.blujrInputBox}>
+          <View style={style.blujrInputWrapper}>
+            <TextInput
+              style={style.blujrInput}
+              placeholder={props.label}
+              value={props.value}
+              ref={inputRef}
+              secureTextEntry={
+                props.icon === "password" ? !showPassword : false
+              }
+              {...props}
+            />
+          </View>
+          <FormattedText style={style.errorFont}>{props.error}</FormattedText>
         </View>
       ) : (
         <View>
@@ -51,60 +86,24 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
           )}
         </View>
       )}
-      <View style={style.iconWrapper}>
-        {renderIcon({
-          icon: props.icon,
-          error: props.error,
-          showPassword,
-          setShowPassword,
-        })}
-      </View>
+      <TouchableOpacity
+        style={[
+          style.iconWrapper,
+          { height: theme.key === "FATHER BLU JUNIOR" ? 47 : 67 },
+        ]}
+        onPress={() =>
+          typeof props.iconAction === "function"
+            ? props.iconAction
+            : props.icon === "password"
+            ? setShowPassword(!showPassword)
+            : null
+        }
+        activeOpacity={typeof props.iconAction === "function" ? 0.5 : 1}
+      >
+        {renderIcon()}
+      </TouchableOpacity>
     </View>
   );
 });
-
-const renderIcon = ({ icon, error, showPassword, setShowPassword }: any) => {
-  if (icon === "arrow") {
-    return () => (
-      <ArrowIcon
-        width={30}
-        height={30}
-        style={{
-          transform: [{ rotate: "270deg" }, { translateY: -15 }],
-          color: colors.gray700,
-        }}
-      />
-    );
-  } else if (error) {
-    return () => (
-      <ErrorIcon
-        width={20}
-        height={20}
-        style={{
-          transform: [{ translateX: -10 }],
-          color: colors.red,
-        }}
-      />
-    );
-  } else if (icon === "password") {
-    return (
-      <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-        {showPassword ? (
-          <PasswordIcon
-            width={22}
-            height={22}
-            style={{ color: colors.gray300 }}
-          />
-        ) : (
-          <PasswordVisibleIcon
-            width={22}
-            height={22}
-            style={{ color: colors.gray600 }}
-          />
-        )}
-      </TouchableOpacity>
-    );
-  }
-};
 
 export default withTheme(MaterialTextField);

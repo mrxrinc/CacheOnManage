@@ -32,6 +32,11 @@ export default StyleSheet.create({
     right: 5,
     bottom: 12,
   },
+  blujrInputBox: {
+    width: "100%",
+    height: 62,
+    justifyContent: "center",
+  },
   blujrInputWrapper: {
     width: "100%",
     height: 52,
@@ -44,14 +49,16 @@ export default StyleSheet.create({
     fontFamily: "IRANSansMobileFaNum",
     textAlign: "right",
   },
+  errorFont: {
+    color: colors.red,
+    fontSize: 12,
+  },
   iconWrapper: {
-    width: 35,
-    height: "100%",
+    width: 40,
     position: "absolute",
     right: 0,
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 13,
-    backgroundColor: "red",
+    zIndex: 3,
   },
 });

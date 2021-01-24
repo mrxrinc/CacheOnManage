@@ -1,7 +1,6 @@
 import React, { FC, useState, useRef } from "react";
 import { View, ScrollView, Keyboard } from "react-native";
 import DatePicker from "components/datePicker";
-import Modal from "react-native-modal";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
 import Layout from "components/layout";
@@ -37,7 +36,6 @@ const resultKeys: any = {
 const AddChild: FC = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const noBackButton = props.route.params?.noBackButton;
-  const [showDateModal, setShowDateModal] = useState<boolean>(false);
   const [showInquiryResponseModal, setShowInquiryResponseModal] = useState<
     boolean
   >(false);
@@ -45,9 +43,7 @@ const AddChild: FC = (props: any) => {
     status: null,
     data: null,
   });
-  const [birthday, setBirthday] = useState<any>("");
   const [error, setError] = useState<any>({ field: "", message: "" });
-  const birthdayRef = useRef();
 
   const [form, setForm] = useState<FormType>({
     nationalId: "",
@@ -56,17 +52,6 @@ const AddChild: FC = (props: any) => {
 
   const _updateForm = (k: string, v: string) => {
     setForm({ ...form, [k]: v });
-  };
-
-  const onBirthdayConfirm = () => {
-    setShowDateModal(false);
-    // const formattedBirthday =
-    //   birthday[2] + "/" + birthday[1] + "/" + birthday[0];
-    birthdayRef.current.blur();
-    if (typeof birthdayRef.current.setValue === "function") {
-      birthdayRef.current.setValue(birthday);
-    }
-    _updateForm("birthday", birthday);
   };
 
   const handleInqury = () => {
@@ -202,15 +187,10 @@ const AddChild: FC = (props: any) => {
           onChangeText={(value: any) => _updateForm("nationalId", value)}
           error={error.field === "nationalId" ? error.message : null}
         />
-        <MaterialTextField
+        <DatePicker
           label="تاریخ تولد"
-          showSoftInputOnFocus={false}
-          onFocus={() => {
-            setShowDateModal(true);
-          }}
-          icon="arrow"
-          ref={birthdayRef}
-          value={birthday}
+          modalTitle="محدوده سن فرزند باید بین ۹ تا ۱۵ سال باشد"
+          handleChosenDate={(val: string) => _updateForm("birthday", val)}
         />
         <Button
           title="استعلام"
@@ -219,27 +199,6 @@ const AddChild: FC = (props: any) => {
           style={style.button}
         />
       </ScrollView>
-
-      <Modal
-        isVisible={showDateModal}
-        onBackdropPress={() => setShowDateModal(false)}
-        style={style.modal}
-      >
-        <View style={style.modalContainer}>
-          <View style={style.modalSwipeHandle} />
-          <FormattedText style={style.ageWarning}>
-            محدوده سن فرزند باید بین ۹ تا ۱۵ سال باشد
-          </FormattedText>
-          <DatePicker birthDate={(value: any) => setBirthday(value)} />
-          <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
-            <Button
-              title="انتخاب"
-              onPress={onBirthdayConfirm}
-              color={colors.links}
-            />
-          </View>
-        </View>
-      </Modal>
 
       <ActionModalCentered
         showModal={showInquiryResponseModal}
