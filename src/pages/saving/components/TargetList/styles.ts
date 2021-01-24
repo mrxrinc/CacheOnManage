@@ -104,4 +104,8 @@ export default StyleSheet.create({
   modalContent: {
     width: width * 0.89,
   },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });

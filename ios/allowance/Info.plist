@@ -44,7 +44,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>لطفا دسترسی دوربین برای تشخیص چهره تان را بدهید</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>اجازه دسترسی به تصاویر </string>
 	<key>UIAppFonts</key>

@@ -1,36 +1,30 @@
 import React, { FC, useEffect } from "react";
-// Utilities
-import * as R from "ramda";
 // Hooks
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/core";
+import { useSelector, useDispatch } from "react-redux";
 // Types
 import { StateNetwork } from "store/index.reducer";
 import { SavingState } from "store/Saving/saving.reducer";
+import { SavingListData } from "types/saving";
 // Common Components
 import Layout from "components/layout";
 import MainHeader from "components/mainHeader";
 import ScrollableTabView from "components/scrollableTabView";
-
+// Local Components
+import ChildPage from "./components/ChildPage";
 // UI Frameworks
 import { ActivityIndicator, View } from "react-native";
 // Actions
 import SavingActions from "store/Saving/saving.actions";
 // Styles
 import styles from "./styles";
-import ChildPage from "./components/ChildPage";
+import { colors } from "constants/index";
 
 const Saving: FC = () => {
   const dispatch = useDispatch();
   const isChild = useSelector<StateNetwork, boolean>(
     (state) => state.user.ischild
   );
-  const navigation = useNavigation();
-
   const [selectedTab, setSelectedTab] = React.useState<number>(0);
-  const [targetsList, setTargetsList] = React.useState([]);
-
   // Store
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
@@ -48,7 +42,9 @@ const Saving: FC = () => {
     <Layout>
       <MainHeader title={"پس انداز"} />
       {savingStore.loading ? (
-        <ActivityIndicator />
+        <View style={styles.loading}>
+          <ActivityIndicator color={colors.gray600} size="large" />
+        </View>
       ) : (
         <View style={styles.container}>
           {savingStore.savingList?.length > 0 ? (
@@ -58,16 +54,18 @@ const Saving: FC = () => {
               page={selectedTab}
               onChangeTab={handleChangeTab}
             >
-              {savingStore.savingList.map((childData: any, i: number) => {
-                return (
-                  <ChildPage
-                    tabLabel={childData.childName}
-                    data={childData}
-                    i={i}
-                    key={i}
-                  />
-                );
-              })}
+              {savingStore.savingList.map(
+                (childData: SavingListData, i: number) => {
+                  return (
+                    <ChildPage
+                      tabLabel={childData.childName}
+                      data={childData}
+                      i={i}
+                      key={i}
+                    />
+                  );
+                }
+              )}
             </ScrollableTabView>
           ) : null}
         </View>

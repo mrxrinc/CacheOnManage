@@ -22,26 +22,17 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
   return (
     <View style={[style.container, props.style]}>
       {theme.key == "FATHER BLU JUNIOR" ? (
-        <View
-          style={{
-            width: "100%",
-            height: 52,
-            backgroundColor: "#f5f7fa",
-            borderRadius: 10,
-            justifyContent: "center",
-          }}
-        >
-          <TextInput
-            style={{
-              marginLeft: "2%",
-              fontFamily: "IRANSansMobile",
-              textAlign: "right",
-            }}
-            placeholder={props.label}
-            value={props.value}
-            ref={rref}
-            {...props}
-          />
+        <View style={style.inputBox}>
+          <View style={style.inputPack}>
+            <TextInput
+              style={style.textInput}
+              placeholder={props.label}
+              value={props.value}
+              ref={rref}
+              {...props}
+            />
+          </View>
+          <FormattedText style={style.errorFont}>{props.error}</FormattedText>
         </View>
       ) : (
         <View>

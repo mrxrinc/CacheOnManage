@@ -5,7 +5,7 @@ import { colors } from "constants/index";
 import style from "./style";
 import Button from "components/button";
 import * as Keychain from "react-native-keychain";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import MaterialTextField from "components/materialTextfield";
 import ActionModalButtom from "components/modal/actionModalBottom";
 import ValidatePassword from "components/validatePassword";
@@ -19,7 +19,7 @@ import TrashIcon from "components/icons/trash.svg";
 import AddImageIcon from "components/icons/addImage.svg";
 import Card from "pages/setting/components/card";
 import KeyValuePair from "pages/setting/components/keyValuePair";
-import { setSettingData, setChildrenChangePassword } from "utils/api";
+import { setSettingData, setFatherChangePassword } from "utils/api";
 import { RootState } from "../../../customType";
 import {
   ModalType,
@@ -29,7 +29,6 @@ import {
 } from "./constants";
 
 export default ({ fatherData, handleUpdateData }: any) => {
-  console.log("changepasswod call0", fatherData, handleUpdateData);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>(fatherData.username || "");
@@ -51,7 +50,6 @@ export default ({ fatherData, handleUpdateData }: any) => {
   };
 
   const handleSetSettingData = async (newAvatar: string | null = null) => {
-    console.log("changepasswod call1");
     setLoading(true);
     let requestBody = null;
     switch (modal.activeContent) {
@@ -70,16 +68,13 @@ export default ({ fatherData, handleUpdateData }: any) => {
       default:
         requestBody = null;
     }
-    console.log("changepasswod call2", modal.activeContent);
     try {
       if (newAvatar) requestBody = { avatar: newAvatar };
       if (modal.activeContent === "PASSWORD") {
-        console.log("changepasswod call3", modal.activeContent);
-        const { status, data } = await setChildrenChangePassword(
+        const { status, data } = await setFatherChangePassword(
           token,
           requestBody
         );
-        console.log("changepasswod call3.5", status, data);
         setLoading(false);
         if (status === 200) {
           handleUpdateData(data);
@@ -89,7 +84,6 @@ export default ({ fatherData, handleUpdateData }: any) => {
           }
         }
       } else {
-        console.log("changepasswod call4", modal.activeContent);
         const { status, data } = await setSettingData(token, requestBody);
         setLoading(false);
         if (status === 200) {

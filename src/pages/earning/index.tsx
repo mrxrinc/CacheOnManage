@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   Dimensions,
   ScrollView,
@@ -9,17 +8,17 @@ import {
   RefreshControl,
 } from "react-native";
 import MainHeader from "components/mainHeader";
-import Header from "components/header";
 import Layout from "components/layout";
 import AllowanceChart from "./allowanceChart";
 import ScrollableTabView from "components/scrollableTabView";
 import { getChildInfo } from "utils/api";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../customType";
 import AddAllowance from "./addAllowance";
 import ChildTaskList from "./childTaskList";
+import { colors } from "constants/index";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 const Earning = (props: any) => {
   const [childInfo, setChildInfo] = useState<any>([]);
@@ -34,10 +33,8 @@ const Earning = (props: any) => {
   const getChildData = () => {
     getChildInfo(token)
       .then((response: any) => {
-        console.log("getChildInfo res is", response);
         setRefreshing(false);
         setChildInfo(response.data);
-        // dispatch(getEarningData(dataa));
       })
       .catch(function (error) {
         setRefreshing(false);
@@ -99,8 +96,8 @@ const Earning = (props: any) => {
             })}
           </ScrollableTabView>
         ) : (
-          <View style={{ marginTop: "10%" }}>
-            <ActivityIndicator size="large" />
+          <View style={styles.loading}>
+            <ActivityIndicator color={colors.gray600} size="large" />
           </View>
         )}
       </View>
@@ -113,5 +110,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+  },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
