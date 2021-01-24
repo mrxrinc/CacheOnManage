@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React from "react";
 // Utilities
 import * as R from "ramda";
 // Hooks
@@ -8,30 +8,33 @@ import { useNavigation } from "@react-navigation/core";
 // Types
 import { StateNetwork } from "store/index.reducer";
 import { SavingState } from "store/Saving/saving.reducer";
+import { SavingListData, TargetsData } from "types/saving";
 // Common Components
 import Button from "components/button";
 // Local Components
 import SavingInfo from "../SavingInfo/SavingInfo";
 import TargetList from "../TargetList";
 // UI Frameworks
-import { ActivityIndicator, StyleProp, View, ViewStyle } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 // Actions
 import SavingActions from "store/Saving/saving.actions";
 // Styles
 import styles from "./styles";
-import { colors } from "constants";
+import { colors } from "constants/index";
 
+interface Props {
+  data: SavingListData;
+}
 const contentContainerStyle: StyleProp<ViewStyle> = {
   alignItems: "center",
   backgroundColor: "#f4f6fa",
   paddingBottom: 70,
 };
 
-const ChildPage = (props: any) => {
+const ChildPage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
-
   // Store
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
@@ -41,13 +44,12 @@ const ChildPage = (props: any) => {
     dispatch(SavingActions.setChildTargets(props.data.targets));
   }, []);
 
-  const filterActiveTargets = React.useMemo(() => {
-    if (props.data.targets?.length > 0) {
-      return R.filter((target: any) => {
-        return target.state === "SAVING";
-      })(props.data.targets);
-    }
-  }, [props.data.targets]);
+  const filterActiveTargets: TargetsData[] =
+    props.data.targets?.length > 0
+      ? R.filter((target: TargetsData) => {
+          return target.state === "SAVING";
+        })(props.data.targets)
+      : ([] as any);
 
   function handleAddNewTargetPress(data: any) {
     dispatch(SavingActions.getTargetsData(data));
@@ -70,10 +72,10 @@ const ChildPage = (props: any) => {
           title="تعریف هدف جدید"
           onPress={() => handleAddNewTargetPress(props.data)}
           disabled={
-            (filterActiveTargets && filterActiveTargets?.length < 2) ||
+            filterActiveTargets?.length >= 2 ||
             savingStore.childTargets.length === 0
-              ? false
-              : true
+              ? true
+              : false
           }
           color={colors.buttonOpenActive}
         />
@@ -82,9 +84,7 @@ const ChildPage = (props: any) => {
           style={styles.button}
           title="انتقال وجه به هدف"
           onPress={() => handleTransferMoneyToTarget(props.data)}
-          disabled={
-            filterActiveTargets && filterActiveTargets.length > 0 ? false : true
-          }
+          disabled={filterActiveTargets?.length > 0 ? false : true}
           color={colors.buttonOpenActive}
         />
       </View>

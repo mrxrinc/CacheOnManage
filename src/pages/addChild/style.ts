@@ -13,8 +13,7 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
   },
   title: {
-    color: colors.title,
-    fontSize: 14,
+    fontSize: 16,
     paddingVertical: 20,
   },
   button: {

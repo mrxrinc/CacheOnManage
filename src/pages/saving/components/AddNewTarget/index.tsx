@@ -4,8 +4,6 @@ import { removeCommas, formatNumber } from "utils";
 import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
-// API
-import SavingService from "services/http/endpoints/saving";
 // Actions
 import SavingActions from "store/Saving/saving.actions";
 // UI Frameworks
@@ -27,6 +25,7 @@ import { colors } from "constants/index";
 // Types
 import { RootState } from "../../../../../customType";
 import { AddTarget, SelectedTargetsData } from "types/saving";
+import { SavingState } from "store/Saving/saving.reducer";
 import { StateNetwork } from "store/index.reducer";
 // Styles
 import styles from "./styles";
@@ -42,11 +41,9 @@ interface Props {
 }
 
 const AddNewTarget: FC<Props> = (props) => {
-  const targetDateRef = React.useRef();
   const navigation = useNavigation<any>();
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState<boolean>(false);
   const [showDateModal, setShowDateModal] = useState<boolean>(false);
   const [targetDate, setTargetDate] = useState<string>("");
   const [weeklyAmount, setWeeklyAmount] = useState<string>("");
@@ -54,10 +51,16 @@ const AddNewTarget: FC<Props> = (props) => {
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
   const [changedBy, setChangedBy] = React.useState<string>();
 
+  // Store
   const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
     (state) => state.saving.selectedTargetsData
   );
-  const isChild = useSelector<RootState, any>((state) => state.user.ischild);
+  const savingStore = useSelector<StateNetwork, SavingState>(
+    (state) => state.saving
+  );
+  const isChild = useSelector<RootState, boolean>(
+    (state) => state.user.ischild
+  );
 
   React.useEffect(() => {
     const $targetAmount = Number(targetAmount);
@@ -252,7 +255,7 @@ const AddNewTarget: FC<Props> = (props) => {
                 <View style={[styles.halfWidth]}>
                   <Input
                     editable={!!formik.values.targetAmount}
-                    value={formatNumber(formik.values.weeklySavings)}
+                    value={formatNumber(String(formik.values.weeklySavings))}
                     onChangeText={(value: string) =>
                       handleWeeklyAmountChange(value)
                     }
@@ -295,7 +298,7 @@ const AddNewTarget: FC<Props> = (props) => {
             <View style={{ marginTop: 20 }}>
               <Button
                 onPress={formik.handleSubmit}
-                disabled={!formik.isValid || loading}
+                disabled={!formik.isValid || savingStore.loading}
                 title="تعریف هدف جدید"
                 color={colors.buttonSubmitActive}
               />

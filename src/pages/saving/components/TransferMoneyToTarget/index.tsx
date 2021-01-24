@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 // Ui Frameworks
 import { Formik } from "formik";
-import { Picker } from "@react-native-community/picker";
-import { View, Image, ScrollView } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 // Common Components
 import Header from "components/header";
 import MaterialTextField from "components/materialTextfield";
@@ -20,17 +19,32 @@ import PaymentTransactionResult from "components/PaymentTransactionResult";
 import { formatNumber } from "utils";
 import messages from "utils/fa";
 // Types
-import { RootState } from "customType";
 import { StateNetwork } from "store/index.reducer";
 import { SavingState } from "store/Saving/saving.reducer";
 import { SelectedTargetsData } from "types/saving";
 // Actions;
 import SavingActions from "store/Saving/saving.actions";
+// Images
+import Tick from "components/icons/tick.svg";
 // Styles
 import style from "./styles";
+import { colors } from "constants/index";
 
 interface Props {
   navigation: any;
+}
+
+interface Errors {
+  amount?: string;
+  target?: string;
+}
+
+interface TransferValues {
+  amount: string;
+  from?: string;
+  to?: string;
+  description?: string;
+  target: string;
 }
 const MessagesContext = React.createContext(messages);
 
@@ -42,18 +56,18 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
   const [paidAmount, setPaidAmount] = React.useState(0);
   const [targetAmount, setTargetAmount] = React.useState(0);
+  const [checkedTarget, setCheckedTarget] = React.useState("");
 
   // Store
   const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
     (state) => state.saving.selectedTargetsData
   );
-  const profileInfo = useSelector<RootState, any>(
-    (state) => state.home.homeData
-  );
+
+  const profileInfo = useSelector<any, any>((state) => state.home.homeData);
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
   );
-  const isChild = useSelector<any, any>((state) => state.user.ischild);
+  const isChild = useSelector<any, boolean>((state) => state.user.ischild);
 
   const transactionResults = React.useMemo(() => {
     if (savingStore.transferMoneyToTargetTransactionResult) {
@@ -70,6 +84,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
           unit: isAmount ? "ریال" : null,
         };
       }, Object.keys(savingStore.transferMoneyToTargetTransactionResult));
+
       const filteredResult = R.filter(
         (item) =>
           item.key !== translate["description"] &&
@@ -91,16 +106,13 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      target:
-        filterActiveTargets && filterActiveTargets.length > 0
-          ? filterActiveTargets[0].id
-          : "",
+      target: "",
       amount: "",
     },
     validateOnChange: firstSubmitted,
     validateOnBlur: false,
-    validate: (values: any) => {
-      const errors: any = {};
+    validate: (values) => {
+      const errors: Errors = {};
       setFirstSubmitted(true);
       if (!values.amount) {
         errors.amount = "لطفا مبلغ را وارد نمایید";
@@ -110,33 +122,37 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
       if (
         values.amount &&
         (remainingSaving || remainingSaving === 0) &&
-        values.amount > remainingSaving
+        Number(values.amount) > remainingSaving
       ) {
         errors.amount =
           "مبلغ انتقال نمی‌تواند از مبلغ باقیمانده پس‌انداز بیشتر باشد.";
       }
+      if (!values.target) {
+        errors.target = "لطفا هدف را انتخاب کنید.";
+      }
       return errors;
     },
-    onSubmit: (values: any) => {
+    onSubmit: (values: TransferValues) => {
       const data = {
         from: profileInfo.id,
-        to: values.target,
+        to: checkedTarget,
         amount: Number(values.amount),
         description: " ",
       };
-      console.log(" onSubmit: ~ data", data);
       dispatch(SavingActions.transferMoneyToTarget(data, { sagas: true }));
     },
   });
 
   React.useEffect(() => {
-    const foundTarget = R.find<any>(
-      (target) => target.id === formik.values.target,
-      filterActiveTargets
-    );
-    setPaidAmount(foundTarget.paidAmount);
-    setTargetAmount(foundTarget.targetAmount);
-  }, [formik.values.target]);
+    if (checkedTarget && filterActiveTargets) {
+      const foundTarget = R.find<any>(
+        (target) => target.id === checkedTarget,
+        filterActiveTargets
+      );
+      setPaidAmount(foundTarget?.paidAmount);
+      setTargetAmount(foundTarget?.targetAmount);
+    }
+  }, [checkedTarget]);
 
   function handleAmountChange(value: string) {
     formik.setFieldValue("amount", value.replace(/,/g, ""));
@@ -146,6 +162,12 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
     dispatch(SavingActions.transferMoneyToTarget([], { sagas: false }));
     navigation.navigate("saving");
   }
+
+  function handleCheckedTarget(id: string) {
+    formik.setFieldValue("target", id);
+    setCheckedTarget(id);
+  }
+
   return (
     <Layout>
       <Header
@@ -159,49 +181,75 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
             onSubmit={(values: any) => formik.handleSubmit(values)}
           >
             <>
-              <View style={style.rightCol}>
-                <FormattedText>از</FormattedText>
-
-                <View style={style.parentFeild}>
-                  <Image
-                    source={{
-                      uri: `data:image/png;base64,${profileInfo.avatar}`,
-                    }}
-                    style={style.avatar}
-                  />
-                  <FormattedText style={style.parentText}>
-                    {isChild ? profileInfo.name : profileInfo.nickname}
-                  </FormattedText>
-                </View>
-
-                <FormattedText>به</FormattedText>
-
-                <View style={style.targetFeild}>
-                  <Picker
-                    selectedValue={formik.values.target}
-                    onValueChange={(target) =>
-                      formik.setFieldValue("target", target)
-                    }
-                  >
-                    {filterActiveTargets &&
-                      filterActiveTargets.map((target: any) => {
+              <View>
+                <FormattedText style={{ marginBottom: 30 }}>
+                  {!isChild
+                    ? `لطفا برای انتقال وجه یکی از اهداف ${selectedTargetData.childName} را انتخاب نمایید.`
+                    : "لطفا برای انتقال وجه یکی از اهدافتان را انتخاب نمایید."}
+                </FormattedText>
+                <View style={style.radioBtnBox}>
+                  {filterActiveTargets?.length !== 0
+                    ? filterActiveTargets?.map((target: any, index: number) => {
                         return (
-                          <Picker.Item
-                            key={target.id}
-                            label={target.title}
-                            value={target.id}
-                          />
+                          <View key={index}>
+                            {checkedTarget === target.id ? (
+                              <TouchableOpacity style={style.activityButton}>
+                                <View
+                                  style={[
+                                    formik.errors.target
+                                      ? { borderColor: "red" }
+                                      : {
+                                          borderColor:
+                                            colors.buttonSubmitActive,
+                                        },
+                                    style.radioBtn,
+                                    style.radioGreenBg,
+                                  ]}
+                                >
+                                  <Tick width={14} height={14} fill={"white"} />
+                                </View>
+
+                                <FormattedText style={style.activityText}>
+                                  {target.title}
+                                </FormattedText>
+                              </TouchableOpacity>
+                            ) : (
+                              <TouchableOpacity
+                                onPress={() => {
+                                  handleCheckedTarget(target.id);
+                                }}
+                                style={style.activityButton}
+                              >
+                                <View
+                                  style={[
+                                    style.radioBtn,
+                                    style.radioWhiteBg,
+                                    formik.errors.target
+                                      ? { borderColor: colors.red }
+                                      : {
+                                          borderColor:
+                                            colors.buttonSubmitActive,
+                                        },
+                                  ]}
+                                />
+
+                                <FormattedText style={style.activityText}>
+                                  {target.title}
+                                </FormattedText>
+                              </TouchableOpacity>
+                            )}
+                          </View>
                         );
-                      })}
-                  </Picker>
+                      })
+                    : null}
                 </View>
               </View>
 
               <MaterialTextField
                 value={formatNumber(formik.values.amount)}
-                placeholder={"مبلغ"}
+                placeholder="مبلغ"
                 hasUnit
-                keyboardType={"number-pad"}
+                keyboardType="number-pad"
                 maxLength={10}
                 onChangeText={(value: string) => handleAmountChange(value)}
                 error={formik.errors.amount}
@@ -216,7 +264,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
             onPress={formik.handleSubmit}
             disabled={!formik.isValid || savingStore.loading}
             loading={savingStore.loading}
-            color="#43e6c5"
+            color={colors.buttonSubmitActive}
           />
         </View>
       </>

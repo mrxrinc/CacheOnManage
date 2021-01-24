@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import { colors } from "constants/index";
 // Hooks
 import { useDispatch, useSelector } from "react-redux";
@@ -19,25 +19,19 @@ import Button from "components/button";
 import EditTarget from "../EditTarget";
 // Types
 import { SavingState } from "store/Saving/saving.reducer";
-import { RootState } from "customType";
 import { StateNetwork } from "store/index.reducer";
+import { SavingListData, TargetsData } from "types/saving";
 // Actions
 import SavingActions from "store/Saving/saving.actions";
 // Styles
 import styles from "./styles";
-import gStyles from "theme";
 
-interface TargetsData {
-  targets: any;
-}
 interface Props {
-  data: TargetsData;
+  data: SavingListData;
 }
-const TargetList: FC<Props> = (props) => {
+const TargetList: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
-  const isChild = useSelector<RootState, boolean>(
-    (state) => state.user.ischild
-  );
+  const isChild = useSelector<any, boolean>((state) => state.user.ischild);
 
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showFinishTargetModal, setShowFinishTargetModal] = useState<boolean>(
@@ -58,7 +52,7 @@ const TargetList: FC<Props> = (props) => {
     (state) => state.saving
   );
 
-  function handleEdit(target: any) {
+  function handleEdit(target: TargetsData) {
     dispatch(SavingActions.setEditModal(true));
     dispatch(SavingActions.getTargetsData(target));
   }
@@ -99,15 +93,17 @@ const TargetList: FC<Props> = (props) => {
   return (
     <View>
       {props.data.targets.length > 0 ? (
-        props.data.targets.map((target: any, index: number) => {
+        props.data.targets.map((target: TargetsData, index: number) => {
           const targetPercent =
             Math.round(
-              (target.paidAmount / target.targetAmount + Number.EPSILON) * 100
+              (Number(target.paidAmount) / Number(target.targetAmount) +
+                Number.EPSILON) *
+                100
             ) + "%";
 
           return (
             <View style={styles.targetBox} key={index}>
-              <View style={gStyles.row}>
+              <View style={styles.row}>
                 <FormattedText style={styles.targetTitle}>
                   {target.title}
                 </FormattedText>
@@ -127,16 +123,16 @@ const TargetList: FC<Props> = (props) => {
                 )}
               </View>
               <View>
-                <View style={gStyles.row}>
+                <View style={styles.row}>
                   <View style={[styles.halfWidth]}>
                     <FormattedText
-                      style={{ fontSize: 12, color: "#515c6f" }}
+                      style={{ fontSize: 12, color: colors.text }}
                       fontFamily="Regular-FaNum"
                     >
-                      هدف: {formatNumber(target.targetAmount)} ریال
+                      هدف: {formatNumber(String(target.targetAmount))} ریال
                     </FormattedText>
                   </View>
-                  <View style={[gStyles.row, styles.halfWidth]}>
+                  <View style={[styles.halfWidth, styles.row]}>
                     <View
                       style={{
                         flexDirection: "row",
@@ -156,11 +152,11 @@ const TargetList: FC<Props> = (props) => {
                         style={{
                           marginLeft: "4%",
                           fontSize: 12,
-                          color: "#515c6f",
+                          color: colors.text,
                         }}
                       >
                         {target.paidAmount
-                          ? formatNumber(target.paidAmount) + " ریال "
+                          ? formatNumber(String(target.paidAmount)) + " ریال "
                           : "0 ریال"}
                       </FormattedText>
                     </View>
@@ -178,7 +174,7 @@ const TargetList: FC<Props> = (props) => {
                     }}
                   />
                 </View>
-                <View style={[gStyles.row, { alignItems: "center" }]}>
+                <View style={{ alignItems: "center", flexDirection: "row" }}>
                   {targetPercent !== "100%" &&
                   target.state !== "Done" &&
                   target.state !== "CANCELED" ? (
@@ -186,7 +182,8 @@ const TargetList: FC<Props> = (props) => {
                       style={styles.targetInfo}
                       fontFamily="Regular-FaNum"
                     >
-                      پس انداز هفتگی : {formatNumber(target.weeklySavings)} ریال
+                      پس انداز هفتگی :{" "}
+                      {formatNumber(String(target.weeklySavings))} ریال
                     </FormattedText>
                   ) : (
                     <FormattedText style={styles.targetInfo}>
