@@ -392,13 +392,12 @@ const TaskList = (props: any) => {
       <AlertController
         showModal={endTaskModal}
         setShowModal={() => setEndTaskModal(false)}
-        handleNewAction={() => setEndTaskModal(false)}
-        handleMainAction={() => handleChildDoneStatusTask(taskId)}
-        backOpacity={0.15}
         title="اتمام فعالیت"
         description={`آیا انجام فعالیت “${taskName}” را تائید می‌کنید؟`}
-        isNewAction="بله"
-        acceptButton="انصراف"
+        rightTitle="بله"
+        rightAction={() => handleChildDoneStatusTask(taskId)}
+        leftTitle="انصراف"
+        leftAction={() => setEndTaskModal(false)}
       />
       <EditTask
         showModal={editTask}
