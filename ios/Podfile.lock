@@ -254,13 +254,13 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-camera (3.40.0):
+  - react-native-camera (3.42.0):
     - React-Core
-    - react-native-camera/RCT (= 3.40.0)
-    - react-native-camera/RN (= 3.40.0)
-  - react-native-camera/RCT (3.40.0):
+    - react-native-camera/RCT (= 3.42.0)
+    - react-native-camera/RN (= 3.42.0)
+  - react-native-camera/RCT (3.42.0):
     - React-Core
-  - react-native-camera/RN (3.40.0):
+  - react-native-camera/RN (3.42.0):
     - React-Core
   - react-native-cameraroll (4.0.0):
     - React
@@ -609,7 +609,7 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-camera: 5c1fbfecf63b802b8ca4a71c60d30a71550fb348
+  react-native-camera: d145df27a9178041b48b839b80ad79c9ef373fbd
   react-native-cameraroll: 7c2e22b5a8e8f30fc6d5566c942b225ca7129752
   react-native-nfc-manager: bf739e039e2888b82d6c8faaee39c9582db2bfab
   react-native-safe-area-context: 01158a92c300895d79dee447e980672dc3fb85a6
@@ -646,4 +646,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 5893200cf99003a6f8c8335cbcd250a177e91871
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0.rc.1

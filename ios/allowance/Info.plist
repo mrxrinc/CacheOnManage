@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CodePushDeploymentKey</key>
+	<string>glXLyYCorleB0ZcCqjh6NCnBGRUXCsW0TSJo_</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -42,21 +44,21 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>لطفا دسترسی دوربین برای تشخیص چهره تان را بدهید</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>اجازه دسترسی به تصاویر </string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>IRANYekanMobileFaNum.ttf</string>
+		<string>IRANYekanMobile-Bold.ttf</string>
+		<string>IRANYekanMobile-Medium.ttf</string>
+		<string>IRANYekanMobile.ttf</string>
 		<string>IRANSansMobile-Light.ttf</string>
-		<string>IRANSansFaNum-Light.ttf</string>
 		<string>IRANSansFaNum-Bold.ttf</string>
-		<string>IRANSansFaNum.ttf</string>
 		<string>IRANSansMobile-Medium.ttf</string>
 		<string>IRANSansMobile-Bold.ttf</string>
-		<string>IRANSansMobileFaNum-Bold.ttf</string>
 		<string>IRANSansMobileFaNum.ttf</string>
 		<string>IRANSansMobile.ttf</string>
-		<string>IRANSansMobileFaNum.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

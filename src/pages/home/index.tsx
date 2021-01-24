@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "components/button";
@@ -27,6 +27,7 @@ const Home: FC = ({ theme }: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [cards, setCards] = useState<Cards>({ cards: [], firstPayment: 0 });
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [header, setHeader] = useState<HomeHeaderType>({
     id: 1,
     nickname: "",
@@ -45,15 +46,18 @@ const Home: FC = ({ theme }: any) => {
 
   const getData = async () => {
     try {
+      setLoading(true);
       const { cards, header } = await getHomePageData(token);
       dispatch(getHomeData(header));
       setCards(cards);
       setHeader(header);
+      setLoading(false);
       setRefreshing(false);
       if (cards.cards.length === 0) {
         navigation.navigate("addChild", { noBackButton: true });
       }
     } catch (error) {
+      setLoading(false);
       console.warn(error.response);
     }
   };
@@ -113,19 +117,28 @@ const Home: FC = ({ theme }: any) => {
       <View style={[style.container]}>
         <MainHeader homePage {...header} />
         <View style={[style.content]}>
-          <FlatList
-            data={cards.cards}
-            renderItem={({ item }) => (
-              <BalanceCard onPress={() => goToChildDetail(item.id)} {...item} />
-            )}
-            onRefresh={pullToRefresh}
-            refreshing={refreshing}
-            keyExtractor={(item) => `${item.nickname}`}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={style.list}
-            ListHeaderComponent={renderButtons}
-            ListFooterComponent={<View style={style.listFooter} />}
-          />
+          {loading ? (
+            <View style={style.loading}>
+              <ActivityIndicator color={colors.gray600} size="large" />
+            </View>
+          ) : (
+            <FlatList
+              data={cards.cards}
+              renderItem={({ item }) => (
+                <BalanceCard
+                  onPress={() => goToChildDetail(item.id)}
+                  {...item}
+                />
+              )}
+              onRefresh={pullToRefresh}
+              refreshing={refreshing}
+              keyExtractor={(item) => `${item.nickname}`}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={style.list}
+              ListHeaderComponent={renderButtons}
+              ListFooterComponent={<View style={style.listFooter} />}
+            />
+          )}
         </View>
       </View>
     </Layout>

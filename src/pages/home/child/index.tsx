@@ -64,7 +64,7 @@ export default ({ route }: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<any, any>((state) => state.user.ischild);
   let childId = route.params?.childId;
-  const navigation = useNavigation<Navigation>();
+  const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [childData, setChildData] = useState<ChildData | undefined>(undefined);
@@ -78,7 +78,6 @@ export default ({ route }: any) => {
     try {
       setLoading(true);
       const resp = await getChildHomeData(token, childId);
-      console.log("childHome>>", resp.data);
       setChildData(resp.data);
       setLoading(false);
       AsyncStorage.setItem("childPhone", resp.data.mobile ?? "");
@@ -371,15 +370,11 @@ export default ({ route }: any) => {
             />
           </>
         ) : loading ? (
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
+          <View style={style.loading}>
             <ActivityIndicator color={colors.gray600} size="large" />
           </View>
         ) : (
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
+          <View style={style.loading}>
             <FormattedText>دیتای این فرزند ناقص است!</FormattedText>
           </View>
         )}

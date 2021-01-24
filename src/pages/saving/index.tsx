@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from "react";
 // Hooks
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // Types
 import { StateNetwork } from "store/index.reducer";
 import { SavingState } from "store/Saving/saving.reducer";
@@ -18,15 +17,14 @@ import { ActivityIndicator, View } from "react-native";
 import SavingActions from "store/Saving/saving.actions";
 // Styles
 import styles from "./styles";
+import { colors } from "constants/index";
 
 const Saving: FC = () => {
   const dispatch = useDispatch();
   const isChild = useSelector<StateNetwork, boolean>(
     (state) => state.user.ischild
   );
-
   const [selectedTab, setSelectedTab] = React.useState<number>(0);
-
   // Store
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
@@ -44,7 +42,9 @@ const Saving: FC = () => {
     <Layout>
       <MainHeader title={"پس انداز"} />
       {savingStore.loading ? (
-        <ActivityIndicator />
+        <View style={styles.loading}>
+          <ActivityIndicator color={colors.gray600} size="large" />
+        </View>
       ) : (
         <View style={styles.container}>
           {savingStore.savingList?.length > 0 ? (
