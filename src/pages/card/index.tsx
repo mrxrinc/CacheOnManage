@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { RootState, RootStateType } from "../../../customType";
 import OrderBabayCard from "./orderBabyCard";
 import MainPage from "./mainPage";
+import { colors } from "constants/index";
 
 const { width } = Dimensions.get("window");
 
@@ -29,10 +30,8 @@ const Cards = (props: any) => {
   console.log(props.route);
 
   const getCardsData = () => {
-    console.log("getCardsData>> token", token);
     getChildsCardData(token)
       .then((response: any) => {
-        console.log("getCardsData>> response", response);
         setChildInfo(response.data);
       })
       .catch(function (error) {
@@ -45,7 +44,6 @@ const Cards = (props: any) => {
   }, [callCardInfo]);
 
   const CardsPage = (item: any) => {
-    console.log("item.data.status>>", item.data.status);
     return (
       <ScrollView contentContainerStyle={styles.cardsPageBox}>
         <View
@@ -91,8 +89,8 @@ const Cards = (props: any) => {
             })}
           </ScrollableTabView>
         ) : (
-          <View style={{ marginTop: "10%" }}>
-            <ActivityIndicator size="large" />
+          <View style={styles.loading}>
+            <ActivityIndicator color={colors.gray600} size="large" />
           </View>
         )}
       </View>
@@ -111,5 +109,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f4f6fa",
     height: "100%",
+  },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
