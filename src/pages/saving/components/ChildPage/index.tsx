@@ -12,7 +12,7 @@ import { SavingListData, TargetsData } from "types/saving";
 // Common Components
 import Button from "components/button";
 // Local Components
-import SavingInfo from "../SavingInfo/SavingInfo";
+import SavingInfo from "../SavingInfo";
 import TargetList from "../TargetList";
 // UI Frameworks
 import { StyleProp, View, ViewStyle } from "react-native";
