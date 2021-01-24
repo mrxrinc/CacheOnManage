@@ -95,28 +95,6 @@ export default StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "row",
   },
-  modal: {
-    margin: 0,
-  },
-  modalContainer: {
-    height: 290,
-    width: "100%",
-    backgroundColor: colors.white,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    position: "absolute",
-    bottom: 0,
-    padding: 16,
-  },
-  modalSwipeHandle: {
-    width: 100,
-    height: 3,
-    borderRadius: 10,
-    backgroundColor: colors.white,
-    opacity: 0.8,
-    alignSelf: "center",
-    top: -20,
-  },
   datePickerItem: {
     fontFamily: "IRANSansMobileFaNum",
   },
