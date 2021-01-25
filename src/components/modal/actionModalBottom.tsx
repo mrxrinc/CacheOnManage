@@ -18,6 +18,7 @@ export default ({
       onBackdropPress={setShowModal}
       style={style.modal}
       avoidKeyboard
+      backdropOpacity={0.38}
     >
       <View style={style.modalContainer}>
         <View style={style.modalHead}>
