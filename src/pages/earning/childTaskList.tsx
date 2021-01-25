@@ -492,6 +492,7 @@ const styles = StyleSheet.create({
   },
   taskItemAmountOptions: {
     justifyContent: "space-between",
+    alignItems: "flex-end",
   },
   taskItemOptionsBox: {
     justifyContent: "center",
@@ -521,7 +522,7 @@ const styles = StyleSheet.create({
   taskItemConfirmButtonText: {
     color: colors.white,
     fontSize: 12,
-    lineHeight: 15,
+    lineHeight: IOS ? 8 : 13,
     textAlign: "center",
   },
   taskItemAcceptedText: {
@@ -563,7 +564,7 @@ const styles = StyleSheet.create({
   paymentTagText: {
     fontSize: 12,
     color: colors.white,
-    lineHeight: 12,
+    lineHeight: IOS ? 7 : 10,
   },
   paymentTagTriangle: {
     width: 24,

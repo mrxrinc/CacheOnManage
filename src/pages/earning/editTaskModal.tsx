@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import Modal from "react-native-modal";
 import { FormattedText } from "components/format-text";
-import { colors } from "constants/index";
+import { colors, IOS } from "constants/index";
 import Tick from "components/icons/tick.svg";
 import Close from "components/icons/close.svg";
 import Button from "components/button";
@@ -84,21 +84,18 @@ export default ({
               height: 24,
               justifyContent: "center",
               alignItems: "center",
-              marginTop: "2%",
             }}
             onPress={() => {
               setShowModal(false);
             }}
           >
-            <Close width={14} height={14} fill={"black"} />
+            <Close width={12} height={12} fill={"black"} />
           </TouchableOpacity>
         </View>
         <View
           style={[
             styles.modalContent,
             {
-              flexDirection: "row",
-              alignItems: "center",
               justifyContent: "flex-start",
               marginTop: 20,
             },
@@ -144,15 +141,7 @@ export default ({
             <FormattedText id="home.rial" style={styles.unitText} />
           </View>
         </View>
-        <View
-          style={{
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            width: "95%",
-            height: 60,
-            marginTop: 20,
-          }}
-        >
+        <View style={styles.repeatingOptionWrapper}>
           <TouchableOpacity
             onPress={() => {
               setActivityType("ONCE");
@@ -205,7 +194,7 @@ export default ({
             />
           </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 20, width: "90%", height: 44 }}>
+        <View style={styles.buttonWrapper}>
           <Button
             color={colors.buttonSubmitActive}
             title="ذخیره"
@@ -235,25 +224,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalContent: {
-    width: "90%",
+    width: "100%",
+    paddingRight: 12,
+    paddingLeft: 20,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
+    paddingTop: 8,
   },
   title: {
-    color: colors.gray200,
+    color: colors.title,
     fontSize: 16,
+    lineHeight: IOS ? 12 : 18,
     marginTop: 10,
   },
   taskName: {
     fontSize: 14,
-    fontFamily: "#515c6f",
+    fontFamily: colors.text,
     marginLeft: 5,
   },
   description: {
     color: colors.gray500,
     fontSize: 14,
     marginTop: 5,
+  },
+  repeatingOptionWrapper: {
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    width: "100%",
+    paddingHorizontal: 20,
+    height: 60,
+    marginTop: 20,
   },
   footer: {
     width: "100%",
@@ -264,6 +265,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  buttonWrapper: {
+    marginTop: 20,
+    width: "100%",
+    height: 44,
+    paddingHorizontal: 20,
   },
   button: {
     width: "50%",
@@ -283,11 +290,12 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 50,
-    backgroundColor: "#8b8b8b",
+    backgroundColor: colors.gray550,
   },
   earningText: {
     fontSize: 12,
-    color: "#8b8b8b",
+    color: colors.gray550,
+    marginLeft: 2,
   },
   earningBox: {
     width: "100%",
