@@ -92,17 +92,29 @@ function* addTarget(action: Action<AddTarget | TargetsData>) {
 }
 
 function* finishTarget(action: Action<number>) {
-  yield call(
-    SavingService.finishTarget.bind(SavingService),
-    action.payload as number
-  );
-  const savingListRes = yield call(
-    SavingService.fetchSavingList.bind(SavingService)
-  );
-  yield put(
-    // @ts-ignore
-    SavingActions.finishTarget(savingListRes, { sagas: false })
-  );
+  try {
+    yield call(
+      SavingService.finishTarget.bind(SavingService),
+      action.payload as number
+    );
+
+    const savingListRes = yield call(
+      SavingService.fetchSavingList.bind(SavingService)
+    );
+    yield put(
+      // @ts-ignore
+      SavingActions.setSavingsDataList(savingListRes, {
+        sagas: false,
+      })
+    );
+    // yield put(
+    //   // @ts-ignore
+    //   SavingActions.finishTarget(savingListRes, { sagas: false })
+    // );
+  } catch (error) {
+    console.log("DEBUG: function*finishTarget -> error", error);
+    yield put(SavingActions.setLoading(false));
+  }
 }
 function* updateTarget(action: Action<AddTarget>) {
   try {

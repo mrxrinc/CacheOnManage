@@ -33,7 +33,6 @@ import messages from "utils/fa";
 // Types
 import { TransferMoneyState } from "store/TransferMoney/transferMoney.reducer";
 import { BalanceCardType } from "constants/types";
-import { RootState } from "customType";
 import { StateNetwork } from "store/index.reducer";
 // Actions
 import TransferMoneyActions from "store/TransferMoney/transferMoney.actions";
@@ -66,7 +65,7 @@ const TransferMoney: FC = (props: any) => {
   const transferMoneyStore = useSelector<StateNetwork, TransferMoneyState>(
     (state) => state.transferMoney
   );
-  const token = useSelector<RootState, any>((state) => state.user.token);
+  const token = useSelector<any, any>((state) => state.user.token);
 
   useEffect(() => {
     (async () => {
@@ -89,8 +88,8 @@ const TransferMoney: FC = (props: any) => {
     if (transferMoneyStore.transactionResult) {
       const result = R.map((key: string) => {
         return {
-          name: translate[key],
-          title: transferMoneyStore.transactionResult[key],
+          key: translate[key],
+          value: transferMoneyStore.transactionResult[key],
         };
       }, Object.keys(transferMoneyStore.transactionResult));
 
@@ -251,7 +250,6 @@ const TransferMoney: FC = (props: any) => {
                   formik.setFieldValue("description", text)
                 }
                 maxLength={13}
-                keyboardType={"number-pad"}
               />
 
               <View style={style.submitButtonWrapper}>
