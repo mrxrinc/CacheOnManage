@@ -36,17 +36,21 @@ const DatePicker = ({
   };
 
   return (
-    <View>
+    <>
       <TouchableOpacity
-        style={
+        style={[
           light
             ? styles.buttonLight
             : blujr
             ? styles.buttonBlujr
             : !showDateModal
             ? styles.buttonMoneyInactive
-            : styles.buttonMoneyActive
-        }
+            : styles.buttonMoneyActive,
+          {
+            width: "100%",
+            height: 52,
+          },
+        ]}
         onPress={() => active && setShowDateModal(true)}
       >
         {light ? (
@@ -131,7 +135,7 @@ const DatePicker = ({
           </View>
         </View>
       </Modal>
-    </View>
+    </>
   );
 };
 

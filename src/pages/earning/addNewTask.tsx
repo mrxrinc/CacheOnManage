@@ -388,22 +388,18 @@ const AddNewTask = () => {
                 />
               </TouchableOpacity>
             )}
-
-            <View
-              style={{ width: width * 0.89, paddingBottom: 30, marginTop: 20 }}
-            >
-              <Button
-                color={colors.buttonSubmitActive}
-                title="افزودن مسئولیت جدید"
-                onPress={() => handleClick()}
-                disabled={
-                  !factorCheck || (!isChild && childIdList.length === 0)
-                }
-              />
-            </View>
           </View>
         )}
       </ScrollView>
+
+      <View style={styles.buttonWrapper}>
+        <Button
+          color={colors.buttonSubmitActive}
+          title="افزودن مسئولیت جدید"
+          onPress={() => handleClick()}
+          disabled={!factorCheck || (!isChild && childIdList.length === 0)}
+        />
+      </View>
     </Layout>
   );
 };
@@ -565,5 +561,11 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 20,
     backgroundColor: colors.gray900,
+  },
+  buttonWrapper: {
+    width: "100%",
+    paddingHorizontal: 20,
+    position: "absolute",
+    bottom: 30,
   },
 });
