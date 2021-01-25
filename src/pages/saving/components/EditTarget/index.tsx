@@ -234,7 +234,7 @@ const EditTarget: FC<Props> = (props) => {
             <FormattedText style={[styles.halfWidth, styles.gray]}>
               مبلغ هدف
             </FormattedText>
-            <View style={[styles.halfWidth]}>
+            <View style={styles.halfWidth}>
               <Input
                 value={formatNumber(String(formik.values.targetAmount))}
                 onChangeText={(value: string) =>
@@ -306,6 +306,7 @@ const EditTarget: FC<Props> = (props) => {
                   handleChangeTargetDate(val);
                   setShowDateModal(false);
                 }}
+                color={colors.title}
               />
             </View>
             <FormattedText style={[styles.unit]}></FormattedText>

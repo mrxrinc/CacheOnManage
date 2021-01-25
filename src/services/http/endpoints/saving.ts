@@ -35,7 +35,7 @@ class SavingServiceProvider extends HttpService {
    */
 
   public updateTarget(id: AddTarget) {
-    this.httpService.put("savings", id);
+    return this.httpService.put("savings", id);
   }
 
   /**
@@ -46,7 +46,7 @@ class SavingServiceProvider extends HttpService {
    */
 
   public finishTarget(id: number) {
-    this.httpService.post(`savings/${id}`);
+    return this.httpService.post(`savings/${id}`);
   }
   /**
    * delete target
