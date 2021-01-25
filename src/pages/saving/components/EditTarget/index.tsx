@@ -9,8 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Actions
 import SavingActions from "store/Saving/saving.actions";
 // UI Frameworks
-import { View, TouchableWithoutFeedback } from "react-native";
-import Modal from "react-native-modal";
+import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 // Common Components
 import { FormattedText } from "components/format-text";
