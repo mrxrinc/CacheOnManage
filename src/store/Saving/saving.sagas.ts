@@ -106,7 +106,6 @@ function* finishTarget(action: Action<number>) {
 }
 function* updateTarget(action: Action<AddTarget>) {
   try {
-    yield put(SavingActions.setLoading(true));
     yield call(
       SavingService.updateTarget.bind(SavingService),
       action.payload as AddTarget
@@ -121,7 +120,6 @@ function* updateTarget(action: Action<AddTarget>) {
         sagas: false,
       })
     );
-    yield put(SavingActions.setLoading(false));
   } catch (error) {
     console.log("DEBUG: function*updateTarget -> error", error);
     yield put(SavingActions.setLoading(false));
