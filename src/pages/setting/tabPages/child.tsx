@@ -14,7 +14,11 @@ import Card from "pages/setting/components/card";
 import KeyValuePair from "pages/setting/components/keyValuePair";
 import { setChildrenSettingData, setChildrenChangePassword } from "utils/api";
 import ValidatePassword from "components/validatePassword";
-import { handleUsernameValidator, checkHasNumber } from "utils/validators";
+import {
+  handleUsernameValidator,
+  checkHasNumber,
+  validatePhone,
+} from "utils/validators";
 import SupportController from "components/supportController";
 import GalleryIcon from "components/icons/gallery.svg";
 import CameraIcon from "components/icons/camera.svg";
@@ -57,7 +61,10 @@ export default ({ childData, handleUpdateData }: any) => {
     });
   };
 
-  const handleSetSettingData = async (newAvatar: string | null = null) => {
+  const handleSetSettingData = async (
+    newAvatar: string | null = null,
+    removeNickname: boolean | null = null
+  ) => {
     setLoading(true);
     let requestBody = {};
     switch (modal.activeContent) {
@@ -68,7 +75,7 @@ export default ({ childData, handleUpdateData }: any) => {
         requestBody = { currentPassword, newPassword };
         break;
       case "NICKNAME":
-        requestBody = { nickname };
+        requestBody = { nickname: removeNickname ? "" : nickname };
         break;
       case "MOBILE":
         requestBody = { mobile };
@@ -193,6 +200,7 @@ export default ({ childData, handleUpdateData }: any) => {
         label="شماره تلفن همراه"
         onChange={clearError}
         onChangeText={(value: any) => {
+          logger(validatePhone(value));
           setMobile(value);
         }}
         maxLength={11}
@@ -214,10 +222,8 @@ export default ({ childData, handleUpdateData }: any) => {
       <MaterialTextField
         label="نام مستعار"
         onChange={clearError}
-        onChangeText={(value: any) => {
-          setNickname(value);
-        }}
-        value={childData.nickname !== childData.firstname ? nickname : ""}
+        onChangeText={(value: any) => setNickname(value)}
+        value={nickname}
         error={error.field === "nickname" ? error.message : null}
       />
     </>
@@ -429,6 +435,8 @@ export default ({ childData, handleUpdateData }: any) => {
                     ? !passwordIsValid
                     : modal.activeContent === "USERNAME"
                     ? checkHasNumber(username ? username[0] : "")
+                    : modal.activeContent === "MOBILE"
+                    ? !validatePhone(mobile)
                     : mobile === ""
                     ? true
                     : false
@@ -445,7 +453,7 @@ export default ({ childData, handleUpdateData }: any) => {
                 secondaryColor={colors.buttonDestructiveActive}
                 secondaryOnPress={() => {
                   setNickname("");
-                  handleSetSettingData();
+                  handleSetSettingData(null, true);
                 }}
                 style={style.unequalButtonsWrapper}
               />
