@@ -244,15 +244,16 @@ const TransferMoney: FC = (props: any) => {
                 keyboardType={"number-pad"}
               />
 
-              <Input
+              <MaterialTextField
+                label="توضیحات"
+                value={formik.values.description}
                 onChangeText={(text: string) =>
                   formik.setFieldValue("description", text)
                 }
-                value={formik.values.description}
-                placeholder={"توضیحات"}
-                placeholderTextColor={colors.gray600}
-                style={style.input}
+                maxLength={13}
+                keyboardType={"number-pad"}
               />
+
               <View style={style.submitButtonWrapper}>
                 <Button
                   title="انتقال وجه"
