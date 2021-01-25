@@ -26,7 +26,7 @@ const DatePickerWheel = (props: any) => {
   const daystring = days.map(String);
   //year of birthdate
   const years = Array.from(
-    { length: limited ? 7 : 100 },
+    { length: limited ? 7 : 200 },
     (_, i) => i + (limited ? currentYear - 15 : 1300)
   );
   const yearString = years.map(String);
