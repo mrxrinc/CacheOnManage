@@ -247,7 +247,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
 
               <MaterialTextField
                 value={formatNumber(formik.values.amount)}
-                placeholder="مبلغ"
+                label="مبلغ"
                 hasUnit
                 keyboardType="number-pad"
                 maxLength={10}

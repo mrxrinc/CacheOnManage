@@ -11,6 +11,7 @@ export default ({
   title,
   titleAlignItems,
   children,
+  backdropOpacity,
 }: any) => {
   return (
     <Modal
@@ -18,6 +19,7 @@ export default ({
       onBackdropPress={setShowModal}
       style={style.modal}
       avoidKeyboard
+      backdropOpacity={backdropOpacity}
     >
       <View style={style.modalContainer}>
         <View style={style.modalHead}>

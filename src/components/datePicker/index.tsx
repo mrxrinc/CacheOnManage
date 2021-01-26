@@ -18,6 +18,7 @@ const DatePicker = ({
   defaultValue = "",
   theme,
   handleChosenDate = () => null,
+  color,
 }: any) => {
   const [showDateModal, setShowDateModal] = useState<boolean>(false);
   const [tempValue, setTempValue] = useState<string>("");
@@ -54,7 +55,7 @@ const DatePicker = ({
       >
         {light ? (
           <FormattedText
-            style={[styles.label, { color: colors.gray200 }]}
+            style={[styles.label, { color: color || colors.gray200 }]}
             fontFamily="Regular-FaNum"
           >
             {value}

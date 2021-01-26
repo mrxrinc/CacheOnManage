@@ -37,7 +37,9 @@ const Saving: FC = () => {
   function handleChangeTab(selectedTabId: number) {
     setSelectedTab(selectedTabId);
   }
-
+  const handleRefresh = () => {
+    dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
+  };
   return (
     <Layout>
       <MainHeader title={"پس انداز"} />
@@ -62,6 +64,7 @@ const Saving: FC = () => {
                       data={childData}
                       i={i}
                       key={i}
+                      onRefresh={handleRefresh}
                     />
                   );
                 }
