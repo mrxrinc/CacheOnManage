@@ -1,10 +1,18 @@
 import { FormattedText } from "components/format-text";
 import React, { useState } from "react";
-import { View, Text, StyleSheet, BackHandler, Linking } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  BackHandler,
+  Linking,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import Modal from "react-native-modal";
 import UnequalTwinButtons from "components/unequalTwinButtons";
 import RNRestart from "react-native-restart"; // Import package from node modules
-
+const { width } = Dimensions.get("screen");
 const ModalUpdate = (props: any) => {
   const [isOpen, setIsOpen] = useState(true);
   const { isCodePush, data } = props;
@@ -24,14 +32,16 @@ const ModalUpdate = (props: any) => {
           id={isCodePush ? "appUpdate.dsc.codePush" : "appUpdate.dsc.light"}
           style={styles.dsc}
         />
-        {data?.updateDetails?.map((item: any, index: any) => {
-          return (
-            <View key={index.toString()} style={styles.item}>
-              <View style={styles.itemPoint} />
-              <FormattedText style={styles.itemText}>{item}</FormattedText>
-            </View>
-          );
-        })}
+        <ScrollView style={styles.contentScrollView}>
+          {data?.updateDetails?.map((item: any, index: any) => {
+            return (
+              <View key={index.toString()} style={styles.item}>
+                <View style={styles.itemPoint} />
+                <FormattedText style={styles.itemText}>{item}</FormattedText>
+              </View>
+            );
+          })}
+        </ScrollView>
         <UnequalTwinButtons
           mainText={isCodePush ? "خروج از برنامه" : "دانلود جدیدترین نسخه"}
           mainColor={"#307fe2"}
@@ -116,4 +126,5 @@ const styles = StyleSheet.create({
   titleSecondary: {
     color: "#307fe2",
   },
+  contentScrollView: { maxHeight: width * 0.8 },
 });
