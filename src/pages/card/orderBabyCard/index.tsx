@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import React, { useState, useRef } from "react";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { FormattedText } from "components/format-text";
 import Card from "images/cards/orderBabyCard/card.png";
 import Plus from "images/cards/orderBabyCard/plus.svg";
@@ -37,7 +43,11 @@ const OrderBabyCard = (props: any) => {
   const [postalCode, setPostalCode] = useState(cardInfo.postalCode);
   const [edit, setEdit] = useState<Boolean>(false);
   const [mainLoading, setMainLoading] = useState<Boolean>(false);
+
+  const inputRef = useRef(null);
+
   console.log("cardInfo is", cardInfo);
+
   const handleOrderCard = () => {
     setMainLoading(true);
     const data = {
@@ -65,6 +75,7 @@ const OrderBabyCard = (props: any) => {
         console.log("setOrderCard err", err.response);
       });
   };
+
   const handleTouch = () => {
     if (cardInfo.status == "NONE") {
       setModal({
@@ -81,6 +92,7 @@ const OrderBabyCard = (props: any) => {
       });
     }
   };
+
   const handleActivation = () => {
     const data = {
       childId: cardInfo.childId,
@@ -105,14 +117,17 @@ const OrderBabyCard = (props: any) => {
         });
       });
   };
+
   const handleAddressCheck = (postalCode: string) => {
     console.log("handleAddressCheck postal code ", postalCode);
+    setMainLoading(true);
     setPostalCode(postalCode);
     addressInqury(token, postalCode)
       .then((response) => {
-        console.log("handleAddressCheck response", response.data.address);
+        console.log("handleAddressCheck response", response);
         setMainLoading(false);
         setAddress(response.data.address);
+        if (inputRef) inputRef.current.blur();
       })
       .catch((err) => {
         console.log("handleAddressCheck err1", err);
@@ -132,58 +147,92 @@ const OrderBabyCard = (props: any) => {
           <View>
             <View style={styles.modalBodyContainer}>
               <View style={styles.addressTitle}>
-                <FormattedText style={styles.addressTitleText}>
-                  کارت به آدرس زیر ارسال میشود:
-                </FormattedText>
-              </View>
-              <View style={{ width: "89%" }}>
-                {edit && (
-                  <MaterialTextField
-                    label="کد پستی"
-                    // onChange={clearError}
-                    style={{ fontFamily: "IRANSansMobileFaNum" }}
-                    maxLength={10}
-                    keyboardType="number-pad"
-                    onSubmitEditing={() => {}}
-                    onChangeText={(value: string) => {
-                      if (value.length === 10) handleAddressCheck(value);
-                    }}
-                    // error={error.field === "postalCode" ? error.message : null}
-                  />
-                )}
-              </View>
-              <View style={styles.address}>
-                {!edit ? (
-                  <FormattedText style={{ fontSize: 14 }}>
-                    {cardInfo.address}
+                {edit ? (
+                  <FormattedText style={styles.editAddressTitleText}>
+                    لطفا کد پستی آدرسی که می‌خواهید کارت به آن ارسال شود را وارد
+                    نمائید.
                   </FormattedText>
                 ) : (
-                  <FormattedText style={{ fontSize: 14 }}>
-                    {address}
+                  <FormattedText style={styles.addressTitleText}>
+                    کارت به آدرس زیر ارسال میشود:
                   </FormattedText>
                 )}
               </View>
+              {edit && (
+                <>
+                  <View style={{ width: "89%" }}>
+                    <MaterialTextField
+                      label="کد پستی"
+                      style={{ fontFamily: "IRANSansMobileFaNum" }}
+                      maxLength={10}
+                      keyboardType="number-pad"
+                      ref={inputRef}
+                      autoFocus
+                      onChangeText={(value: string) => {
+                        if (value.length === 10) handleAddressCheck(value);
+                      }}
+                      // onChange={clearError}
+                      // error={error.field === "postalCode" ? error.message : null}
+                    />
+                  </View>
+                  {!mainLoading && !!address && (
+                    <>
+                      <View style={styles.address}>
+                        <FormattedText style={{ fontSize: 12 }}>
+                          آدرس
+                        </FormattedText>
+                        <FormattedText
+                          style={{ fontSize: 14, color: colors.text }}
+                        >
+                          {address}
+                        </FormattedText>
+                      </View>
+                      <View style={styles.editButtonWrapper}>
+                        <Button
+                          title="تائید آدرس و سفارش "
+                          color={colors.buttonSubmitActive}
+                          onPress={handleOrderCard}
+                        />
+                      </View>
+                    </>
+                  )}
+                  {mainLoading && (
+                    <View style={styles.loadingWrapper}>
+                      <ActivityIndicator color={colors.gray700} size="large" />
+                    </View>
+                  )}
+                </>
+              )}
             </View>
-            <UnequalTwinButtons
-              buttonType={edit ? "single" : "equal"}
-              mainText="تائید آدرس و سفارش "
-              mainColor={colors.buttonSubmitActive}
-              mainLoading={mainLoading}
-              mainOnPress={handleOrderCard}
-              secondaryText="ویرایش آدرس ارسال"
-              secondaryColor={colors.buttonOpenActive}
-              secondaryOnPress={() => {
-                setEdit(true);
-              }}
-              style={styles.buttonsWrapper}
-            />
+            {!edit && (
+              <>
+                <View style={styles.address}>
+                  <FormattedText
+                    style={{ fontSize: 14, color: colors.text, lineHeight: 21 }}
+                  >
+                    {cardInfo.address}
+                  </FormattedText>
+                </View>
+                <UnequalTwinButtons
+                  buttonType={"equal"}
+                  mainText="تائید آدرس و سفارش "
+                  mainColor={colors.buttonSubmitActive}
+                  mainLoading={mainLoading}
+                  mainOnPress={handleOrderCard}
+                  secondaryText="ویرایش آدرس ارسال"
+                  secondaryColor={colors.buttonOpenActive}
+                  secondaryOnPress={() => setEdit(true)}
+                  style={styles.buttonsWrapper}
+                />
+              </>
+            )}
           </View>
         ) : (
           <View
             style={[
               styles.modalBodyContainer,
               {
-                width: response.isSuccess ? "89%" : "100%",
+                width: "100%",
                 justifyContent: "center",
               },
             ]}
@@ -195,7 +244,8 @@ const OrderBabyCard = (props: any) => {
               <FormattedText
                 style={{
                   fontSize: 14,
-                  color: response.isSuccess ? "#00015d" : "red",
+                  textAlign: "center",
+                  color: response.isSuccess ? colors.title : colors.red,
                 }}
               >
                 {response.description}
@@ -206,6 +256,7 @@ const OrderBabyCard = (props: any) => {
       </View>
     );
   };
+
   const renderActivationCard = () => {
     return (
       <View style={[styles.inquiryResultWrapper]}>
@@ -279,8 +330,9 @@ const OrderBabyCard = (props: any) => {
       </View>
     );
   };
+
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.cardBox}>
         <View style={styles.cardPack}>
           <View style={styles.imgBox}>
@@ -330,7 +382,7 @@ const OrderBabyCard = (props: any) => {
           ? renderOrderCard()
           : renderActivationCard()}
       </ActionModalButtom>
-    </View>
+    </ScrollView>
   );
 };
 
