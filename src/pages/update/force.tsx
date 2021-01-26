@@ -1,11 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, SafeAreaView, Image, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Image,
+  View,
+  Linking,
+} from "react-native";
 import ForceImg from "images/update/force-update.png";
 import Button from "components/button";
 import { FormattedText } from "components/format-text";
 import Modal from "react-native-modal";
 
-const Force = () => {
+const Force = (props: any) => {
+  const { data } = props;
   return (
     <Modal style={styles.modal} useNativeDriver isVisible>
       <SafeAreaView style={styles.container}>
@@ -18,7 +26,11 @@ const Force = () => {
             لطفا برای استفاده از برنامه (نام) نسخه{"\n"} جدید را دریافت نمائید.
           </FormattedText>
         </View>
-        <Button style={styles.button} title="دانلود جدیدترین نسخه" />
+        <Button
+          onPress={() => Linking.openURL(data.downloadLink)}
+          style={styles.button}
+          title="دانلود جدیدترین نسخه"
+        />
       </SafeAreaView>
     </Modal>
   );

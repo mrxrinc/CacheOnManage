@@ -1,12 +1,13 @@
 import { FormattedText } from "components/format-text";
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, BackHandler, Linking } from "react-native";
 import Modal from "react-native-modal";
 import UnequalTwinButtons from "components/unequalTwinButtons";
+import RNRestart from "react-native-restart"; // Import package from node modules
 
 const ModalUpdate = (props: any) => {
   const [isOpen, setIsOpen] = useState(true);
-  const { isCodePush } = props;
+  const { isCodePush, data } = props;
   return (
     <Modal
       onBackdropPress={() => setIsOpen(false)}
@@ -16,27 +17,21 @@ const ModalUpdate = (props: any) => {
     >
       <View style={styles.content}>
         <FormattedText id="appUpdate.title" style={styles.title} />
-        <FormattedText style={styles.version}>نسخه ۲.۲.۲</FormattedText>
+        <FormattedText fontFamily="Regular-FaNum" style={styles.version}>
+          نسخه {data?.comingVersion}
+        </FormattedText>
         <FormattedText
           id={isCodePush ? "appUpdate.dsc.codePush" : "appUpdate.dsc.light"}
           style={styles.dsc}
         />
-        <View style={styles.item}>
-          <View style={styles.itemPoint} />
-          <FormattedText style={styles.itemText}>قابلیت ۱</FormattedText>
-        </View>
-        <View style={styles.item}>
-          <View style={styles.itemPoint} />
-          <FormattedText style={styles.itemText}>قابلیت ۱</FormattedText>
-        </View>
-        <View style={styles.item}>
-          <View style={styles.itemPoint} />
-          <FormattedText style={styles.itemText}>قابلیت ۱</FormattedText>
-        </View>
-        <View style={styles.item}>
-          <View style={styles.itemPoint} />
-          <FormattedText style={styles.itemText}>قابلیت ۱</FormattedText>
-        </View>
+        {data?.updateDetails?.map((item: any, index: any) => {
+          return (
+            <View key={index.toString()} style={styles.item}>
+              <View style={styles.itemPoint} />
+              <FormattedText style={styles.itemText}>{item}</FormattedText>
+            </View>
+          );
+        })}
         <UnequalTwinButtons
           mainText={isCodePush ? "خروج از برنامه" : "دانلود جدیدترین نسخه"}
           mainColor={"#307fe2"}
@@ -45,7 +40,11 @@ const ModalUpdate = (props: any) => {
           style={styles.buttons}
           titleSecondaryStyle={styles.titleSecondary}
           secondaryOnPress={() => setIsOpen(false)}
-          mainOnPress={() => console.log("test")}
+          mainOnPress={() =>
+            isCodePush
+              ? RNRestart.Restart()
+              : Linking.openURL(data.downloadLink)
+          }
         />
       </View>
     </Modal>

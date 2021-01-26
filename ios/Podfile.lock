@@ -266,6 +266,8 @@ PODS:
     - React
   - react-native-nfc-manager (2.1.9):
     - React
+  - react-native-restart (0.0.20):
+    - React-Core
   - react-native-safe-area-context (3.1.8):
     - React-Core
   - react-native-segmented-control (2.1.0):
@@ -423,6 +425,7 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
   - react-native-nfc-manager (from `../node_modules/react-native-nfc-manager`)
+  - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-segmented-control (from `../node_modules/@react-native-community/segmented-control`)"
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
@@ -520,6 +523,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/cameraroll"
   react-native-nfc-manager:
     :path: "../node_modules/react-native-nfc-manager"
+  react-native-restart:
+    :path: "../node_modules/react-native-restart"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-segmented-control:
@@ -617,6 +622,7 @@ SPEC CHECKSUMS:
   react-native-camera: d9e7b66e40420dcef111f3265a00f01eea54c52c
   react-native-cameraroll: ae0a7c0cc8462508855707ff623b1e789b692865
   react-native-nfc-manager: 523a918c0ded58b8dba7bf50bda0f21e90bf1b7d
+  react-native-restart: a01029aadfe8e71f9e8205fdb17da2f0a4472d50
   react-native-safe-area-context: 79fea126c6830c85f65947c223a5e3058a666937
   react-native-segmented-control: 4ce904755f67bf17d5250d265d57e40db045ac34
   react-native-slider: 12bd76d3d568c9c5500825db54123d44b48e4ad4
