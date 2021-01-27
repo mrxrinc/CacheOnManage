@@ -16,6 +16,7 @@ export default StyleSheet.create({
     textAlign: "center",
     fontSize: 32,
     lineHeight: 43,
+    marginRight: 5,
   },
   unit: {
     fontSize: 15,

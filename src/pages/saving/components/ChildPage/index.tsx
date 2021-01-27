@@ -12,10 +12,10 @@ import { SavingListData, TargetsData } from "types/saving";
 // Common Components
 import Button from "components/button";
 // Local Components
-import SavingInfo from "../SavingInfo/SavingInfo";
+import SavingInfo from "../SavingInfo";
 import TargetList from "../TargetList";
 // UI Frameworks
-import { StyleProp, View, ViewStyle } from "react-native";
+import { RefreshControl, StyleProp, View, ViewStyle } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 // Actions
 import SavingActions from "store/Saving/saving.actions";
@@ -25,6 +25,7 @@ import { colors } from "constants/index";
 
 interface Props {
   data: SavingListData;
+  onRefresh: () => void;
 }
 const contentContainerStyle: StyleProp<ViewStyle> = {
   alignItems: "center",
@@ -35,6 +36,7 @@ const contentContainerStyle: StyleProp<ViewStyle> = {
 const ChildPage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
+
   // Store
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
@@ -60,9 +62,18 @@ const ChildPage: React.FC<Props> = (props) => {
     dispatch(SavingActions.getTargetsData(data));
     navigation.navigate("transferMoneyToTarget");
   }
+
   return (
     <>
-      <ScrollView contentContainerStyle={contentContainerStyle}>
+      <ScrollView
+        contentContainerStyle={contentContainerStyle}
+        refreshControl={
+          <RefreshControl
+            refreshing={savingStore.loading}
+            onRefresh={props.onRefresh}
+          />
+        }
+      >
         <SavingInfo data={props.data} />
         <TargetList data={props.data} />
       </ScrollView>

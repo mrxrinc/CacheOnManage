@@ -175,7 +175,7 @@ const AddAllowance = (props: any) => {
                 returnKeyType="done"
                 placeholderTextColor="#c9cbcc"
                 keyboardType="numeric"
-                maxLength={19}
+                maxLength={9}
                 underlineColorAndroid={"transparent"}
                 onChangeText={(text) => {
                   setAllowance(text.replace(/,/g, ""));

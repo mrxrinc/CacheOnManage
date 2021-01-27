@@ -330,7 +330,7 @@ const TaskList = (props: any) => {
                   style={styles.otherPaymentsItemTitle}
                   fontFamily="Bold"
                 >
-                  {item.name || "--"}
+                  {item.description || "--"}
                 </FormattedText>
                 <FormattedText
                   style={styles.otherPaymentsAmount}
@@ -392,13 +392,12 @@ const TaskList = (props: any) => {
       <AlertController
         showModal={endTaskModal}
         setShowModal={() => setEndTaskModal(false)}
-        handleNewAction={() => setEndTaskModal(false)}
-        handleMainAction={() => handleChildDoneStatusTask(taskId)}
-        backOpacity={0.15}
         title="اتمام فعالیت"
         description={`آیا انجام فعالیت “${taskName}” را تائید می‌کنید؟`}
-        isNewAction="بله"
-        acceptButton="انصراف"
+        rightTitle="بله"
+        rightAction={() => handleChildDoneStatusTask(taskId)}
+        leftTitle="انصراف"
+        leftAction={() => setEndTaskModal(false)}
       />
       <EditTask
         showModal={editTask}
@@ -493,6 +492,7 @@ const styles = StyleSheet.create({
   },
   taskItemAmountOptions: {
     justifyContent: "space-between",
+    alignItems: "flex-end",
   },
   taskItemOptionsBox: {
     justifyContent: "center",
@@ -522,7 +522,7 @@ const styles = StyleSheet.create({
   taskItemConfirmButtonText: {
     color: colors.white,
     fontSize: 12,
-    lineHeight: 15,
+    lineHeight: IOS ? 8 : 13,
     textAlign: "center",
   },
   taskItemAcceptedText: {
@@ -564,7 +564,7 @@ const styles = StyleSheet.create({
   paymentTagText: {
     fontSize: 12,
     color: colors.white,
-    lineHeight: 12,
+    lineHeight: IOS ? 7 : 10,
   },
   paymentTagTriangle: {
     width: 24,

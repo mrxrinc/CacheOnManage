@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CodePushDeploymentKey</key>
+	<string>glXLyYCorleB0ZcCqjh6NCnBGRUXCsW0TSJo_</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -47,17 +49,16 @@
 	<string>اجازه دسترسی به تصاویر </string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>IRANSansFaNum-Bold.ttf</string>
-		<string>IRANSansMobile-Bold.ttf</string>
-		<string>IRANSansMobile-Medium.ttf</string>
-		<string>IRANSansMobile.ttf</string>
-		<string>IRANSansMobileFaNum.ttf</string>
-		<string>IRANSansMobile-Light.ttf</string>
+		<string>IRANYekanMobileFaNum.ttf</string>
 		<string>IRANYekanMobile-Bold.ttf</string>
 		<string>IRANYekanMobile-Medium.ttf</string>
 		<string>IRANYekanMobile.ttf</string>
-		<string>IRANYekanMobileFaNum-Bold.ttf</string>
-		<string>IRANYekanMobileFaNum.ttf</string>
+		<string>IRANSansMobile-Light.ttf</string>
+		<string>IRANSansFaNum-Bold.ttf</string>
+		<string>IRANSansMobile-Medium.ttf</string>
+		<string>IRANSansMobile-Bold.ttf</string>
+		<string>IRANSansMobileFaNum.ttf</string>
+		<string>IRANSansMobile.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
