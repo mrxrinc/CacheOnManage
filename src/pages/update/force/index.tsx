@@ -1,16 +1,10 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  Image,
-  View,
-  Linking,
-} from "react-native";
-import ForceImg from "images/update/force-update.png";
+import { SafeAreaView, View, Linking } from "react-native";
 import Button from "components/button";
 import { FormattedText } from "components/format-text";
 import Modal from "react-native-modal";
+import styles from "./styles";
+import Update from "components/icons/update.svg";
 
 const Force = (props: any) => {
   const { data } = props;
@@ -18,7 +12,7 @@ const Force = (props: any) => {
     <Modal style={styles.modal} useNativeDriver isVisible>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <Image style={styles.img} source={ForceImg} />
+          <Update style={styles.img} />
           <FormattedText style={styles.title}>
             نسخه برنامه شما پشتیبانی‌ نمی‌شود!
           </FormattedText>
@@ -27,6 +21,7 @@ const Force = (props: any) => {
           </FormattedText>
         </View>
         <Button
+          titleStyle={styles.titleBtn}
           onPress={() => Linking.openURL(data.downloadLink)}
           style={styles.button}
           title="دانلود جدیدترین نسخه"
@@ -36,43 +31,3 @@ const Force = (props: any) => {
   );
 };
 export default Force;
-const styles = StyleSheet.create({
-  modal: {
-    margin: 0,
-  },
-  container: {
-    backgroundColor: "#f4f6fa",
-    flex: 1,
-    alignItems: "center",
-  },
-  img: {
-    width: 100,
-    height: 100,
-    alignSelf: "center",
-  },
-  button: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "89%",
-    height: 44,
-    backgroundColor: "#307fe2",
-    borderRadius: 10,
-    marginBottom: 50,
-  },
-  title: {
-    marginTop: 32,
-    marginBottom: 22,
-    fontWeight: "500",
-    fontSize: 18,
-  },
-  dsc: {
-    textAlign: "center",
-    lineHeight: 17,
-    color: "#707070",
-    fontSize: 16,
-  },
-  content: {
-    justifyContent: "center",
-    flex: 1,
-  },
-});

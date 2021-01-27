@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Platform, Text } from "react-native";
+import { Platform } from "react-native";
 import Force from "pages/update/force";
 import ModalUpdate from "./modal";
 import DeviceInfo from "react-native-device-info";
@@ -19,16 +19,12 @@ const index = () => {
       osType: Platform.OS,
     };
 
-    getUpdate(Data)
-      .then((response: any) => {
-        const { data } = response;
-        setStatus(data.state);
-        setUpdateData(data);
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getUpdate(Data).then((response: any) => {
+      const { data } = response;
+      setStatus(data.state);
+      setUpdateData(data);
+      console.log(response);
+    });
   }, []);
   switch (status) {
     case "updated":

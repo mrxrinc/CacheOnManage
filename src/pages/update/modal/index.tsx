@@ -1,18 +1,12 @@
 import { FormattedText } from "components/format-text";
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  BackHandler,
-  Linking,
-  ScrollView,
-  Dimensions,
-} from "react-native";
+import { View, Linking, ScrollView } from "react-native";
 import Modal from "react-native-modal";
 import UnequalTwinButtons from "components/unequalTwinButtons";
-import RNRestart from "react-native-restart"; // Import package from node modules
-const { width } = Dimensions.get("screen");
+import RNRestart from "react-native-restart";
+import styles from "./styles";
+import { colors } from "constants/index";
+
 const ModalUpdate = (props: any) => {
   const [isOpen, setIsOpen] = useState(true);
   const { isCodePush, data } = props;
@@ -44,11 +38,13 @@ const ModalUpdate = (props: any) => {
         </ScrollView>
         <UnequalTwinButtons
           mainText={isCodePush ? "خروج از برنامه" : "دانلود جدیدترین نسخه"}
-          mainColor={"#307fe2"}
+          mainColor={colors.buttonSubmitActive}
           secondaryText="بعدا"
-          secondaryColor={"#f5f7fa"}
+          secondaryColor={colors.buttonOpenActive}
           style={styles.buttons}
           titleSecondaryStyle={styles.titleSecondary}
+          secondaryStyle={styles.btn}
+          mainStyle={styles.btn}
           secondaryOnPress={() => setIsOpen(false)}
           mainOnPress={() =>
             isCodePush
@@ -61,70 +57,3 @@ const ModalUpdate = (props: any) => {
   );
 };
 export default ModalUpdate;
-const styles = StyleSheet.create({
-  content: {
-    backgroundColor: "#ffffff",
-    borderRadius: 15,
-    paddingHorizontal: 16,
-    paddingBottom: 22,
-    paddingTop: 16,
-  },
-  title: {
-    color: "#110820",
-    fontSize: 18,
-    fontWeight: "500",
-    lineHeight: 19,
-    letterSpacing: 0,
-    textAlign: "center",
-  },
-  version: {
-    color: "#707070",
-    textAlign: "center",
-    fontSize: 14,
-    fontWeight: "normal",
-    lineHeight: 15,
-    letterSpacing: 0,
-    marginTop: 4,
-  },
-  dsc: {
-    color: "#110820",
-    fontSize: 16,
-    fontWeight: "normal",
-    lineHeight: 24,
-    letterSpacing: 0,
-    textAlign: "left",
-    marginTop: 25,
-    marginBottom: 20,
-  },
-  item: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-    marginLeft: 8,
-  },
-  itemText: {
-    color: "#110820",
-    fontSize: 16,
-    fontWeight: "normal",
-    letterSpacing: 0,
-    textAlign: "left",
-  },
-  itemPoint: {
-    backgroundColor: "#00bfb2",
-    width: 6,
-    height: 6,
-    borderRadius: 10,
-    marginBottom: -5,
-    marginRight: 4,
-  },
-  buttons: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: -16,
-    marginTop: 15,
-  },
-  titleSecondary: {
-    color: "#307fe2",
-  },
-  contentScrollView: { maxHeight: width * 0.8 },
-});
