@@ -18,7 +18,7 @@ import { ModalType, OFFLOAD_MODAL } from "../constants";
 import { setOrderCard, setCardActive, addressInqury } from "utils/api";
 import styles from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { RootStateType } from "../../../../customType";
+import { RootState, RootStateType } from "../../../../customType";
 import MaterialTextField from "components/materialTextfield";
 import Input from "components/input";
 import CardsActions from "store/Cards/cards.action";
@@ -32,6 +32,7 @@ const OrderBabyCard = (props: any) => {
   const [modal, setModal] = useState<ModalType>(OFFLOAD_MODAL);
   const cardInfo = props.cardsInfo;
   const token = useSelector<RootStateType, any>((state) => state.user.token);
+  const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   const [response, setResponse] = useState<IResponse>({
     description: "",
     isSuccess: null,
@@ -99,10 +100,10 @@ const OrderBabyCard = (props: any) => {
       pan: cardPan,
       pin: password,
     };
-    console.log("handleActivation response", data);
+    logger("handleActivation response", data);
     setCardActive(token, data)
       .then((response) => {
-        console.log("handleActivation response", response);
+        logger("handleActivation response", response);
         setResponse({
           description: response.data.success,
           isSuccess: true,
@@ -110,7 +111,7 @@ const OrderBabyCard = (props: any) => {
         dispatch(CardsActions.callCardInfo("activationCard"));
       })
       .catch((err) => {
-        console.log("handleActivation err1", err);
+        logger("handleActivation err1", err);
         setResponse({
           description: err.response.data.message,
           isSuccess: false,
@@ -122,12 +123,12 @@ const OrderBabyCard = (props: any) => {
     console.log("handleAddressCheck postal code ", postalCode);
     setMainLoading(true);
     setPostalCode(postalCode);
+    if (inputRef) inputRef.current.blur();
     addressInqury(token, postalCode)
       .then((response) => {
         console.log("handleAddressCheck response", response);
         setMainLoading(false);
         setAddress(response.data.address);
-        if (inputRef) inputRef.current.blur();
       })
       .catch((err) => {
         console.log("handleAddressCheck err1", err);
@@ -355,14 +356,28 @@ const OrderBabyCard = (props: any) => {
           </View>
         </View>
       </View>
-      <View style={styles.button}>
-        <Button
-          color={colors.buttonOpenActive}
-          title={cardInfo.status == "NONE" ? "سفارش کارت" : "فعالسازی کارت"}
-          disabled={cardInfo.status == "ORDERED"}
-          onPress={handleTouch}
-        />
-      </View>
+      {!isChild && cardInfo.status == "NONE" && (
+        <View style={styles.button}>
+          <Button
+            color={colors.buttonOpenActive}
+            title="سفارش کارت"
+            disabled={cardInfo.status == "ORDERED"}
+            onPress={handleTouch}
+          />
+        </View>
+      )}
+
+      {isChild && cardInfo.status == "FORCED_PIN_CHANGE" && (
+        <View style={styles.button}>
+          <Button
+            color={colors.buttonOpenActive}
+            title="فعالسازی کارت"
+            disabled={cardInfo.status == "ORDERED"}
+            onPress={handleTouch}
+          />
+        </View>
+      )}
+
       <ActionModalButtom
         showModal={modal.visibility}
         setShowModal={() => {

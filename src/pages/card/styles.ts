@@ -1,6 +1,5 @@
-import { StyleSheet, Dimensions } from "react-native";
-
-const { width, height } = Dimensions.get("window");
+import { StyleSheet } from "react-native";
+import { colors, width } from "constants/index";
 
 export default StyleSheet.create({
   container: {
@@ -24,7 +23,7 @@ export default StyleSheet.create({
     width: width * 0.89,
     marginTop: "3%",
   },
-  transactionHeaderText: { fontSize: 16, color: "#00015d" },
+  transactionHeaderText: { fontSize: 16, color: colors.title },
   moreButton: {
     flexDirection: "row",
     justifyContent: "center",

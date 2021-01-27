@@ -63,6 +63,7 @@ const Cards = (props: any) => {
       </ScrollView>
     );
   };
+
   return (
     <Layout>
       <MainHeader title={"کارتها"} hasBack={hasBackButton} />
