@@ -32,7 +32,7 @@ const DatePicker = ({
   const handleOnConfirm = () => {
     setShowDateModal(false);
     setValue(tempValue);
-    handleChosenDate(value);
+    handleChosenDate(tempValue);
   };
 
   return (

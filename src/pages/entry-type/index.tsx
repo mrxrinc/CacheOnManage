@@ -14,6 +14,7 @@ import {
   setLocalData,
   logLocalStorage,
 } from "utils/localStorage";
+import Update from "pages/update";
 
 const EntryType = ({ setTheme }: any) => {
   const dispatch = useDispatch();
@@ -78,6 +79,7 @@ const EntryType = ({ setTheme }: any) => {
           />
         </View>
       </View>
+      <Update />
     </LinearGradient>
   );
 };
