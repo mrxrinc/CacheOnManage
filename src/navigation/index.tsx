@@ -47,6 +47,8 @@ import {
 } from "pages/internetPackages";
 //quick access
 import QuickAccess from "navigation/quick-access";
+import Total from "pages/transactions/total";
+import DetailItem from "pages/transactions/detailItem";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -98,6 +100,9 @@ function AuthStack() {
       initialRouteName="entryType"
       screenOptions={{ gestureEnabled: false, headerShown: false }}
     >
+      {/* test total transaction */}
+      {/* <Stack.Screen name="total" component={Total} />
+      <Stack.Screen name="detailItem" component={DetailItem} /> */}
       <Stack.Screen name="entryType" component={EntryType} />
       <Stack.Screen name="login" component={LoginNavigator} />
       <Stack.Screen name="intro" component={Intro} />

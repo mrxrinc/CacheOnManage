@@ -4,7 +4,7 @@ import Button from "components/button";
 import styles from "./styles";
 
 type Props = {
-  buttonType: "equal" | "unequal" | "single";
+  buttonType?: "equal" | "unequal" | "single";
   mainColor: string;
   mainText: string;
   mainOnPress: () => void;
@@ -13,6 +13,9 @@ type Props = {
   secondaryOnPress: () => void;
   style: any;
   mainLoading?: boolean;
+  titleSecondaryStyle?: any;
+  mainStyle?: any;
+  secondaryStyle?: any;
 };
 
 const UnequalTwinButtons: FC<Props> = ({
@@ -25,6 +28,9 @@ const UnequalTwinButtons: FC<Props> = ({
   secondaryOnPress,
   style,
   mainLoading,
+  titleSecondaryStyle,
+  mainStyle,
+  secondaryStyle,
 }) => {
   return (
     <View
@@ -42,6 +48,7 @@ const UnequalTwinButtons: FC<Props> = ({
           title={mainText}
           onPress={mainOnPress}
           loading={mainLoading}
+          style={mainStyle}
         />
       </View>
       {buttonType !== "single" && (
@@ -54,9 +61,11 @@ const UnequalTwinButtons: FC<Props> = ({
             ]}
           >
             <Button
+              titleStyle={titleSecondaryStyle}
               color={secondaryColor}
               title={secondaryText}
               onPress={secondaryOnPress}
+              style={secondaryStyle}
             />
           </View>
         </>
