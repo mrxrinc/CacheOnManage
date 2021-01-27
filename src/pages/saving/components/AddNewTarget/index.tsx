@@ -299,7 +299,7 @@ const AddNewTarget: FC<Props> = (props) => {
               <Button
                 onPress={formik.handleSubmit}
                 disabled={!formik.isValid || savingStore.loading}
-                title="تعریف هدف جدید"
+                title="تعریفق هدف جدید"
                 color={colors.buttonSubmitActive}
               />
             </View>

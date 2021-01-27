@@ -48,6 +48,7 @@ export default StyleSheet.create({
     marginLeft: 10,
     fontFamily: "IRANSansMobileFaNum",
     textAlign: "right",
+    height: 44,
   },
   errorFont: {
     color: colors.red,

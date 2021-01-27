@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Dimensions } from "react-native";
 import { FormattedText } from "components/format-text";
-import ActiveCard from "images/cards/mainPage/mainCard.svg";
+import ActiveCard from "images/cards/mainPage/ActiveCard.svg";
 import SimCard from "images/cards/mainPage/simcard.svg";
 import blueLogo from "images/cards/mainPage/blue-logo.png";
 import styles from "./styles";

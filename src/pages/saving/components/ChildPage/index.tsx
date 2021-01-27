@@ -78,26 +78,27 @@ const ChildPage: React.FC<Props> = (props) => {
         <TargetList data={props.data} />
       </ScrollView>
       <View style={styles.buttonsWrapper}>
-        <Button
-          style={styles.button}
-          title="تعریف هدف جدید"
-          onPress={() => handleAddNewTargetPress(props.data)}
-          disabled={
-            filterActiveTargets?.length >= 2 ||
-            savingStore.childTargets.length === 0
-              ? true
-              : false
-          }
-          color={colors.buttonOpenActive}
-        />
-
-        <Button
-          style={styles.button}
-          title="انتقال وجه به هدف"
-          onPress={() => handleTransferMoneyToTarget(props.data)}
-          disabled={filterActiveTargets?.length > 0 ? false : true}
-          color={colors.buttonOpenActive}
-        />
+        <View style={styles.buttonBox}>
+          <Button
+            title="تعریف هدف جدید"
+            onPress={() => handleAddNewTargetPress(props.data)}
+            disabled={
+              filterActiveTargets?.length >= 2 ||
+              savingStore.childTargets.length === 0
+                ? true
+                : false
+            }
+            color={colors.buttonOpenActive}
+          />
+        </View>
+        <View style={styles.buttonBox}>
+          <Button
+            title="انتقال وجه به هدف"
+            onPress={() => handleTransferMoneyToTarget(props.data)}
+            disabled={filterActiveTargets?.length > 0 ? false : true}
+            color={colors.buttonOpenActive}
+          />
+        </View>
       </View>
     </>
   );

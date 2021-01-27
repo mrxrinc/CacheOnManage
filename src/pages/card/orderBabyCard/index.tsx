@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity, Dimensions } from "react-native";
 import { FormattedText } from "components/format-text";
-import Card from "images/cards/orderBabyCard/card.png";
+import Card from "images/cards/orderBabyCard/deactive.svg";
 import Plus from "images/cards/orderBabyCard/plus.svg";
 import Success from "images/cards/orderBabyCard/success.svg";
 import Button from "components/button";
@@ -16,6 +16,7 @@ import { RootStateType } from "../../../../customType";
 import MaterialTextField from "components/materialTextfield";
 import Input from "components/input";
 import CardsActions from "store/Cards/cards.action";
+const { width, height } = Dimensions.get("window");
 
 interface IResponse {
   description: String;
@@ -37,17 +38,14 @@ const OrderBabyCard = (props: any) => {
   const [postalCode, setPostalCode] = useState(cardInfo.postalCode);
   const [edit, setEdit] = useState<Boolean>(false);
   const [mainLoading, setMainLoading] = useState<Boolean>(false);
-  console.log("cardInfo is", cardInfo);
   const handleOrderCard = () => {
     setMainLoading(true);
     const data = {
       childId: cardInfo.childId,
       postalCode: postalCode,
     };
-    console.log("setOrderCard response", data);
     setOrderCard(token, data)
       .then((response) => {
-        console.log("setOrderCard response", response);
         setMainLoading(false);
         setResponse({
           description: response.data.success,
@@ -56,13 +54,11 @@ const OrderBabyCard = (props: any) => {
         dispatch(CardsActions.callCardInfo("orderCard"));
       })
       .catch((err) => {
-        console.log("setOrderCard err", err);
         setMainLoading(false);
         setResponse({
           description: err.response.data.message,
           isSuccess: false,
         });
-        console.log("setOrderCard err", err.response);
       });
   };
   const handleTouch = () => {
@@ -87,10 +83,8 @@ const OrderBabyCard = (props: any) => {
       pan: cardPan,
       pin: password,
     };
-    console.log("handleActivation response", data);
     setCardActive(token, data)
       .then((response) => {
-        console.log("handleActivation response", response);
         setResponse({
           description: response.data.success,
           isSuccess: true,
@@ -98,7 +92,6 @@ const OrderBabyCard = (props: any) => {
         dispatch(CardsActions.callCardInfo("activationCard"));
       })
       .catch((err) => {
-        console.log("handleActivation err1", err);
         setResponse({
           description: err.response.data.message,
           isSuccess: false,
@@ -106,11 +99,9 @@ const OrderBabyCard = (props: any) => {
       });
   };
   const handleAddressCheck = (postalCode: string) => {
-    console.log("handleAddressCheck postal code ", postalCode);
     setPostalCode(postalCode);
     addressInqury(token, postalCode)
       .then((response) => {
-        console.log("handleAddressCheck response", response.data.address);
         setMainLoading(false);
         setAddress(response.data.address);
       })
@@ -284,7 +275,11 @@ const OrderBabyCard = (props: any) => {
       <View style={styles.cardBox}>
         <View style={styles.cardPack}>
           <View style={styles.imgBox}>
-            <Image source={Card} style={styles.cardImg} />
+            <Card
+              width={height * 0.89}
+              height={width * 0.8}
+              style={{ position: "absolute" }}
+            />
             <TouchableOpacity onPress={handleTouch}>
               {cardInfo.status == "NONE" && <Plus />}
             </TouchableOpacity>

@@ -22,7 +22,6 @@ const BalanceCard = ({
   theme,
 }: BalanceCardType) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-
   return (
     <>
       <TouchableOpacity
@@ -31,10 +30,10 @@ const BalanceCard = ({
         activeOpacity={0.6}
         onPress={onPress}
       >
-        <View style={style.head}>
+        <View style={[style.head]}>
           <Image
             source={{ uri: `data:image/png;base64,${avatar}` }}
-            style={style.avatar}
+            style={[style.avatar, { borderColor: theme.home.avatarBorder }]}
           />
         </View>
         <View
