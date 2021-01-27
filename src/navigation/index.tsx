@@ -97,12 +97,12 @@ function AppStack() {
 function AuthStack() {
   return (
     <Stack.Navigator
-      initialRouteName="total"
+      initialRouteName="entryType"
       screenOptions={{ gestureEnabled: false, headerShown: false }}
     >
-      {/* test totla transaction */}
-      <Stack.Screen name="total" component={Total} />
-      <Stack.Screen name="detailItem" component={DetailItem} />
+      {/* test total transaction */}
+      {/* <Stack.Screen name="total" component={Total} />
+      <Stack.Screen name="detailItem" component={DetailItem} /> */}
       <Stack.Screen name="entryType" component={EntryType} />
       <Stack.Screen name="login" component={LoginNavigator} />
       <Stack.Screen name="intro" component={Intro} />
