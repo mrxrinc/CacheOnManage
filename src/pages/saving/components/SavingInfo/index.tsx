@@ -32,8 +32,7 @@ const SavingInfo: React.FC<Props> = (props) => {
         </FormattedText>
       </View>
       <FormattedText fontFamily="Regular-FaNum" style={styles.weeklySavings}>
-        پس انداز هفتگی :{formatNumber(props.data.weeklySavings)}
-        ریال
+        پس انداز هفتگی : {formatNumber(props.data.weeklySavings)} ریال
       </FormattedText>
     </View>
   );

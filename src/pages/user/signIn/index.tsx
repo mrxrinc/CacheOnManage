@@ -197,7 +197,6 @@ const SignIn = ({ theme }: any) => {
             <MaterialTextField
               label="رمز عبور"
               keyboardType="default"
-              secureTextEntry={true}
               maxLength={30}
               icon="password"
               onChange={clearError}

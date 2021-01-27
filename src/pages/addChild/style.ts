@@ -28,31 +28,6 @@ export default StyleSheet.create({
     flexDirection: "row",
     width: "100%",
   },
-  modal: {
-    margin: 0,
-  },
-  modalContainer: {
-    height: 290,
-    width: "100%",
-    backgroundColor: colors.white,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    position: "absolute",
-    bottom: 0,
-    padding: 16,
-  },
-  modalSwipeHandle: {
-    width: 100,
-    height: 3,
-    borderRadius: 10,
-    backgroundColor: colors.white,
-    opacity: 0.8,
-    alignSelf: "center",
-    top: -20,
-  },
-  datePickerItem: {
-    fontFamily: "IRANSansMobileFaNum",
-  },
   inquiryModalContentWrapper: {
     padding: 10,
   },
@@ -123,10 +98,5 @@ export default StyleSheet.create({
   contentWrapper: {
     paddingTop: 30,
     paddingHorizontal: 20,
-  },
-  ageWarning: {
-    textAlign: "center",
-    marginBottom: 20,
-    color: colors.primary,
   },
 });
