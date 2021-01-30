@@ -89,7 +89,7 @@ class Option extends Component {
       navigation.navigate("quickAccess");
       // navigation("mobileBillPayment");
     } else if (type == "internet") {
-      navigation.navigate("internetPackages");
+      navigation.navigate("selectCarrier");
     }
   }
   render() {

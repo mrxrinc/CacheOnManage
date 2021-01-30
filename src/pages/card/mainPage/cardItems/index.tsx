@@ -55,6 +55,7 @@ const CardItems = (props: any) => {
         console.log("setCardBlock err", err.response);
       });
   };
+
   const handleDeactive = () => {
     setLoading(true);
     const data = {
@@ -105,6 +106,7 @@ const CardItems = (props: any) => {
       setErrorText("رمز صحیح تکرار نشده است.");
     }
   };
+
   const renderChangePassword = () => {
     return (
       <View style={[styles.inquiryResultWrapper]}>
