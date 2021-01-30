@@ -4,11 +4,10 @@ import { View, TouchableOpacity, FlatList } from "react-native";
 import ChildCard from "./childCard";
 import CardItems from "./cardItems";
 import { FormattedText } from "components/format-text";
-import Move from "images/cards/mainPage/move.svg";
+import Arrow from "images/cards/mainPage/move.svg";
 import Deposit from "images/cards/mainPage/deposit.svg";
 import Withdrawal from "images/cards/mainPage/withDrawal.svg";
 import { formatNumber } from "utils/index";
-import { width } from "constants/index";
 import styles from "./styles";
 // import CardTransactions from "./cardTransactions";
 
@@ -55,7 +54,11 @@ const MainPage = (props: any) => {
                   {formatNumber(cardInfo.balance)} ریال
                 </FormattedText>
               </View>
-              <Move width={24} height={24} />
+              <Arrow
+                width={16}
+                height={16}
+                style={styles.transactionItemArrow}
+              />
             </View>
           </View>
         </TouchableOpacity>
@@ -63,12 +66,12 @@ const MainPage = (props: any) => {
     );
   };
 
-  return (
-    <View style={{ width: "100%", height: "100%", backgroundColor: "#fff" }}>
+  const renderListHead = () => (
+    <>
       <ChildCard cardsInfo={props.cardsInfo} />
       <CardItems cardsInfo={props.cardsInfo} />
-      {/* <CardTransactions cardsInfo={props.cardsInfo} /> */}
-      <View style={styles.scrollView}>
+
+      <View style={styles.listSection}>
         <View style={styles.transactionHeader}>
           <FormattedText
             fontFamily="Medium"
@@ -78,20 +81,25 @@ const MainPage = (props: any) => {
           </FormattedText>
           <TouchableOpacity style={styles.moreButton}>
             <FormattedText style={styles.moreText}>مشاهده همه</FormattedText>
-            <Move />
+            <Arrow style={styles.showAllIcon} />
           </TouchableOpacity>
         </View>
-        <View style={{ width: width * 0.89 }}>
-          <FormattedText style={{ color: "#707070", fontsize: 16 }}>
-            هفته جاری
-          </FormattedText>
+        <View style={styles.categoryTitleWrapper}>
+          <FormattedText style={styles.categoryTitle}>هفته جاری</FormattedText>
         </View>
-        <FlatList
-          contentContainerStyle={styles.flatList}
-          data={cardInfo.transactions}
-          renderItem={(item) => transactionItems(item)}
-        />
       </View>
+    </>
+  );
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        contentContainerStyle={styles.flatList}
+        data={cardInfo.transactions}
+        renderItem={(item) => transactionItems(item)}
+        ListHeaderComponent={() => renderListHead()}
+        ListHeaderComponentStyle={{ backgroundColor: "white" }}
+      />
     </View>
   );
 };

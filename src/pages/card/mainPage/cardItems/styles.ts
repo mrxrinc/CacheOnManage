@@ -8,8 +8,6 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     flexDirection: "row",
-    backgroundColor: colors.d,
-    marginTop: 10,
   },
   itemBox: {
     justifyContent: "center",
