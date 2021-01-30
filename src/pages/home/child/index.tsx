@@ -79,7 +79,6 @@ export default ({ route }: any) => {
       setLoading(true);
       const resp = await getChildHomeData(token, childId);
       setChildData(resp.data);
-      logger(resp.data);
       setLoading(false);
       AsyncStorage.setItem("childPhone", resp.data.mobile ?? "");
       if (isChild) {
