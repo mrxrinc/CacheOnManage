@@ -79,6 +79,7 @@ export default ({ route }: any) => {
       setLoading(true);
       const resp = await getChildHomeData(token, childId);
       setChildData(resp.data);
+      logger(resp.data);
       setLoading(false);
       AsyncStorage.setItem("childPhone", resp.data.mobile ?? "");
       if (isChild) {
@@ -95,6 +96,15 @@ export default ({ route }: any) => {
     setRefreshing(true);
     getChildData();
   };
+
+  const paymentLimitSum: () => string = () => {
+    let total = 0;
+    childData?.paymentMethods.map((item) => {
+      total = total + parseInt(item.amount);
+    });
+    return `${total}`;
+  };
+
   return (
     <Layout>
       <>
@@ -352,7 +362,7 @@ export default ({ route }: any) => {
                       style={style.twinChildTextValue}
                       fontFamily="Regular-FaNum"
                     >
-                      {formatNumber(childData.weeklySpendingLimit) || 0}{" "}
+                      {formatNumber(paymentLimitSum())}{" "}
                       <FormattedText style={style.currency} id={"home.rial"} />
                     </FormattedText>
                   </View>

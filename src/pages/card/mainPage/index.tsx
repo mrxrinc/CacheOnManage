@@ -1,4 +1,3 @@
-import { fromPairs } from "ramda";
 import React from "react";
 import { View, TouchableOpacity, FlatList } from "react-native";
 import ChildCard from "./childCard";
@@ -9,7 +8,6 @@ import Deposit from "images/cards/mainPage/deposit.svg";
 import Withdrawal from "images/cards/mainPage/withDrawal.svg";
 import { formatNumber } from "utils/index";
 import styles from "./styles";
-// import CardTransactions from "./cardTransactions";
 
 const MainPage = (props: any) => {
   const cardInfo = props.cardsInfo;
