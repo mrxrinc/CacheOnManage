@@ -514,3 +514,11 @@ export const getUpdate = (data: any) =>
       info: JSON.stringify(data),
     },
   });
+
+
+export const getSpendParent = (token: string) =>
+  instance.get(`/api/v1/accounts/invoice/children`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });

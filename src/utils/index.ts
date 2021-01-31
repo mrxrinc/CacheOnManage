@@ -88,3 +88,21 @@ export const jalaliDate = (value: string) => {
   const date = moment(value);
   return `${date.jYear()}/${date.jMonth()}/${date.jDate()}`;
 };
+
+export const convertEpotchToDate = (date: number) => {
+  var d = new Date(date);
+  const convertDate =
+    d.getFullYear() +
+    "-" +
+    ("00" + (d.getMonth() + 1)).slice(-2) +
+    "-" +
+    ("00" + d.getDate()).slice(-2) +
+    " " +
+    ("00" + d.getHours()).slice(-2) +
+    ":" +
+    ("00" + d.getMinutes()).slice(-2);
+  const formatedDate = moment(convertDate, "YYYY-M-D HH:mm:ss").format(
+    "jYYYY/jM/jD HH:mm"
+  );
+  return formatedDate;
+};
