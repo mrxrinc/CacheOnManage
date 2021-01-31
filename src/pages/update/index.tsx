@@ -9,7 +9,7 @@ const index = () => {
   const [status, setStatus] = useState("updated");
   const [updateData, setUpdateData] = useState(null);
   useEffect(() => {
-    let uniqueId = DeviceInfo.getUniqueID();
+    let uniqueId = DeviceInfo.getUniqueId();
     let version = DeviceInfo.getVersion();
     let systemVersion = DeviceInfo.getSystemVersion();
     const Data = {

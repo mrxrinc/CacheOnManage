@@ -48,12 +48,7 @@ const Cards = (props: any) => {
       <ScrollView contentContainerStyle={styles.cardsPageBox}>
         <View
           style={{
-            height:
-              item.data.status == "NONE" ||
-              item.data.status == "FORCED_PIN_CHANGE" ||
-              item.data.status == "ORDERED"
-                ? "90%"
-                : "100%",
+            height: "100%",
             width: "100%",
           }}
         >
@@ -68,6 +63,7 @@ const Cards = (props: any) => {
       </ScrollView>
     );
   };
+
   return (
     <Layout>
       <MainHeader title={"کارتها"} hasBack={hasBackButton} />

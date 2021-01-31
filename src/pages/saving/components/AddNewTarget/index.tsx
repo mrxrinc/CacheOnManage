@@ -8,8 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SavingActions from "store/Saving/saving.actions";
 // UI Frameworks
 import { Formik } from "formik";
-import { View, TouchableWithoutFeedback } from "react-native";
-import Modal from "react-native-modal";
+import { View } from "react-native";
 import moment from "moment-jalaali";
 import { ScrollView } from "react-native-gesture-handler";
 // Common Components
@@ -29,6 +28,7 @@ import { SavingState } from "store/Saving/saving.reducer";
 import { StateNetwork } from "store/index.reducer";
 // Styles
 import styles from "./styles";
+
 export interface Errors {
   title?: string;
   targetAmount?: string;
@@ -291,7 +291,7 @@ const AddNewTarget: FC<Props> = (props) => {
                     }}
                   />
                 </View>
-                <FormattedText style={[styles.unit]}></FormattedText>
+                <FormattedText style={styles.unit} />
               </View>
             </ScrollView>
 
