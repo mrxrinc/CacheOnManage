@@ -25,8 +25,10 @@ export default StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
+    width: width * 0.9,
+    height: height * 0.3,
   },
-  cardImg: { width: width * 0.83, height: height * 0.3, position: "absolute" },
+
   description: {
     width: width,
     height: height * 0.14,

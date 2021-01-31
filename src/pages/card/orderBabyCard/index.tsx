@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { FormattedText } from "components/format-text";
-import Card from "images/cards/orderBabyCard/card.png";
+import Card from "images/cards/orderBabyCard/deactive.svg";
 import Plus from "images/cards/orderBabyCard/plus.svg";
 import Success from "images/cards/orderBabyCard/success.svg";
 import Button from "components/button";
@@ -22,6 +22,7 @@ import { RootState, RootStateType } from "../../../../customType";
 import MaterialTextField from "components/materialTextfield";
 import Input from "components/input";
 import CardsActions from "store/Cards/cards.action";
+const { width, height } = Dimensions.get("window");
 
 interface IResponse {
   description: String;
@@ -55,10 +56,8 @@ const OrderBabyCard = (props: any) => {
       childId: cardInfo.childId,
       postalCode: postalCode,
     };
-    console.log("setOrderCard response", data);
     setOrderCard(token, data)
       .then((response) => {
-        console.log("setOrderCard response", response);
         setMainLoading(false);
         setResponse({
           description: response.data.success,
@@ -67,13 +66,11 @@ const OrderBabyCard = (props: any) => {
         dispatch(CardsActions.callCardInfo("orderCard"));
       })
       .catch((err) => {
-        console.log("setOrderCard err", err);
         setMainLoading(false);
         setResponse({
           description: err.response.data.message,
           isSuccess: false,
         });
-        console.log("setOrderCard err", err.response);
       });
   };
 
@@ -337,7 +334,11 @@ const OrderBabyCard = (props: any) => {
       <View style={styles.cardBox}>
         <View style={styles.cardPack}>
           <View style={styles.imgBox}>
-            <Image source={Card} style={styles.cardImg} />
+            <Card
+              width={height * 0.89}
+              height={width * 0.8}
+              style={{ position: "absolute" }}
+            />
             <TouchableOpacity onPress={handleTouch}>
               {cardInfo.status == "NONE" && <Plus />}
             </TouchableOpacity>

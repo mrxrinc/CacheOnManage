@@ -131,7 +131,7 @@ export function DrawerContent(props: any) {
               }}
             >
               {/* {pkg.version.split("").reverse().join("").slice(0, 4) + "23"} */}
-              ۱.۴.۳
+              ۱.۵.۸
             </FormattedText>
             <BottomDesign
               height={120}
