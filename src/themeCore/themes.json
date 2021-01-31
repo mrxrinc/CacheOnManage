@@ -26,6 +26,10 @@
         "descriptionFont":"#707070",
         "itemsBackground":"#fff",
         "linearColor":"#f5f7fa"
+      },
+      "drawer":{
+        "BlueGradient_Left": "#307fe2",
+        "BlueGradient_Right": "#307fe2",
       }
     },
     {
@@ -56,6 +60,10 @@
         "descriptionFont":"#8d8b8b",
         "itemsBackground":"#f5f7fa",
         "linearColor":"#f5f7fa"
+      },
+      "drawer":{
+        "BlueGradient_Left": "#397fff",
+        "BlueGradient_Right": "#bb6aff"
       }
     },
     {
@@ -86,6 +94,10 @@
         "descriptionFont":"#8d8b8b",
         "itemsBackground":"#f5f7fa",
         "linearColor":"#f5f7fa"
+      },
+      "drawer":{
+        "BlueGradient_Left": "#397fff",
+        "BlueGradient_Right": "#bb6aff"
       }
     }
   ]
