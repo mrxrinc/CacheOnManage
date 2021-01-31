@@ -11,7 +11,7 @@ import Card from "images/cards/orderBabyCard/deactive.svg";
 import Plus from "images/cards/orderBabyCard/plus.svg";
 import Success from "images/cards/orderBabyCard/success.svg";
 import Button from "components/button";
-import { colors } from "constants/index";
+import { colors, width, height } from "constants/index";
 import ActionModalButtom from "components/modal/actionModalBottom";
 import UnequalTwinButtons from "components/unequalTwinButtons";
 import { ModalType, OFFLOAD_MODAL } from "../constants";
@@ -22,7 +22,6 @@ import { RootState, RootStateType } from "../../../../customType";
 import MaterialTextField from "components/materialTextfield";
 import Input from "components/input";
 import CardsActions from "store/Cards/cards.action";
-const { width, height } = Dimensions.get("window");
 
 interface IResponse {
   description: String;
@@ -47,8 +46,6 @@ const OrderBabyCard = (props: any) => {
   const [mainLoading, setMainLoading] = useState<Boolean>(false);
 
   const inputRef = useRef(null);
-
-  console.log("cardInfo is", cardInfo);
 
   const handleOrderCard = () => {
     setMainLoading(true);
@@ -97,10 +94,8 @@ const OrderBabyCard = (props: any) => {
       pan: cardPan,
       pin: password,
     };
-    logger("handleActivation response", data);
     setCardActive(token, data)
       .then((response) => {
-        logger("handleActivation response", response);
         setResponse({
           description: response.data.success,
           isSuccess: true,
@@ -108,7 +103,6 @@ const OrderBabyCard = (props: any) => {
         dispatch(CardsActions.callCardInfo("activationCard"));
       })
       .catch((err) => {
-        logger("handleActivation err1", err);
         setResponse({
           description: err.response.data.message,
           isSuccess: false,
