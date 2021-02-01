@@ -61,34 +61,44 @@ function* fetchTransfetMoneyTransaction(action: Action) {
   }
 }
 function* deleteTarget(action: Action<DeleteTarget>) {
-  yield call(
-    //@ts-ignore
-    SavingService.deleteTarget.bind(SavingService),
-    action.payload?.targetId
-  );
-  yield put(
-    SavingActions.deleteTarget(action.payload!, {
-      sagas: false,
-    })
-  );
+  try {
+    yield call(
+      //@ts-ignore
+      SavingService.deleteTarget.bind(SavingService),
+      action.payload?.targetId
+    );
+    yield put(
+      SavingActions.deleteTarget(action.payload!, {
+        sagas: false,
+      })
+    );
+  } catch (error) {
+    console.log("DEBUG: function*deleteTarget -> error", error);
+    yield put(SavingActions.setLoading(false));
+  }
 }
 
 function* addTarget(action: Action<AddTarget | TargetsData>) {
-  yield call(
-    SavingService.addTarget.bind(SavingService),
-    action.payload as AddTarget
-  );
-  const savingListRes = yield call(
-    SavingService.fetchSavingList.bind(SavingService)
-  );
-  // const findSelectedChildTargets = R.find<AddTarget>(
-  //   (target) => target.childId === action.payload?.childId,
-  //   savingListRes
-  // );
-  yield put(
-    // @ts-ignore
-    SavingActions.addTarget(savingListRes, { sagas: false })
-  );
+  try {
+    yield call(
+      SavingService.addTarget.bind(SavingService),
+      action.payload as AddTarget
+    );
+    const savingListRes = yield call(
+      SavingService.fetchSavingList.bind(SavingService)
+    );
+    // const findSelectedChildTargets = R.find<AddTarget>(
+    //   (target) => target.childId === action.payload?.childId,
+    //   savingListRes
+    // );
+    yield put(
+      // @ts-ignore
+      SavingActions.addTarget(savingListRes, { sagas: false })
+    );
+  } catch (error) {
+    console.log("DEBUG: function*addTarget -> error", error);
+    yield put(SavingActions.setLoading(false));
+  }
 }
 
 function* finishTarget(action: Action<number>) {
@@ -107,10 +117,6 @@ function* finishTarget(action: Action<number>) {
         sagas: false,
       })
     );
-    // yield put(
-    //   // @ts-ignore
-    //   SavingActions.finishTarget(savingListRes, { sagas: false })
-    // );
   } catch (error) {
     console.log("DEBUG: function*finishTarget -> error", error);
     yield put(SavingActions.setLoading(false));

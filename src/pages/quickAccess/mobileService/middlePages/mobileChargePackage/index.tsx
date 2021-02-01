@@ -77,7 +77,10 @@ const SelectChargePackage = () => {
               boxMode
               maxLength={13}
               keyboardType={"number-pad"}
-              onChangeText={(value: string) => setAmount(value)}
+              onChangeText={(value: string) => {
+                setAmount(value);
+                setActive(null);
+              }}
               value={formatNumber(amount)}
             />
             <FormattedText style={styles.inputBoxText}>ریال</FormattedText>

@@ -5,10 +5,10 @@ const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   container: {
-    height: "100%",
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingBottom: 30,
   },
   cardBox: {
     justifyContent: "center",
@@ -25,8 +25,10 @@ export default StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
+    width: width * 0.9,
+    height: height * 0.3,
   },
-  cardImg: { width: width * 0.83, height: height * 0.3, position: "absolute" },
+
   description: {
     width: width,
     height: height * 0.14,
@@ -39,10 +41,23 @@ export default StyleSheet.create({
     width: width * 0.85,
   },
   descriptionText: { textAlign: "center", fontSize: 16, color: "#00015d" },
-  button: { width: width * 0.89, height: 44 },
+  button: {
+    width: width * 0.89,
+    height: 44,
+  },
   buttonsWrapper: {
-    marginTop: 40,
-    // marginBottom: 32,
+    marginTop: 30,
+    marginBottom: 15,
+  },
+  editButtonWrapper: {
+    width: "100%",
+    padding: 20,
+    paddingVertical: 30,
+  },
+  loadingWrapper: {
+    width: "100%",
+    height: 70,
+    paddingTop: 10,
   },
   modalBodyContainer: {
     alignItems: "center",
@@ -52,14 +67,22 @@ export default StyleSheet.create({
     height: 64,
     justifyContent: "center",
   },
-  addressTitleText: { color: "#8d8b8b", fontSize: 16 },
+  editAddressTitleText: {
+    color: colors.gray250,
+    fontSize: 14,
+    lineHeight: 25,
+  },
+  addressTitleText: {
+    color: colors.gray550,
+    fontSize: 16,
+    lineHeight: 18,
+  },
   address: {
-    width: "89%",
     justifyContent: "center",
+    paddingHorizontal: 20,
   },
   inquiryResultWrapper: {
     padding: 15,
-    // paddingBottom: 10,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -68,7 +91,6 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    // marginBottom: 15,
   },
   modalResultKeyText: {
     fontSize: 13,

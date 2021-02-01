@@ -506,3 +506,19 @@ export const setUnblockTemporary = (token: string, data: any) =>
       authorization: `Bearer ${token}`,
     },
   });
+
+
+export const getUpdate = (data: any) =>
+  instance.get(`/api/version`, {
+    headers: {
+      info: JSON.stringify(data),
+    },
+  });
+
+
+export const getSpendParent = (token: string) =>
+  instance.get(`/api/v1/accounts/invoice/children`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });

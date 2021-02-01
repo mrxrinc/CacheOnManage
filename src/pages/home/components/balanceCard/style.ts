@@ -25,7 +25,6 @@ export default StyleSheet.create({
     height: 52,
     borderRadius: 100,
     borderWidth: 1,
-    borderColor: colors.placeholder,
     backgroundColor: colors.gray700,
   },
   accountDetailSection: {
@@ -50,9 +49,7 @@ export default StyleSheet.create({
   amountWrapper: {
     width: "45%",
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    // backgroundColor: colors.f,
   },
   chartSection: {
     flex: 1,

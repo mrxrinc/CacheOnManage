@@ -53,6 +53,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
             <TextInput
               style={style.blujrInput}
               placeholder={props.label}
+              placeholderTextColor="#bbbcbc"
               value={props.value}
               ref={inputRef}
               secureTextEntry={

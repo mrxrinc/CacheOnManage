@@ -29,7 +29,6 @@ const Saving: FC = () => {
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
   );
-
   useEffect(() => {
     dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
   }, []);
@@ -57,13 +56,12 @@ const Saving: FC = () => {
               onChangeTab={handleChangeTab}
             >
               {savingStore.savingList.map(
-                (childData: SavingListData, i: number) => {
+                (childData: SavingListData, index: number) => {
                   return (
                     <ChildPage
                       tabLabel={childData.childName}
                       data={childData}
-                      i={i}
-                      key={i}
+                      key={index}
                       onRefresh={handleRefresh}
                     />
                   );

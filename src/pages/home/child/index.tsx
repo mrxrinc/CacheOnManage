@@ -95,6 +95,15 @@ export default ({ route }: any) => {
     setRefreshing(true);
     getChildData();
   };
+
+  const paymentLimitSum: () => string = () => {
+    let total = 0;
+    childData?.paymentMethods.map((item) => {
+      total = total + parseInt(item.amount);
+    });
+    return `${total}`;
+  };
+
   return (
     <Layout>
       <>
@@ -352,7 +361,7 @@ export default ({ route }: any) => {
                       style={style.twinChildTextValue}
                       fontFamily="Regular-FaNum"
                     >
-                      {formatNumber(childData.weeklySpendingLimit) || 0}{" "}
+                      {formatNumber(paymentLimitSum())}{" "}
                       <FormattedText style={style.currency} id={"home.rial"} />
                     </FormattedText>
                   </View>

@@ -49,6 +49,7 @@ import {
 import QuickAccess from "navigation/quick-access";
 import Total from "pages/transactions/total";
 import DetailItem from "pages/transactions/detailItem";
+import SpendParent from "pages/spend-parent";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -90,6 +91,7 @@ function AppStack() {
       <Stack.Screen name="confirmation" component={Confirmation} />
       <Stack.Screen name="transactionResult" component={TransactionResult} />
       <Stack.Screen name="quickAccess" component={QuickAccess} />
+      <Stack.Screen name="spendParent" component={SpendParent} />
     </Stack.Navigator>
   );
 }
@@ -106,10 +108,13 @@ function AuthStack() {
       <Stack.Screen name="entryType" component={EntryType} />
       <Stack.Screen name="login" component={LoginNavigator} />
       <Stack.Screen name="intro" component={Intro} />
-      <Stack.Screen name="QRPayment" component={QRPayment} />
       <Stack.Screen name="quickAccess" component={QuickAccess} />
-      <Stack.Screen name="selectCarrier" component={SelectCarrier} />
+      <Stack.Screen name="QRPayment" component={QRPayment} />
       <Stack.Screen name="confirmQRPayment" component={ConfirmQRPayment} />
+      <Stack.Screen name="selectCarrier" component={SelectCarrier} />
+      <Stack.Screen name="packages" component={Packages} />
+      <Stack.Screen name="confirmation" component={Confirmation} />
+      <Stack.Screen name="transactionResult" component={TransactionResult} />
     </Stack.Navigator>
   );
 }

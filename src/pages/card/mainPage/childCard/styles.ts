@@ -1,53 +1,46 @@
-import { StyleSheet, Dimensions } from "react-native";
-
-const { width, height } = Dimensions.get("window");
+import { StyleSheet } from "react-native";
+import { colors } from "constants/index";
 
 export default StyleSheet.create({
   container: {
     width: "100%",
-    justifyContent: "space-between",
+    height: 230,
+    justifyContent: "center",
     alignItems: "center",
   },
   cardBox: {
-    justifyContent: "flex-start",
-    alignItems: "center",
-    height: height * 0.26,
-    width: "70%",
-    marginTop: "3%",
+    width: 300,
+    height: 200,
+    paddingHorizontal: 30,
+    paddingTop: 36,
+    paddingBottom: 19,
   },
-  cardPack: {
-    height: "40.8%",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "flex-start",
+  frontDataWrapper: {
+    justifyContent: "space-between",
+    height: "100%",
   },
-  cardImg: { width: width * 0.83, height: height * 0.3, position: "absolute" },
-  frontCardInfo: {
-    color: "#fff",
+  cardImage: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+  },
+  logoAndSimCartWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  blueLogo: {
+    width: 24,
+    height: 35,
+  },
+  ownerInformationWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  cartTexts: {
+    color: colors.white,
     fontSize: 16,
   },
-  cardInfoBox: {
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "98%",
-    height: height * 0.2,
-    marginTop: "10%",
-    position: "absolute",
-  },
-  imagesCard: {
-    flexDirection: "row",
-    width: "90%",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  blueLogo: { width: 24, height: 35 },
-  cardOwnerInfo: {
-    width: "90%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  userStateBox: {
+  userStateWrapper: {
     alignItems: "flex-end",
-    width: "90%",
   },
 });

@@ -7679,6 +7679,11 @@ react-native-gesture-handler@^1.6.1:
   dependencies:
     "fbjs" "^1.0.0"
 
+"react-native-restart@^0.0.20":
+  "integrity" "sha512-lpWqKvfKaCfolosRHHH9+hDdjqMntEedRiLdVqmwNJejjfA4gUH+VEn0uhSaVueBgQJl5525X6B/0bSP55g+iQ=="
+  "resolved" "https://registry.npmjs.org/react-native-restart/-/react-native-restart-0.0.20.tgz"
+  "version" "0.0.20"
+
 "react-native-root-siblings@^3.2.3":
   "integrity" "sha512-wOCCtKJteaSIW3K++hzhkfdWRikTqjrG34DnhNDVSzKatuNQyFY1fPBD1YFT/3+kxOIUmNsJdiaPMao9QgoZMA=="
   "resolved" "https://registry.npmjs.org/react-native-root-siblings/-/react-native-root-siblings-3.2.3.tgz"

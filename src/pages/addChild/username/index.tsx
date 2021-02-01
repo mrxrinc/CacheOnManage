@@ -116,7 +116,7 @@ export default (props: any) => {
         console.warn("err", err.response);
         setError({
           field: "addChild",
-          message: `ERROR: ${err.response.status} - ${err.response.statusText}`,
+          message: `${err.response.status} - ${err.response.data.message}`,
         });
       });
   };
