@@ -20,7 +20,6 @@ interface Props {
 }
 const PaymentTransactionResult: React.FC<Props> = (props) => {
   const navigation = useNavigation<any>();
-  console.log("PaymentResult", props.data);
   return (
     <>
       <View style={[styles.inquiryResultWrapper]}>
