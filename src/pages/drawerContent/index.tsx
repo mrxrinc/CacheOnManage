@@ -58,15 +58,16 @@ const DrawerContent = (props: any) => {
       end={{ x: 1, y: 0 }}
     >
       <View style={styles.container}>
+        {theme.key == "FATHER BLU JUNIOR" && (
+          <BluPattern
+            height={height}
+            width={"100%"}
+            style={{ marginBottom: "20%" }}
+          />
+        )}
         <View style={styles.contentBox}>
           <View style={[styles.drawerHeader, {}]}>
-            {theme.key == "FATHER BLU JUNIOR" ? (
-              <BluPattern
-                height={height}
-                width={"100%"}
-                style={{ marginTop: -10 }}
-              />
-            ) : (
+            {theme.key != "FATHER BLU JUNIOR" && (
               <HighDesign
                 height={140}
                 width={110}
