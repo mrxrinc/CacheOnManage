@@ -7,7 +7,7 @@ import SplashNavigator from "pages/splash";
 import EntryType from "pages/entry-type";
 import LoginNavigator from "pages/user";
 import TabStack from "./tabbar-screen";
-import { DrawerContent } from "pages/drawerContent";
+import DrawerContent from "pages/drawerContent";
 //home
 import Home from "pages/home";
 import ChildHome from "pages/home/child";
