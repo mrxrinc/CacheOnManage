@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { View, ScrollView } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
 import Layout from "components/layout";
@@ -25,6 +26,7 @@ export const Confirmation: FC = (props: any) => {
   const planId = props.route.params?.planId;
   const chosenPackage = props.route.params?.chosenPackage;
   const [showSigninModal, setShowSigninModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [notEnoughMoneyModal, setNotEnoughMoneyModal] = useState<boolean>(
     false
   );
@@ -45,8 +47,19 @@ export const Confirmation: FC = (props: any) => {
     }
   };
 
+  const handleConfirmPayment = () => {
+    AsyncStorage.getItem("token").then((token) => {
+      if (!token) {
+        setShowSigninModal(true);
+        return;
+      }
+      handlePayment(token);
+    });
+  };
+
   const handlePayment = (token: string) => {
     setShowSigninModal(false);
+    setLoading(true);
     internetPackagesPayment(token, {
       token,
       mobileNumber,
@@ -58,6 +71,7 @@ export const Confirmation: FC = (props: any) => {
       amount: parseInt(chosenPackage.tax),
     })
       .then((response: any) => {
+        setLoading(false);
         const data = response.data;
         props.navigation.navigate("transactionResult", {
           success: data.success,
@@ -70,6 +84,7 @@ export const Confirmation: FC = (props: any) => {
       })
       .catch((err: any) => {
         console.warn("ERROR: ", err.response);
+        setLoading(false);
         const { status, data } = err.response;
         const code = data?.code;
         if (status === 400 && code === "99104") {
@@ -147,7 +162,8 @@ export const Confirmation: FC = (props: any) => {
             <UnequalTwinButtons
               mainText="پرداخت"
               mainColor={colors.buttonSubmitActive}
-              mainOnPress={() => setShowSigninModal(true)}
+              mainOnPress={handleConfirmPayment}
+              mainLoading={loading}
               secondaryText="تغییر بسته"
               secondaryColor={colors.buttonOpenActive}
               secondaryOnPress={() => props.navigation.goBack()}
