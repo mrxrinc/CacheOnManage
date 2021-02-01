@@ -72,7 +72,7 @@ const Payment = (props: any) => {
   const transactionResults = React.useMemo(() => {
     const transactionMainKeys = [
       {
-        kay: "عملیات",
+        key: "عملیات",
         value: "خرید شارژ موبایل",
       },
     ];
@@ -91,6 +91,7 @@ const Payment = (props: any) => {
     );
     return [...transactionMainKeys, ...filteredResult];
   }, [quickAccessStore.data]);
+
   return (
     <Layout>
       <View style={styles.container}>
