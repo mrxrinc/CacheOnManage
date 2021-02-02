@@ -4,14 +4,15 @@ import { colors, IOS } from "constants/index";
 export default StyleSheet.create({
   container: {
     flex: 1,
+    height: "100%",
     backgroundColor: colors.white,
   },
   content: {
     paddingTop: 5,
     paddingHorizontal: 17,
+    flex: 1,
   },
   inputWrapper: {
-    paddingTop: 20,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -20,29 +21,33 @@ export default StyleSheet.create({
     fontFamily: "IRANSansMobileFaNum",
     textAlign: "right",
   },
-  input: {
+  inputBox: {
     width: "100%",
-    height: 40,
+    maxWidth: 130,
+    height: 25,
+  },
+  input: {
+    height: 25,
+    padding: 0,
+    lineHeight: IOS ? 22 : 30,
   },
   halfWidth: {
     width: "50%",
   },
   getPassButtonWrapper: {
-    paddingLeft: 15,
-    height: 48,
-    justifyContent: "center",
-    alignItems: "center",
+    marginBottom: 7,
   },
   getPassButton: {
-    height: 40,
+    height: 25,
     width: "92%",
+    maxWidth: 130,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,
     backgroundColor: colors.buttonSubmitActive,
     elevation: 3,
     shadowOpacity: 0.18,
-    shadowColor: "#000",
+    shadowColor: colors.dark,
     shadowRadius: 3,
     shadowOffset: { width: 0, height: 3 },
   },
@@ -69,6 +74,10 @@ export default StyleSheet.create({
   submitButtonWrapper: {
     width: "100%",
     height: 90,
+    paddingHorizontal: 20,
+    paddingBottom: 50,
+    paddingTop: 5,
+    backgroundColor: "red",
   },
   submitButton: {
     height: 43,

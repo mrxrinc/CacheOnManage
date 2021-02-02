@@ -35,7 +35,7 @@ const messages: Record<string, string> = {
   cashDeposit: "افزایش حساب",
   amount: "مبلغ",
   cardNumber: "شماره کارت",
-  cvv2: "cvv2",
+  cvv2: "Cvv2",
   expirationDate: "تاریخ انقضا",
   getDynamicPass: "دریافت رمز پویا",
   secondPassword: "رمز دوم",
@@ -131,10 +131,12 @@ const messages: Record<string, string> = {
     "کارتی وجود ندارد. لطفا جهت استفاده از امکانات برنامه برای او کارت سفارش دهید.",
   "orderBabyCard.activationDescription":
     "سفارش کارت با موفقیت ثبت شده است و طی‌ ۳ روز کاری به دست شما خواهد رسید. لطفا در صورت دریافت کارت با استفاده از گزینه فعالسازی، آن را فعال کنید.",
-    "appUpdate.title": 'به روز رسانی برنامه',
-    "appUpdate.dsc.codePush": 'برنامه مانی با موفقیت به‌روز‌رسانی شد. برای بهره‌مندی از قابلیت‌های جدید لیست شده در زیر، لطفا یک بار از برنامه خارج شوید و دوباره وارد شوید.',
-    "appUpdate.dsc.light": 'با دریافت نسخه جدید (نام) از قابلیت‌های جدید این برنامه بهره مند شوید.',
-    "transactions.total": 'تراکنش‌ها',
-    "transactions.detailItem": 'جزئیات تراکنش'
+  "appUpdate.title": "به روز رسانی برنامه",
+  "appUpdate.dsc.codePush":
+    "برنامه مانی با موفقیت به‌روز‌رسانی شد. برای بهره‌مندی از قابلیت‌های جدید لیست شده در زیر، لطفا یک بار از برنامه خارج شوید و دوباره وارد شوید.",
+  "appUpdate.dsc.light":
+    "با دریافت نسخه جدید (نام) از قابلیت‌های جدید این برنامه بهره مند شوید.",
+  "transactions.total": "تراکنش‌ها",
+  "transactions.detailItem": "جزئیات تراکنش",
 };
 export default messages;

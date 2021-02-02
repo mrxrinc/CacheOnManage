@@ -254,14 +254,14 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-camera (3.35.0):
-    - React
-    - react-native-camera/RCT (= 3.35.0)
-    - react-native-camera/RN (= 3.35.0)
-  - react-native-camera/RCT (3.35.0):
-    - React
-  - react-native-camera/RN (3.35.0):
-    - React
+  - react-native-camera (3.42.0):
+    - React-Core
+    - react-native-camera/RCT (= 3.42.0)
+    - react-native-camera/RN (= 3.42.0)
+  - react-native-camera/RCT (3.42.0):
+    - React-Core
+  - react-native-camera/RN (3.42.0):
+    - React-Core
   - react-native-cameraroll (4.0.0):
     - React
   - react-native-nfc-manager (2.1.9):
@@ -375,7 +375,7 @@ PODS:
   - RNSVG (12.1.0):
     - React
   - SSZipArchive (2.2.3)
-  - TOCropViewController (2.5.5)
+  - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -586,12 +586,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
-  blinkid-react-native: f018efa528884c66bfe0973663cb8f82ab0c06ca
+  blinkid-react-native: c022ff4744d9a29d7605895e69fbe181cddf77cf
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
-  CodePush: 69186fd1143f7e5e5c6f65383cf14f4927e28213
+  CodePush: 18dd72e6176d261832d036f22c70f910370d6b64
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
@@ -619,16 +619,16 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-camera: d9e7b66e40420dcef111f3265a00f01eea54c52c
-  react-native-cameraroll: ae0a7c0cc8462508855707ff623b1e789b692865
-  react-native-nfc-manager: 523a918c0ded58b8dba7bf50bda0f21e90bf1b7d
-  react-native-restart: a01029aadfe8e71f9e8205fdb17da2f0a4472d50
-  react-native-safe-area-context: 79fea126c6830c85f65947c223a5e3058a666937
-  react-native-segmented-control: 4ce904755f67bf17d5250d265d57e40db045ac34
-  react-native-slider: 12bd76d3d568c9c5500825db54123d44b48e4ad4
-  react-native-video: dbb8df4f0bbdf80de6797c90fcad8bc12b19401d
-  react-native-viewpager: 6f8c102e8081d70259252b254143b4193a9fb4cb
-  react-native-webview: bbe20ef0e39caf153c1446621f0d56d460c1f1f5
+  react-native-camera: d145df27a9178041b48b839b80ad79c9ef373fbd
+  react-native-cameraroll: 7c2e22b5a8e8f30fc6d5566c942b225ca7129752
+  react-native-nfc-manager: bf739e039e2888b82d6c8faaee39c9582db2bfab
+  react-native-restart: 6cc683e208c080581c147d0875609e64572a9443
+  react-native-safe-area-context: 01158a92c300895d79dee447e980672dc3fb85a6
+  react-native-segmented-control: b40d30a4fbef68b205854406fd563b9363835067
+  react-native-slider: 05f11678260cb27c3d00a2dd1558b623be3ec8d2
+  react-native-video: 8d97379f3c2322a569f1e27542ad1a646cad9444
+  react-native-viewpager: ea4ba7fe5d3151b83166673730c4854f401a642f
+  react-native-webview: ef1778d6fa0dbce8d137e059fd06c57e380e5e26
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -639,11 +639,11 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
-  RNCClipboard: 48eaf27bea3de7c9a265529725434268d47a2ee9
-  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
+  RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
+  RNCClipboard: 5f3218dcdc28405aa2ae72b78e388f150b826dd3
+  RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNCPicker: 55b9b4240d0a9eba8733d02616775d4040de2e7d
-  RNDeviceInfo: 921a809eaf9de79645a24de1c6ca90db6cb91786
+  RNDeviceInfo: 54401b60514387f9120ab8265be5ed9103d842b9
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
   RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
   RNImageCropPicker: 39ec170dc53c227ea352b706c76f7960070309a8
@@ -652,10 +652,10 @@ SPEC CHECKSUMS:
   RNScreens: 0e91da98ab26d5d04c7b59a9b6bd694124caf88c
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
-  TOCropViewController: da59f531f8ac8a94ef6d6c0fc34009350f9e8bfe
+  TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
 PODFILE CHECKSUM: 5893200cf99003a6f8c8335cbcd250a177e91871
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.9.3

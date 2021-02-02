@@ -113,10 +113,10 @@ const CashDeposit: FC = (props: any) => {
   // }, []);
 
   const handleTopUp = () => {
-    console.log("TOP UP: ", { form });
+    logger("TOP UP: ", { form });
     topUp(token, form)
       .then((response: any) => {
-        console.log("topUp response", response);
+        logger("topUp response", response);
         const data = [];
         let index = 0;
         for (let [key, value] of Object.entries(response.data)) {
@@ -166,7 +166,7 @@ const CashDeposit: FC = (props: any) => {
           setTimeLeft(COUNTER);
         })
         .catch((err: any) => {
-          console.log("err", err.response);
+          logger("err", err.response);
           setStatusMessage(err.response.data.message);
         });
     } else {
@@ -180,124 +180,138 @@ const CashDeposit: FC = (props: any) => {
         staticTitle={"cashDeposit"}
         handleBack={() => props.navigation.goBack()}
       />
-      <View style={[style.container]}>
-        <ScrollView contentContainerStyle={[style.content]}>
-          <View style={style.inputWrapper}>
-            <MaterialInput
-              label="مبلغ"
-              tintColor={colors.title}
-              hasUnit
-              maxLength={13}
-              keyboardType={"number-pad"}
-              onChangeText={(value: string) =>
-                _updateForm("amount", value.replace(/,/g, ""))
-              }
-              value={formatNumber(form.amount)}
-              style={style.materialInput}
-            />
-          </View>
-          <View style={style.inputWrapper}>
-            <MaterialInput
-              label="شماره کارت"
-              tintColor={colors.title}
-              maxLength={19}
-              keyboardType={"number-pad"}
-              onChangeText={(value: string) =>
-                _updateForm("sourcePan", value.replace(/-/g, ""))
-              }
-              value={formatCardNumber(form.sourcePan)}
-              style={style.materialInput}
-            />
-          </View>
-          <View style={style.inputWrapper}>
-            <View style={[style.halfWidth, { paddingRight: 20 }]}>
-              <Input
-                title={"cvv2"}
-                customStyle={style.input}
-                maxLength={4}
-                boxMode
+      <View style={style.container}>
+        <View style={{ flex: 1 }}>
+          <ScrollView
+            contentContainerStyle={style.content}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={style.inputWrapper}>
+              <MaterialInput
+                label="مبلغ"
+                tintColor={colors.title}
+                hasUnit
+                maxLength={13}
                 keyboardType={"number-pad"}
-                onChangeText={(value: string) => _updateForm("cvv2", value)}
-                value={form.cvv2}
+                onChangeText={(value: string) =>
+                  _updateForm("amount", value.replace(/,/g, ""))
+                }
+                value={formatNumber(form.amount)}
+                style={style.materialInput}
               />
             </View>
-            <View style={[style.halfWidth, { paddingLeft: 20 }]}>
-              <Input
-                title={"expirationDate"}
-                customStyle={style.input}
-                maxLength={5}
-                boxMode
+            <View style={style.inputWrapper}>
+              <MaterialInput
+                label="شماره کارت"
+                tintColor={colors.title}
+                maxLength={19}
                 keyboardType={"number-pad"}
-                onChangeText={(value: string) => {
-                  const date = value.split("/").join("");
-                  if (date.length <= 4) _updateForm("expirationDate", date);
-                }}
-                value={formatExpirationDate(form.expirationDate)}
+                onChangeText={(value: string) =>
+                  _updateForm("sourcePan", value.replace(/-/g, ""))
+                }
+                value={formatCardNumber(form.sourcePan)}
+                style={style.materialInput}
               />
             </View>
-          </View>
-          <View style={style.inputWrapper}>
-            <View style={style.halfWidth}>
-              <Input
-                title={"secondPassword"}
-                maxLength={12}
-                boxMode
-                secureTextEntry
-                keyboardType={"number-pad"}
-                onChangeText={(value: string) => _updateForm("password", value)}
-                value={form.password}
-              />
+            <View style={style.inputWrapper}>
+              <View style={[style.halfWidth]}>
+                <Input
+                  title={"cvv2"}
+                  customStyle={style.inputBox}
+                  inputCustomStyle={style.input}
+                  maxLength={4}
+                  boxMode
+                  keyboardType={"number-pad"}
+                  onChangeText={(value: string) => _updateForm("cvv2", value)}
+                  value={form.cvv2}
+                />
+              </View>
+              <View style={[style.halfWidth]}>
+                <Input
+                  title={"expirationDate"}
+                  customStyle={style.inputBox}
+                  inputCustomStyle={style.input}
+                  maxLength={5}
+                  boxMode
+                  keyboardType={"number-pad"}
+                  onChangeText={(value: string) => {
+                    const date = value.split("/").join("");
+                    if (date.length <= 4) _updateForm("expirationDate", date);
+                  }}
+                  value={formatExpirationDate(form.expirationDate)}
+                />
+              </View>
             </View>
-            <View style={[style.halfWidth, style.getPassButtonWrapper]}>
-              <TouchableOpacity
-                style={style.getPassButton}
-                onPress={handleHarim}
-                disabled={timeLeft === 0 ? false : true}
-              >
-                {timeLeft === 0 ? (
-                  <FormattedText style={style.getPassButtonTitle}>
-                    دریافت رمز پویا
+            <View style={style.inputWrapper}>
+              <View style={style.halfWidth}>
+                <Input
+                  title={"secondPassword"}
+                  maxLength={12}
+                  customStyle={style.inputBox}
+                  inputCustomStyle={style.input}
+                  boxMode
+                  secureTextEntry
+                  keyboardType={"number-pad"}
+                  onChangeText={(value: string) =>
+                    _updateForm("password", value)
+                  }
+                  value={form.password}
+                />
+              </View>
+              <View style={[style.halfWidth, style.getPassButtonWrapper]}>
+                <TouchableOpacity
+                  style={style.getPassButton}
+                  onPress={handleHarim}
+                  disabled={timeLeft === 0 ? false : true}
+                >
+                  {timeLeft === 0 ? (
+                    <FormattedText style={style.getPassButtonTitle}>
+                      دریافت رمز پویا
+                    </FormattedText>
+                  ) : (
+                    <View style={style.timerWrapper}>
+                      <StopWatchIcon style={style.stopwatchStyle} />
+                      <FormattedText
+                        style={style.getPassButtonTitle}
+                        fontFamily="Regular-FaNum"
+                      >
+                        {" "}
+                        {("0" + Math.floor(timeLeft / 60)).slice(-2)}:
+                        {("0" + (timeLeft % 60)).slice(-2)}
+                      </FormattedText>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={style.messageWrapper}>
+              <FormattedText style={[style.message]}>
+                {timeLeft !== 0 ? (
+                  <FormattedText style={{ color: colors.accent }}>
+                    {statusMessage}
+                  </FormattedText>
+                ) : form.sourcePan.length === 0 ||
+                  !form.amount ||
+                  statusMessage ? (
+                  <FormattedText style={{ color: colors.red }}>
+                    {statusMessage}
                   </FormattedText>
                 ) : (
-                  <View style={style.timerWrapper}>
-                    <StopWatchIcon style={style.stopwatchStyle} />
-                    <FormattedText style={style.getPassButtonTitle}>
-                      {" "}
-                      {("0" + Math.floor(timeLeft / 60)).slice(-2)}:
-                      {("0" + (timeLeft % 60)).slice(-2)}
-                    </FormattedText>
-                  </View>
+                  ""
                 )}
-              </TouchableOpacity>
+              </FormattedText>
             </View>
-          </View>
-          <View style={style.messageWrapper}>
-            <FormattedText style={[style.message]}>
-              {timeLeft !== 0 ? (
-                <FormattedText style={{ color: colors.accent }}>
-                  {statusMessage}
-                </FormattedText>
-              ) : form.sourcePan.length === 0 ||
-                !form.amount ||
-                statusMessage ? (
-                <FormattedText style={{ color: colors.red }}>
-                  {statusMessage}
-                </FormattedText>
-              ) : (
-                ""
-              )}
-            </FormattedText>
-          </View>
-          <View style={style.submitButtonWrapper}>
-            <Button
-              title={"پرداخت"}
-              style={style.submitButton}
-              onPress={handleTopUp}
-              color={colors.buttonSubmitActive}
-              disabled={!readyToSubmit}
-            />
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </View>
+        <View style={style.submitButtonWrapper}>
+          <Button
+            title={"پرداخت"}
+            style={style.submitButton}
+            onPress={handleTopUp}
+            color={colors.buttonSubmitActive}
+            disabled={!readyToSubmit}
+          />
+        </View>
 
         <Modal
           isVisible={showModal}
