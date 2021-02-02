@@ -1,23 +1,34 @@
 import React, { useState } from "react";
-import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import LinearGradient from "react-native-linear-gradient";
 import { FormattedText } from "components/format-text";
 import close from "images/drawer/close.png";
-import { DrawerActions } from "@react-navigation/native";
+import { DrawerActions, ThemeProvider } from "@react-navigation/native";
 import { Icon } from "images";
 import HighDesign from "images/drawer/top-design.svg";
 import BottomDesign from "images/drawer/bottom-design.svg";
+import BluPattern from "images/drawer/repeat-grid.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../customType";
 import AlertController from "components/alertController";
 import SupportController from "components/supportController";
 import { signout } from "utils/api";
-import { colors, height } from "constants/index";
+import { colors } from "constants/index";
+import { withTheme } from "themeCore/themeProvider";
+
+export const { width, height } = Dimensions.get("screen");
 
 var pkg = require("../../../package.json");
 
-export function DrawerContent(props: any) {
+const DrawerContent = (props: any) => {
+  const theme = props.theme;
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<any, any>((state) => state.user.ischild);
   const profileInfo = useSelector<RootState, any>(
@@ -41,22 +52,44 @@ export function DrawerContent(props: any) {
 
   return (
     <LinearGradient
-      colors={[colors.gradientRight, colors.gradientLeft]}
+      colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
       style={{ height }}
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 0 }}
     >
       <View style={styles.container}>
+        {theme.key == "FATHER BLU JUNIOR" && (
+          <BluPattern
+            height={height}
+            width={"100%"}
+            style={{ marginBottom: "20%" }}
+          />
+        )}
         <View style={styles.contentBox}>
           <View style={[styles.drawerHeader, {}]}>
-            <HighDesign height={140} width={110} style={{ marginLeft: -20 }} />
+            {theme.key != "FATHER BLU JUNIOR" && (
+              <HighDesign
+                height={140}
+                width={110}
+                style={{ marginLeft: -20 }}
+              />
+            )}
             <TouchableOpacity
-              style={styles.closeTouch}
+              style={[
+                styles.closeTouch,
+                { position: "absolute", marginTop: "5%" },
+              ]}
               onPress={() =>
                 props.navigation.dispatch(DrawerActions.closeDrawer())
               }
             >
-              <Image source={close} style={{ width: 30, height: 30 }} />
+              <Image
+                source={close}
+                style={{
+                  width: 30,
+                  height: 30,
+                }}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.profileInfo}>
@@ -131,13 +164,15 @@ export function DrawerContent(props: any) {
               }}
             >
               {/* {pkg.version.split("").reverse().join("").slice(0, 4) + "23"} */}
-              ۱.۵.۸
+              نسخه ۱.۵.۸
             </FormattedText>
-            <BottomDesign
-              height={120}
-              width={100}
-              style={{ marginRight: -15 }}
-            />
+            {theme.key != "FATHER BLU JUNIOR" && (
+              <BottomDesign
+                height={120}
+                width={100}
+                style={{ marginRight: -15 }}
+              />
+            )}
           </View>
         </View>
       </View>
@@ -161,7 +196,7 @@ export function DrawerContent(props: any) {
       />
     </LinearGradient>
   );
-}
+};
 const styles = StyleSheet.create({
   container: { height: height, justifyContent: "center", alignItems: "center" },
   contentBox: {
@@ -205,3 +240,5 @@ const styles = StyleSheet.create({
     height: 80,
   },
 });
+
+export default withTheme(DrawerContent);

@@ -7,7 +7,7 @@ import SplashNavigator from "pages/splash";
 import EntryType from "pages/entry-type";
 import LoginNavigator from "pages/user";
 import TabStack from "./tabbar-screen";
-import { DrawerContent } from "pages/drawerContent";
+import DrawerContent from "pages/drawerContent";
 //home
 import Home from "pages/home";
 import ChildHome from "pages/home/child";
@@ -49,6 +49,7 @@ import {
 import QuickAccess from "navigation/quick-access";
 import Total from "pages/transactions/total";
 import DetailItem from "pages/transactions/detailItem";
+import SpendParent from "pages/spend-parent";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -90,6 +91,7 @@ function AppStack() {
       <Stack.Screen name="confirmation" component={Confirmation} />
       <Stack.Screen name="transactionResult" component={TransactionResult} />
       <Stack.Screen name="quickAccess" component={QuickAccess} />
+      <Stack.Screen name="spendParent" component={SpendParent} />
     </Stack.Navigator>
   );
 }

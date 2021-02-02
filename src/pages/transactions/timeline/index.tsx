@@ -1,20 +1,12 @@
-import { FormattedText } from "components/format-text";
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
-import TimelineItem from "./timlineItem";
-import monthsName from "./monthsName.json";
+import { ScrollView } from "react-native";
+import TimelineItem from "../timlineItem";
+import monthsName from "../monthsName.json";
+import styles from "./styles";
 
-const Timeline = (props: any) => {
+const Timeline = () => {
   const months = monthsName.data;
   const [selected, setSelected] = useState(null);
-  // const isSelected = selected === data.id ? true : false;
-
   console.log(months);
   return (
     <ScrollView
@@ -36,10 +28,3 @@ const Timeline = (props: any) => {
   );
 };
 export default Timeline;
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    paddingVertical: 8,
-    maxHeight: 64,
-  },
-});

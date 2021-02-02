@@ -80,7 +80,7 @@ export default () => {
             <View style={styles.content}>
               <TouchableOpacity
                 style={styles.itemsBox}
-                // onPress={() => navigation.navigate("QRPayment")}
+                onPress={() => navigation.navigate("spendParent")}
               >
                 <Spending />
                 <FormattedText
