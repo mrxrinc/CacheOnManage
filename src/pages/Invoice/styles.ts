@@ -14,7 +14,7 @@ export default StyleSheet.create({
   itemBox: {
     marginHorizontal: 20,
     borderBottomWidth: 1,
-    borderColor: "#baeffc",
+    borderColor: "rgba(186, 239, 252, 0.5)",
     borderRadius: 5,
     marginBottom: 0,
   },
