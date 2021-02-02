@@ -29,7 +29,7 @@ interface Props {
 }
 const contentContainerStyle: StyleProp<ViewStyle> = {
   alignItems: "center",
-  backgroundColor: "#f4f6fa",
+  backgroundColor: "transparent",
   paddingBottom: 70,
 };
 
