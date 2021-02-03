@@ -35,6 +35,7 @@ const resultKeys: any = {
 };
 
 const AddChild: FC = (props: any) => {
+  const theme = props.theme;
   const token = useSelector<RootState, any>((state) => state.user.token);
   const noBackButton = props.route.params?.noBackButton;
   const [showInquiryResponseModal, setShowInquiryResponseModal] = useState<
@@ -111,7 +112,7 @@ const AddChild: FC = (props: any) => {
     props.navigation.push("inquiryAddress", data);
   };
 
-  const renderResult = () => {
+  const renderResult = (theme: any) => {
     if (inquiry.status === "fail") {
       return (
         <View style={style.inquiryModalContentWrapper}>
@@ -135,13 +136,21 @@ const AddChild: FC = (props: any) => {
           <View style={style.inquiryResultWrapper}>
             {result.map((item: any) => (
               <View style={style.modalResultRow} key={item.key}>
-                <FormattedText style={style.modalResultKeyText}>
+                <FormattedText
+                  style={[
+                    style.modalResultKeyText,
+                    { color: theme.addChild.subjectFont },
+                  ]}
+                >
                   {resultKeys[item.key]}
                 </FormattedText>
                 <View style={style.modalResultMiddleLine} />
                 <View style={style.modalResultValueTextWrapper}>
                   <FormattedText
-                    style={style.modalResultValueText}
+                    style={[
+                      style.modalResultValueText,
+                      { color: theme.addChild.subjectFont },
+                    ]}
                     fontFamily="Regular-FaNum"
                   >
                     {item.value}
@@ -153,7 +162,7 @@ const AddChild: FC = (props: any) => {
           <View style={style.inquiryModalButtonsWrapper}>
             <View style={{ flex: 0.58 }}>
               <Button
-                color={colors.buttonSubmitActive}
+                color={theme.addChild.inquiryButton}
                 title="تائید و ادامه"
                 onPress={handleNextPage}
               />
@@ -199,7 +208,7 @@ const AddChild: FC = (props: any) => {
         <Button
           title="استعلام"
           onPress={handleInqury}
-          color={colors.buttonSubmitActive}
+          color={props.theme.addChild.mainButton}
           style={style.button}
           loading={loading}
         />
@@ -211,7 +220,7 @@ const AddChild: FC = (props: any) => {
         title="نتیجه استعلام"
         onBackdropPress={() => setShowInquiryResponseModal(false)}
       >
-        {inquiry.status && renderResult()}
+        {inquiry.status && renderResult(theme)}
       </ActionModalCentered>
     </Layout>
   );

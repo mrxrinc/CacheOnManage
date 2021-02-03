@@ -12,13 +12,15 @@ import { useDispatch, useSelector } from "react-redux";
 import MaterialTextField from "components/materialTextfield";
 import { validateUserName } from "utils/validators";
 import { addChild } from "utils/api";
+import { withTheme } from "themeCore/themeProvider";
 
 type FormType = {
   username: string;
   password: string;
 };
 
-export default (props: any) => {
+const ChildUser = (props: any) => {
+  const theme = props.theme.addChild;
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [error, setError] = useState<any>({ field: "", message: "" });
   const [loading, setLoading] = useState<boolean>(false);
@@ -157,7 +159,7 @@ export default (props: any) => {
           />
           <View style={style.validatorRow}>
             <Checkbox
-              color={colors.buttonSubmitActive}
+              color={theme.mainButton}
               disabled
               showActive={passwordValidator.atleast8Chars}
             />
@@ -167,7 +169,7 @@ export default (props: any) => {
           </View>
           <View style={style.validatorRow}>
             <Checkbox
-              color={colors.buttonSubmitActive}
+              color={theme.mainButton}
               disabled
               showActive={passwordValidator.bothCases}
             />
@@ -177,7 +179,7 @@ export default (props: any) => {
           </View>
           <View style={style.validatorRow}>
             <Checkbox
-              color={colors.buttonSubmitActive}
+              color={theme.mainButton}
               disabled
               showActive={passwordValidator.hasNumber}
             />
@@ -192,7 +194,7 @@ export default (props: any) => {
               onPress={handleAddChild}
               disabled={!readyToSubmit}
               loading={loading}
-              color={colors.buttonSubmitActive}
+              color={theme.mainButton}
             />
           </View>
 
@@ -208,3 +210,5 @@ export default (props: any) => {
     </Layout>
   );
 };
+
+export default withTheme(ChildUser);
