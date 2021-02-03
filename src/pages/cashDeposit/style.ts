@@ -10,7 +10,6 @@ export default StyleSheet.create({
   content: {
     paddingTop: 5,
     paddingHorizontal: 17,
-    flex: 1,
   },
   inputWrapper: {
     flexDirection: "row",
@@ -77,7 +76,6 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 50,
     paddingTop: 5,
-    backgroundColor: "red",
   },
   submitButton: {
     height: 43,

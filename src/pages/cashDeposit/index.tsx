@@ -1,5 +1,11 @@
 import React, { FC, useState, useEffect } from "react";
-import { View, ScrollView, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  KeyboardAvoidingView,
+} from "react-native";
 import Modal from "react-native-modal";
 import { FormattedText } from "components/format-text";
 import Layout from "components/layout";
@@ -8,7 +14,7 @@ import Button from "components/button";
 import Input from "components/input";
 import MaterialInput from "components/materialTextfield";
 import style from "./style";
-import { colors } from "constants/index";
+import { colors, IOS } from "constants/index";
 import CloseIcon from "components/icons/close.svg";
 import TickIcon from "components/icons/coloredTick.svg";
 import StopWatchIcon from "components/icons/stopwatch.svg";
@@ -34,6 +40,7 @@ const CashDeposit: FC = (props: any) => {
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
   const [cashDepositResponse, setCashDepositResponse] = useState<any>(null);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [form, setForm] = useState<any>({
     sourcePan: "",
     amount: 0,
@@ -175,13 +182,16 @@ const CashDeposit: FC = (props: any) => {
   };
 
   return (
-    <Layout>
-      <Header
-        staticTitle={"cashDeposit"}
-        handleBack={() => props.navigation.goBack()}
-      />
-      <View style={style.container}>
-        <View style={{ flex: 1 }}>
+    <Layout keyboard={(val) => setKeyboardVisible(val)}>
+      <>
+        <Header
+          staticTitle={"cashDeposit"}
+          handleBack={() => props.navigation.goBack()}
+        />
+        <KeyboardAvoidingView
+          style={style.container}
+          behavior={IOS ? "padding" : "height"}
+        >
           <ScrollView
             contentContainerStyle={style.content}
             keyboardShouldPersistTaps="handled"
@@ -302,108 +312,114 @@ const CashDeposit: FC = (props: any) => {
               </FormattedText>
             </View>
           </ScrollView>
-        </View>
-        <View style={style.submitButtonWrapper}>
-          <Button
-            title={"پرداخت"}
-            style={style.submitButton}
-            onPress={handleTopUp}
-            color={colors.buttonSubmitActive}
-            disabled={!readyToSubmit}
-          />
-        </View>
-
-        <Modal
-          isVisible={showModal}
-          onBackdropPress={() => setShowModal(false)}
-          style={style.modal}
-        >
-          <View style={style.modalContainer}>
-            <View style={style.modalSwipeHandle} />
-            <View style={style.modalHead}>
-              <View style={style.modalLogoWrapper}>
-                <View style={style.modalLogo} />
-              </View>
-              <View style={style.modalTitleWrapper}>
-                {cashDepositResponse?.status && (
-                  <FormattedText
-                    id={"transactionResid"}
-                    style={style.modalTitle}
-                  />
-                )}
-              </View>
-              <TouchableOpacity
-                style={style.modalCloseWrapper}
-                onPress={() => setShowModal(false)}
-              >
-                <CloseIcon width={15} height={15} fill={colors.gray200} />
-              </TouchableOpacity>
-            </View>
-
-            <View style={style.modalContent}>
-              <View style={style.modalConfirmIconWrapper}>
-                {cashDepositResponse?.status ? (
-                  <TickIcon width={40} height={40} fill={colors.accent} />
-                ) : (
-                  <View style={style.modalErrorIconWrapper}>
-                    <View style={style.errorCircle}>
-                      <CloseIcon width={14} height={14} fill={colors.white} />
-                    </View>
-                  </View>
-                )}
-              </View>
-              <FormattedText
-                style={[
-                  style.modalResultTitle,
-                  {
-                    color: cashDepositResponse?.status
-                      ? colors.title
-                      : colors.red,
-                  },
-                ]}
-              >
-                {cashDepositResponse && cashDepositResponse.message}
-              </FormattedText>
-
-              {cashDepositResponse &&
-                cashDepositResponse.data.map((item: any) => {
-                  if (item?.value)
-                    return (
-                      <View style={style.modalResultRow} key={item.id}>
-                        <FormattedText
-                          id={item.key}
-                          style={style.modalResultKeyText}
-                        />
-                        <View style={style.modalResultMiddleLine} />
-                        <View style={style.modalResultValueTextWrapper}>
-                          <FormattedText
-                            style={style.modalResultValueText}
-                            fontFamily="Regular-FaNum"
-                          >
-                            {item.unit
-                              ? formatNumber(item.value)
-                              : item.key === "sourcePan"
-                              ? formatCardNumber(item.value)
-                              : item.value}
-                          </FormattedText>
-                          {item.unit && (
-                            <FormattedText
-                              id={"home.rial"}
-                              style={style.modalResultValueUnit}
-                            />
-                          )}
-                        </View>
-                      </View>
-                    );
-                })}
-            </View>
-            <View style={style.modalFooter}>
-              <Image source={Logo} style={style.logoStyle} />
-              <MoneyIcon />
-            </View>
+          <View style={{ flex: 1 }} />
+          <View
+            style={[
+              style.submitButtonWrapper,
+              { height: isKeyboardVisible ? 60 : 90 },
+            ]}
+          >
+            <Button
+              title={"پرداخت"}
+              style={style.submitButton}
+              onPress={handleTopUp}
+              color={colors.buttonSubmitActive}
+              disabled={!readyToSubmit}
+            />
           </View>
-        </Modal>
-      </View>
+
+          <Modal
+            isVisible={showModal}
+            onBackdropPress={() => setShowModal(false)}
+            style={style.modal}
+          >
+            <View style={style.modalContainer}>
+              <View style={style.modalSwipeHandle} />
+              <View style={style.modalHead}>
+                <View style={style.modalLogoWrapper}>
+                  <View style={style.modalLogo} />
+                </View>
+                <View style={style.modalTitleWrapper}>
+                  {cashDepositResponse?.status && (
+                    <FormattedText
+                      id={"transactionResid"}
+                      style={style.modalTitle}
+                    />
+                  )}
+                </View>
+                <TouchableOpacity
+                  style={style.modalCloseWrapper}
+                  onPress={() => setShowModal(false)}
+                >
+                  <CloseIcon width={15} height={15} fill={colors.gray200} />
+                </TouchableOpacity>
+              </View>
+
+              <View style={style.modalContent}>
+                <View style={style.modalConfirmIconWrapper}>
+                  {cashDepositResponse?.status ? (
+                    <TickIcon width={40} height={40} fill={colors.accent} />
+                  ) : (
+                    <View style={style.modalErrorIconWrapper}>
+                      <View style={style.errorCircle}>
+                        <CloseIcon width={14} height={14} fill={colors.white} />
+                      </View>
+                    </View>
+                  )}
+                </View>
+                <FormattedText
+                  style={[
+                    style.modalResultTitle,
+                    {
+                      color: cashDepositResponse?.status
+                        ? colors.title
+                        : colors.red,
+                    },
+                  ]}
+                >
+                  {cashDepositResponse && cashDepositResponse.message}
+                </FormattedText>
+
+                {cashDepositResponse &&
+                  cashDepositResponse.data.map((item: any) => {
+                    if (item?.value)
+                      return (
+                        <View style={style.modalResultRow} key={item.id}>
+                          <FormattedText
+                            id={item.key}
+                            style={style.modalResultKeyText}
+                          />
+                          <View style={style.modalResultMiddleLine} />
+                          <View style={style.modalResultValueTextWrapper}>
+                            <FormattedText
+                              style={style.modalResultValueText}
+                              fontFamily="Regular-FaNum"
+                            >
+                              {item.unit
+                                ? formatNumber(item.value)
+                                : item.key === "sourcePan"
+                                ? formatCardNumber(item.value)
+                                : item.value}
+                            </FormattedText>
+                            {item.unit && (
+                              <FormattedText
+                                id={"home.rial"}
+                                style={style.modalResultValueUnit}
+                              />
+                            )}
+                          </View>
+                        </View>
+                      );
+                  })}
+              </View>
+              <View style={style.modalFooter}>
+                <Image source={Logo} style={style.logoStyle} />
+                <MoneyIcon />
+              </View>
+            </View>
+          </Modal>
+        </KeyboardAvoidingView>
+      </>
     </Layout>
   );
 };
