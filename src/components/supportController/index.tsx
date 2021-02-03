@@ -20,6 +20,7 @@ export default ({
       onBackdropPress={() => setShowModal(false)}
       style={style.modal}
       backdropOpacity={backOpacity}
+      useNativeDriver
     >
       <View style={style.modalContainer}>
         <View style={style.modalContent}>

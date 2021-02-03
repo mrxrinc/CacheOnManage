@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, Animated } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TextInput,
+  StatusBar,
+  TouchableHighlight,
+} from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import Modal from "react-native-modal";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,12 +28,15 @@ import FaceIDIcon from "images/signIn/face-detection.svg";
 import { login } from "utils/api";
 import { validateUserName } from "utils/validators";
 import MaterialTextField from "components/materialTextfield";
-import { RootState, RootStateType } from "../../../../customType";
+import { RootState, RootStateType } from "../../../../../customType";
 import SupportController from "components/supportController";
 import { setLocalData, getLocalData } from "utils/localStorage";
-import FanBoutton from "./fanButton";
+import FanButton from "../fanBoutton";
 import { withTheme } from "themeCore/themeProvider";
-
+import Logo from "images/blu-logo.svg";
+import Header from "./header";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import LoginBtn from "./loginBtn";
 interface IError {
   errorText: string;
   isError: boolean;
@@ -32,11 +44,12 @@ interface IError {
 
 // type BiometricType = "Fingerprint" | "Face" | "TouchID" | "FaceID" | null;
 
-const SignIn = ({ theme }: any) => {
+const Login = ({ theme }: any) => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isBio, setIsBio] = useState(false);
   const [showBiometricModal, setShowBiometricModal] = useState(false);
   const [
     biometricType,
@@ -61,10 +74,13 @@ const SignIn = ({ theme }: any) => {
   AsyncStorage.getItem("childPhone").then((childPhone) => {
     dispatch(childPhoneNumber(childPhone));
   });
-
+  const isFinger =
+    biometricType === "TouchID" || biometricType === "Fingerprint";
+  const isFace = biometricType === "FaceID";
   useEffect(() => {
     handleBiometricTypeCheck();
-
+    // setShowBiometricModal(true);
+    // handleBiometricsAction();
     if (childPhoneNum.match(/^093/i) || childPhoneNum.match(/^090/i)) {
       dispatch(mobileOperatorName("IRANCELL"));
     } else if (childPhoneNum.match(/^091/i)) {
@@ -75,7 +91,12 @@ const SignIn = ({ theme }: any) => {
   }, []);
   const handleBiometricTypeCheck = async () => {
     const biometricsType = await Keychain.getSupportedBiometryType();
+    const checkWasAssigened = await getLocalData("biometrics");
     setBiometricType(biometricsType);
+    if (checkWasAssigened) {
+      setIsBio(true);
+      handleBiometricsAction(true);
+    }
   };
 
   const handleTouch = async (username: string, password: string) => {
@@ -83,10 +104,10 @@ const SignIn = ({ theme }: any) => {
     if (validateUserName(username)) {
       login(username, password, isChild)
         .then((response: any) => {
+          console.log(response);
           setLoading(false);
           if (response.status == 200) {
             dispatch(otpTokenChanged(response.data.access_token));
-
             AsyncStorage.setItem("token", response.data.access_token);
             AsyncStorage.getItem("token").then((token) => {});
             if (biometricType) {
@@ -113,6 +134,7 @@ const SignIn = ({ theme }: any) => {
           }
         })
         .catch((err) => {
+          console.log(err);
           setLoading(false);
           setError({ errorText: err.response.data.message, isError: true });
         });
@@ -142,10 +164,10 @@ const SignIn = ({ theme }: any) => {
     }
   };
 
-  const handleBiometricsAction = async () => {
+  const handleBiometricsAction = async (firstTime: boolean = false) => {
     try {
       // Retrieve the credentials
-      const options = {
+      const options: any = {
         service: "MoneyApp",
         accessControl: "BIOMETRY_ANY_OR_DEVICE_PASSCODE",
         authenticationPrompt: {
@@ -166,139 +188,147 @@ const SignIn = ({ theme }: any) => {
         });
       }
     } catch (error) {
-      setError({
-        errorText: "شناسایی اثر انگشت با مشکل روبرو شد",
-        isError: true,
-      });
+      if (!firstTime) {
+        setError({
+          errorText: "شناسایی اثر انگشت با مشکل روبرو شد",
+          isError: true,
+        });
+      }
     }
   };
 
   return (
-    <View
-      style={[
-        styles.inputContainer,
-        { backgroundColor: theme.backgroundColor },
-      ]}
-    >
-      <View style={styles.inputBox}>
-        <View style={styles.inputPack}>
-          <View style={styles.textInputBox}>
-            <MaterialTextField
-              label="نام کاربری"
-              keyboardType="default"
-              maxLength={30}
-              onChange={clearError}
-              onChangeText={(value: any) => {
-                setUsername(value);
-              }}
-              value={username}
-            />
-          </View>
-          <View style={[styles.textInputBox]}>
-            <MaterialTextField
-              label="رمز عبور"
-              keyboardType="default"
-              maxLength={30}
-              icon="password"
-              onChange={clearError}
-              onChangeText={(value: any) => {
-                setPassword(value);
-              }}
-              value={password}
-            />
-          </View>
-          <View style={styles.errorBox}>
-            {error.isError && (
-              <View>
-                <FormattedText
-                  style={[styles.errorText, { color: theme.warningColor }]}
-                >
-                  {error.errorText}
-                </FormattedText>
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        backgroundColor={colors.gray900}
+        animated
+        hidden={false}
+        barStyle="dark-content"
+      />
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={styles.contentContainer}
+      >
+        <Header onPress={setSupportModal.bind(this, true)} />
+        <View style={styles.content}>
+          <Logo width={105} height={50} />
+          <View style={styles.inputBox}>
+            <View style={styles.inputPack}>
+              <View style={styles.textInputBox}>
+                <MaterialTextField
+                  label="نام کاربری"
+                  keyboardType="default"
+                  maxLength={30}
+                  onChange={clearError}
+                  onChangeText={(value: any) => {
+                    setUsername(value);
+                  }}
+                  value={username}
+                />
               </View>
-            )}
+              <View style={[styles.textInputBox]}>
+                <MaterialTextField
+                  label="رمز عبور"
+                  keyboardType="default"
+                  maxLength={30}
+                  icon="password"
+                  onChange={clearError}
+                  onChangeText={(value: any) => {
+                    setPassword(value);
+                  }}
+                  value={password}
+                />
+              </View>
+              <View style={styles.errorBox}>
+                {error.isError && (
+                  <View>
+                    <FormattedText
+                      style={[styles.errorText, { color: theme.warningColor }]}
+                    >
+                      {error.errorText}
+                    </FormattedText>
+                  </View>
+                )}
+              </View>
+            </View>
+          </View>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <LoginBtn
+              isFaceId={username || password ? false : isFace}
+              isFinger={username || password ? false : isFinger}
+              title={
+                username || password
+                  ? "ورود"
+                  : isFace
+                  ? `ورود با تشخیص چهره`
+                  : isFinger
+                  ? "ورود با اثر انگشت"
+                  : "ورود"
+              }
+              color={colors.buttonSubmitActive}
+              onPress={() =>
+                username || password
+                  ? handleTouch(username, password)
+                  : isFace
+                  ? handleBiometricsAction()
+                  : isFinger
+                  ? handleBiometricsAction()
+                  : handleTouch(username, password)
+              }
+              disabled={loading}
+              loading={loading}
+              style={styles.button}
+            />
           </View>
         </View>
-      </View>
-
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
-        {(biometricType === "TouchID" || biometricType === "Fingerprint") && (
-          <View style={styles.fingerBox}>
-            <TouchableOpacity onPress={handleBiometricsAction}>
+        <Modal
+          isVisible={showBiometricModal}
+          onBackdropPress={() => setShowBiometricModal(false)}
+          style={styles.modal}
+        >
+          <View style={styles.modalContainer}>
+            <FormattedText style={styles.modalTitle} id="login.fingerprint" />
+            <View style={styles.modalIconWrapper}>
               <Fingerprint
-                fill={theme.svg.fingerprint}
                 width={55}
                 height={70}
+                fill={theme.svg.fingerprint}
               />
-            </TouchableOpacity>
+            </View>
             <FormattedText
-              style={[styles.modalTitle, { color: theme.text.loginText }]}
-              id="login.fingerprint"
+              style={styles.modalDescription}
+              id="login.fingerproint-quesion"
+            />
+            <Button
+              title="بله"
+              onPress={handleSetBiometricsLogin}
+              color={colors.links}
+              outline
+              style={styles.modalCancelButton}
             />
           </View>
-        )}
+        </Modal>
 
-        {biometricType === "FaceID" && (
-          <View style={styles.fingerBox}>
-            <TouchableOpacity onPress={handleBiometricsAction}>
-              <FaceIDIcon />
-            </TouchableOpacity>
-            <FormattedText style={styles.modalTitle} id="login.FaceId" />
-          </View>
-        )}
-
-        <View style={styles.button}>
-          <Button
-            title="ورود"
-            color={colors.buttonSubmitActive}
-            onPress={() => handleTouch(username, password)}
-            disabled={(username == "" || password == "" || loading) && true}
-            loading={loading}
-          />
-        </View>
-
+        <SupportController
+          showModal={supportModal}
+          setShowModal={setSupportModal.bind(this, false)}
+          title="پشتیبانی‌"
+          phoneNumber="02147474747"
+        />
         <View style={styles.noRegister}>
           {isChild && !!childPhoneNum && (
-            <View style={{ marginTop: "40%" }}>
-              <FanBoutton navigation={navigation} />
+            <View>
+              <FanButton navigation={navigation} />
             </View>
           )}
+          {!isChild && (
+            <FormattedText style={styles.registerText}>
+              قبلا ثبت‌نام نکرده‌اید؟
+            </FormattedText>
+          )}
         </View>
-      </View>
-
-      <View style={{ height: 30 }} />
-
-      <Modal
-        isVisible={showBiometricModal}
-        onBackdropPress={() => setShowBiometricModal(false)}
-        style={styles.modal}
-      >
-        <View style={styles.modalContainer}>
-          <FormattedText style={styles.modalTitle} id="login.fingerprint" />
-          <View style={styles.modalIconWrapper}>
-            <Fingerprint width={55} height={70} fill={theme.svg.fingerprint} />
-          </View>
-          <FormattedText
-            style={styles.modalDescription}
-            id="login.fingerproint-quesion"
-          />
-          <Button
-            title="بله"
-            onPress={handleSetBiometricsLogin}
-            color={colors.links}
-            outline
-            style={styles.modalCancelButton}
-          />
-        </View>
-      </Modal>
-
-      <SupportController
-        showModal={supportModal}
-        setShowModal={() => setSupportModal(false)}
-        title="پشتیبانی‌"
-        phoneNumber="02147474747"
-      />
-    </View>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 };
-export default withTheme(SignIn);
+export default withTheme(Login);
