@@ -81,7 +81,9 @@ const PayAmount: React.FC<Props> = (props) => {
           </View>
           <View>
             <FormattedText>{qrStore.merchantName}</FormattedText>
-            <FormattedText>{qrStore.termID}</FormattedText>
+            <FormattedText fontFamily="Regular-FaNum">
+              {qrStore.termID}
+            </FormattedText>
           </View>
         </View>
         <FormattedText style={styles.title}>

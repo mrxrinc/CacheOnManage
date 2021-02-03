@@ -161,7 +161,7 @@ const Payment = (props: any) => {
                 {formatNumber(amount)}
               </FormattedText>
               <FormattedText
-                fontFamily="Medium"
+                fontFamily="Regular-FaNum"
                 style={[styles.blueText, { marginLeft: "2%" }]}
               >
                 ریال

@@ -24,6 +24,7 @@ import { QRPaymentState } from "store/QRPayment/qrPayment.reducer";
 import { StateNetwork } from "store/index.reducer";
 // Styles
 import styles from "./styles";
+import AsyncStorage from "@react-native-community/async-storage";
 
 interface Props {
   barcode: string;
@@ -76,8 +77,18 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
     };
     setShowSigninModal(false);
     dispatch(QRPaymentActions.setQrPayment(data, { sagas: true }));
-    // setShowInquiryResponseModal(true);
   };
+
+  const handleConfirmPayment = () => {
+    AsyncStorage.getItem("token").then((token: any) => {
+      if (!token) {
+        setShowSigninModal(true);
+        return;
+      }
+      handlePayment();
+    });
+  };
+
   function handleCloseQrPayment() {
     dispatch(QRPaymentActions.setQrPayment([] as any));
     navigation.navigate("login");
@@ -97,14 +108,14 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
           <FormattedText style={styles.blueBox}>
             {qrStore.qrData.merchantName}
           </FormattedText>
-          <FormattedText>{formatNumber(amount)} ریال </FormattedText>
-          <FormattedText>{numberToWords(amount)} ریال</FormattedText>
+          <FormattedText fontFamily="Regular-FaNum">
+            {formatNumber(amount)} ریال{" "}
+          </FormattedText>
+          <FormattedText>{numberToWords(amount / 10)} تومان</FormattedText>
           <View style={styles.btnWrapper}>
             <View style={styles.submitButton}>
               <Button
-                onPress={() => {
-                  setShowSigninModal(true);
-                }}
+                onPress={handleConfirmPayment}
                 title="پرداخت"
                 color="#43e6c5"
                 loading={qrStore.loading}

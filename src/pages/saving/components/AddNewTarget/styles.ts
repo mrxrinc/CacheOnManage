@@ -9,6 +9,7 @@ export default StyleSheet.create({
   },
   titleInput: {
     padding: 0,
+    fontFamily: "IRANSansMobile",
   },
   titleInputWrapper: {
     marginBottom: 0,
@@ -28,6 +29,10 @@ export default StyleSheet.create({
     padding: 0,
     margin: 0,
     height: 30,
+  },
+  disableInput: {
+    backgroundColor: "#f9f9f9",
+    borderRadius: 10,
   },
   inputContainer: {
     height: 60,

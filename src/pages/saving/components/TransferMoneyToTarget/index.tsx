@@ -140,6 +140,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
         description: " ",
       };
       dispatch(SavingActions.transferMoneyToTarget(data, { sagas: true }));
+      dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
     },
   });
 

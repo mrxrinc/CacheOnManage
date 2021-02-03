@@ -155,7 +155,7 @@ const DrawerContent = (props: any) => {
             </TouchableOpacity>
           </View>
           <View style={styles.versionBox}>
-            <FormattedText
+            <FormattedText fontFamily = "Regular-FaNum"
               style={{
                 color: "white",
                 fontSize: 14,
@@ -163,8 +163,7 @@ const DrawerContent = (props: any) => {
                 bottom: 60,
               }}
             >
-              {/* {pkg.version.split("").reverse().join("").slice(0, 4) + "23"} */}
-              نسخه ۱.۵.۸
+              { pkg.version }
             </FormattedText>
             {theme.key != "FATHER BLU JUNIOR" && (
               <BottomDesign

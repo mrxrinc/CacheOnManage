@@ -96,6 +96,7 @@ export default StyleSheet.create({
     width: "90%",
     height: 1,
     backgroundColor: "#baeffc",
+    opacity: 0.5,
     marginVertical: 20,
     alignSelf: "center",
   },

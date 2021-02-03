@@ -45,14 +45,14 @@ const BalanceCard = ({
           <View style={style.amountWrapper}>
             <CashIcon />
             <FormattedText style={style.balances} fontFamily="Regular-FaNum">
-              {formatNumber(`${balance}`)}
+              {formatNumber(`${balance}`)}{" "}
               <FormattedText style={style.currency} id={"home.rial"} />
             </FormattedText>
           </View>
           <View style={style.amountWrapper}>
             <SavingIcon />
             <FormattedText style={style.balances} fontFamily="Regular-FaNum">
-              {formatNumber(`${liable}`)}
+              {formatNumber(`${liable}`)}{" "}
               <FormattedText style={style.currency} id={"home.rial"} />
             </FormattedText>
           </View>

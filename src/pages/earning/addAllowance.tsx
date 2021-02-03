@@ -21,6 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../customType";
 import { getEarningData } from "redux/actions/Earning";
 import UnequalTwinButtons from "components/unequalTwinButtons";
+import SavingActions from "store/Saving/saving.actions";
 
 const { width, height } = Dimensions.get("window");
 
@@ -56,6 +57,7 @@ const AddAllowance = (props: any) => {
         dispatch(getEarningData(Math.random()));
         toggleModal();
         setDeleteAllowance(false);
+        dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
       })
       .catch((err) => {
         console.log("err is", err.response);
