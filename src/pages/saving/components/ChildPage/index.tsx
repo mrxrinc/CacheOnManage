@@ -29,7 +29,7 @@ interface Props {
 }
 const contentContainerStyle: StyleProp<ViewStyle> = {
   alignItems: "center",
-  backgroundColor: "#f4f6fa",
+  backgroundColor: "transparent",
   paddingBottom: 70,
 };
 
@@ -82,12 +82,7 @@ const ChildPage: React.FC<Props> = (props) => {
           <Button
             title="تعریف هدف جدید"
             onPress={() => handleAddNewTargetPress(props.data)}
-            disabled={
-              filterActiveTargets?.length >= 2 ||
-              savingStore.childTargets.length === 0
-                ? true
-                : false
-            }
+            disabled={filterActiveTargets?.length >= 2 ? true : false}
             color={colors.buttonOpenActive}
           />
         </View>

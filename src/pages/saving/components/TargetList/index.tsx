@@ -253,7 +253,7 @@ const TargetList: React.FC<Props> = (props) => {
                   setShowModal={handleCloseModal}
                   style={styles.modal}
                   title="ویرایش هدف پس انداز"
-                  backdropOpacity={0.38}
+                  backdropOpacity={0.3}
                 >
                   <EditTarget
                     data={selectedTargetData}

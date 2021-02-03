@@ -119,21 +119,37 @@ const EditTarget: FC<Props> = (props) => {
       if (!values.targetAmount) {
         errors.targetAmount = "لطفا مبلغ هدف را وارد نمایید";
       }
+
       if (!values.weeklySavings) {
         errors.weeklySavings = "لطفا مبلغ پس انداز هفتگی را وارد نمایید";
       }
-      if (
-        values.targetAmount &&
-        Number(values.targetAmount) < Number(values.weeklySavings)
-      ) {
-        errors.weeklySavings = "مبلغ پس انداز نمی تواند بیشتر از مبلغ هدف باشد";
+
+      if (values.targetAmount) {
+        if (
+          Number(removeCommas(values.targetAmount)) <
+          Number(removeCommas(values.weeklySavings))
+        ) {
+          errors.targetAmount =
+            "مبلغ هدف  نمی تواند کمتر از مبلغ پس انداز باشد";
+        } else if (
+          Number(removeCommas(props.allowance)) <
+          Number(removeCommas(values.weeklySavings))
+        ) {
+          errors.weeklySavings =
+            "مبلغ پس انداز هفتگی نمی‌تواند بیشتر از مبلغ پول توجیبی باشد.";
+        }
       }
-      if (
-        values.weeklySavings &&
-        Number(values.weeklySavings) > Number(props.allowance)
-      ) {
-        errors.weeklySavings =
-          "مبلغ پس انداز هفتگی نمی‌تواند بیشتر از مبلغ پول توجیبی باشد.";
+
+      if (values.weeklySavings) {
+        if (Number(values.weeklySavings) > Number(values.targetAmount)) {
+          errors.weeklySavings =
+            "مبلغ پس انداز نمی تواند بیشتر از مبلغ هدف باشد";
+        } else if (
+          Number(props.allowance) < Number(removeCommas(values.weeklySavings))
+        ) {
+          errors.weeklySavings =
+            "مبلغ پس انداز هفتگی نمی‌تواند بیشتر از مبلغ پول توجیبی باشد.";
+        }
       }
 
       return errors;
@@ -256,7 +272,7 @@ const EditTarget: FC<Props> = (props) => {
                 ? String(props.data.paidAmount)
                 : "0"
             )} از ${formatNumber(
-              String(props.data.targetAmount)
+              String(formik.values.targetAmount)
             )} ریال را ذخیره کرده است `}
           </FormattedText>
           {formik.errors.targetAmount && (

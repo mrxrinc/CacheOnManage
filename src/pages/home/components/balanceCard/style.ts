@@ -37,13 +37,13 @@ export default StyleSheet.create({
     marginTop: 7,
   },
   balances: {
-    fontSize: 16,
-    color: colors.gray200,
+    fontSize: 14,
+    color: colors.title,
   },
   currency: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "100",
-    color: colors.gray600,
+    color: colors.title,
     paddingLeft: 10,
   },
   amountWrapper: {

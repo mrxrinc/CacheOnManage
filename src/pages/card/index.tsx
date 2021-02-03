@@ -50,6 +50,7 @@ const Cards = (props: any) => {
           style={{
             height: "100%",
             width: "100%",
+            marginTop: 15,
           }}
         >
           {item.data.status == "NONE" ||
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
   cardsPageBox: {
     width: width,
     alignItems: "center",
-    backgroundColor: "#f4f6fa",
+    backgroundColor: "transparent",
     height: "100%",
   },
   loading: {

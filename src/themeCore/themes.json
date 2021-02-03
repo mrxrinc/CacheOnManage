@@ -14,7 +14,7 @@
       "buttonBorderRadius":10,
       "home":{
         "bgColorButton":"#307fe2",
-        "linearColor":"#bbbcbc",
+        "linearColor":"rgba(187, 188, 188, 0.5)",
         "avatarBorder":"#307fe2"
       },
       "tabbar":{
@@ -26,6 +26,10 @@
         "descriptionFont":"#707070",
         "itemsBackground":"#fff",
         "linearColor":"#f5f7fa"
+      },
+      "drawer":{
+        "BlueGradient_Left": "#307fe2",
+        "BlueGradient_Right": "#307fe2",
       }
     },
     {
@@ -44,7 +48,7 @@
       "buttonBorderRadius":30,
       "home":{
         "bgColorButton":"#43e6c5",
-        "linearColor":"#baeffc",
+        "linearColor":"rgba(186, 239, 252, 0.5)",
         "avatarBorder":"#8387fc"
       },
       "tabbar":{
@@ -56,6 +60,10 @@
         "descriptionFont":"#8d8b8b",
         "itemsBackground":"#f5f7fa",
         "linearColor":"#f5f7fa"
+      },
+      "drawer":{
+        "BlueGradient_Left": "#397fff",
+        "BlueGradient_Right": "#bb6aff"
       }
     },
     {
@@ -74,7 +82,7 @@
       "buttonBorderRadius":30,
       "home":{
         "bgColorButton":"#43e6c5",
-        "linearColor":"#baeffc",
+        "linearColor":"rgba(186, 239, 252, 0.5)",
         "avatarBorder":"#8387fc"
       },
       "tabbar":{
@@ -86,6 +94,10 @@
         "descriptionFont":"#8d8b8b",
         "itemsBackground":"#f5f7fa",
         "linearColor":"#f5f7fa"
+      },
+      "drawer":{
+        "BlueGradient_Left": "#397fff",
+        "BlueGradient_Right": "#bb6aff"
       }
     }
   ]
