@@ -20,7 +20,7 @@ const Header: FC<Props> = ({
 }) => {
   return (
     <LinearGradient
-      colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
+      colors={[theme.header.BlueGradient_Right, theme.header.BlueGradient_Left]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 0 }}
       style={styles.container}
@@ -29,14 +29,21 @@ const Header: FC<Props> = ({
       <View style={[styles.navbar]}>
         {handleBack && (
           <TouchableOpacity style={styles.backWrapper} onPress={handleBack}>
-            <BackIcon />
+            <BackIcon fill={theme.header.contentColor} width={20} height={20} />
           </TouchableOpacity>
         )}
         <View style={styles.titleWrapper}>
           {dynamicTitle ? (
-            <FormattedText style={styles.title}>{dynamicTitle}</FormattedText>
+            <FormattedText
+              style={[styles.title, { color: theme.header.contentColor }]}
+            >
+              {dynamicTitle}
+            </FormattedText>
           ) : (
-            <FormattedText style={styles.title} id={staticTitle} />
+            <FormattedText
+              style={[styles.title, { color: theme.header.contentColor }]}
+              id={staticTitle}
+            />
           )}
         </View>
       </View>
