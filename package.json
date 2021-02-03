@@ -1,6 +1,6 @@
 {
   "name": "allowance",
-  "version": "0.0.1",
+  "version": "1.5.13",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -35,7 +35,7 @@
     "@types/react-native-star-rating": "^1.1.1",
     "@types/yup": "^0.29.6",
     "axios": "^0.19.2",
-    "blinkid-react-native": "^5.5.1",
+    "blinkid-react-native": "^5.9.0",
     "formik": "^2.1.5",
     "i18next": "^19.8.4",
     "identity-obj-proxy": "^3.0.0",

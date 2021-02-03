@@ -357,15 +357,6 @@ const TaskList = (props: any) => {
           />
         )}
       </View>
-
-      <View style={[styles.buttonWrapper, { marginTop: 20, marginBottom: 10 }]}>
-        <Button
-          color={colors.buttonOpenActive}
-          title="افزودن مسئولیت جدید"
-          onPress={() => navigation.navigate("addNewTask")}
-        />
-      </View>
-
       <AlertController
         showModal={deleteTask}
         setShowModal={() => setDeleteTask(false)}
@@ -616,12 +607,5 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: colors.gray500,
     marginTop: 5,
-  },
-  buttonWrapper: {
-    width: width * 0.89,
-    height: 44,
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
   },
 });

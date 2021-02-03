@@ -20,6 +20,7 @@ export default ({
       style={style.modal}
       avoidKeyboard
       backdropOpacity={backdropOpacity}
+      useNativeDriver
     >
       <View style={style.modalContainer}>
         <View style={style.modalHead}>

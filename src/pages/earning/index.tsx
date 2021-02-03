@@ -6,6 +6,8 @@ import {
   ScrollView,
   ActivityIndicator,
   RefreshControl,
+  TouchableOpacity,
+  Text,
 } from "react-native";
 import MainHeader from "components/mainHeader";
 import Layout from "components/layout";
@@ -17,10 +19,13 @@ import { RootState } from "../../../customType";
 import AddAllowance from "./addAllowance";
 import ChildTaskList from "./childTaskList";
 import { colors } from "constants/index";
+import { useNavigation } from "@react-navigation/core";
+import Button from "components/button";
 
 const { width } = Dimensions.get("window");
 
 const Earning = (props: any) => {
+  const navigation = useNavigation();
   const [childInfo, setChildInfo] = useState<any>([]);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [refreshing, setRefreshing] = React.useState(false);
@@ -51,28 +56,37 @@ const Earning = (props: any) => {
 
   const ChildPage = (item: any) => {
     return (
-      <ScrollView
-        contentContainerStyle={{
-          width: width,
-          alignItems: "center",
-          backgroundColor: "#f4f6fa",
-        }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        <AllowanceChart childInfo={item.data} />
-        <View
-          style={{
+      <View>
+        <ScrollView
+          contentContainerStyle={{
             width: width,
-            marginTop: 10,
+            alignItems: "center",
+            backgroundColor: "transparent",
+            paddingBottom: 54,
           }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
-          <AddAllowance childInfo={item.data} />
+          <AllowanceChart childInfo={item.data} />
+          <View
+            style={{
+              width: width,
+              marginTop: 10,
+            }}
+          >
+            <AddAllowance childInfo={item.data} />
+          </View>
+          <ChildTaskList childInfo={item.data} />
+        </ScrollView>
+        <View style={[styles.buttonWrapper]}>
+          <Button
+            color={colors.buttonOpenActive}
+            title="افزودن مسئولیت جدید"
+            onPress={() => navigation.navigate("addNewTask")}
+          />
         </View>
-
-        <ChildTaskList childInfo={item.data} />
-      </ScrollView>
+      </View>
     );
   };
   return (
@@ -115,5 +129,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  buttonWrapper: {
+    width: width * 0.89,
+    height: 44,
+    position: "absolute",
+    alignSelf: "center",
+    bottom: 30,
   },
 });
