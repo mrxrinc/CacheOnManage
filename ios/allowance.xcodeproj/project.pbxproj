@@ -792,7 +792,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Moneyj;
+				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Money;
 				PRODUCT_NAME = allowance;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -820,7 +820,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Moneyj;
+				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Money;
 				PRODUCT_NAME = allowance;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
