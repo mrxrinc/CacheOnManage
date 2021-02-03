@@ -64,6 +64,7 @@ const SpendParent: FC = (props: any) => {
       <EmptyComponent text="تراکنشی برای نمایش وجود ندارد!" />
     ) : (
       <SectionList
+        stickySectionHeadersEnabled={false}
         sections={refinedData}
         keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => <Item data={item} />}
