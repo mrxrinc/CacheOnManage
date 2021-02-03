@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 // Constants
-import { colors, IOS } from "constants/index";
+import { colors, IOS, width } from "constants/index";
 // Libraries
 import * as R from "ramda";
 // UI Frameworks
@@ -10,6 +10,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { Picker } from "@react-native-community/picker";
 // Hooks
@@ -40,6 +41,8 @@ import TransferMoneyActions from "store/TransferMoney/transferMoney.actions";
 import Switch from "images/switch.svg";
 // Styles
 import style from "./styles";
+import ActionModalBottom from "components/modal/actionModalBottom";
+import PickerItem from "./components/PickerItem";
 
 const MessagesContext = React.createContext(messages);
 export interface Errors {
@@ -60,6 +63,7 @@ const TransferMoney: FC = (props: any) => {
   const [avatar, setAvatar] = useState<string>("");
   const [isFromParent, setIsFromParent] = useState<boolean>(true);
   const [firstSubmitted, setFirstSubmitted] = React.useState(false);
+  const [showPicker, setShowPicker] = React.useState(false);
 
   // Store
   const transferMoneyStore = useSelector<StateNetwork, TransferMoneyState>(
@@ -167,26 +171,13 @@ const TransferMoney: FC = (props: any) => {
                       </FormattedText>
                     </View>
                   ) : (
-                    <>
+                    <TouchableWithoutFeedback
+                      onPress={() => setShowPicker(true)}
+                    >
                       <View style={style.childFeild}>
-                        <Picker
-                          selectedValue={formik.values.child}
-                          onValueChange={(name) =>
-                            formik.setFieldValue("child", name)
-                          }
-                        >
-                          {cards.map((card) => {
-                            return (
-                              <Picker.Item
-                                key={card.id}
-                                label={card.nickname}
-                                value={card.id}
-                              />
-                            );
-                          })}
-                        </Picker>
+                        <FormattedText>انتخاب کنید</FormattedText>
                       </View>
-                    </>
+                    </TouchableWithoutFeedback>
                   )}
                   <FormattedText>به</FormattedText>
 
@@ -201,27 +192,13 @@ const TransferMoney: FC = (props: any) => {
                       </FormattedText>
                     </View>
                   ) : (
-                    <>
+                    <TouchableWithoutFeedback
+                      onPress={() => setShowPicker(true)}
+                    >
                       <View style={style.childFeild}>
-                        <Picker
-                          selectedValue={formik.values.child}
-                          onValueChange={(name) =>
-                            formik.setFieldValue("child", name)
-                          }
-                          itemStyle={style.pickerItems}
-                        >
-                          {cards.map((card) => {
-                            return (
-                              <Picker.Item
-                                key={card.id}
-                                label={card.nickname}
-                                value={card.id}
-                              />
-                            );
-                          })}
-                        </Picker>
+                        <FormattedText>انتخاب کنید</FormattedText>
                       </View>
-                    </>
+                    </TouchableWithoutFeedback>
                   )}
                 </View>
                 <View style={style.leftCol}>
@@ -266,6 +243,15 @@ const TransferMoney: FC = (props: any) => {
           </Formik>
         </ScrollView>
       </KeyboardAvoidingView>
+      <ActionModalBottom
+        showModal={showPicker}
+        onBackdropPress={() => setShowPicker(false)}
+        setShowModal={() => setShowPicker(false)}
+        title=""
+        backdropOpacity={0.3}
+      >
+        <PickerItem data={cards} />
+      </ActionModalBottom>
       <ActionModalCentered
         showModal={!R.isEmpty(transactionResults)}
         setShowModal={handleCloseModal}

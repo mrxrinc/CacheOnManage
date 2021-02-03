@@ -47,11 +47,12 @@ export default StyleSheet.create({
   childFeild: {
     width: "100%",
     borderRadius: 5,
-    padding: 0,
+    padding: 10,
     borderWidth: 1,
     borderColor: "#01065d",
     marginTop: 10,
     marginBottom: 10,
+    height: 50,
   },
   avatar: {
     width: 35,
