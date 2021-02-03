@@ -82,12 +82,7 @@ const ChildPage: React.FC<Props> = (props) => {
           <Button
             title="تعریف هدف جدید"
             onPress={() => handleAddNewTargetPress(props.data)}
-            disabled={
-              filterActiveTargets?.length >= 2 ||
-              savingStore.childTargets.length === 0
-                ? true
-                : false
-            }
+            disabled={filterActiveTargets?.length >= 2 ? true : false}
             color={colors.buttonOpenActive}
           />
         </View>
