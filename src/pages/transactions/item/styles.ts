@@ -20,6 +20,7 @@ export default StyleSheet.create({
       alignItems: "center",
       marginHorizontal: 20,
       marginBottom: 10,
+      elevation:5,
     },
     payment: {
       flex: 1,

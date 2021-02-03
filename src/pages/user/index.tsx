@@ -5,12 +5,13 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  Text,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { FormattedText } from "components/format-text";
 import Background from "components/background";
 import Otp from "./otp";
-import SignIn from "./signIn";
+import SignIn from "./signIn/login";
 import VerifyCode from "./otp/verifyCode";
 import DateOfBirth from "./dateOfbirth";
 import NationalCard from "./national-card";
@@ -73,72 +74,13 @@ const Login: React.FC = () => {
   };
   return (
     <Background>
-      <StatusBar backgroundColor={"transparent"} translucent hidden={false} />
-      <View style={styles.container}>
-        <View
-          style={[
-            styles.userStateBox,
-            {
-              height: signUpSteps != "signIn" ? height * 0.19 : height * 0.112,
-            },
-          ]}
-        >
-          <View
-            style={{
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: "10%",
-              width: width * 0.93,
-              flexDirection: "row",
-            }}
-          >
-            {signUpSteps != "signIn" ? (
-              <TouchableOpacity style={styles.close} onPress={handleBack}>
-                <Close width={18} height={18} fill="#fff" />
-              </TouchableOpacity>
-            ) : (
-              <View style={{ width: 32, height: 32 }} />
-            )}
-            <FormattedText style={{ fontSize: 16, color: "white" }}>
-              {signUpSteps == "signIn"
-                ? "ورود"
-                : signUpSteps == "otp"
-                ? "اطلاعات فردی"
-                : signUpSteps == "verifyCode"
-                ? "اطلاعات فردی"
-                : signUpSteps == "1004"
-                ? "اطلاعات فردی"
-                : signUpSteps == "2006"
-                ? "اطلاعات فردی"
-                : signUpSteps == "cardUpload"
-                ? "اطلاعات فردی"
-                : signUpSteps == "2003"
-                ? "اطلاعات فردی"
-                : signUpSteps == "3002"
-                ? "احراز هویت"
-                : signUpSteps == "3004"
-                ? "احراز هویت"
-                : signUpSteps == "1003"
-                ? "ساخت حساب  کاربری"
-                : signUpSteps == "0" || signUpSteps == "checkInfo"
-                ? "بررسی اطلاعات"
-                : ""}
-            </FormattedText>
-            <View style={{ width: 32 }} />
-          </View>
-          {signUpSteps != "signIn" && (
-            <View style={{ width: width * 1.1, marginTop: 20 }}>
-              <Steps
-                // renderStepIndicator={renderStepIndicator}
-                configs={configs}
-                current={currentSteps}
-                // labels={labels}
-                reversed={true}
-                count={4}
-              />
-            </View>
-          )}
-        </View>
+      <StatusBar
+        backgroundColor={"transparent"}
+        translucent
+        hidden={false}
+        barStyle="dark-content"
+      />
+      <View style={styles.content}>
         {signUpSteps == "signIn" && <SignIn />}
         {signUpSteps == "otp" && <Otp />}
         {signUpSteps == "verifyCode" && <VerifyCode />}
@@ -160,7 +102,7 @@ const Login: React.FC = () => {
 
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
-  container: {
+  content: {
     justifyContent: "flex-start",
     alignItems: "center",
     width: width,
