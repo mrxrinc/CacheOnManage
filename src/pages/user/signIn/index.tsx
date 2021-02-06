@@ -22,7 +22,7 @@ import MaterialTextField from "components/materialTextfield";
 import { RootState, RootStateType } from "../../../../customType";
 import SupportController from "components/supportController";
 import { setLocalData, getLocalData } from "utils/localStorage";
-import FanBoutton from "./fanButton";
+import FanBoutton from "./fanBoutton";
 import { withTheme } from "themeCore/themeProvider";
 
 interface IError {
@@ -34,8 +34,8 @@ interface IError {
 
 const SignIn = ({ theme }: any) => {
   const navigation = useNavigation();
-  const [username, setUsername] = useState("ali_baba");
-  const [password, setPassword] = useState("Aa1234567");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showBiometricModal, setShowBiometricModal] = useState(false);
   const [
@@ -121,7 +121,6 @@ const SignIn = ({ theme }: any) => {
       setError({ errorText: "نام کاربری باید لاتین باشد", isError: true });
     }
   };
-
   const handleSetBiometricsLogin = async () => {
     setShowBiometricModal(false);
     // Store the credentials

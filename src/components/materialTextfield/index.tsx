@@ -1,4 +1,4 @@
-import React, { useState, useRef, forwardRef } from "react";
+import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { View, TouchableOpacity, TextInput } from "react-native";
 import { FilledTextField } from "react-native-material-textfield";
 import { FormattedText } from "components/format-text";
@@ -13,6 +13,10 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
   let theme = props.theme;
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const inputRef = ref ?? useRef(null);
+
+  useEffect(() => {
+    if (inputRef) inputRef.current.setValue(props.value);
+  }, [props.value]);
 
   const renderIcon = () => {
     if (props.icon === "error") {

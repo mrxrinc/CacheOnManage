@@ -34,7 +34,7 @@ export default StyleSheet.create({
     width: "50%",
   },
   getPassButtonWrapper: {
-    marginBottom: 7,
+    marginBottom: 2,
   },
   getPassButton: {
     height: 25,
