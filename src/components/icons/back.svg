@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="back" width="32" height="32" viewBox="0 0 32 32">
-    <g id="Group_176" fill="none" data-name="Group 176" transform="rotate(270 16 16)">
-        <path id="Path_131" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4px" d="M12 12V0H0" data-name="Path 131" transform="rotate(135 9.54 11.576)"/>
-        <path id="Rectangle_408" d="M0 0H32V32H0z" data-name="Rectangle 408"/>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6.85 12.7"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M.5,12.7a.47.47,0,0,1-.35-.15.5.5,0,0,1,0-.71L5.64,6.35.15.85a.48.48,0,0,1,0-.7.48.48,0,0,1,.7,0L6.7,6a.5.5,0,0,1,0,.71L.85,12.55A.47.47,0,0,1,.5,12.7Z"/></g></g></svg>

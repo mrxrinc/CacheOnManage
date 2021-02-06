@@ -25,7 +25,6 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    color: colors.white,
     textAlign: "center",
   },
   backWrapper: {

@@ -187,7 +187,7 @@ export const InquiryAddress = (props: any) => {
                 <Button
                   title="تعیین سقف پرداخت"
                   onPress={() => setShowMobileModal(true)}
-                  color={colors.buttonOpenActive}
+                  color={theme.itemsButton}
                   disabled={!form.enableMobile}
                 />
               </View>
@@ -235,7 +235,7 @@ export const InquiryAddress = (props: any) => {
                 <Button
                   title="ویرایش آدرس ارسال "
                   onPress={() => setShowInquiryAddressModal(true)}
-                  color={colors.buttonOpenActive}
+                  color={theme.itemsButton}
                   disabled={!form.enableAddress}
                 />
               </View>
@@ -249,7 +249,7 @@ export const InquiryAddress = (props: any) => {
                   style={style.privacyModalButton}
                   onPress={() => setShowPolicyModal(true)}
                 >
-                  قوانین و مقررات{" "}
+                  قوانین و مقررات
                 </FormattedText>
               </FormattedText>
             </View>
@@ -259,7 +259,7 @@ export const InquiryAddress = (props: any) => {
                 title="ساخت حساب کاربری فرزند"
                 disabled={!readyToSubmit}
                 onPress={handleNextPage}
-                color={colors.buttonSubmitActive}
+                color={theme.mainButton}
               />
             </View>
           </ScrollView>

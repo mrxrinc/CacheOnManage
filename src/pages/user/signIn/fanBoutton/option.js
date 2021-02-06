@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Animated, View, Image, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FormattedText } from "../../../../components/format-text";
-import { connect } from "react-redux";
 import store from "../../../../store";
 import { QuickAccessRootPage } from "../../../../store/QuickAccess/quickAccess.actions";
 
@@ -87,7 +86,6 @@ class Option extends Component {
     } else if (type == "mobileBillPayment") {
       store.dispatch(QuickAccessRootPage("mobileBillPayment"));
       navigation.navigate("quickAccess");
-      // navigation("mobileBillPayment");
     } else if (type == "internet") {
       navigation.navigate("selectCarrier");
     }
@@ -146,4 +144,3 @@ const styles = StyleSheet.create({
 });
 
 export default Option;
-// export default (Option);
