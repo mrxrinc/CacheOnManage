@@ -74,6 +74,9 @@ const AddNewTarget: FC<Props> = (props) => {
       }
     }
   }, [targetAmount, weeklyAmount]);
+  React.useEffect(() => {
+    formik.resetForm();
+  }, []);
 
   React.useEffect(() => {
     if (!moment(targetDate).isValid()) return;
@@ -121,21 +124,38 @@ const AddNewTarget: FC<Props> = (props) => {
       if (!values.targetAmount) {
         errors.targetAmount = "لطفا مبلغ هدف را وارد نمایید";
       }
+
       if (!values.weeklySavings) {
         errors.weeklySavings = "لطفا مبلغ پس انداز هفتگی را وارد نمایید";
       }
-      if (
-        values.targetAmount &&
-        Number(values.targetAmount) < Number(values.weeklySavings)
-      ) {
-        errors.weeklySavings = "مبلغ پس انداز نمی تواند بیشتر از مبلغ هدف باشد";
+
+      if (values.targetAmount) {
+        if (
+          Number(removeCommas(values.targetAmount)) <
+          Number(removeCommas(values.weeklySavings))
+        ) {
+          errors.targetAmount =
+            "مبلغ هدف  نمی تواند کمتر از مبلغ پس انداز باشد";
+        } else if (
+          Number(removeCommas(selectedTargetData.allowance)) <
+          Number(removeCommas(values.weeklySavings))
+        ) {
+          errors.weeklySavings =
+            "مبلغ پس انداز هفتگی نمی‌تواند بیشتر از مبلغ پول توجیبی باشد.";
+        }
       }
-      if (
-        values.weeklySavings &&
-        Number(values.weeklySavings) > Number(selectedTargetData?.allowance)
-      ) {
-        errors.weeklySavings =
-          "مبلغ پس انداز هفتگی نمی‌تواند بیشتر از مبلغ پول توجیبی باشد.";
+
+      if (values.weeklySavings) {
+        if (Number(values.weeklySavings) > Number(values.targetAmount)) {
+          errors.weeklySavings =
+            "مبلغ پس انداز نمی تواند بیشتر از مبلغ هدف باشد";
+        } else if (
+          Number(selectedTargetData.allowance) <
+          Number(removeCommas(values.weeklySavings))
+        ) {
+          errors.weeklySavings =
+            "مبلغ پس انداز هفتگی نمی‌تواند بیشتر از مبلغ پول توجیبی باشد.";
+        }
       }
 
       return errors;
@@ -149,13 +169,10 @@ const AddNewTarget: FC<Props> = (props) => {
         weeklySavings: removeCommas(values.weeklySavings),
       };
       dispatch(SavingActions.addTarget(data as AddTarget, { sagas: true }));
+      formik.resetForm();
       navigation.navigate("saving");
     },
   });
-
-  const handleStartDate = () => {
-    setShowDateModal(false);
-  };
 
   function handleChangeTargetDate(value: string) {
     if (moment(value).isValid()) {
@@ -299,7 +316,7 @@ const AddNewTarget: FC<Props> = (props) => {
               <Button
                 onPress={formik.handleSubmit}
                 disabled={!formik.isValid || savingStore.loading}
-                title="تعریفق هدف جدید"
+                title="تعریف هدف جدید"
                 color={colors.buttonSubmitActive}
               />
             </View>

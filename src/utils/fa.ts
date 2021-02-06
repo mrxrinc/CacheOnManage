@@ -41,10 +41,6 @@ const messages: Record<string, string> = {
   secondPassword: "رمز دوم",
   pay: "پرداخت",
   transactionResid: "رسید تراکنش",
-  sourcePan: "شماره کارت مبدا",
-  transactionDate: "تاریخ و زمان",
-  followUpCode: "شماره پیگیری",
-  terminalNo: "شماره ترمینال",
   transferMoney: "انتقال وجه",
   addChild: "افزودن فرزند",
   "addChild.firstInput":
@@ -77,10 +73,7 @@ const messages: Record<string, string> = {
   pig: "پس انداز",
   more: "بیشتر",
   magic: "درآمد",
-  destinationAccountOwner: "صاحب حساب مقصد",
-  sourceAccountOwner: "صاحب حساب مبدا",
-  traceNumber: "شماره پیگیری",
-  terminalNumber: "شماره ترمینال",
+
   "earning.allowance": "پول توجیبی‌:",
   "earning.paymentDay": "روز پرداخت",
   "earning.taskTitle": "فعالیت‌های انجام شده در این هفته",
@@ -138,5 +131,19 @@ const messages: Record<string, string> = {
     "با دریافت نسخه جدید (نام) از قابلیت‌های جدید این برنامه بهره مند شوید.",
   "transactions.total": "تراکنش‌ها",
   "transactions.detailItem": "جزئیات تراکنش",
+  // transaction result
+  date: "تاریخ",
+  followupNumber: "شماره پیگیری",
+  refrenceId: "شماره تراکنش",
+  terminalId: "شماره ترمینال",
+  cepID: "کد سپ",
+  destinationAccountOwner: "صاحب حساب مقصد",
+  sourceAccountOwner: "صاحب حساب مبدا",
+  traceNumber: "شماره پیگیری",
+  terminalNumber: "شماره ترمینال",
+  sourcePan: "شماره کارت مبدا",
+  transactionDate: "تاریخ و زمان",
+  followUpCode: "شماره پیگیری",
+  terminalNo: "شماره ترمینال",
 };
 export default messages;

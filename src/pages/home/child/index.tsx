@@ -127,16 +127,7 @@ export default ({ route }: any) => {
                   />
                 }
               >
-                <View style={style.remainingDaysWrapper}>
-                  <FormattedText
-                    style={style.remainingDays}
-                    fontFamily="Regular-FaNum"
-                  >
-                    محدودیت خرج کردن شما در هفته{" "}
-                    {formatNumber(childData.weeklySpendingLimit)} ریال می‌باشد.
-                  </FormattedText>
-                </View>
-
+                <View style={style.remainingDaysWrapper} />
                 <View style={style.contentBox}>
                   <View style={style.head}>
                     <Image

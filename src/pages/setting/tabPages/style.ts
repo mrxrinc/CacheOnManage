@@ -5,6 +5,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
+    marginTop: 15,
   },
   head: {
     width: "100%",
