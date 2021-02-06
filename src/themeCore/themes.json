@@ -4,6 +4,7 @@
       "BlueGradient_Left": "#307fe2",
       "BlueGradient_Right": "#307fe2",
       "backgroundColor": "#307fe2",
+      "statusBarContent": "light-content",
       "warningColor":"#f2a900",
       "header":{
         "BlueGradient_Left": "#fff",
@@ -45,6 +46,7 @@
       "BlueGradient_Left": "#397fff",
       "BlueGradient_Right": "#bb6aff",
       "backgroundColor": "#f4f6fa",
+      "statusBarContent": "dark-content",
       "warningColor":"#f73e3e",
       "color": "#ffffff",
       "header":{
@@ -87,6 +89,7 @@
       "BlueGradient_Left": "#397fff",
       "BlueGradient_Right": "#bb6aff",
       "backgroundColor": "#f4f6fa",
+      "statusBarContent": "dark-content",
       "warningColor":"#f73e3e",
       "color": "#ffffff",
       "header":{

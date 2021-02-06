@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   moneyInput: {
     backgroundColor: "transparent",
-    fontFamily: "IRANSansMobile",
+    // fontFamily: "IRANSansMobile",
   },
   label: {
     fontFamily: "IRANSansMobileFaNum",
@@ -23,6 +23,7 @@ export default StyleSheet.create({
   inputStyle: {
     fontFamily: "IRANSansMobileFaNum",
     fontSize: 18,
+    // backgroundColor: "transparent",
   },
   unit: {
     color: colors.gray500,

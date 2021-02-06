@@ -69,11 +69,11 @@ class Option extends Component {
         offset = { x: size, y: 0 };
     }
 
-    Animated.timing(this.state.move, { toValue: offset }).start();
+    Animated.timing(this.state.move, { toValue: offset,useNativeDriver: true }).start();
   }
 
   moveIn() {
-    Animated.timing(this.state.move, { toValue: 0 }).start();
+    Animated.timing(this.state.move, { toValue: 0,useNativeDriver: true }).start();
   }
 
   handleAction() {

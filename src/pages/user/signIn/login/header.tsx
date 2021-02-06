@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  Platform,
-} from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import Support from "components/icons/support.svg";
 import { colors, width } from "constants/index";
 

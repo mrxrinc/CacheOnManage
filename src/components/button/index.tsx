@@ -1,10 +1,16 @@
 import React from "react";
-import { TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+  ActivityIndicator,
+  View,
+} from "react-native";
 import { FormattedText } from "components/format-text";
-import { colors, IOS } from "constants/index";
+import { colors, IOS, width } from "constants/index";
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
-
+import Fingerprint from "images/signIn/fingerprint.svg";
+import FaceIDIcon from "components/icons/face-id.svg";
 type Props = {
   title: string;
   onPress: () => void;
@@ -16,6 +22,8 @@ type Props = {
   disabled?: boolean;
   loading?: boolean;
   theme: any;
+  isFinger?: any;
+  isFaceId?: any;
 };
 
 function handleBackground(
@@ -40,6 +48,8 @@ const Button = ({
   titleStyle,
   disabled,
   loading,
+  isFinger,
+  isFaceId,
   ...props
 }: Props) => {
   return (
@@ -61,17 +71,32 @@ const Button = ({
       {...props}
     >
       {!loading ? (
-        <FormattedText
-          fontFamily="Bold"
+        <View
           style={{
-            lineHeight: IOS ? 15 : 25,
-            fontSize: fontSize ? fontSize : 16,
-            color: disabled ? colors.white : outline ? color : colors.white,
-            ...titleStyle,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {title}
-        </FormattedText>
+          {isFaceId && (
+            <FaceIDIcon fill={colors.white} width={16} height={16} />
+          )}
+          {isFinger && (
+            <Fingerprint fill={colors.white} width={16} height={16} />
+          )}
+          <FormattedText
+            fontFamily="Bold"
+            style={{
+              lineHeight: IOS ? 15 : 25,
+              marginLeft: isFinger || isFaceId ? 8 : 0,
+              fontSize: fontSize ? fontSize : 16,
+              color: disabled ? colors.white : outline ? color : colors.white,
+              ...titleStyle,
+            }}
+          >
+            {title}
+          </FormattedText>
+        </View>
       ) : (
         <ActivityIndicator color={colors.white} />
       )}
