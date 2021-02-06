@@ -65,7 +65,6 @@ export default StyleSheet.create({
   },
   modalResultKeyText: {
     fontSize: 13,
-    color: colors.gray500,
     flexShrink: 0,
     backgroundColor: colors.white,
     zIndex: 1,

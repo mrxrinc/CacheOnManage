@@ -14,7 +14,7 @@ import { DrawerActions, ThemeProvider } from "@react-navigation/native";
 import { Icon } from "images";
 import HighDesign from "images/drawer/top-design.svg";
 import BottomDesign from "images/drawer/bottom-design.svg";
-import BluPattern from "images/drawer/repeat-grid.svg";
+// import BluPattern from "images/drawer/repeat-grid.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../customType";
 import AlertController from "components/alertController";
@@ -58,13 +58,13 @@ const DrawerContent = (props: any) => {
       end={{ x: 1, y: 0 }}
     >
       <View style={styles.container}>
-        {theme.key == "FATHER BLU JUNIOR" && (
+        {/* {theme.key == "FATHER BLU JUNIOR" && (
           <BluPattern
             height={height}
             width={"100%"}
             style={{ marginBottom: "20%" }}
           />
-        )}
+        )} */}
         <View style={styles.contentBox}>
           <View style={[styles.drawerHeader, {}]}>
             {theme.key != "FATHER BLU JUNIOR" && (
@@ -155,7 +155,8 @@ const DrawerContent = (props: any) => {
             </TouchableOpacity>
           </View>
           <View style={styles.versionBox}>
-            <FormattedText fontFamily = "Regular-FaNum"
+            <FormattedText
+              fontFamily="Regular-FaNum"
               style={{
                 color: "white",
                 fontSize: 14,
@@ -163,7 +164,7 @@ const DrawerContent = (props: any) => {
                 bottom: 60,
               }}
             >
-              { pkg.version }
+              {pkg.version}
             </FormattedText>
             {theme.key != "FATHER BLU JUNIOR" && (
               <BottomDesign

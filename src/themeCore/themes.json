@@ -5,6 +5,11 @@
       "BlueGradient_Right": "#307fe2",
       "backgroundColor": "#307fe2",
       "warningColor":"#f2a900",
+      "header":{
+        "BlueGradient_Left": "#fff",
+        "BlueGradient_Right": "#fff",
+        "contentColor":"#110820"
+      },
       "text":{
         "loginText":"#fff"
       },
@@ -25,11 +30,14 @@
         "subjectFont":"#110820",
         "descriptionFont":"#707070",
         "itemsBackground":"#fff",
-        "linearColor":"#f5f7fa"
+        "linearColor":"#f5f7fa",
+        "inquiryButton":"#307fe2",
+        "itemsButton":"#307fe2",
+        "mainButton":"#00bfb2"
       },
       "drawer":{
         "BlueGradient_Left": "#307fe2",
-        "BlueGradient_Right": "#307fe2",
+        "BlueGradient_Right": "#307fe2"
       }
     },
     {
@@ -39,6 +47,11 @@
       "backgroundColor": "#f4f6fa",
       "warningColor":"#f73e3e",
       "color": "#ffffff",
+      "header":{
+        "BlueGradient_Left": "#397fff",
+        "BlueGradient_Right": "#bb6aff",
+        "contentColor":"#fff"
+      },
       "text":{
         "loginText":"#00015d"
       },
@@ -59,7 +72,10 @@
         "subjectFont":"#110820",
         "descriptionFont":"#8d8b8b",
         "itemsBackground":"#f5f7fa",
-        "linearColor":"#f5f7fa"
+        "linearColor":"#f5f7fa",
+        "inquiryButton":"#43e6c5",
+        "itemsButton":"#00afff",
+        "mainButton":"#43e6c5"
       },
       "drawer":{
         "BlueGradient_Left": "#397fff",
@@ -73,6 +89,11 @@
       "backgroundColor": "#f4f6fa",
       "warningColor":"#f73e3e",
       "color": "#ffffff",
+      "header":{
+        "BlueGradient_Left": "#397fff",
+        "BlueGradient_Right": "#bb6aff",
+        "contentColor":"#fff"
+      },
       "text":{
         "loginText":"#00015d"
       },
@@ -93,7 +114,10 @@
         "subjectFont":"#110820",
         "descriptionFont":"#8d8b8b",
         "itemsBackground":"#f5f7fa",
-        "linearColor":"#f5f7fa"
+        "linearColor":"#f5f7fa",
+        "inquiryButton":"#43e6c5",
+        "itemsButton":"#00afff",
+        "mainButton":"#43e6c5"
       },
       "drawer":{
         "BlueGradient_Left": "#397fff",
