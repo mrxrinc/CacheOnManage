@@ -2,7 +2,7 @@ import { Dimensions, Platform, Keyboard } from "react-native";
 
 export const IOS = Platform.OS === "ios" ? true : false;
 
-export const keyboard = () => {
+export const keyboardIsVisible = () => {
   Keyboard.addListener("keyboardDidShow", () => {
     logger("keyboard is up");
     return true;
