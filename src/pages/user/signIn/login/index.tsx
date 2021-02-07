@@ -191,14 +191,12 @@ const Login = ({ theme }: any) => {
 
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.backgroundColor }]}
-    >
+      style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
       <StatusLogin theme={theme} />
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={styles.contentContainer}
-      >
-        <Header onPress={setSupportModal.bind(this, true)} />
+        contentContainerStyle={styles.contentContainer}>
+        <Header theme={theme} onPress={() => setSupportModal(true)} />
         <View style={styles.content}>
           {bljTheme ? (
             <WhiteLogo width={105} height={50} />
@@ -211,7 +209,7 @@ const Login = ({ theme }: any) => {
               keyboardType="default"
               maxLength={30}
               onChange={clearError}
-              onChangeText={setUsername.bind(this)}
+              onChangeText={setUsername}
               value={username}
             />
             <MaterialTextField
@@ -220,7 +218,7 @@ const Login = ({ theme }: any) => {
               maxLength={30}
               icon="password"
               onChange={clearError}
-              onChangeText={setPassword.bind(this)}
+              onChangeText={setPassword}
               value={password}
             />
             <ErrorLogin theme={theme} error={error} />
@@ -238,17 +236,20 @@ const Login = ({ theme }: any) => {
             loading={loading}
             isFace={isFace}
             isFinger={isFinger}
+            theme={theme}
           />
         </View>
         <FooterLogin
           isChild={isChild}
           childPhoneNum={childPhoneNum}
           navigation={navigation}
+          bljTheme={bljTheme}
+          theme={theme}
         />
       </KeyboardAwareScrollView>
       <SupportController
         showModal={supportModal}
-        setShowModal={setSupportModal.bind(this, false)}
+        setShowModal={() => setSupportModal(false)}
         title="پشتیبانی‌"
         phoneNumber="02147474747"
       />
@@ -256,7 +257,7 @@ const Login = ({ theme }: any) => {
         showBiometricModal={showBiometricModal}
         theme={theme}
         handleSetBiometricsLogin={handleSetBiometricsLogin}
-        deactive={setShowBiometricModal.bind(this, false)}
+        deactive={() => setShowBiometricModal(false)}
       />
     </SafeAreaView>
   );

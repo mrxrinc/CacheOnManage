@@ -1,10 +1,18 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import Button from "components/button";
-import { colors, width } from "constants/index";
+import { width } from "constants/index";
 
 const ButtonLogin = (props: any) => {
-  const { username, password, onPress, loading, isFace, isFinger } = props;
+  const {
+    username,
+    password,
+    onPress,
+    loading,
+    isFace,
+    isFinger,
+    theme,
+  } = props;
 
   return (
     <Button
@@ -19,7 +27,7 @@ const ButtonLogin = (props: any) => {
           ? "ورود با اثر انگشت"
           : "ورود"
       }
-      color={colors.buttonSubmitActive}
+      color={theme.addChild.mainButton}
       onPress={onPress}
       disabled={loading}
       loading={loading}

@@ -4,7 +4,7 @@ import { colors } from "constants/index";
 export default StyleSheet.create({
   container: {
     width: "100%",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   moneyInput: {
     backgroundColor: "transparent",

@@ -7,6 +7,7 @@ const StatusLogin = (props: any) => {
     <StatusBar
       backgroundColor={theme.backgroundColor}
       animated
+      translucent={false}
       hidden={false}
       barStyle={theme.statusBarContent}
     />

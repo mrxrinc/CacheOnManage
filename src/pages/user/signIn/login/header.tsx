@@ -4,9 +4,10 @@ import Support from "components/icons/support.svg";
 import { colors, width } from "constants/index";
 
 const Header = (props: any) => {
+  const { onPress, theme } = props;
   return (
-    <TouchableOpacity style={styles.container} onPress={props.onPress}>
-      <Support style={styles.icon} fill={colors.dark} />
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Support style={styles.icon} fill={theme.support} />
     </TouchableOpacity>
   );
 };

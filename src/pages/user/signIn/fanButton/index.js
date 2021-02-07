@@ -4,8 +4,8 @@ import { Animated, View, TouchableOpacity, StyleSheet } from "react-native";
 const BUTTON_SIZE = 100;
 
 import Option from "./option";
-import More from "../../../../components/icons/more.svg";
-import Close from "../../../../components/icons/collapsible-close.svg";
+import More from "../../../../components/icons/quick-access.svg";
+import Close from "../../../../components/icons/qr-payment-quick access.svg";
 import bill from "../../../../images/collprass-icon/bill.png";
 import internet from "../../../../images/collprass-icon/internet.png";
 import charge from "../../../../images/collprass-icon/charge.png";
@@ -42,12 +42,16 @@ export default class FanButton extends Component {
 
   _renderOptions() {
     const { options, status } = this.state;
+    const { theme } = this.props;
     return options.map((option, i) => {
       return (
         <Option
           key={i}
           ref={option.id}
           icon={option.icon}
+          color={theme.fanBtn}
+          colorText={theme.fanBtn}
+          colorIcon={theme.backgroundColor}
           type={option.type}
           number={option.id}
           size={BUTTON_SIZE}
@@ -60,16 +64,16 @@ export default class FanButton extends Component {
 
   render() {
     const { status } = this.state;
+    const { theme, bljTheme } = this.props;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container]}>
         {this._renderOptions()}
 
         {!status ? (
           <TouchableOpacity
-            style={styles.button}
-            onPress={() => this._showOptions()}
-          >
-            <More />
+            style={[styles.button, { backgroundColor: theme.backgroundColor }]}
+            onPress={() => this._showOptions()}>
+            <More  />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={() => this._hideOptions()}>

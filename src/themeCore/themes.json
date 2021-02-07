@@ -5,7 +5,9 @@
       "BlueGradient_Right": "#307fe2",
       "backgroundColor": "#307fe2",
       "statusBarContent": "light-content",
+      "support": "#f5f7fa",
       "warningColor":"#f2a900",
+      "fanBtn": "#f4f6fa",
       "header":{
         "BlueGradient_Left": "#fff",
         "BlueGradient_Right": "#fff",
@@ -47,7 +49,9 @@
       "BlueGradient_Right": "#bb6aff",
       "backgroundColor": "#f4f6fa",
       "statusBarContent": "dark-content",
+      "support": "#000",
       "warningColor":"#f73e3e",
+      "fanBtn": "#43e6c5",
       "color": "#ffffff",
       "header":{
         "BlueGradient_Left": "#397fff",
@@ -90,7 +94,9 @@
       "BlueGradient_Right": "#bb6aff",
       "backgroundColor": "#f4f6fa",
       "statusBarContent": "dark-content",
+      "support": "#000",
       "warningColor":"#f73e3e",
+      "fanBtn": "#43e6c5",
       "color": "#ffffff",
       "header":{
         "BlueGradient_Left": "#397fff",

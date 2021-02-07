@@ -79,7 +79,7 @@ export default () => {
   return (
     <Background>
       <>
-        <StatusBar backgroundColor={"transparent"} translucent hidden={false} />
+        <StatusBar backgroundColor={"transparent"} animated translucent hidden={false} />
         <View style={styles.container}>
           <Swiper
             showsButtons={false}

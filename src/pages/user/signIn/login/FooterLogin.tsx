@@ -5,15 +5,13 @@ import FanButton from "../fanButton";
 import { FormattedText } from "components/format-text";
 
 const FooterLogin = (props: any) => {
-  const { childPhoneNum, navigation, isChild } = props;
+  const { childPhoneNum, navigation, isChild, bljTheme, theme } = props;
   return (
     <View style={styles.noRegister}>
       {isChild && !!childPhoneNum && (
-        <View>
-          <FanButton navigation={navigation} />
-        </View>
+        <FanButton bljTheme={bljTheme} theme={theme} navigation={navigation} />
       )}
-      {!isChild && (
+      {!isChild && !bljTheme && (
         <FormattedText style={styles.registerText}>
           قبلا ثبت‌نام نکرده‌اید؟
         </FormattedText>
