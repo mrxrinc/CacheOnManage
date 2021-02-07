@@ -35,7 +35,7 @@ const COUNTER = 120;
 
 const CashDeposit: FC = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(true);
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
   const [cashDepositResponse, setCashDepositResponse] = useState<any>(null);
@@ -183,243 +183,239 @@ const CashDeposit: FC = (props: any) => {
 
   return (
     <Layout keyboard={(val) => setKeyboardVisible(val)}>
-      <>
-        <Header
-          staticTitle={"cashDeposit"}
-          handleBack={() => props.navigation.goBack()}
-        />
-        <KeyboardAvoidingView
-          style={style.container}
-          behavior={IOS ? "padding" : "height"}
+      <Header
+        staticTitle={"cashDeposit"}
+        handleBack={() => props.navigation.goBack()}
+      />
+      <KeyboardAvoidingView
+        style={style.container}
+        behavior={IOS ? "padding" : "height"}
+      >
+        <ScrollView
+          contentContainerStyle={style.content}
+          keyboardShouldPersistTaps="handled"
         >
-          <ScrollView
-            contentContainerStyle={style.content}
-            keyboardShouldPersistTaps="handled"
-          >
-            <View style={style.inputWrapper}>
-              <MaterialInput
-                label="مبلغ"
-                tintColor={colors.title}
-                hasUnit
-                maxLength={13}
-                keyboardType={"number-pad"}
-                onChangeText={(value: string) =>
-                  _updateForm("amount", value.replace(/,/g, ""))
-                }
-                value={formatNumber(form.amount)}
-                style={style.materialInput}
-              />
-            </View>
-            <View style={style.inputWrapper}>
-              <MaterialInput
-                label="شماره کارت"
-                tintColor={colors.title}
-                maxLength={19}
-                keyboardType={"number-pad"}
-                onChangeText={(value: string) =>
-                  _updateForm("sourcePan", value.replace(/-/g, ""))
-                }
-                value={formatCardNumber(form.sourcePan)}
-                style={style.materialInput}
-              />
-            </View>
-            <View style={style.inputWrapper}>
-              <View style={[style.halfWidth]}>
-                <Input
-                  title={"cvv2"}
-                  customStyle={style.inputBox}
-                  inputCustomStyle={style.input}
-                  maxLength={4}
-                  boxMode
-                  keyboardType={"number-pad"}
-                  onChangeText={(value: string) => _updateForm("cvv2", value)}
-                  value={form.cvv2}
-                />
-              </View>
-              <View style={[style.halfWidth]}>
-                <Input
-                  title={"expirationDate"}
-                  customStyle={style.inputBox}
-                  inputCustomStyle={style.input}
-                  maxLength={5}
-                  boxMode
-                  keyboardType={"number-pad"}
-                  onChangeText={(value: string) => {
-                    const date = value.split("/").join("");
-                    if (date.length <= 4) _updateForm("expirationDate", date);
-                  }}
-                  value={formatExpirationDate(form.expirationDate)}
-                />
-              </View>
-            </View>
-            <View style={style.inputWrapper}>
-              <View style={style.halfWidth}>
-                <Input
-                  title={"secondPassword"}
-                  maxLength={12}
-                  customStyle={style.inputBox}
-                  inputCustomStyle={style.input}
-                  boxMode
-                  secureTextEntry
-                  keyboardType={"number-pad"}
-                  onChangeText={(value: string) =>
-                    _updateForm("password", value)
-                  }
-                  value={form.password}
-                />
-              </View>
-              <View style={[style.halfWidth, style.getPassButtonWrapper]}>
-                <TouchableOpacity
-                  style={style.getPassButton}
-                  onPress={handleHarim}
-                  disabled={timeLeft === 0 ? false : true}
-                >
-                  {timeLeft === 0 ? (
-                    <FormattedText style={style.getPassButtonTitle}>
-                      دریافت رمز پویا
-                    </FormattedText>
-                  ) : (
-                    <View style={style.timerWrapper}>
-                      <StopWatchIcon style={style.stopwatchStyle} />
-                      <FormattedText
-                        style={style.getPassButtonTitle}
-                        fontFamily="Regular-FaNum"
-                      >
-                        {" "}
-                        {("0" + Math.floor(timeLeft / 60)).slice(-2)}:
-                        {("0" + (timeLeft % 60)).slice(-2)}
-                      </FormattedText>
-                    </View>
-                  )}
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={style.messageWrapper}>
-              <FormattedText style={[style.message]}>
-                {timeLeft !== 0 ? (
-                  <FormattedText style={{ color: colors.accent }}>
-                    {statusMessage}
-                  </FormattedText>
-                ) : form.sourcePan.length === 0 ||
-                  !form.amount ||
-                  statusMessage ? (
-                  <FormattedText style={{ color: colors.red }}>
-                    {statusMessage}
-                  </FormattedText>
-                ) : (
-                  ""
-                )}
-              </FormattedText>
-            </View>
-          </ScrollView>
-          <View style={{ flex: 1 }} />
-          <View
-            style={[
-              style.submitButtonWrapper,
-              { height: isKeyboardVisible ? 60 : 90 },
-            ]}
-          >
-            <Button
-              title={"پرداخت"}
-              style={style.submitButton}
-              onPress={handleTopUp}
-              color={colors.buttonSubmitActive}
-              disabled={!readyToSubmit}
+          <View style={style.inputWrapper}>
+            <MaterialInput
+              label="مبلغ"
+              tintColor={colors.title}
+              hasUnit
+              maxLength={13}
+              keyboardType={"number-pad"}
+              onChangeText={(value: string) =>
+                _updateForm("amount", value.replace(/,/g, ""))
+              }
+              value={formatNumber(form.amount)}
+              style={style.materialInput}
             />
           </View>
-
-          <Modal
-            isVisible={showModal}
-            onBackdropPress={() => setShowModal(false)}
-            style={style.modal}
-          >
-            <View style={style.modalContainer}>
-              <View style={style.modalSwipeHandle} />
-              <View style={style.modalHead}>
-                <View style={style.modalLogoWrapper}>
-                  <View style={style.modalLogo} />
-                </View>
-                <View style={style.modalTitleWrapper}>
-                  {cashDepositResponse?.status && (
-                    <FormattedText
-                      id={"transactionResid"}
-                      style={style.modalTitle}
-                    />
-                  )}
-                </View>
-                <TouchableOpacity
-                  style={style.modalCloseWrapper}
-                  onPress={() => setShowModal(false)}
-                >
-                  <CloseIcon width={15} height={15} fill={colors.gray200} />
-                </TouchableOpacity>
-              </View>
-
-              <View style={style.modalContent}>
-                <View style={style.modalConfirmIconWrapper}>
-                  {cashDepositResponse?.status ? (
-                    <TickIcon width={40} height={40} fill={colors.accent} />
-                  ) : (
-                    <View style={style.modalErrorIconWrapper}>
-                      <View style={style.errorCircle}>
-                        <CloseIcon width={14} height={14} fill={colors.white} />
-                      </View>
-                    </View>
-                  )}
-                </View>
-                <FormattedText
-                  style={[
-                    style.modalResultTitle,
-                    {
-                      color: cashDepositResponse?.status
-                        ? colors.title
-                        : colors.red,
-                    },
-                  ]}
-                >
-                  {cashDepositResponse && cashDepositResponse.message}
-                </FormattedText>
-
-                {cashDepositResponse &&
-                  cashDepositResponse.data.map((item: any) => {
-                    if (item?.value)
-                      return (
-                        <View style={style.modalResultRow} key={item.id}>
-                          <FormattedText
-                            id={item.key}
-                            style={style.modalResultKeyText}
-                          />
-                          <View style={style.modalResultMiddleLine} />
-                          <View style={style.modalResultValueTextWrapper}>
-                            <FormattedText
-                              style={style.modalResultValueText}
-                              fontFamily="Regular-FaNum"
-                            >
-                              {item.unit
-                                ? formatNumber(item.value)
-                                : item.key === "sourcePan"
-                                ? formatCardNumber(item.value)
-                                : item.value}
-                            </FormattedText>
-                            {item.unit && (
-                              <FormattedText
-                                id={"home.rial"}
-                                style={style.modalResultValueUnit}
-                              />
-                            )}
-                          </View>
-                        </View>
-                      );
-                  })}
-              </View>
-              <View style={style.modalFooter}>
-                <Image source={Logo} style={style.logoStyle} />
-                <MoneyIcon />
-              </View>
+          <View style={style.inputWrapper}>
+            <MaterialInput
+              label="شماره کارت"
+              tintColor={colors.title}
+              maxLength={19}
+              keyboardType={"number-pad"}
+              onChangeText={(value: string) =>
+                _updateForm("sourcePan", value.replace(/-/g, ""))
+              }
+              value={formatCardNumber(form.sourcePan)}
+              style={style.materialInput}
+            />
+          </View>
+          <View style={style.inputWrapper}>
+            <View style={[style.halfWidth]}>
+              <Input
+                title={"cvv2"}
+                customStyle={style.inputBox}
+                inputCustomStyle={style.input}
+                maxLength={4}
+                boxMode
+                keyboardType={"number-pad"}
+                onChangeText={(value: string) => _updateForm("cvv2", value)}
+                value={form.cvv2}
+              />
             </View>
-          </Modal>
-        </KeyboardAvoidingView>
-      </>
+            <View style={[style.halfWidth]}>
+              <Input
+                title={"expirationDate"}
+                customStyle={style.inputBox}
+                inputCustomStyle={style.input}
+                maxLength={5}
+                boxMode
+                keyboardType={"number-pad"}
+                onChangeText={(value: string) => {
+                  const date = value.split("/").join("");
+                  if (date.length <= 4) _updateForm("expirationDate", date);
+                }}
+                value={formatExpirationDate(form.expirationDate)}
+              />
+            </View>
+          </View>
+          <View style={style.inputWrapper}>
+            <View style={style.halfWidth}>
+              <Input
+                title={"secondPassword"}
+                maxLength={12}
+                customStyle={style.inputBox}
+                inputCustomStyle={style.input}
+                boxMode
+                secureTextEntry
+                keyboardType={"number-pad"}
+                onChangeText={(value: string) => _updateForm("password", value)}
+                value={form.password}
+              />
+            </View>
+            <View style={[style.halfWidth, style.getPassButtonWrapper]}>
+              <TouchableOpacity
+                style={style.getPassButton}
+                onPress={handleHarim}
+                disabled={timeLeft === 0 ? false : true}
+              >
+                {timeLeft === 0 ? (
+                  <FormattedText style={style.getPassButtonTitle}>
+                    دریافت رمز پویا
+                  </FormattedText>
+                ) : (
+                  <View style={style.timerWrapper}>
+                    <StopWatchIcon style={style.stopwatchStyle} />
+                    <FormattedText
+                      style={style.getPassButtonTitle}
+                      fontFamily="Regular-FaNum"
+                    >
+                      {" "}
+                      {("0" + Math.floor(timeLeft / 60)).slice(-2)}:
+                      {("0" + (timeLeft % 60)).slice(-2)}
+                    </FormattedText>
+                  </View>
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={style.messageWrapper}>
+            <FormattedText style={[style.message]}>
+              {timeLeft !== 0 ? (
+                <FormattedText style={{ color: colors.accent }}>
+                  {statusMessage}
+                </FormattedText>
+              ) : form.sourcePan.length === 0 ||
+                !form.amount ||
+                statusMessage ? (
+                <FormattedText style={{ color: colors.red }}>
+                  {statusMessage}
+                </FormattedText>
+              ) : (
+                ""
+              )}
+            </FormattedText>
+          </View>
+        </ScrollView>
+        <View style={{ flex: 1 }} />
+        <View
+          style={[
+            style.submitButtonWrapper,
+            { height: isKeyboardVisible ? 60 : 90 },
+          ]}
+        >
+          <Button
+            title={"پرداخت"}
+            style={style.submitButton}
+            onPress={handleTopUp}
+            color={colors.buttonSubmitActive}
+            disabled={!readyToSubmit}
+          />
+        </View>
+
+        <Modal
+          isVisible={showModal}
+          onBackdropPress={() => setShowModal(false)}
+          style={style.modal}
+        >
+          <View style={style.modalContainer}>
+            <View style={style.modalSwipeHandle} />
+            <View style={style.modalHead}>
+              <View style={style.modalLogoWrapper}>
+                <View style={style.modalLogo} />
+              </View>
+              <View style={style.modalTitleWrapper}>
+                {cashDepositResponse?.status && (
+                  <FormattedText
+                    id={"transactionResid"}
+                    style={style.modalTitle}
+                  />
+                )}
+              </View>
+              <TouchableOpacity
+                style={style.modalCloseWrapper}
+                onPress={() => setShowModal(false)}
+              >
+                <CloseIcon width={15} height={15} fill={colors.gray200} />
+              </TouchableOpacity>
+            </View>
+
+            <View style={style.modalContent}>
+              <View style={style.modalConfirmIconWrapper}>
+                {cashDepositResponse?.status ? (
+                  <TickIcon width={40} height={40} fill={colors.accent} />
+                ) : (
+                  <View style={style.modalErrorIconWrapper}>
+                    <View style={style.errorCircle}>
+                      <CloseIcon width={14} height={14} fill={colors.white} />
+                    </View>
+                  </View>
+                )}
+              </View>
+              <FormattedText
+                style={[
+                  style.modalResultTitle,
+                  {
+                    color: cashDepositResponse?.status
+                      ? colors.title
+                      : colors.red,
+                  },
+                ]}
+              >
+                {cashDepositResponse && cashDepositResponse.message}
+              </FormattedText>
+
+              {cashDepositResponse &&
+                cashDepositResponse.data.map((item: any) => {
+                  if (item?.value)
+                    return (
+                      <View style={style.modalResultRow} key={item.id}>
+                        <FormattedText
+                          id={item.key}
+                          style={style.modalResultKeyText}
+                        />
+                        <View style={style.modalResultMiddleLine} />
+                        <View style={style.modalResultValueTextWrapper}>
+                          <FormattedText
+                            style={style.modalResultValueText}
+                            fontFamily="Regular-FaNum"
+                          >
+                            {item.unit
+                              ? formatNumber(item.value)
+                              : item.key === "sourcePan"
+                              ? formatCardNumber(item.value)
+                              : item.value}
+                          </FormattedText>
+                          {item.unit && (
+                            <FormattedText
+                              id={"home.rial"}
+                              style={style.modalResultValueUnit}
+                            />
+                          )}
+                        </View>
+                      </View>
+                    );
+                })}
+            </View>
+            <View style={style.modalFooter}>
+              <Image source={Logo} style={style.logoStyle} />
+              <MoneyIcon />
+            </View>
+          </View>
+        </Modal>
+      </KeyboardAvoidingView>
     </Layout>
   );
 };

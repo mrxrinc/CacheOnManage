@@ -3,7 +3,7 @@ import { View, StatusBar, StyleSheet, Keyboard } from "react-native";
 import { colors } from "constants/index";
 
 type Props = {
-  children: React.ReactElement;
+  children: Element | Element[];
   keyboard?: (T: boolean) => void;
 };
 
@@ -12,30 +12,32 @@ const Layout: React.FC<Props> = (props) => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      () => {
-        setKeyboardVisible(true);
-      }
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        setKeyboardVisible(false);
-      }
-    );
+    if (keyboard) {
+      const keyboardDidShowListener = Keyboard.addListener(
+        "keyboardDidShow",
+        () => {
+          setKeyboardVisible(true);
+        }
+      );
+      const keyboardDidHideListener = Keyboard.addListener(
+        "keyboardDidHide",
+        () => {
+          setKeyboardVisible(false);
+        }
+      );
 
-    return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
-    };
+      return () => {
+        keyboardDidHideListener.remove();
+        keyboardDidShowListener.remove();
+      };
+    }
   }, []);
 
   return (
-    <View style={style.outerContainer}>
+    <View style={style.globalContainer}>
       <StatusBar backgroundColor={"transparent"} translucent />
       <View style={style.container}>
-        {cloneElement(props.children, {
+        {cloneElement(<>{props.children}</>, {
           keyboard: keyboard ? keyboard(isKeyboardVisible) : null,
         })}
       </View>
@@ -46,12 +48,12 @@ const Layout: React.FC<Props> = (props) => {
 export default Layout;
 
 const style = StyleSheet.create({
+  globalContainer: {
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
     backgroundColor: colors.white,
-  },
-  outerContainer: {
-    width: "100%",
-    height: "100%",
   },
 });

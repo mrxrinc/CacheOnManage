@@ -15,7 +15,8 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
   const inputRef = ref ?? useRef(null);
 
   useEffect(() => {
-    if (inputRef) inputRef.current.setValue(props.value);
+    if (inputRef && theme.key !== "FATHER BLU JUNIOR")
+      inputRef.current.setValue(props.value);
   }, [props.value]);
 
   const renderIcon = () => {

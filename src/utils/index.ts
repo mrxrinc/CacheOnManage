@@ -44,6 +44,7 @@ export const formatNumber = (value: string | null = null) => {
   }
   return "";
 };
+
 export const removeCommas = (number?: string | number): number | undefined => {
   if (!number) return;
 
@@ -54,6 +55,7 @@ export const removeCommas = (number?: string | number): number | undefined => {
 
   return parseInt(result, 10);
 };
+
 export const formatCardNumber = (value: string) => {
   return value.toString().replace(/(\d)(?=(\d{4})+(?!\d))/g, "$1-");
 };
