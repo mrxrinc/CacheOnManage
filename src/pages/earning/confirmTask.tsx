@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
-import { AirbnbRating } from "react-native-ratings";
+import StarRating from "react-native-star-rating";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
 import Layout from "components/layout";
@@ -76,14 +76,21 @@ const confirmTaskPage = ({ route }: any) => {
           مبلغ در آمد وجود ندارد.
         </FormattedText>
 
-        <AirbnbRating
-          showRating={false}
-          defaultRating={0}
-          onFinishRating={(rate: number) => {
+        <StarRating
+          disabled={false}
+          maxStars={5}
+          emptyStar={"star"}
+          emptyStarColor={colors.gray650}
+          fullStar={"star"}
+          fullStarColor={colors.star}
+          iconSet={"MaterialIcons"}
+          rating={stars}
+          selectedStar={(rate: number) => {
             setStars(rate);
-            console.log({ rate });
           }}
-          starContainerStyle={styles.stars}
+          reversed={true}
+          starSize={42}
+          containerStyle={styles.stars}
         />
 
         <View>
@@ -185,6 +192,8 @@ const styles = StyleSheet.create({
   },
   stars: {
     flexDirection: "row-reverse",
+    maxWidth: 250,
+    alignSelf: "center",
   },
   rateAmount: {
     fontSize: 20,

@@ -45,6 +45,7 @@ export const colors = {
   title: "#00015d",
   links: "#0c96ff",
   text: "#515c6f",
+  star: "#ffe200",
 
   gradientRight: "#BB6AFF",
   gradientLeft: "#397FFF",

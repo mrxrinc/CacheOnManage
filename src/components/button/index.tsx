@@ -6,7 +6,7 @@ import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
 import { shadeColor } from "utils";
 
-const defaultColor = colors.gray700;
+const defaultColor = colors.buttonOpenActive;
 
 type Props = {
   title: string;

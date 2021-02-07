@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
-import { Rating } from "react-native-ratings";
+import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import StarRating from "react-native-star-rating";
 import { FormattedText } from "components/format-text";
 import Button from "components/button";
 import { colors, iosBoxShadow, width, IOS } from "constants/index";
@@ -193,13 +187,18 @@ const TaskList = (props: any) => {
             </FormattedText>
             <View style={styles.taskItemOptionsBox}>
               {item.status == "ACCEPT" && (
-                <Rating
-                  showRating={false}
-                  readonly
-                  startingValue={item.qualityStar || 2}
-                  imageSize={20}
-                  style={styles.stars}
-                  startStyle={{ flexDirection: "row-reverse" }}
+                <StarRating
+                  disabled
+                  maxStars={5}
+                  emptyStar={"star"}
+                  emptyStarColor={colors.gray650}
+                  fullStar={"star"}
+                  fullStarColor={colors.star}
+                  iconSet={"MaterialIcons"}
+                  rating={item.qualityStar || 2}
+                  reversed={true}
+                  starSize={22}
+                  containerStyle={{ flexDirection: "row-reverse" }}
                 />
               )}
 
