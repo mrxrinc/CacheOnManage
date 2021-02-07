@@ -73,9 +73,9 @@ export default StyleSheet.create({
     marginLeft: 6,
   },
   buttonWrapper: {
-    marginTop: 80,
     width: "100%",
-    height: 60,
     paddingHorizontal: 20,
+    paddingTop: 5,
+    paddingBottom: 50,
   },
 });

@@ -111,7 +111,7 @@ export const TransactionResult = (props: any) => {
                     style={styles.modalResultValueText}
                     fontFamily="Regular-FaNum"
                   >
-                    {followupNumber}
+                    {followupNumber ? followupNumber.substring(0, 25) : " -- "}
                   </FormattedText>
                 </View>
               </View>
@@ -130,7 +130,7 @@ export const TransactionResult = (props: any) => {
                   onPress={() =>
                     props.navigation.reset({
                       index: 0,
-                      routes: [{ name: "login" }],
+                      routes: [{ name: "entryType" }],
                     })
                   }
                 />
