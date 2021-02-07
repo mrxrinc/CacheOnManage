@@ -175,7 +175,7 @@ export default ({ route }: any) => {
                             style={style.balances}
                             fontFamily="Regular-FaNum"
                           >
-                            {formatNumber(childData.savingRemaining)}{" "}
+                            {formatNumber(childData.savingRemaining) || 0}{" "}
                             <FormattedText
                               style={style.currency}
                               id={"home.rial"}
@@ -199,7 +199,7 @@ export default ({ route }: any) => {
                     >
                       {formatNumber(
                         childData.savingRemaining + childData.cardRemaining
-                      )}{" "}
+                      ) || 0}{" "}
                       <FormattedText style={style.currency} id={"home.rial"} />
                     </FormattedText>
                   </View>
