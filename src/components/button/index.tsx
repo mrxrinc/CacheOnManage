@@ -46,7 +46,15 @@ const Button = ({
   ...props
 }: Props) => {
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          borderRadius: theme.buttonBorderRadius,
+          ...style,
+        },
+      ]}
+    >
       <TouchableHighlight
         style={[
           styles.button,
@@ -56,8 +64,6 @@ const Button = ({
             borderColor: outline ? color : "transparent",
             elevation: disabled ? 0 : 3,
             shadowOpacity: disabled ? 0 : 0.18,
-            borderRadius: theme.buttonBorderRadius,
-            ...style,
           },
         ]}
         underlayColor={shadeColor(color, -10)}
