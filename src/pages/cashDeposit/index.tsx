@@ -35,7 +35,7 @@ const COUNTER = 120;
 
 const CashDeposit: FC = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
   const [cashDepositResponse, setCashDepositResponse] = useState<any>(null);

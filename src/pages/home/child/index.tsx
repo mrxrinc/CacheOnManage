@@ -127,7 +127,7 @@ export default ({ route }: any) => {
                   />
                 }
               >
-                <View style={style.remainingDaysWrapper} />
+                {/* <View style={style.remainingDaysWrapper} /> */}
                 <View style={style.contentBox}>
                   <View style={style.head}>
                     <Image
@@ -324,7 +324,7 @@ export default ({ route }: any) => {
                       style={style.twinChildTextValue}
                       fontFamily="Regular-FaNum"
                     >
-                      {formatNumber(childData.activity.amount)}{" "}
+                      {formatNumber(childData.activity.amount) || 0}{" "}
                       <FormattedText style={style.currency} id={"home.rial"} />
                     </FormattedText>
                   </View>
@@ -352,7 +352,7 @@ export default ({ route }: any) => {
                       style={style.twinChildTextValue}
                       fontFamily="Regular-FaNum"
                     >
-                      {formatNumber(paymentLimitSum())}{" "}
+                      {formatNumber(paymentLimitSum() || 0)}{" "}
                       <FormattedText style={style.currency} id={"home.rial"} />
                     </FormattedText>
                   </View>
