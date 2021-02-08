@@ -145,5 +145,8 @@ const messages: Record<string, string> = {
   transactionDate: "تاریخ و زمان",
   followUpCode: "شماره پیگیری",
   terminalNo: "شماره ترمینال",
+  description: "توضیحات",
+  from: "از",
+  to: "به",
 };
 export default messages;
