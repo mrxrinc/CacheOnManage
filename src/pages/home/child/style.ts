@@ -10,12 +10,13 @@ export default StyleSheet.create({
   content: {
     paddingHorizontal: 15,
     paddingVertical: 10,
+    paddingTop: 55,
   },
   remainingDaysWrapper: {
     paddingVertical: 15,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 40,
+    // marginBottom: 40,
   },
   remainingDays: {
     color: colors.title,
@@ -73,9 +74,8 @@ export default StyleSheet.create({
     color: colors.title,
   },
   currency: {
-    fontSize: 12,
-    fontWeight: "100",
-    color: colors.gray400,
+    // fontSize: 12,
+    // fontWeight: "100",
     paddingLeft: 10,
   },
   sumCash: {
@@ -144,9 +144,9 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  loading:{
+  loading: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  }
+  },
 });

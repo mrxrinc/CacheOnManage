@@ -35,7 +35,7 @@ const messages: Record<string, string> = {
   cashDeposit: "افزایش حساب",
   amount: "مبلغ",
   cardNumber: "شماره کارت",
-  cvv2: "cvv2",
+  cvv2: "Cvv2",
   expirationDate: "تاریخ انقضا",
   getDynamicPass: "دریافت رمز پویا",
   secondPassword: "رمز دوم",

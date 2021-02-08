@@ -1,5 +1,11 @@
 import React, { FC, useState, useEffect } from "react";
-import { View, ScrollView, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  KeyboardAvoidingView,
+} from "react-native";
 import Modal from "react-native-modal";
 import { FormattedText } from "components/format-text";
 import Layout from "components/layout";
@@ -8,7 +14,7 @@ import Button from "components/button";
 import Input from "components/input";
 import MaterialInput from "components/materialTextfield";
 import style from "./style";
-import { colors } from "constants/index";
+import { colors, IOS } from "constants/index";
 import CloseIcon from "components/icons/close.svg";
 import TickIcon from "components/icons/coloredTick.svg";
 import StopWatchIcon from "components/icons/stopwatch.svg";
@@ -34,6 +40,7 @@ const CashDeposit: FC = (props: any) => {
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
   const [cashDepositResponse, setCashDepositResponse] = useState<any>(null);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [form, setForm] = useState<any>({
     sourcePan: "",
     amount: 0,
@@ -113,10 +120,10 @@ const CashDeposit: FC = (props: any) => {
   // }, []);
 
   const handleTopUp = () => {
-    console.log("TOP UP: ", { form });
+    logger("TOP UP: ", { form });
     topUp(token, form)
       .then((response: any) => {
-        console.log("topUp response", response);
+        logger("topUp response", response);
         const data = [];
         let index = 0;
         for (let [key, value] of Object.entries(response.data)) {
@@ -166,7 +173,7 @@ const CashDeposit: FC = (props: any) => {
           setTimeLeft(COUNTER);
         })
         .catch((err: any) => {
-          console.log("err", err.response);
+          logger("err", err.response);
           setStatusMessage(err.response.data.message);
         });
     } else {
@@ -175,13 +182,19 @@ const CashDeposit: FC = (props: any) => {
   };
 
   return (
-    <Layout>
+    <Layout keyboard={(val) => setKeyboardVisible(val)}>
       <Header
         staticTitle={"cashDeposit"}
         handleBack={() => props.navigation.goBack()}
       />
-      <View style={[style.container]}>
-        <ScrollView contentContainerStyle={[style.content]}>
+      <KeyboardAvoidingView
+        style={style.container}
+        behavior={IOS ? "padding" : "height"}
+      >
+        <ScrollView
+          contentContainerStyle={style.content}
+          keyboardShouldPersistTaps="handled"
+        >
           <View style={style.inputWrapper}>
             <MaterialInput
               label="مبلغ"
@@ -210,10 +223,11 @@ const CashDeposit: FC = (props: any) => {
             />
           </View>
           <View style={style.inputWrapper}>
-            <View style={[style.halfWidth, { paddingRight: 20 }]}>
+            <View style={[style.halfWidth]}>
               <Input
                 title={"cvv2"}
-                customStyle={style.input}
+                customStyle={style.inputBox}
+                inputCustomStyle={style.input}
                 maxLength={4}
                 boxMode
                 keyboardType={"number-pad"}
@@ -221,10 +235,11 @@ const CashDeposit: FC = (props: any) => {
                 value={form.cvv2}
               />
             </View>
-            <View style={[style.halfWidth, { paddingLeft: 20 }]}>
+            <View style={[style.halfWidth]}>
               <Input
                 title={"expirationDate"}
-                customStyle={style.input}
+                customStyle={style.inputBox}
+                inputCustomStyle={style.input}
                 maxLength={5}
                 boxMode
                 keyboardType={"number-pad"}
@@ -241,6 +256,8 @@ const CashDeposit: FC = (props: any) => {
               <Input
                 title={"secondPassword"}
                 maxLength={12}
+                customStyle={style.inputBox}
+                inputCustomStyle={style.input}
                 boxMode
                 secureTextEntry
                 keyboardType={"number-pad"}
@@ -261,7 +278,10 @@ const CashDeposit: FC = (props: any) => {
                 ) : (
                   <View style={style.timerWrapper}>
                     <StopWatchIcon style={style.stopwatchStyle} />
-                    <FormattedText style={style.getPassButtonTitle}>
+                    <FormattedText
+                      style={style.getPassButtonTitle}
+                      fontFamily="Regular-FaNum"
+                    >
                       {" "}
                       {("0" + Math.floor(timeLeft / 60)).slice(-2)}:
                       {("0" + (timeLeft % 60)).slice(-2)}
@@ -288,16 +308,22 @@ const CashDeposit: FC = (props: any) => {
               )}
             </FormattedText>
           </View>
-          <View style={style.submitButtonWrapper}>
-            <Button
-              title={"پرداخت"}
-              style={style.submitButton}
-              onPress={handleTopUp}
-              color={colors.buttonSubmitActive}
-              disabled={!readyToSubmit}
-            />
-          </View>
         </ScrollView>
+        <View style={{ flex: 1 }} />
+        <View
+          style={[
+            style.submitButtonWrapper,
+            { height: isKeyboardVisible ? 60 : 90 },
+          ]}
+        >
+          <Button
+            title={"پرداخت"}
+            style={style.submitButton}
+            onPress={handleTopUp}
+            color={colors.buttonSubmitActive}
+            disabled={!readyToSubmit}
+          />
+        </View>
 
         <Modal
           isVisible={showModal}
@@ -389,7 +415,7 @@ const CashDeposit: FC = (props: any) => {
             </View>
           </View>
         </Modal>
-      </View>
+      </KeyboardAvoidingView>
     </Layout>
   );
 };
