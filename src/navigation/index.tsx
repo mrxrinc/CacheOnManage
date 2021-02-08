@@ -51,7 +51,6 @@ import Total from "pages/transactions/total";
 import DetailItem from "pages/transactions/detailItem";
 import SpendParent from "pages/spend-parent";
 import Login from "pages/user/signIn/login";
-import Test from "test";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -107,9 +106,9 @@ function AuthStack() {
       {/* test total transaction */}
       {/* <Stack.Screen name="total" component={Total} />
       <Stack.Screen name="detailItem" component={DetailItem} /> */}
-      <Stack.Screen name="login" component={Login} />
+      {/* <Stack.Screen name="login" component={Login} /> */}
       <Stack.Screen name="entryType" component={EntryType} />
-      {/* <Stack.Screen name="login" component={LoginNavigator} /> */}
+      <Stack.Screen name="login" component={LoginNavigator} />
       <Stack.Screen name="intro" component={Intro} />
       <Stack.Screen name="quickAccess" component={QuickAccess} />
       <Stack.Screen name="QRPayment" component={QRPayment} />
