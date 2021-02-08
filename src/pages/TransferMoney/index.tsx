@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 // Constants
-import { colors, IOS, width } from "constants/index";
+import { IOS } from "constants/index";
 // Libraries
 import * as R from "ramda";
 // UI Frameworks
@@ -12,7 +12,6 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import { Picker } from "@react-native-community/picker";
 // Hooks
 import { useNavigation } from "@react-navigation/native";
 import { Formik, useFormik } from "formik";
@@ -22,7 +21,6 @@ import { getHomePageData } from "utils/api";
 // Shared components
 import Header from "components/header";
 import { FormattedText } from "components/format-text";
-import Input from "components/input";
 import Layout from "components/layout";
 import ActionModalCentered from "components/modal/actionModalCentered";
 import PaymentTransactionResult from "components/PaymentTransactionResult";
@@ -71,6 +69,7 @@ const TransferMoney: FC = (props: any) => {
   const transferMoneyStore = useSelector<StateNetwork, TransferMoneyState>(
     (state) => state.transferMoney
   );
+
   const token = useSelector<any, any>((state) => state.user.token);
 
   useEffect(() => {
@@ -91,21 +90,17 @@ const TransferMoney: FC = (props: any) => {
   }, []);
 
   const transactionResults = React.useMemo(() => {
-    if (transferMoneyStore.transactionResult) {
+    if (transferMoneyStore.transactionResult?.data) {
       const result = R.map((key: string) => {
         return {
           key: translate[key],
-          value: transferMoneyStore.transactionResult[key],
+          value: transferMoneyStore.transactionResult.data[key],
         };
-      }, Object.keys(transferMoneyStore.transactionResult));
+      }, Object.keys(transferMoneyStore.transactionResult.data));
 
-      // const filteredResult = R.filter(
-      //   (item) => item.name !== "description" && item.name !== "success",
-      //   result
-      // );
       return result;
     }
-  }, [transferMoneyStore.transactionResult]);
+  }, [transferMoneyStore.transactionResult.data]);
 
   const formik = useFormik({
     initialValues: {
@@ -124,9 +119,9 @@ const TransferMoney: FC = (props: any) => {
       if (!values.amount) {
         errors.amount = "لطفا مبلغ را وارد نمایید";
       }
-      if (!values.child) {
-        errors.child = "لطفا یک مورد را انتخاب نمایید";
-      }
+      // if (!values.child) {
+      //   errors.child = "لطفا یک مورد را انتخاب نمایید";
+      // }
       if (!values.description) {
         errors.description = "لطفا توضیحات را وارد نمایید";
       }
@@ -139,14 +134,15 @@ const TransferMoney: FC = (props: any) => {
         amount: Number(values.amount),
         description: values.description,
       };
-      console.log("data", data);
       dispatch(TransferMoneyActions.transferMoney(data, { sagas: true }));
       formik.resetForm();
     },
   });
 
   function handleCloseModal() {
-    dispatch(TransferMoneyActions.transferMoney([], { sagas: false }));
+    dispatch(
+      TransferMoneyActions.transferMoney({ data: [] }, { sagas: false })
+    );
     navigation.navigate("home");
   }
 
@@ -258,13 +254,7 @@ const TransferMoney: FC = (props: any) => {
                 title="انتقال وجه"
                 style={style.submitButton}
                 onPress={formik.handleSubmit}
-                disabled={
-                  !formik.isValid ||
-                  !formik.values.amount ||
-                  !formik.values.description ||
-                  !formik.values.child ||
-                  transferMoneyStore.loading
-                }
+                disabled={!formik.isValid || transferMoneyStore.loading}
                 loading={transferMoneyStore.loading}
                 color="#43e6c5"
               />
@@ -291,10 +281,7 @@ const TransferMoney: FC = (props: any) => {
       >
         <PaymentTransactionResult
           data={transactionResults}
-          //status={transferMoneyStore.transactionResult.success}
-          status={true}
-          description="پرداخت موفق"
-          //description={transferMoneyStore.transactionResult.description}
+          hasError={transferMoneyStore.transactionResult.hasError}
           onClose={handleCloseModal}
         />
       </ActionModalCentered>
