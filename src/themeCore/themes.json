@@ -8,6 +8,8 @@
       "support": "#f5f7fa",
       "warningColor":"#f2a900",
       "fanBtn": "#f4f6fa",
+      "fanBtnMore": "#f2a900",
+      "registerText": "#f4f6fa",
       "header":{
         "BlueGradient_Left": "#fff",
         "BlueGradient_Right": "#fff",
@@ -52,6 +54,8 @@
       "support": "#000",
       "warningColor":"#f73e3e",
       "fanBtn": "#43e6c5",
+      "fanBtnMore": "#307fe2",
+      "registerText": "#307fe2",
       "color": "#ffffff",
       "header":{
         "BlueGradient_Left": "#397fff",
@@ -97,6 +101,8 @@
       "support": "#000",
       "warningColor":"#f73e3e",
       "fanBtn": "#43e6c5",
+      "fanBtnMore": "#307fe2",
+      "registerText": "#307fe2",
       "color": "#ffffff",
       "header":{
         "BlueGradient_Left": "#397fff",

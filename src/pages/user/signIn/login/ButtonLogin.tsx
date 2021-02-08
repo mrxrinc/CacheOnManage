@@ -4,29 +4,20 @@ import Button from "components/button";
 import { width } from "constants/index";
 
 const ButtonLogin = (props: any) => {
-  const {
-    username,
-    password,
-    onPress,
-    loading,
-    isFace,
-    isFinger,
-    theme,
-  } = props;
+  const { password, onPress, loading, isFace, isFinger, theme } = props;
+  const Title = password
+    ? "ورود"
+    : isFace
+    ? `ورود با تشخیص چهره`
+    : isFinger
+    ? "ورود با اثر انگشت"
+    : "ورود";
 
   return (
     <Button
-      isFaceId={username || password ? false : isFace}
-      isFinger={username || password ? false : isFinger}
-      title={
-        username || password
-          ? "ورود"
-          : isFace
-          ? `ورود با تشخیص چهره`
-          : isFinger
-          ? "ورود با اثر انگشت"
-          : "ورود"
-      }
+      isFaceId={password ? false : isFace}
+      isFinger={password ? false : isFinger}
+      title={Title}
       color={theme.addChild.mainButton}
       onPress={onPress}
       disabled={loading}

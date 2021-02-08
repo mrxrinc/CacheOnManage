@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Animated, View, Image, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Animated, View, StyleSheet,TouchableOpacity } from "react-native";
 import { FormattedText } from "../../../../components/format-text";
 import store from "../../../../store";
 import { QuickAccessRootPage } from "../../../../store/QuickAccess/quickAccess.actions";
@@ -105,7 +104,7 @@ class Option extends Component {
           <TouchableOpacity
             style={styles.itemTouch}
             onPress={() => this.handleAction()}>
-            <Image source={icon} style={{ width: 24, height: 24 }} />
+              {icon}
           </TouchableOpacity>
           <View style={styles.itemNameBox}>
             {status && (

@@ -61,7 +61,7 @@ const Login = ({ theme }: any) => {
   const bljTheme = theme.key === "FATHER BLU JUNIOR" ? true : false;
 
   useEffect(() => {
-    setChildNum();
+    setData();
     handleBiometricTypeCheck();
     setOperator();
   }, []);
@@ -92,21 +92,28 @@ const Login = ({ theme }: any) => {
     }
   };
 
-  const setChildNum = () => {
+  const setData = async () => {
+    const user: any = await AsyncStorage.getItem("username");
+    console.log(user);
+    setUsername(user);
     AsyncStorage.getItem("childPhone").then((childPhone) => {
       dispatch(childPhoneNumber(childPhone));
     });
   };
 
   const handleTouch = async (username: string, password: string) => {
+    console.log(username);
+    console.log(password);
     setLoading(true);
     if (validateUserName(username)) {
       login(username, password, isChild)
         .then((response: any) => {
+          console.log(response);
           setLoading(false);
           if (response.status == 200) {
             dispatch(otpTokenChanged(response.data.access_token));
             AsyncStorage.setItem("token", response.data.access_token);
+            AsyncStorage.setItem("username", username);
             if (biometricType) {
               (async () => {
                 const checkWasAssigened = await getLocalData("biometrics");
@@ -171,7 +178,6 @@ const Login = ({ theme }: any) => {
       const credentials = await Keychain.getGenericPassword(options);
       if (credentials) {
         setUsername(credentials.username);
-        setPassword(credentials.password);
         handleTouch(credentials.username, credentials.password);
       } else {
         setError({
@@ -191,11 +197,13 @@ const Login = ({ theme }: any) => {
 
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+      style={[styles.container, { backgroundColor: theme.backgroundColor }]}
+    >
       <StatusLogin theme={theme} />
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={styles.contentContainer}>
+        contentContainerStyle={styles.contentContainer}
+      >
         <Header theme={theme} onPress={() => setSupportModal(true)} />
         <View style={styles.content}>
           {bljTheme ? (
@@ -211,6 +219,7 @@ const Login = ({ theme }: any) => {
               onChange={clearError}
               onChangeText={setUsername}
               value={username}
+              initValue={username}
             />
             <MaterialTextField
               label="رمز عبور"
@@ -227,7 +236,7 @@ const Login = ({ theme }: any) => {
             username={username}
             password={password}
             onPress={() =>
-              username || password
+              password
                 ? handleTouch(username, password)
                 : isFace || isFinger
                 ? handleBiometricsAction()

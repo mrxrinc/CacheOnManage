@@ -1,25 +1,24 @@
 import React, { Component } from "react";
-import { Animated, View, TouchableOpacity, StyleSheet } from "react-native";
+import {View, TouchableOpacity, StyleSheet } from "react-native";
 
 const BUTTON_SIZE = 100;
 
 import Option from "./option";
-import More from "../../../../components/icons/quick-access.svg";
-import Close from "../../../../components/icons/qr-payment-quick access.svg";
-import bill from "../../../../images/collprass-icon/bill.png";
-import internet from "../../../../images/collprass-icon/internet.png";
-import charge from "../../../../images/collprass-icon/charge.png";
-import qrCode from "../../../../images/collprass-icon/qrCode.png";
+import More from "components/icons/quick-access.svg";
+import Close from "components/icons/quick-access-close.svg";
+import Bill from "components/icons/barcode.svg";
+import Internet from "components/icons/internet-package.svg";
+import Charge from "components/icons/simcard.svg";
+import QrCode from "components/icons/qr-payment-quick-access.svg";
 
 export default class FanButton extends Component {
   state = {
-    // opacity: new Animated.Value(5),
     status: false,
     options: [
-      { id: 0, type: "internet", icon: internet },
-      { id: 1, type: "mobileTopUp", icon: charge },
-      { id: 2, type: "mobileBillPayment", icon: bill },
-      { id: 3, type: "sepQrPayment", icon: qrCode },
+      { id: 0, type: "internet", icon: <Internet width={24} height={24} fill={this.props.theme.backgroundColor} /> },
+      { id: 1, type: "mobileTopUp", icon: <Charge width={24} height={24} fill={this.props.theme.backgroundColor} /> },
+      { id: 2, type: "mobileBillPayment", icon: <Bill width={24} height={24} fill={this.props.theme.backgroundColor} /> },
+      { id: 3, type: "sepQrPayment", icon: <QrCode width={24} height={24} fill={this.props.theme.backgroundColor} /> },
     ],
   };
 
@@ -64,7 +63,7 @@ export default class FanButton extends Component {
 
   render() {
     const { status } = this.state;
-    const { theme, bljTheme } = this.props;
+    const { theme } = this.props;
     return (
       <View style={[styles.container]}>
         {this._renderOptions()}
@@ -73,11 +72,11 @@ export default class FanButton extends Component {
           <TouchableOpacity
             style={[styles.button, { backgroundColor: theme.backgroundColor }]}
             onPress={() => this._showOptions()}>
-            <More  />
+            <More width={38} height={38} fill={theme.fanBtnMore} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={() => this._hideOptions()}>
-            <Close />
+            <Close width={38} height={38} fill={theme.fanBtnMore}/>
           </TouchableOpacity>
         )}
       </View>
