@@ -19,13 +19,19 @@ type Props = {
   showModal: boolean;
   setShowModal: (status: boolean) => void;
   handleSignIn: (token: string) => void;
+  handleCancel: () => void;
 };
 type Error = {
   errorText: string;
   isError: boolean;
 };
 
-const SigninModal: FC<Props> = ({ showModal, setShowModal, handleSignIn }) => {
+const SigninModal: FC<Props> = ({
+  showModal,
+  setShowModal,
+  handleSignIn,
+  handleCancel = () => null,
+}) => {
   const [
     biometricType,
     setBiometricType,
@@ -87,6 +93,7 @@ const SigninModal: FC<Props> = ({ showModal, setShowModal, handleSignIn }) => {
         handleSubmitSignin(credentials.username, credentials.password);
       } else {
         console.warn("No credentials stored");
+        setShowSignInModal(true);
         setError({
           errorText: "اثر انگشت شما ثبت نشده است",
           isError: true,
@@ -188,6 +195,7 @@ const SigninModal: FC<Props> = ({ showModal, setShowModal, handleSignIn }) => {
           secondaryOnPress={() => {
             setShowSignInModal(false);
             setShowModal(false);
+            handleCancel();
           }}
           style={styles.buttonsWrapper}
         />

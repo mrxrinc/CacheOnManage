@@ -19,9 +19,11 @@ export default (props: any) => {
     handleGetData();
   }, []);
 
-  async function handleGetData() {
+  async function handleGetData(dynamicToken?: string) {
     try {
-      const { status, statusText, data } = await getSettingData(token);
+      const { status, statusText, data } = await getSettingData(
+        dynamicToken || token
+      );
       if (status === 200) {
         setSettingData(data);
         logger("SETTING DATA:", data);
@@ -34,9 +36,15 @@ export default (props: any) => {
   }
 
   function handleUpdateData(data: any) {
-    setSettingData(null);
-    setSettingData(data);
-    logger(data);
+    // needs some refinement!
+    if (!!data && typeof data !== "string") {
+      setSettingData(null);
+      setSettingData(data);
+    } else if (!!data && typeof data === "string") {
+      logger("INSIDE ELSE : ");
+      handleGetData(data);
+    }
+    console.log({ data });
   }
 
   return (

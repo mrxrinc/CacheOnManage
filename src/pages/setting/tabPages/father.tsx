@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, Text, ScrollView, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { FormattedText } from "components/format-text";
 import { colors } from "constants/index";
 import style from "./style";
@@ -20,6 +21,7 @@ import AddImageIcon from "components/icons/addImage.svg";
 import Card from "pages/setting/components/card";
 import KeyValuePair from "pages/setting/components/keyValuePair";
 import { setSettingData, setFatherChangePassword } from "utils/api";
+import SigninModal from "components/signinModal";
 import { RootState } from "../../../customType";
 import {
   ModalType,
@@ -29,6 +31,7 @@ import {
 } from "./constants";
 
 export default ({ fatherData, handleUpdateData }: any) => {
+  const navigation = useNavigation();
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>(fatherData.username || "");
@@ -40,6 +43,8 @@ export default ({ fatherData, handleUpdateData }: any) => {
   const [modal, setModal] = useState<ModalType>(OFFLOAD_MODAL);
   const [error, setError] = useState<any>({ field: "", message: "" });
   const [supportModal, setSupportModal] = useState<boolean>(false);
+  const [showSigninModal, setShowSigninModal] = useState<boolean>(false);
+  const [updatedData, setUpdatedData] = useState<any>(null);
 
   useEffect(() => {
     clearError();
@@ -75,31 +80,30 @@ export default ({ fatherData, handleUpdateData }: any) => {
           token,
           requestBody
         );
-        setLoading(false);
         if (status === 200) {
           handleUpdateData(data);
-          setModal(OFFLOAD_MODAL);
           if (modal.activeContent === "PASSWORD") {
             await Keychain.resetGenericPassword();
           }
         }
       } else {
         const { status, data } = await setSettingData(token, requestBody);
-        setLoading(false);
         if (status === 200) {
           handleUpdateData(data);
-          setModal(OFFLOAD_MODAL);
-          if (
-            modal.activeContent === "USERNAME" ||
-            modal.activeContent === "PASSWORD"
-          ) {
-            await Keychain.resetGenericPassword();
-          }
         }
       }
     } catch (err) {
-      setLoading(false);
+      if (
+        modal.activeContent === "USERNAME" ||
+        modal.activeContent === "PASSWORD"
+      ) {
+        await Keychain.resetGenericPassword();
+        setShowSigninModal(true);
+      }
       console.warn("ERROR ON UPDATING FATHER DATA: ", err.response);
+    } finally {
+      setLoading(false);
+      setModal(OFFLOAD_MODAL);
     }
   };
 
@@ -273,7 +277,7 @@ export default ({ fatherData, handleUpdateData }: any) => {
         <View style={style.cardsWrapper}>
           <Card title="امنیت">
             <>
-              <View style={style.cardRow}>
+              {/* <View style={style.cardRow}>
                 <KeyValuePair
                   rowKey="نام کاربری:"
                   value={fatherData.username}
@@ -295,7 +299,7 @@ export default ({ fatherData, handleUpdateData }: any) => {
                     style={{ color: colors.links }}
                   />
                 </TouchableOpacity>
-              </View>
+              </View> */}
               <View style={style.cardRow}>
                 <KeyValuePair rowKey="رمز ورود:" value="********" />
                 <TouchableOpacity
@@ -405,6 +409,18 @@ export default ({ fatherData, handleUpdateData }: any) => {
         setShowModal={() => setSupportModal(false)}
         title="پشتیبانی‌"
         phoneNumber="02147474747"
+      />
+
+      <SigninModal
+        showModal={showSigninModal}
+        setShowModal={setShowSigninModal}
+        handleSignIn={() => handleUpdateData(updatedData)}
+        handleCancel={() => {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "auth" }],
+          });
+        }}
       />
     </View>
   );
