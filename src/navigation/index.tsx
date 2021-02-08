@@ -51,7 +51,6 @@ import Total from "pages/transactions/total";
 import DetailItem from "pages/transactions/detailItem";
 import SpendParent from "pages/spend-parent";
 import Login from "pages/user/signIn/login";
-import Test from "test";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
