@@ -15,6 +15,7 @@ type Props = {
   style?: any;
   titleStyle?: any;
   fontSize?: number;
+  lineHeight?: number;
   color?: string;
   disabled?: boolean;
   loading?: boolean;
@@ -39,6 +40,7 @@ const Button = ({
   onPress,
   color = defaultColor,
   fontSize,
+  lineHeight,
   style,
   titleStyle,
   disabled,
@@ -51,21 +53,17 @@ const Button = ({
         styles.container,
         {
           borderRadius: theme.buttonBorderRadius,
+          backgroundColor: handleBackground(color, outline, disabled),
+          borderWidth: disabled ? 0 : outline ? 1 : 0,
+          borderColor: outline ? color : "transparent",
+          elevation: disabled ? 0 : 3,
+          shadowOpacity: disabled ? 0 : 0.18,
           ...style,
         },
       ]}
     >
       <TouchableHighlight
-        style={[
-          styles.button,
-          {
-            backgroundColor: handleBackground(color, outline, disabled),
-            borderWidth: disabled ? 0 : outline ? 1 : 0,
-            borderColor: outline ? color : "transparent",
-            elevation: disabled ? 0 : 3,
-            shadowOpacity: disabled ? 0 : 0.18,
-          },
-        ]}
+        style={[styles.button]}
         underlayColor={shadeColor(color, -10)}
         disabled={disabled}
         onPress={onPress}
@@ -75,7 +73,7 @@ const Button = ({
           <FormattedText
             fontFamily="Bold"
             style={{
-              lineHeight: IOS ? 15 : 25,
+              lineHeight: lineHeight ? lineHeight : IOS ? 15 : 25,
               fontSize: fontSize ? fontSize : 16,
               color: disabled ? colors.white : outline ? color : colors.white,
               ...titleStyle,

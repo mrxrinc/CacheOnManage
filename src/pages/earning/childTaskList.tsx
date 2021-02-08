@@ -28,6 +28,7 @@ const TaskList = (props: any) => {
   const [taskId, setTaskId] = useState("");
   const [taskName, setTaskName] = useState("");
   const [taskAmount, setTaskAmount] = useState("");
+  const [icon, setIcon] = useState("");
   const [taskType, setTaskType] = useState<string | null>(null);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
@@ -209,19 +210,19 @@ const TaskList = (props: any) => {
               )}
 
               {item.status == "DONE" && !isChild && (
-                <TouchableOpacity
+                <Button
                   style={styles.taskItemConfirmButton}
+                  color={colors.buttonSubmitActive}
+                  title="تائید انجام مسئولیت"
+                  fontSize={12}
+                  titleStyle={styles.taskItemConfirmButtonText}
                   onPress={() => {
                     setTaskId(item.id);
                     navigation.navigate("confirmTask", {
                       item,
                     });
                   }}
-                >
-                  <FormattedText style={styles.taskItemConfirmButtonText}>
-                    تائید انجام مسئولیت
-                  </FormattedText>
-                </TouchableOpacity>
+                />
               )}
 
               {item.status == "DONE" && isChild && (
@@ -251,6 +252,7 @@ const TaskList = (props: any) => {
                   <TouchableOpacity
                     onPress={() => {
                       setTaskName(item.taskName);
+                      setIcon(item.icon);
                       setTaskAmount(item.amount);
                       setTaskId(item.id);
                       setTaskType(item.type);
@@ -398,6 +400,7 @@ const TaskList = (props: any) => {
         amount={taskAmount}
         taskId={taskId}
         type={taskType}
+        icon={icon}
       />
     </View>
   );
@@ -504,14 +507,11 @@ const styles = StyleSheet.create({
   taskItemConfirmButton: {
     width: 120,
     height: 24,
-    backgroundColor: colors.buttonSubmitActive,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 17,
   },
   taskItemConfirmButtonText: {
-    color: colors.white,
-    fontSize: 12,
     lineHeight: IOS ? 8 : 13,
     textAlign: "center",
   },

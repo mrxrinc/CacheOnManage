@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Image } from "react-native";
 import StarRating from "react-native-star-rating";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
@@ -59,7 +59,12 @@ const confirmTaskPage = ({ route }: any) => {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.titleWrapper}>
           <View style={styles.titleAndIcon}>
-            <View style={styles.iconWrapper} />
+            <View style={styles.iconWrapper}>
+              <Image
+                source={{ uri: `data:image/png;base64, ${item.icon}` }}
+                style={styles.itemIcon}
+              />
+            </View>
             <FormattedText>{item.taskName}</FormattedText>
           </View>
           <FormattedText
@@ -168,7 +173,13 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     marginRight: 5,
-    backgroundColor: colors.gray700,
+    backgroundColor: colors.gray950,
+    borderColor: colors.gray650,
+    borderWidth: 0.5,
+  },
+  itemIcon: {
+    width: 32,
+    height: 32,
   },
   titleAmount: {
     fontSize: 16,
