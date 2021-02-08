@@ -211,8 +211,7 @@ const Payment = (props: any) => {
       >
         <PaymentTransactionResult
           data={transactionResults}
-          status={quickAccessStore.data.success}
-          description={quickAccessStore.data.description}
+          hasError={quickAccessStore.data.hasError}
           onClose={() => {
             navigation.reset({
               index: 0,
