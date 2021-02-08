@@ -263,7 +263,12 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
             title=" انتقال وجه به هدف"
             style={style.submitButton}
             onPress={formik.handleSubmit}
-            disabled={!formik.isValid || savingStore.loading}
+            disabled={
+              !formik.isValid ||
+              !formik.values.amount ||
+              !formik.values.target ||
+              savingStore.loading
+            }
             loading={savingStore.loading}
             color={colors.buttonSubmitActive}
           />
