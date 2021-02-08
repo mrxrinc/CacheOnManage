@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
-import { Rating } from "react-native-ratings";
+import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import StarRating from "react-native-star-rating";
 import { FormattedText } from "components/format-text";
 import Button from "components/button";
 import { colors, iosBoxShadow, width, IOS } from "constants/index";
@@ -34,6 +28,7 @@ const TaskList = (props: any) => {
   const [taskId, setTaskId] = useState("");
   const [taskName, setTaskName] = useState("");
   const [taskAmount, setTaskAmount] = useState("");
+  const [icon, setIcon] = useState("");
   const [taskType, setTaskType] = useState<string | null>(null);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
@@ -193,13 +188,18 @@ const TaskList = (props: any) => {
             </FormattedText>
             <View style={styles.taskItemOptionsBox}>
               {item.status == "ACCEPT" && (
-                <Rating
-                  showRating={false}
-                  readonly
-                  startingValue={item.qualityStar || 2}
-                  imageSize={20}
-                  style={styles.stars}
-                  startStyle={{ flexDirection: "row-reverse" }}
+                <StarRating
+                  disabled
+                  maxStars={5}
+                  emptyStar={"star"}
+                  emptyStarColor={colors.gray650}
+                  fullStar={"star"}
+                  fullStarColor={colors.star}
+                  iconSet={"MaterialIcons"}
+                  rating={item.qualityStar || 2}
+                  reversed={true}
+                  starSize={22}
+                  containerStyle={{ flexDirection: "row-reverse" }}
                 />
               )}
 
@@ -210,19 +210,19 @@ const TaskList = (props: any) => {
               )}
 
               {item.status == "DONE" && !isChild && (
-                <TouchableOpacity
+                <Button
                   style={styles.taskItemConfirmButton}
+                  color={colors.buttonSubmitActive}
+                  title="تائید انجام مسئولیت"
+                  fontSize={12}
+                  titleStyle={styles.taskItemConfirmButtonText}
                   onPress={() => {
                     setTaskId(item.id);
                     navigation.navigate("confirmTask", {
                       item,
                     });
                   }}
-                >
-                  <FormattedText style={styles.taskItemConfirmButtonText}>
-                    تائید انجام مسئولیت
-                  </FormattedText>
-                </TouchableOpacity>
+                />
               )}
 
               {item.status == "DONE" && isChild && (
@@ -252,6 +252,7 @@ const TaskList = (props: any) => {
                   <TouchableOpacity
                     onPress={() => {
                       setTaskName(item.taskName);
+                      setIcon(item.icon);
                       setTaskAmount(item.amount);
                       setTaskId(item.id);
                       setTaskType(item.type);
@@ -399,6 +400,7 @@ const TaskList = (props: any) => {
         amount={taskAmount}
         taskId={taskId}
         type={taskType}
+        icon={icon}
       />
     </View>
   );
@@ -505,14 +507,11 @@ const styles = StyleSheet.create({
   taskItemConfirmButton: {
     width: 120,
     height: 24,
-    backgroundColor: colors.buttonSubmitActive,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 17,
   },
   taskItemConfirmButtonText: {
-    color: colors.white,
-    fontSize: 12,
     lineHeight: IOS ? 8 : 13,
     textAlign: "center",
   },

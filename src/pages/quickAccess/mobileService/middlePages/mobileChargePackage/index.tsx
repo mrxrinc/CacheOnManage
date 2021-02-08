@@ -78,7 +78,7 @@ const SelectChargePackage = () => {
               maxLength={13}
               keyboardType={"number-pad"}
               onChangeText={(value: string) => {
-                setAmount(value);
+                setAmount(value.replace(/,/g, ""));
                 setActive(null);
               }}
               value={formatNumber(amount)}

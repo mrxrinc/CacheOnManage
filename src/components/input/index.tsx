@@ -53,10 +53,11 @@ const style = StyleSheet.create({
     alignItems: "flex-start",
   },
   title: {
-    fontSize: 12,
+    fontSize: 14,
     color: colors.gray500,
     textAlign: "right",
     paddingRight: 5,
+    marginBottom: 3,
   },
   inputWrapper: {
     width: "100%",

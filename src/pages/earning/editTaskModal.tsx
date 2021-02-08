@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  Image,
+} from "react-native";
 import Modal from "react-native-modal";
 import { FormattedText } from "components/format-text";
 import { colors, IOS } from "constants/index";
@@ -21,6 +27,7 @@ export default ({
   amount,
   taskId,
   type,
+  icon,
   backOpacity,
 }: any) => {
   const [inputAmount, setInputAmount] = useState("");
@@ -101,7 +108,12 @@ export default ({
             },
           ]}
         >
-          <View style={styles.iconBox} />
+          <View style={styles.iconBox}>
+            <Image
+              source={{ uri: `data:image/png;base64, ${icon}` }}
+              style={styles.itemIcon}
+            />
+          </View>
           <FormattedText style={styles.taskName}>{taskName}</FormattedText>
         </View>
 
@@ -290,7 +302,13 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 50,
-    backgroundColor: colors.gray550,
+    backgroundColor: colors.gray950,
+    borderColor: colors.gray650,
+    borderWidth: 0.5,
+  },
+  itemIcon: {
+    width: 32,
+    height: 32,
   },
   earningText: {
     fontSize: 12,

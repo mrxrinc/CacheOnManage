@@ -54,6 +54,7 @@ const EntryType = ({ setTheme }: any) => {
         <View style={styles.bouttonBox}>
           <Button
             style={styles.button}
+            color={"#42e6c5"}
             onPress={() => {
               handleTouch(false);
               setTheme("FATHER MONEY");
@@ -62,6 +63,7 @@ const EntryType = ({ setTheme }: any) => {
           />
           <Button
             style={styles.button}
+            color={"#42e6c5"}
             onPress={() => {
               handleTouch(false);
               setTheme("FATHER BLU JUNIOR");
@@ -71,6 +73,7 @@ const EntryType = ({ setTheme }: any) => {
 
           <Button
             style={styles.button}
+            color={"#42e6c5"}
             onPress={() => {
               handleTouch(true);
               setTheme("CHILD MONEY");
@@ -115,11 +118,6 @@ const styles = StyleSheet.create({
     height: height * 0.21,
   },
   button: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: width * 0.89,
-    height: 44,
-    backgroundColor: "#43e6c5",
     borderRadius: 30,
   },
 });
