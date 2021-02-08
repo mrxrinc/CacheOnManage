@@ -1,17 +1,13 @@
 import React from "react";
-import {
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  Platform,
-} from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import Support from "components/icons/support.svg";
 import { colors, width } from "constants/index";
 
 const Header = (props: any) => {
+  const { onPress, theme } = props;
   return (
-    <TouchableOpacity style={styles.container} onPress={props.onPress}>
-      <Support style={styles.icon} fill={colors.dark} />
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Support style={styles.icon} fill={theme.support} />
     </TouchableOpacity>
   );
 };

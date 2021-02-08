@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Animated, View, Image, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Animated, View, StyleSheet,TouchableOpacity } from "react-native";
 import { FormattedText } from "../../../../components/format-text";
 import store from "../../../../store";
 import { QuickAccessRootPage } from "../../../../store/QuickAccess/quickAccess.actions";
@@ -23,12 +22,12 @@ class Option extends Component {
   }
 
   _getStyle() {
-    const { size } = this.props;
+    const { size, color } = this.props;
     const { scale, move } = this.state;
     return {
       width: size / 2,
       height: size / 2,
-      backgroundColor: "#43e6c5",
+      backgroundColor: color,
       borderRadius: size / 4,
       justifyContent: "center",
       alignItems: "center",
@@ -69,11 +68,17 @@ class Option extends Component {
         offset = { x: size, y: 0 };
     }
 
-    Animated.timing(this.state.move, { toValue: offset }).start();
+    Animated.timing(this.state.move, {
+      toValue: offset,
+      useNativeDriver: true,
+    }).start();
   }
 
   moveIn() {
-    Animated.timing(this.state.move, { toValue: 0 }).start();
+    Animated.timing(this.state.move, {
+      toValue: 0,
+      useNativeDriver: true,
+    }).start();
   }
 
   handleAction() {
@@ -91,20 +96,19 @@ class Option extends Component {
     }
   }
   render() {
-    const { icon, number, status } = this.props;
+    const { icon, number, status, colorText } = this.props;
 
     return (
       <View style={styles.container}>
         <Animated.View style={this._getStyle()}>
           <TouchableOpacity
             style={styles.itemTouch}
-            onPress={() => this.handleAction()}
-          >
-            <Image source={icon} style={{ width: 24, height: 24 }} />
+            onPress={() => this.handleAction()}>
+              {icon}
           </TouchableOpacity>
           <View style={styles.itemNameBox}>
             {status && (
-              <FormattedText style={styles.itemText}>
+              <FormattedText style={[styles.itemText, { color: colorText }]}>
                 {number == 0
                   ? "خرید بسته اینترنت"
                   : number == 1
@@ -136,11 +140,11 @@ const styles = StyleSheet.create({
   itemNameBox: {
     position: "absolute",
     top: 50,
-    width: 100,
+    width: 120,
     justifyContent: "center",
     alignItems: "center",
   },
-  itemText: { color: "#00015d", fontSize: 12 },
+  itemText: { fontSize: 12 },
 });
 
 export default Option;
