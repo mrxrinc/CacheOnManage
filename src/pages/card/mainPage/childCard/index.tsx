@@ -1,13 +1,11 @@
 import React from "react";
-import { View, Image, Dimensions } from "react-native";
+import { View, Image } from "react-native";
 import { FormattedText } from "components/format-text";
 import ActiveCard from "images/cards/mainPage/ActiveCard.svg";
 import SimCard from "images/cards/mainPage/simcard.svg";
 import blueLogo from "images/cards/mainPage/blue-logo.png";
 import styles from "./styles";
 import { formatNumber } from "utils/index";
-
-const { width, height } = Dimensions.get("window");
 
 const ChildCard = (props: any) => {
   const cardInfo = props.cardsInfo;
