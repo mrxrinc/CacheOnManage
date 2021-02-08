@@ -1,4 +1,5 @@
 import * as React from "react";
+import AsyncStorage from "@react-native-community/async-storage";
 import AppNavigator from "./navigation";
 import { LogBox } from "react-native";
 import { Provider } from "react-redux";
@@ -19,6 +20,12 @@ globalAny.XMLHttpRequest =
   globalAny.originalXMLHttpRequest || globalAny.XMLHttpRequest;
 
 const App = () => {
+  React.useEffect(() => {
+    return () => {
+      AsyncStorage.removeItem("token");
+    };
+  }, []);
+
   return (
     <Provider store={appStore}>
       <NavigationContainer ref={navigationRef}>

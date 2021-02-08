@@ -1,6 +1,17 @@
-import { Dimensions, Platform } from "react-native";
+import { Dimensions, Platform, Keyboard } from "react-native";
 
 export const IOS = Platform.OS === "ios" ? true : false;
+
+export const keyboardIsVisible = () => {
+  Keyboard.addListener("keyboardDidShow", () => {
+    logger("keyboard is up");
+    return true;
+  });
+  Keyboard.addListener("keyboardDidHide", () => {
+    logger("keyboard is down");
+    return false;
+  });
+};
 
 export const { width, height } = Dimensions.get("window");
 
@@ -34,6 +45,7 @@ export const colors = {
   title: "#00015d",
   links: "#0c96ff",
   text: "#515c6f",
+  star: "#ffe200",
 
   gradientRight: "#BB6AFF",
   gradientLeft: "#397FFF",

@@ -91,65 +91,60 @@ export const SelectCarrier: FC = (props: any) => {
 
   return (
     <Layout>
-      <>
-        <Header
-          staticTitle={"internetPackage"}
-          handleBack={() => props.navigation.goBack()}
-        />
-        <ScrollView>
-          <View style={styles.phoneNumberWrapper}>
-            <FormattedText id="otp.mobileNumber" style={styles.phoneNumber} />
-            <View style={styles.mobileAndLogo}>
-              <FormattedText
-                style={styles.phoneNumberBesideLogo}
-                fontFamily="Regular-FaNum"
-              >
-                {mobileNumber}
-              </FormattedText>
-              <View style={styles.currentCarrierLogo}>
-                {handleDefaultCarrier(mobileNumber)}
-              </View>
+      <Header
+        staticTitle={"internetPackage"}
+        handleBack={() => props.navigation.goBack()}
+      />
+      <ScrollView>
+        <View style={styles.phoneNumberWrapper}>
+          <FormattedText id="otp.mobileNumber" style={styles.phoneNumber} />
+          <View style={styles.mobileAndLogo}>
+            <FormattedText
+              style={styles.phoneNumberBesideLogo}
+              fontFamily="Regular-FaNum"
+            >
+              {mobileNumber}
+            </FormattedText>
+            <View style={styles.currentCarrierLogo}>
+              {handleDefaultCarrier(mobileNumber)}
             </View>
           </View>
+        </View>
 
-          <View style={styles.simcardTypeWrapper}>
-            <View style={styles.switcherWrapper}>
-              <CheckBox
-                onChange={() => handleSimcardType("permanent")}
-                showActive={simcardType === "permanent"}
-                color={colors.buttonSubmitActive}
-                size={20}
-              />
-              <FormattedText id="permanent" style={styles.simcardTypeTitle} />
-            </View>
-            <View style={styles.switcherWrapper}>
-              <CheckBox
-                onChange={() => handleSimcardType("perpaid")}
-                showActive={simcardType === "perpaid"}
-                color={colors.buttonSubmitActive}
-                size={20}
-              />
-              <FormattedText id="perpaid" style={styles.simcardTypeTitle} />
-            </View>
-          </View>
-          <FormattedText style={styles.chooseCarrierText}>
-            در صورت ترابرد، لطفا اپراتور جدید خود را انتخاب کنید.{" "}
-          </FormattedText>
-
-          {carriersName.map((carrier: Carrier) => renderCarrierRow(carrier))}
-
-          <View style={styles.buttonWrapper}>
-            <Button
-              title="ادامه"
-              onPress={handleNextPage}
-              color={colors.buttonOpenActive}
-              disabled={
-                mobileNumber && chosenCarrier && simcardType ? false : true
-              }
+        <View style={styles.simcardTypeWrapper}>
+          <View style={styles.switcherWrapper}>
+            <CheckBox
+              onChange={() => handleSimcardType("permanent")}
+              showActive={simcardType === "permanent"}
+              color={colors.buttonSubmitActive}
+              size={20}
             />
+            <FormattedText id="permanent" style={styles.simcardTypeTitle} />
           </View>
-        </ScrollView>
-      </>
+          <View style={styles.switcherWrapper}>
+            <CheckBox
+              onChange={() => handleSimcardType("perpaid")}
+              showActive={simcardType === "perpaid"}
+              color={colors.buttonSubmitActive}
+              size={20}
+            />
+            <FormattedText id="perpaid" style={styles.simcardTypeTitle} />
+          </View>
+        </View>
+        <FormattedText style={styles.chooseCarrierText}>
+          در صورت ترابرد، لطفا اپراتور جدید خود را انتخاب کنید.{" "}
+        </FormattedText>
+
+        {carriersName.map((carrier: Carrier) => renderCarrierRow(carrier))}
+      </ScrollView>
+      <View style={styles.buttonWrapper}>
+        <Button
+          title="ادامه"
+          onPress={handleNextPage}
+          color={colors.buttonOpenActive}
+          disabled={mobileNumber && chosenCarrier && simcardType ? false : true}
+        />
+      </View>
     </Layout>
   );
 };
