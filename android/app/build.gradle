@@ -1,4 +1,7 @@
 apply plugin: "com.android.application"
+
+// this is because we just add MaterialIcon font not all 10 fonts that comes with module
+// for saving space and not having unused fonts in out project
 project.ext.vectoricons = [
     iconFontNames: [ 'MaterialIcons.ttf' ] // Name of the font files you want to copy
 ]
