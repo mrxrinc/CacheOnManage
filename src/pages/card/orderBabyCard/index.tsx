@@ -22,15 +22,16 @@ import { RootState, RootStateType } from "../../../../customType";
 import MaterialTextField from "components/materialTextfield";
 import Input from "components/input";
 import CardsActions from "store/Cards/cards.action";
+import { withTheme } from "themeCore/themeProvider";
 
 interface IResponse {
   description: String;
   isSuccess: any;
 }
-const OrderBabyCard = (props: any) => {
+const OrderBabyCard = ({ theme, cardsInfo }: any) => {
   const dispatch = useDispatch();
   const [modal, setModal] = useState<ModalType>(OFFLOAD_MODAL);
-  const cardInfo = props.cardsInfo;
+  // const cardInfo = props.cardsInfo;
   const token = useSelector<RootStateType, any>((state) => state.user.token);
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   const [response, setResponse] = useState<IResponse>({
@@ -41,7 +42,7 @@ const OrderBabyCard = (props: any) => {
   const [password, setPassword] = useState("");
   const [reEnterPassword, setReEnterPassword] = useState("");
   const [address, setAddress] = useState("");
-  const [postalCode, setPostalCode] = useState(cardInfo.postalCode);
+  const [postalCode, setPostalCode] = useState(cardsInfo.postalCode);
   const [edit, setEdit] = useState<Boolean>(false);
   const [mainLoading, setMainLoading] = useState<Boolean>(false);
 
@@ -50,7 +51,7 @@ const OrderBabyCard = (props: any) => {
   const handleOrderCard = () => {
     setMainLoading(true);
     const data = {
-      childId: cardInfo.childId,
+      childId: cardsInfo.childId,
       postalCode: postalCode,
     };
     setOrderCard(token, data)
@@ -72,7 +73,7 @@ const OrderBabyCard = (props: any) => {
   };
 
   const handleTouch = () => {
-    if (cardInfo.status == "NONE") {
+    if (cardsInfo.status == "NONE") {
       setModal({
         title: response.isSuccess == null ? "سفارش کارت" : "",
         activeContent: "ORDER",
@@ -90,7 +91,7 @@ const OrderBabyCard = (props: any) => {
 
   const handleActivation = () => {
     const data = {
-      childId: cardInfo.childId,
+      childId: cardsInfo.childId,
       pan: cardPan,
       pin: password,
     };
@@ -182,7 +183,7 @@ const OrderBabyCard = (props: any) => {
                       <View style={styles.editButtonWrapper}>
                         <Button
                           title="تائید آدرس و سفارش "
-                          color={colors.buttonSubmitActive}
+                          color={theme.ButtonGreenColor}
                           onPress={handleOrderCard}
                         />
                       </View>
@@ -202,17 +203,17 @@ const OrderBabyCard = (props: any) => {
                   <FormattedText
                     style={{ fontSize: 14, color: colors.text, lineHeight: 21 }}
                   >
-                    {cardInfo.address}
+                    {cardsInfo.address}
                   </FormattedText>
                 </View>
                 <UnequalTwinButtons
                   buttonType={"equal"}
                   mainText="تائید آدرس و سفارش "
-                  mainColor={colors.buttonSubmitActive}
+                  mainColor={theme.ButtonGreenColor}
                   mainLoading={mainLoading}
                   mainOnPress={handleOrderCard}
                   secondaryText="ویرایش آدرس ارسال"
-                  secondaryColor={colors.buttonOpenActive}
+                  secondaryColor={theme.ButtonBlueColor}
                   secondaryOnPress={() => setEdit(true)}
                   style={styles.buttonsWrapper}
                 />
@@ -331,10 +332,10 @@ const OrderBabyCard = (props: any) => {
             <Card
               width={height * 0.89}
               height={width * 0.8}
-              style={{ position: "absolute" }}
+              style={{ position: "absolute", opacity: 0.7 }}
             />
             <TouchableOpacity onPress={handleTouch}>
-              {cardInfo.status == "NONE" && <Plus />}
+              {cardsInfo.status == "NONE" && <Plus />}
             </TouchableOpacity>
           </View>
         </View>
@@ -343,7 +344,7 @@ const OrderBabyCard = (props: any) => {
             <FormattedText
               style={styles.descriptionText}
               id={
-                cardInfo.status == "NONE"
+                cardsInfo.status == "NONE"
                   ? "orderBabyCard.orderDescription"
                   : "orderBabyCard.activationDescription"
               }
@@ -351,23 +352,23 @@ const OrderBabyCard = (props: any) => {
           </View>
         </View>
       </View>
-      {!isChild && cardInfo.status == "NONE" && (
+      {!isChild && cardsInfo.status == "NONE" && (
         <View style={styles.button}>
           <Button
-            color={colors.buttonOpenActive}
+            color={theme.ButtonBlueColor}
             title="سفارش کارت"
-            disabled={cardInfo.status == "ORDERED"}
+            disabled={cardsInfo.status == "ORDERED"}
             onPress={handleTouch}
           />
         </View>
       )}
 
-      {isChild && cardInfo.status == "FORCED_PIN_CHANGE" && (
+      {isChild && cardsInfo.status == "FORCED_PIN_CHANGE" && (
         <View style={styles.button}>
           <Button
-            color={colors.buttonOpenActive}
+            color={theme.ButtonBlueColor}
             title="فعالسازی کارت"
-            disabled={cardInfo.status == "ORDERED"}
+            disabled={cardsInfo.status == "ORDERED"}
             onPress={handleTouch}
           />
         </View>
@@ -396,4 +397,4 @@ const OrderBabyCard = (props: any) => {
   );
 };
 
-export default OrderBabyCard;
+export default withTheme(OrderBabyCard);
