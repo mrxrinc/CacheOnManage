@@ -24,7 +24,7 @@ export default (props: any) => {
       const { status, statusText, data } = await getSettingData(token);
       if (status === 200) {
         setSettingData(data);
-        console.log("SETTING DATA:", data);
+        logger("SETTING DATA:", data);
       } else {
         console.warn(" Status is not 200!", status, statusText);
       }
@@ -34,7 +34,9 @@ export default (props: any) => {
   }
 
   function handleUpdateData(data: any) {
+    setSettingData(null);
     setSettingData(data);
+    logger(data);
   }
 
   return (
