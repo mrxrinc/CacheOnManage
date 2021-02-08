@@ -41,22 +41,33 @@ function* fetchTransfetMoneyTransaction(action: Action) {
       SavingService.transferMoneyToTarget.bind(SavingService),
       action.payload
     );
-
-    if (!transferMoneyTransactionRes.success) {
-      console.log("error");
-    } else {
-      yield put(
-        SavingActions.transferMoneyToTarget(transferMoneyTransactionRes, {
+    yield put(
+      SavingActions.transferMoneyToTarget(
+        { data: transferMoneyTransactionRes, hasError: false },
+        {
           sagas: false,
-        })
-      );
-    }
+        }
+      )
+    );
+
     yield put(SavingActions.setLoading(false));
   } catch (error) {
+    if (error.response.data.details) {
+      yield put(
+        SavingActions.transferMoneyToTarget(
+          { data: error.response.data.details, hasError: true },
+          {
+            sagas: false,
+          }
+        )
+      );
+    }
     console.log(
       "DEBUG: function*fetchTransfetMoneyTransaction -> error",
       error.response
     );
+    yield put(SavingActions.setLoading(false));
+  } finally {
     yield put(SavingActions.setLoading(false));
   }
 }

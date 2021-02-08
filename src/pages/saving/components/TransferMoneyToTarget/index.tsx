@@ -70,7 +70,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
   const isChild = useSelector<any, boolean>((state) => state.user.ischild);
 
   const transactionResults = React.useMemo(() => {
-    if (savingStore.transferMoneyToTargetTransactionResult) {
+    if (savingStore.transferMoneyToTargetTransactionResult?.data) {
       const result = R.map((key: string) => {
         const isAmount = key === "amount";
 
@@ -78,23 +78,16 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
           key: translate[key],
           value: isAmount
             ? formatNumber(
-                savingStore.transferMoneyToTargetTransactionResult[key]
+                savingStore.transferMoneyToTargetTransactionResult.data[key]
               )
-            : savingStore.transferMoneyToTargetTransactionResult[key],
+            : savingStore.transferMoneyToTargetTransactionResult.data[key],
           unit: isAmount ? "ریال" : null,
         };
-      }, Object.keys(savingStore.transferMoneyToTargetTransactionResult));
+      }, Object.keys(savingStore.transferMoneyToTargetTransactionResult.data));
 
-      const filteredResult = R.filter(
-        (item) =>
-          item.key !== translate["description"] &&
-          item.key !== translate["success"],
-        result
-      );
-
-      return [...filteredResult];
+      return result;
     }
-  }, [savingStore.transferMoneyToTargetTransactionResult]);
+  }, [savingStore.transferMoneyToTargetTransactionResult.data]);
 
   const filterActiveTargets = React.useMemo(() => {
     if (selectedTargetData.targets?.length > 0) {
@@ -140,9 +133,13 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
         description: " ",
       };
       dispatch(SavingActions.transferMoneyToTarget(data, { sagas: true }));
-      dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
+      formik.resetForm();
     },
   });
+
+  React.useEffect(() => {
+    formik.resetForm();
+  }, []);
 
   React.useEffect(() => {
     if (checkedTarget && filterActiveTargets) {
@@ -160,7 +157,11 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
   }
 
   function handleCloseModal() {
-    dispatch(SavingActions.transferMoneyToTarget([], { sagas: false }));
+    dispatch(
+      SavingActions.transferMoneyToTarget({ data: {} }, { sagas: false })
+    );
+    formik.resetForm();
+
     navigation.navigate("saving");
   }
 
@@ -283,10 +284,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
       >
         <PaymentTransactionResult
           data={transactionResults}
-          status={savingStore.transferMoneyToTargetTransactionResult.success}
-          description={
-            savingStore.transferMoneyToTargetTransactionResult.description
-          }
+          hasError={savingStore.transferMoneyToTargetTransactionResult.hasError}
           onClose={handleCloseModal}
         />
       </ActionModalCentered>
