@@ -10,24 +10,23 @@ import Button from "components/button";
 interface Props {
   onPress?: () => void;
   data: any;
-  status: boolean;
-  description: string;
+  hasError: boolean;
   onClose: () => void;
 }
 const PaymentTransactionResult: React.FC<Props> = (props) => {
   return (
     <>
       <View style={[styles.inquiryResultWrapper]}>
-        {props.status ? <Success /> : <Error />}
+        {props.hasError ? <Error /> : <Success />}
 
         <FormattedText
           style={{
-            color: props.status ? "#00015d" : "#ff0000",
+            color: props.hasError ? "#ff0000" : "#00015d",
             fontSize: 16,
             marginBottom: 20,
           }}
         >
-          {props.description}
+          {props.hasError ? "پرداخت ناموفق" : "پرداخت موفق"}
         </FormattedText>
         {props.data.map((item: any) => {
           return (

@@ -41,13 +41,26 @@ function* fetchQrPayment(action: Action) {
     if (!qrPaymentResultRes.success) {
     } else {
       yield put(
-        QRPaymentActions.setQrPayment(qrPaymentResultRes, {
-          sagas: false,
-        })
+        QRPaymentActions.setQrPayment(
+          { data: qrPaymentResultRes, hasError: true },
+          {
+            sagas: false,
+          }
+        )
       );
     }
     yield put(QRPaymentActions.setLoading(false));
   } catch (error) {
+    if (error.response.data.details) {
+      yield put(
+        QRPaymentActions.setQrPayment(
+          { data: error.response.data.details, hasError: true },
+          {
+            sagas: false,
+          }
+        )
+      );
+    }
     console.log("DEBUG: function*QrInquiry -> error", error.response);
     yield put(QRPaymentActions.setLoading(false));
   }

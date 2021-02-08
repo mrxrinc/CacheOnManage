@@ -25,6 +25,7 @@ import { StateNetwork } from "store/index.reducer";
 // Styles
 import styles from "./styles";
 import AsyncStorage from "@react-native-community/async-storage";
+import { QrPayment } from "types/qrPayment";
 
 interface Props {
   barcode: string;
@@ -57,16 +58,10 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
       },
     ];
     const result = R.map((key: string) => {
-      return { key: translate[key], value: qrStore.paymentResult[key] };
-    }, Object.keys(qrStore.paymentResult));
+      return { key: translate[key], value: qrStore.paymentResult?.data[key] };
+    }, Object.keys(qrStore.paymentResult.data));
 
-    const filteredResult = R.filter(
-      (item) =>
-        item.key !== translate["description"] &&
-        item.key !== translate["success"],
-      result
-    );
-    return [...transactionMainKeys, ...filteredResult];
+    return [...transactionMainKeys, ...result];
   }, [qrStore.paymentResult]);
 
   const handlePayment = () => {
@@ -119,6 +114,7 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
                 title="پرداخت"
                 color="#43e6c5"
                 loading={qrStore.loading}
+                disabled={qrStore.loading ? true : false}
               />
             </View>
             <View style={styles.editButton}>
@@ -126,7 +122,6 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
                 onPress={() => props.navigation.goBack()}
                 title="ویرایش"
                 color="#00afff"
-                disabled={qrStore.loading ? true : false}
               />
             </View>
           </View>
@@ -140,8 +135,7 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
         >
           <PaymentTransactionResult
             data={transactionResults}
-            status={qrStore.paymentResult.success}
-            description={qrStore.paymentResult.description}
+            hasError={qrStore.paymentResult.hasError}
             onClose={handleCloseQrPayment}
           />
         </ActionModalCentered>
