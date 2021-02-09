@@ -18,7 +18,9 @@ export default ({ data }: any) => {
         <View style={styles.descriptionWrapper}>
           <View style={styles.descriptionHead}>
             <LogoSquare />
-            <FormattedText style={styles.descriptionTitle}>MONEY</FormattedText>
+            <FormattedText style={styles.descriptionTitle}>
+              ‌BLU junior
+            </FormattedText>
           </View>
           <FormattedText style={styles.description}>
             {description}
