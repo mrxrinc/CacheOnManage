@@ -24,12 +24,13 @@ export default StyleSheet.create({
   },
   imageWrapper: {
     alignItems: "center",
+    justifyContent:"flex-end",
     flex: 1,
   },
   image: {
     resizeMode: "contain",
     width: width - 104,
-    height: "100%",
+    height: "80%",
   },
   descriptionWrapper: {
     width: "95%",
@@ -37,10 +38,8 @@ export default StyleSheet.create({
     alignSelf: "center",
     backgroundColor: "#ffffffee",
     borderRadius: 12,
-    borderWidth: 0.3,
-    borderColor: colors.gray700,
     position: "absolute",
-    bottom: 15,
+    bottom: "7%",
     zIndex: 10,
   },
   descriptionHead: {
