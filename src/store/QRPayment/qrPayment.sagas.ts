@@ -11,64 +11,63 @@ import { Action } from "../../store/index.reducer";
 import QRPaymentActions from "./qrPayment.actions";
 
 function* fetchQrInquiry(action: Action) {
-  try {
-    yield put(QRPaymentActions.setLoading(true));
-    const qrRes = yield call(
-      QRPaymentService.fetchQrInquiry.bind(QRPaymentService),
-      action.payload
-    );
+	try {
+		yield put(QRPaymentActions.setLoading(true));
+		const qrRes = yield call(
+			QRPaymentService.fetchQrInquiry.bind(QRPaymentService),
+			action.payload,
+		);
 
-    yield put(
-      QRPaymentActions.getQrInquiry(qrRes, {
-        sagas: false,
-      })
-    );
+		yield put(
+			QRPaymentActions.getQrInquiry(qrRes, {
+				sagas: false,
+			}),
+		);
 
-    yield put(QRPaymentActions.setLoading(false));
-  } catch (error) {
-    console.log("DEBUG: function*QrInquiry -> error", error.response);
-    yield put(QRPaymentActions.setLoading(false));
-  }
+		yield put(QRPaymentActions.setLoading(false));
+	} catch (error) {
+		console.log("DEBUG: function*QrInquiry -> error", error.response);
+		yield put(QRPaymentActions.setLoading(false));
+	}
 }
 
 function* fetchQrPayment(action: Action) {
-  try {
-    yield put(QRPaymentActions.setLoading(true));
-    const qrPaymentResultRes = yield call(
-      QRPaymentService.fetchQrPayment.bind(QRPaymentService),
-      action.payload
-    );
-    if (!qrPaymentResultRes.success) {
-    } else {
-      yield put(
-        QRPaymentActions.setQrPayment(
-          { data: qrPaymentResultRes, hasError: true },
-          {
-            sagas: false,
-          }
-        )
-      );
-    }
-    yield put(QRPaymentActions.setLoading(false));
-  } catch (error) {
-    if (error.response.data.details) {
-      yield put(
-        QRPaymentActions.setQrPayment(
-          { data: error.response.data.details, hasError: true },
-          {
-            sagas: false,
-          }
-        )
-      );
-    }
-    console.log("DEBUG: function*QrInquiry -> error", error.response);
-    yield put(QRPaymentActions.setLoading(false));
-  }
+	try {
+		yield put(QRPaymentActions.setLoading(true));
+		const qrPaymentResultRes = yield call(
+			QRPaymentService.fetchQrPayment.bind(QRPaymentService),
+			action.payload,
+		);
+
+		yield put(
+			QRPaymentActions.setQrPayment(
+				{ data: qrPaymentResultRes, hasError: false },
+				{
+					sagas: false,
+				},
+			),
+		);
+
+		yield put(QRPaymentActions.setLoading(false));
+	} catch (error) {
+		if (error.response.data.details) {
+			yield put(
+				QRPaymentActions.setQrPayment(
+					{ data: error.response.data.details, hasError: true },
+					{
+						sagas: false,
+					},
+				),
+			);
+		}
+		console.log("DEBUG: function*fetchQrPayment -> error", error.response);
+		yield put(QRPaymentActions.setLoading(false));
+	}
 }
 
 export default function* networkListeners() {
-  yield all([
-    takeLatest(types.SAGAS_QRINQUIRY, fetchQrInquiry),
-    takeLatest(types.SAGAS_QRPAYMENT, fetchQrPayment),
-  ]);
+	yield all([
+		takeLatest(types.SAGAS_QRINQUIRY, fetchQrInquiry),
+		takeLatest(types.SAGAS_QRPAYMENT, fetchQrPayment),
+	]);
 }
