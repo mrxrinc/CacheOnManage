@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import Support from "components/icons/support.svg";
-import { colors, width } from "constants/index";
+import { width } from "constants/index";
 
 const Header = (props: any) => {
   const { onPress, theme } = props;

@@ -153,6 +153,8 @@ const Login = ({ theme }: any) => {
     try {
       await Keychain.setGenericPassword(username, password, {
         service: "MoneyApp",
+        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY,
+        accessible: Keychain.ACCESSIBLE.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
       });
       await setLocalData("biometrics", "true");
       setUsername("");
@@ -168,7 +170,7 @@ const Login = ({ theme }: any) => {
       // Retrieve the credentials
       const options: any = {
         service: "MoneyApp",
-        accessControl: "BIOMETRY_ANY_OR_DEVICE_PASSCODE",
+        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
         authenticationPrompt: {
           title: "ورود با اثر انگشت",
           description: "لطفا انگشت خود را بر روی حسگر گوشی قرار دهید",
@@ -176,6 +178,7 @@ const Login = ({ theme }: any) => {
         },
       };
       const credentials = await Keychain.getGenericPassword(options);
+      console.log(credentials);
       if (credentials) {
         setUsername(credentials.username);
         handleTouch(credentials.username, credentials.password);
@@ -197,13 +200,11 @@ const Login = ({ theme }: any) => {
 
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.backgroundColor }]}
-    >
+      style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
       <StatusLogin theme={theme} />
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={styles.contentContainer}
-      >
+        contentContainerStyle={styles.contentContainer}>
         <Header theme={theme} onPress={() => setSupportModal(true)} />
         <View style={styles.content}>
           {bljTheme ? (

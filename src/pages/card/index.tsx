@@ -5,12 +5,11 @@ import {
   Dimensions,
   ScrollView,
   ActivityIndicator,
-  RefreshControl,
 } from "react-native";
 import MainHeader from "components/mainHeader";
 import Layout from "components/layout";
 import ScrollableTabView from "components/scrollableTabView";
-import { getChildsCardData } from "utils/api";
+import { getChildsCardData, getTransactions } from "utils/api";
 import { useSelector } from "react-redux";
 import { RootState, RootStateType } from "../../../customType";
 import OrderBabayCard from "./orderBabyCard";
@@ -21,6 +20,7 @@ const { width } = Dimensions.get("window");
 
 const Cards = (props: any) => {
   const [childInfo, setChildInfo] = useState<any>([]);
+  const [transactions, setTransactions] = useState<any>([]);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const callCardInfo = useSelector<RootStateType, any>(
     (State) => State.cards.callCardsInfo
@@ -43,6 +43,28 @@ const Cards = (props: any) => {
     getCardsData();
   }, [callCardInfo]);
 
+  const changeTab = (data: any) => {
+    console.log(childInfo[data.i]);
+    getTransactionData(childInfo[data.i].childId);
+  };
+
+  const getTransactionData = (childId: any) => {
+    const data = {
+      childId: childId,
+      currentWeek: true,
+    };
+    getTransactions(token, data)
+      .then((result) => {
+        console.log(result.data);
+        setTransactions(result.data);
+        getTransactionData(result.data[0].childId);
+      })
+      .catch((error) => {
+        console.log(error);
+        throw error;
+      });
+  };
+
   const CardsPage = (item: any) => {
     return (
       <ScrollView contentContainerStyle={styles.cardsPageBox}>
@@ -51,14 +73,13 @@ const Cards = (props: any) => {
             height: "100%",
             width: "100%",
             marginTop: 15,
-          }}
-        >
+          }}>
           {item.data.status == "NONE" ||
           item.data.status == "FORCED_PIN_CHANGE" ||
           item.data.status == "ORDERED" ? (
             <OrderBabayCard cardsInfo={item.data} />
           ) : (
-            <MainPage cardsInfo={item.data} />
+            <MainPage cardsInfo={item.data} data={transactions} />
           )}
         </View>
       </ScrollView>
@@ -71,9 +92,9 @@ const Cards = (props: any) => {
       <View style={styles.container}>
         {childInfo != "" ? (
           <ScrollableTabView
+            onChangeTab={changeTab.bind(this)}
             hasTabbar={isChild ? false : true}
-            style={{ backgroundColor: "#f4f6fa" }}
-          >
+            style={{ backgroundColor: "#f4f6fa" }}>
             {childInfo.map((data: any, i: any) => {
               return (
                 <CardsPage
