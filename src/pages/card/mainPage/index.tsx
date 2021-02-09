@@ -4,9 +4,6 @@ import ChildCard from "./childCard";
 import CardItems from "./cardItems";
 import { FormattedText } from "components/format-text";
 import Arrow from "images/cards/mainPage/move.svg";
-import Deposit from "images/cards/mainPage/deposit.svg";
-import Withdrawal from "images/cards/mainPage/withDrawal.svg";
-import { formatNumber } from "utils/index";
 import styles from "./styles";
 import Item from "pages/transactions/item";
 const MainPage = (props: any) => {

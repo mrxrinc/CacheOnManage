@@ -14,9 +14,6 @@ const Item = (props: any) => {
     balance,
     date,
     description,
-    followupNumber,
-    pan,
-    referenceId,
     type,
   } = props.data.item;
   const navigation = useNavigation();

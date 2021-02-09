@@ -6,6 +6,8 @@ import PaymentItem from "../paymentItem";
 import styles from "./styles";
 import Header from "components/header";
 import Layout from "components/layout";
+import { formatNumber } from "utils/index";
+
 const DetailItem = (props: any) => {
   const {
     amount,
@@ -27,8 +29,8 @@ const DetailItem = (props: any) => {
             <Image style={styles.img} source={Payment} />
             <FormattedText style={styles.title}>{description}</FormattedText>
           </View>
-          <PaymentItem isRial title="مبلغ" detail={amount} />
-          <PaymentItem isRial title="مانده پس از تراکنش" detail={balance} />
+          <PaymentItem isRial title="مبلغ" detail={formatNumber(amount)} />
+          <PaymentItem isRial title="مانده پس از تراکنش" detail={formatNumber(balance)} />
           <PaymentItem title="تاریخ و ساعت" detail={date} />
           {/* <PaymentItem title="شماره کارت" detail="6219-8610-1234-5678" /> */}
           <PaymentItem title="شماره پیگیری" detail={followupNumber} />
