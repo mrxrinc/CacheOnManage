@@ -6,9 +6,12 @@ import { FormattedText } from "components/format-text";
 import Arrow from "images/cards/mainPage/move.svg";
 import styles from "./styles";
 import Item from "pages/transactions/item";
-const MainPage = (props: any) => {
+import { useNavigation } from "@react-navigation/core";
 
-  const {data} = props;
+const MainPage = (props: any) => {
+  const navigation = useNavigation();
+
+  const { data } = props;
 
   const renderListHead = () => (
     <>
@@ -19,11 +22,14 @@ const MainPage = (props: any) => {
         <View style={styles.transactionHeader}>
           <FormattedText
             fontFamily="Medium"
-            style={styles.transactionHeaderText}
-          >
+            style={styles.transactionHeaderText}>
             تراکنش ها
           </FormattedText>
-          <TouchableOpacity style={styles.moreButton}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("totalTransactions", { data: data })
+            }
+            style={styles.moreButton}>
             <FormattedText style={styles.moreText}>مشاهده همه</FormattedText>
             <Arrow style={styles.showAllIcon} />
           </TouchableOpacity>

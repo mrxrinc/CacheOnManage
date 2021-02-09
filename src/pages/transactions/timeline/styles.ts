@@ -5,6 +5,8 @@ export default StyleSheet.create({
     container: {
         backgroundColor: colors.white,
         paddingVertical: 8,
-        maxHeight: 64,
+        maxHeight: 80,
+        elevation:5,
+        marginTop: 10,
       },
   });

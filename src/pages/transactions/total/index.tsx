@@ -6,6 +6,7 @@ import Header from "components/header";
 import Layout from "components/layout";
 import styles from "./styles";
 const Total = (props: any) => {
+  const {data} = props.route.params;
   return (
     <Layout>
       <>
@@ -17,8 +18,8 @@ const Total = (props: any) => {
         <FlatList
           style={styles.content}
           contentContainerStyle={styles.contentFlatList}
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-          renderItem={() => <Item />}
+          data={data}
+          renderItem={(item) => <Item data={item}/>}
         />
       </>
     </Layout>
