@@ -522,3 +522,11 @@ export const getSpendParent = (token: string) =>
       authorization: `Bearer ${token}`,
     },
   });
+
+
+export const getTransactions = (token: string, data: any) =>
+  instance.post(`/api/v1/cards/transactions`, data, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });

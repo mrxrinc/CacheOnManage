@@ -70,7 +70,7 @@ const Button = ({
     >
       <TouchableHighlight
         style={[styles.button]}
-        underlayColor={shadeColor(color, -10)}
+        underlayColor={!outline ? shadeColor(color, -10) : colors.gray850}
         disabled={disabled}
         onPress={onPress}
         {...props}
