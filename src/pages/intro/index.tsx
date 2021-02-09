@@ -10,10 +10,10 @@ import Slide from "./components/slide";
 import { useNavigation } from "@react-navigation/core";
 import { RootState } from "../../../customType";
 import styles from "./styles";
-import ParentImage01 from "images/intro/intro-parent-01.png";
-import ParentImage02 from "images/intro/intro-parent-02.png";
-import ParentImage03 from "images/intro/intro-parent-03.png";
-import ParentImage04 from "images/intro/intro-parent-04.png";
+import ParentImage01 from "images/intro/home/home.png";
+import ParentImage02 from "images/intro/earning/earning.png";
+import ParentImage03 from "images/intro/saving/saving.png";
+import ParentImage04 from "images/intro/card/card.png";
 import ChildImage01 from "images/intro/intro-child-01.png";
 import ChildImage02 from "images/intro/intro-child-02.png";
 import ChildImage03 from "images/intro/intro-child-03.png";
@@ -23,7 +23,7 @@ const PARENT_DATA = [
   {
     id: 1,
     title:
-      "برنامه‌ای برای مدیریت مالی فرزندان ۹ تا ۱۵ سال شما با تکیه بر افزایش هوش مالی",
+      "برنامه‌ای برای مدیریت مالی فرزندان ۷ تا ۱۸ سال شما با تکیه بر افزایش هوش مالی",
     image: ParentImage01,
   },
   {
@@ -79,7 +79,12 @@ export default () => {
   return (
     <Background>
       <>
-        <StatusBar backgroundColor={"transparent"} translucent hidden={false} />
+        <StatusBar
+          backgroundColor={"transparent"}
+          animated
+          translucent
+          hidden={false}
+        />
         <View style={styles.container}>
           <Swiper
             showsButtons={false}
@@ -101,7 +106,7 @@ export default () => {
                 dispatch(signUpStepChanged("signIn"));
                 navigation.navigate("login");
               }}
-              color={colors.buttonOpenActive}
+              color={colors.blujrBtnOpenActive}
               style={{
                 width: isChild ? "98%" : "48.5%",
               }}
@@ -115,7 +120,7 @@ export default () => {
                   dispatch(signUpStepChanged("otp"));
                   navigation.navigate("login");
                 }}
-                color={colors.buttonOpenActive}
+                color={colors.blujrBtnOpenActive}
                 style={styles.button}
               />
             )}

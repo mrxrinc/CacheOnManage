@@ -4,11 +4,11 @@ import { colors } from "constants/index";
 export default StyleSheet.create({
   container: {
     width: "100%",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   moneyInput: {
     backgroundColor: "transparent",
-    fontFamily: "IRANSansMobile",
+    // fontFamily: "IRANSansMobile",
   },
   label: {
     fontFamily: "IRANSansMobileFaNum",
@@ -23,6 +23,7 @@ export default StyleSheet.create({
   inputStyle: {
     fontFamily: "IRANSansMobileFaNum",
     fontSize: 18,
+    // backgroundColor: "transparent",
   },
   unit: {
     color: colors.gray500,
@@ -62,4 +63,5 @@ export default StyleSheet.create({
     alignItems: "center",
     zIndex: 3,
   },
+  password: {color:colors.gray300}
 });

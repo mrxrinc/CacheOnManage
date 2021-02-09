@@ -1,9 +1,11 @@
 import React from "react";
 import { View, TouchableHighlight, ActivityIndicator } from "react-native";
 import { FormattedText } from "components/format-text";
-import { colors, IOS } from "constants/index";
+import { colors, IOS, width } from "constants/index";
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
+import Fingerprint from "components/icons/fingerprint.svg";
+import FaceIDIcon from "components/icons/face-id.svg";
 import { shadeColor } from "utils";
 
 const defaultColor = colors.buttonOpenActive;
@@ -20,6 +22,8 @@ type Props = {
   disabled?: boolean;
   loading?: boolean;
   theme: any;
+  isFinger?: any;
+  isFaceId?: any;
 };
 
 function handleBackground(
@@ -45,6 +49,8 @@ const Button = ({
   titleStyle,
   disabled,
   loading,
+  isFinger,
+  isFaceId,
   ...props
 }: Props) => {
   return (
@@ -70,17 +76,26 @@ const Button = ({
         {...props}
       >
         {!loading ? (
-          <FormattedText
-            fontFamily="Bold"
-            style={{
-              lineHeight: lineHeight ? lineHeight : IOS ? 15 : 25,
-              fontSize: fontSize ? fontSize : 16,
-              color: disabled ? colors.white : outline ? color : colors.white,
-              ...titleStyle,
-            }}
-          >
-            {title}
-          </FormattedText>
+          <>
+            {isFaceId && (
+              <FaceIDIcon fill={colors.white} width={16} height={16} />
+            )}
+            {isFinger && (
+              <Fingerprint fill={colors.white} width={16} height={16} />
+            )}
+            <FormattedText
+              fontFamily="Bold"
+              style={{
+                lineHeight: lineHeight ? lineHeight : IOS ? 15 : 25,
+                fontSize: fontSize ? fontSize : 16,
+                marginLeft: isFinger || isFaceId ? 8 : 0,
+                color: disabled ? colors.white : outline ? color : colors.white,
+                ...titleStyle,
+              }}
+            >
+              {title}
+            </FormattedText>
+          </>
         ) : (
           <ActivityIndicator color={colors.white} />
         )}

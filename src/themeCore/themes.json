@@ -3,8 +3,16 @@
       "key": "FATHER BLU JUNIOR",
       "BlueGradient_Left": "#307fe2",
       "BlueGradient_Right": "#307fe2",
+      "ButtonBlueColor":"#307fe2",
+      "ButtonGreenColor":"#00bfb2",
       "backgroundColor": "#307fe2",
+      "titleColor":"#110820",
+      "statusBarContent": "light-content",
+      "support": "#f5f7fa",
       "warningColor":"#f2a900",
+      "fanBtn": "#f4f6fa",
+      "fanBtnMore": "#f2a900",
+      "registerText": "#f4f6fa",
       "header":{
         "BlueGradient_Left": "#fff",
         "BlueGradient_Right": "#fff",
@@ -38,14 +46,31 @@
       "drawer":{
         "BlueGradient_Left": "#307fe2",
         "BlueGradient_Right": "#307fe2"
+      },
+      "more":{
+        "iconColor":"#307fe2"
+      },
+      "setting":{
+        "infoText":"#110820",
+        "keyTextColor":"#707070",
+        "editIconColor":"#307fe2"
+        
       }
     },
     {
       "key": "CHILD MONEY",
       "BlueGradient_Left": "#397fff",
       "BlueGradient_Right": "#bb6aff",
+      "ButtonBlueColor":"#00afff",
+      "ButtonGreenColor":"#43e6c5",
+      "titleColor":"#00015d",
       "backgroundColor": "#f4f6fa",
+      "statusBarContent": "dark-content",
+      "support": "#000",
       "warningColor":"#f73e3e",
+      "fanBtn": "#43e6c5",
+      "fanBtnMore": "#307fe2",
+      "registerText": "#307fe2",
       "color": "#ffffff",
       "header":{
         "BlueGradient_Left": "#397fff",
@@ -80,14 +105,30 @@
       "drawer":{
         "BlueGradient_Left": "#397fff",
         "BlueGradient_Right": "#bb6aff"
+      },
+      "more":{
+        "iconColor":"#00afff"
+      },
+      "setting":{
+        "infoText":"#515c6f",
+        "keyTextColor":"#8d8b8b",
+        "editIconColor":"#0c96ff"
       }
     },
     {
       "key": "FATHER MONEY",
       "BlueGradient_Left": "#397fff",
       "BlueGradient_Right": "#bb6aff",
+      "ButtonBlueColor":"#00afff",
+      "ButtonGreenColor":"#43e6c5",
       "backgroundColor": "#f4f6fa",
+      "titleColor":"#00015d",
+      "statusBarContent": "dark-content",
+      "support": "#000",
       "warningColor":"#f73e3e",
+      "fanBtn": "#43e6c5",
+      "fanBtnMore": "#307fe2",
+      "registerText": "#307fe2",
       "color": "#ffffff",
       "header":{
         "BlueGradient_Left": "#397fff",
@@ -122,6 +163,15 @@
       "drawer":{
         "BlueGradient_Left": "#397fff",
         "BlueGradient_Right": "#bb6aff"
+      },
+      "more":{
+        "iconColor":"#00afff"
+      },
+      "setting":{
+        "infoText":"#515c6f",
+        "keyTextColor":"#8d8b8b",
+        "editIconColor":"#0c96ff"
+        
       }
     }
   ]

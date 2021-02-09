@@ -13,7 +13,7 @@ import ValidatePassword from "components/validatePassword";
 import { handleUsernameValidator, checkHasNumber } from "utils/validators";
 import SupportController from "components/supportController";
 import UnequalTwinButtons from "components/unequalTwinButtons";
-import EditIcon from "components/icons/edit.svg";
+import EditIcon from "components/icons/editIcon.svg";
 import GalleryIcon from "components/icons/gallery.svg";
 import CameraIcon from "components/icons/camera.svg";
 import TrashIcon from "components/icons/trash.svg";
@@ -29,8 +29,9 @@ import {
   handleImagePicker,
   OFFLOAD_MODAL,
 } from "./constants";
+import { withTheme } from "themeCore/themeProvider";
 
-export default ({ fatherData, handleUpdateData }: any) => {
+const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
   const navigation = useNavigation();
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [loading, setLoading] = useState<boolean>(false);
@@ -250,7 +251,11 @@ export default ({ fatherData, handleUpdateData }: any) => {
                 />
               )}
               <View style={style.edit}>
-                <EditIcon width={14} height={14} />
+                <EditIcon
+                  fill={theme.setting.editIconColor}
+                  width={14}
+                  height={14}
+                />
               </View>
             </TouchableOpacity>
           </View>
@@ -294,9 +299,9 @@ export default ({ fatherData, handleUpdateData }: any) => {
                   style={style.editIconWrapper}
                 >
                   <EditIcon
+                    fill={theme.setting.editIconColor}
                     width={20}
                     height={20}
-                    style={{ color: colors.links }}
                   />
                 </TouchableOpacity>
               </View> */}
@@ -313,9 +318,9 @@ export default ({ fatherData, handleUpdateData }: any) => {
                   style={style.editIconWrapper}
                 >
                   <EditIcon
+                    fill={theme.setting.editIconColor}
                     width={20}
                     height={20}
-                    style={{ color: colors.links }}
                   />
                 </TouchableOpacity>
               </View>
@@ -339,14 +344,14 @@ export default ({ fatherData, handleUpdateData }: any) => {
                   style={style.editIconWrapper}
                 >
                   <EditIcon
+                    fill={theme.setting.editIconColor}
                     width={20}
                     height={20}
-                    style={{ color: colors.links }}
                   />
                 </TouchableOpacity>
               </View>
               <FormattedText style={style.cardRowDescription}>
-                فرزند شما در برنامه مانی شمارا با این نام خواهد دید.
+                فرزند شما در برنامه مانی شما را با این نام خواهد دید.
               </FormattedText>
             </>
           </Card>
@@ -365,7 +370,7 @@ export default ({ fatherData, handleUpdateData }: any) => {
               <Button
                 title="ذخیره"
                 onPress={() => handleSetSettingData()}
-                color={colors.buttonSubmitActive}
+                color={theme.ButtonGreenColor}
                 loading={loading}
                 disabled={
                   loading
@@ -382,7 +387,7 @@ export default ({ fatherData, handleUpdateData }: any) => {
             (fatherData.nickname.length !== 0 ? (
               <UnequalTwinButtons
                 mainText="ذخیره"
-                mainColor={colors.buttonSubmitActive}
+                mainColor={theme.ButtonGreenColor}
                 mainOnPress={() => handleSetSettingData()}
                 secondaryText="حذف"
                 secondaryColor={colors.buttonDestructiveActive}
@@ -396,7 +401,7 @@ export default ({ fatherData, handleUpdateData }: any) => {
               <Button
                 title="ذخیره"
                 onPress={() => handleSetSettingData()}
-                color={colors.buttonSubmitActive}
+                color={theme.ButtonGreenColor}
                 loading={loading}
                 disabled={loading ? loading : false}
               />
@@ -425,3 +430,5 @@ export default ({ fatherData, handleUpdateData }: any) => {
     </View>
   );
 };
+
+export default withTheme(FatherSetting);
