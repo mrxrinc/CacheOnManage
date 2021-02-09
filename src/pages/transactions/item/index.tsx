@@ -5,30 +5,42 @@ import { useNavigation } from "@react-navigation/core";
 import PaymentIn from "components/icons/payment-in.svg";
 import More from "components/icons/more-payment.svg";
 import styles from "./styles";
+import PaymentOut from "components/icons/payment-out.svg";
+import { formatNumber } from "utils/index";
 
-const Item = () => {
+const Item = (props: any) => {
+  const {
+    amount,
+    balance,
+    date,
+    description,
+    followupNumber,
+    pan,
+    referenceId,
+    type,
+  } = props.data.item;
   const navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("detailItem")}
+      onPress={() => navigation.navigate("detailItem",{data: props.data.item})}
       activeOpacity={0.8}
-      style={styles.container}
-    >
-      <PaymentIn />
+      style={styles.container}>
+      {type == "DEPOSIT" ? <PaymentIn /> : <PaymentOut />}
       <View style={styles.title}>
         <FormattedText style={styles.titleText}>
-          برداشت از خودپرداز
+          {description}
         </FormattedText>
         <FormattedText style={styles.titleTime} fontFamily="Regular-FaNum">
-          99/4/9{"  "}12:30
+          {date}
         </FormattedText>
       </View>
       <View style={styles.payment}>
         <FormattedText style={styles.paymentTop} fontFamily="Regular-FaNum">
-          5,000,000 - ریال
+          {formatNumber(amount)}
+          {type == "DEPOSIT" ? " + " : " - "}ریال
         </FormattedText>
         <FormattedText style={styles.paymentBottom} fontFamily="Regular-FaNum">
-          12,250,663 - ریال
+        {formatNumber(balance)} ریال
         </FormattedText>
       </View>
       <More />
