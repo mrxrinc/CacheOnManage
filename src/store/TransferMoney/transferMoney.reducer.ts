@@ -7,6 +7,7 @@ import * as types from "./transferMoney.constants";
 // Utilities
 import * as R from "ramda";
 import { Action } from "store/index.reducer";
+import { boolean } from "yup";
 
 export interface TransferMoneyState {
   transactionResult: any;
@@ -14,7 +15,10 @@ export interface TransferMoneyState {
 }
 
 export const initialState: TransferMoneyState = {
-  transactionResult: {},
+  transactionResult: {
+    data: {},
+    hasError: false,
+  },
   loading: false,
 };
 

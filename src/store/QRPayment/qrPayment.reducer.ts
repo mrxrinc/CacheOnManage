@@ -7,19 +7,19 @@ import * as types from "./qrPayment.constants";
 // Utilities
 import * as R from "ramda";
 import { Action } from "../../store/index.reducer";
-import { PaymentResult } from "types/qrPayment";
+import { QrPaymentResult } from "types/qrPayment";
 
 export interface QRPaymentState {
   qrData: any;
   loading: boolean;
-  paymentResult: PaymentResult;
+  paymentResult: QrPaymentResult;
   merchantName: string;
   termID: string;
 }
 
 export const initialState: QRPaymentState = {
   qrData: {},
-  paymentResult: {} as PaymentResult,
+  paymentResult: { data: {}, hasError: false } as QrPaymentResult,
   loading: false,
   merchantName: "",
   termID: "",
