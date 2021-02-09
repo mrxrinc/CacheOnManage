@@ -87,23 +87,15 @@ const Home: FC = ({ theme }: any) => {
       )}
       <View style={[style.buttonsWrapper]}>
         <Button
-          style={{
-            width: "47%",
-            height: 44,
-            elevation: 5,
-            backgroundColor: theme.home.bgColorButton,
-          }}
+          style={style.button}
+          color={theme.home.bgColorButton}
           titleStyle={{ color: colors.white }}
           onPress={() => navigation.navigate("transferMoney")}
           title="انتقال وجه"
         />
         <Button
-          style={{
-            width: "47%",
-            height: 44,
-            elevation: 5,
-            backgroundColor: theme.home.bgColorButton,
-          }}
+          style={style.button}
+          color={theme.home.bgColorButton}
           titleStyle={{ color: colors.white }}
           onPress={() => navigation.navigate("cashDeposit")}
           title="افزایش حساب"
