@@ -154,7 +154,9 @@ export default ({
           console.warn("err", err.response.data);
         });
     } else {
-      handleGetPaymentLimits(paymentMethods);
+      if (typeof handleGetPaymentLimits === "function") {
+        handleGetPaymentLimits(paymentMethods);
+      }
       setShowModal(false);
     }
   };
