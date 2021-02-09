@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, Text, ScrollView, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { FormattedText } from "components/format-text";
 import { colors } from "constants/index";
 import style from "./style";
@@ -12,7 +13,7 @@ import ValidatePassword from "components/validatePassword";
 import { handleUsernameValidator, checkHasNumber } from "utils/validators";
 import SupportController from "components/supportController";
 import UnequalTwinButtons from "components/unequalTwinButtons";
-import EditIcon from "components/icons/edit.svg";
+import EditIcon from "components/icons/editIcon.svg";
 import GalleryIcon from "components/icons/gallery.svg";
 import CameraIcon from "components/icons/camera.svg";
 import TrashIcon from "components/icons/trash.svg";
@@ -20,6 +21,7 @@ import AddImageIcon from "components/icons/addImage.svg";
 import Card from "pages/setting/components/card";
 import KeyValuePair from "pages/setting/components/keyValuePair";
 import { setSettingData, setFatherChangePassword } from "utils/api";
+import SigninModal from "components/signinModal";
 import { RootState } from "../../../customType";
 import {
   ModalType,
@@ -27,8 +29,10 @@ import {
   handleImagePicker,
   OFFLOAD_MODAL,
 } from "./constants";
+import { withTheme } from "themeCore/themeProvider";
 
-export default ({ fatherData, handleUpdateData }: any) => {
+const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
+  const navigation = useNavigation();
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>(fatherData.username || "");
@@ -40,6 +44,8 @@ export default ({ fatherData, handleUpdateData }: any) => {
   const [modal, setModal] = useState<ModalType>(OFFLOAD_MODAL);
   const [error, setError] = useState<any>({ field: "", message: "" });
   const [supportModal, setSupportModal] = useState<boolean>(false);
+  const [showSigninModal, setShowSigninModal] = useState<boolean>(false);
+  const [updatedData, setUpdatedData] = useState<any>(null);
 
   useEffect(() => {
     clearError();
@@ -75,31 +81,30 @@ export default ({ fatherData, handleUpdateData }: any) => {
           token,
           requestBody
         );
-        setLoading(false);
         if (status === 200) {
           handleUpdateData(data);
-          setModal(OFFLOAD_MODAL);
           if (modal.activeContent === "PASSWORD") {
             await Keychain.resetGenericPassword();
           }
         }
       } else {
         const { status, data } = await setSettingData(token, requestBody);
-        setLoading(false);
         if (status === 200) {
           handleUpdateData(data);
-          setModal(OFFLOAD_MODAL);
-          if (
-            modal.activeContent === "USERNAME" ||
-            modal.activeContent === "PASSWORD"
-          ) {
-            await Keychain.resetGenericPassword();
-          }
         }
       }
     } catch (err) {
-      setLoading(false);
+      if (
+        modal.activeContent === "USERNAME" ||
+        modal.activeContent === "PASSWORD"
+      ) {
+        await Keychain.resetGenericPassword();
+        setShowSigninModal(true);
+      }
       console.warn("ERROR ON UPDATING FATHER DATA: ", err.response);
+    } finally {
+      setLoading(false);
+      setModal(OFFLOAD_MODAL);
     }
   };
 
@@ -246,7 +251,11 @@ export default ({ fatherData, handleUpdateData }: any) => {
                 />
               )}
               <View style={style.edit}>
-                <EditIcon width={14} height={14} />
+                <EditIcon
+                  fill={theme.setting.editIconColor}
+                  width={14}
+                  height={14}
+                />
               </View>
             </TouchableOpacity>
           </View>
@@ -273,7 +282,7 @@ export default ({ fatherData, handleUpdateData }: any) => {
         <View style={style.cardsWrapper}>
           <Card title="امنیت">
             <>
-              <View style={style.cardRow}>
+              {/* <View style={style.cardRow}>
                 <KeyValuePair
                   rowKey="نام کاربری:"
                   value={fatherData.username}
@@ -290,12 +299,12 @@ export default ({ fatherData, handleUpdateData }: any) => {
                   style={style.editIconWrapper}
                 >
                   <EditIcon
+                    fill={theme.setting.editIconColor}
                     width={20}
                     height={20}
-                    style={{ color: colors.links }}
                   />
                 </TouchableOpacity>
-              </View>
+              </View> */}
               <View style={style.cardRow}>
                 <KeyValuePair rowKey="رمز ورود:" value="********" />
                 <TouchableOpacity
@@ -309,9 +318,9 @@ export default ({ fatherData, handleUpdateData }: any) => {
                   style={style.editIconWrapper}
                 >
                   <EditIcon
+                    fill={theme.setting.editIconColor}
                     width={20}
                     height={20}
-                    style={{ color: colors.links }}
                   />
                 </TouchableOpacity>
               </View>
@@ -335,14 +344,14 @@ export default ({ fatherData, handleUpdateData }: any) => {
                   style={style.editIconWrapper}
                 >
                   <EditIcon
+                    fill={theme.setting.editIconColor}
                     width={20}
                     height={20}
-                    style={{ color: colors.links }}
                   />
                 </TouchableOpacity>
               </View>
               <FormattedText style={style.cardRowDescription}>
-                فرزند شما در برنامه مانی شمارا با این نام خواهد دید.
+                فرزند شما در برنامه مانی شما را با این نام خواهد دید.
               </FormattedText>
             </>
           </Card>
@@ -361,7 +370,7 @@ export default ({ fatherData, handleUpdateData }: any) => {
               <Button
                 title="ذخیره"
                 onPress={() => handleSetSettingData()}
-                color={colors.buttonSubmitActive}
+                color={theme.ButtonGreenColor}
                 loading={loading}
                 disabled={
                   loading
@@ -378,7 +387,7 @@ export default ({ fatherData, handleUpdateData }: any) => {
             (fatherData.nickname.length !== 0 ? (
               <UnequalTwinButtons
                 mainText="ذخیره"
-                mainColor={colors.buttonSubmitActive}
+                mainColor={theme.ButtonGreenColor}
                 mainOnPress={() => handleSetSettingData()}
                 secondaryText="حذف"
                 secondaryColor={colors.buttonDestructiveActive}
@@ -392,7 +401,7 @@ export default ({ fatherData, handleUpdateData }: any) => {
               <Button
                 title="ذخیره"
                 onPress={() => handleSetSettingData()}
-                color={colors.buttonSubmitActive}
+                color={theme.ButtonGreenColor}
                 loading={loading}
                 disabled={loading ? loading : false}
               />
@@ -406,6 +415,20 @@ export default ({ fatherData, handleUpdateData }: any) => {
         title="پشتیبانی‌"
         phoneNumber="02147474747"
       />
+
+      <SigninModal
+        showModal={showSigninModal}
+        setShowModal={setShowSigninModal}
+        handleSignIn={() => handleUpdateData(updatedData)}
+        handleCancel={() => {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "auth" }],
+          });
+        }}
+      />
     </View>
   );
 };
+
+export default withTheme(FatherSetting);
