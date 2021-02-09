@@ -22,7 +22,10 @@ export const initialState: SavingState = {
   savingList: [],
   selectedTargetsData: {} as SelectedTargetsData,
   loading: false,
-  transferMoneyToTargetTransactionResult: {},
+  transferMoneyToTargetTransactionResult: {
+    data: {},
+    hasError: false,
+  },
   showEditModal: false,
   childTargets: [],
 };

@@ -6,52 +6,77 @@ import MobileTopUpService from "../../services/http/endpoints/quickAccess/mobile
 // Types
 import { Action } from "../../store/index.reducer";
 import {
-  setMobileBillPayment,
-  setMobileTopUpPayment,
+	setMobileBillPayment,
+	setMobileTopUpPayment,
 } from "./quickAccess.actions";
 
 function* fetchMobileBillPayment(action: Action) {
-  try {
-    console.log("setMobileBillPayment>> is", action.payload);
-    const mobileBillPaymentResultRes = yield call(
-      MobileBillService.fetchMobileBillPayment.bind(MobileBillService),
-      action.payload
-    );
-    yield put(
-      setMobileBillPayment(mobileBillPaymentResultRes, {
-        sagas: false,
-      })
-    );
-  } catch (error) {
-    console.log(
-      "DEBUG: function*setMobileBillPayment -> error",
-      error.response
-    );
-  }
+	try {
+		const mobileBillPaymentResultRes = yield call(
+			MobileBillService.fetchMobileBillPayment.bind(MobileBillService),
+			action.payload,
+		);
+		yield put(
+			setMobileBillPayment(
+				//@ts-ignore
+				{ data: mobileBillPaymentResultRes, hasError: false },
+				{
+					sagas: false,
+				},
+			),
+		);
+	} catch (error) {
+		if (error.response.data.details) {
+			yield put(
+				setMobileBillPayment(
+					//@ts-ignore
+					{ data: error.response.data.details, hasError: true },
+					{
+						sagas: false,
+					},
+				),
+			);
+		}
+
+		console.log(
+			"DEBUG: function*setMobileBillPayment -> error",
+			error.response,
+		);
+	}
 }
 function* fetchMobileTopUpPayment(action: Action) {
-  try {
-    console.log("fetchMobileTopUpPayment>> is", action.payload);
-    const mobileTopUpPaymentResultRes = yield call(
-      MobileTopUpService.fetchMobileTopUpPayment.bind(MobileTopUpService),
-      action.payload
-    );
-    yield put(
-      setMobileTopUpPayment(mobileTopUpPaymentResultRes, {
-        sagas: false,
-      })
-    );
-  } catch (error) {
-    console.log(
-      "DEBUG: function*fetchMobileTopUpPayment -> error",
-      error.response
-    );
-  }
+	try {
+		const mobileTopUpPaymentResultRes = yield call(
+			MobileTopUpService.fetchMobileTopUpPayment.bind(MobileTopUpService),
+			action.payload,
+		);
+		yield put(
+			setMobileTopUpPayment(
+				//@ts-ignore
+				{ data: mobileTopUpPaymentResultRes, hasError: false },
+				{ sagas: false },
+			),
+		);
+	} catch (error) {
+		if (error.response.data.details) {
+			yield put(
+				setMobileTopUpPayment(
+					//@ts-ignore
+					{ data: error.response.data.details, hasError: true },
+					{ sagas: false },
+				),
+			);
+		}
+		console.log(
+			"DEBUG: function*fetchMobileTopUpPayment -> error",
+			error.response,
+		);
+	}
 }
 export default function* networkListeners() {
-  console.log("networkListeners called");
-  yield all([
-    takeLatest(types.SAGAS_BILLPAYMNET, fetchMobileBillPayment),
-    takeLatest(types.QUICKACCESS_SAGAS_MOBILETOPUP, fetchMobileTopUpPayment),
-  ]);
+	console.log("networkListeners called");
+	yield all([
+		takeLatest(types.SAGAS_BILLPAYMNET, fetchMobileBillPayment),
+		takeLatest(types.QUICKACCESS_SAGAS_MOBILETOPUP, fetchMobileTopUpPayment),
+	]);
 }
