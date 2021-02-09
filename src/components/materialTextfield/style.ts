@@ -63,4 +63,5 @@ export default StyleSheet.create({
     alignItems: "center",
     zIndex: 3,
   },
+  password: {color:colors.gray300}
 });
