@@ -62,13 +62,6 @@ const MobileBillInquiry = () => {
         <Header staticTitle={rootPage} handleBack={() => navigation.goBack()} />
         <MobileInfo />
         <View>
-          <View style={styles.descriptionBox}>
-            <Note width={16} height={16} />
-            <FormattedText
-              style={styles.descriptionText}
-              id="mobileTopUp.paymentDescription"
-            />
-          </View>
           <View style={{ height: "60%" }}>
             {info != null ? (
               <View>

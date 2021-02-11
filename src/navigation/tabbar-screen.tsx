@@ -29,11 +29,11 @@ const SIZE = {
 };
 
 export type TabParamList = {
-  saving: undefined;
-  home: undefined;
-  cards: undefined;
-  earning: undefined;
-  more: undefined;
+  savingTab: undefined;
+  homeTab: undefined;
+  cardTab: undefined;
+  earningTab: undefined;
+  moreTab: undefined;
 };
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -64,19 +64,19 @@ const TabBar = (props: any) => {
                 <View style={[styles.imgBox]}>
                   {index != 2 ? (
                     <View>
-                      {route.name == "saving" ? (
+                      {route.name == "savingTab" ? (
                         <SavingSvg
                           width={SIZE.tiny}
                           height={SIZE.tiny}
                           fill={iconColor}
                         />
-                      ) : route.name == "earning" ? (
+                      ) : route.name == "earningTab" ? (
                         <EarningSvg
                           width={SIZE.tiny}
                           height={SIZE.tiny}
                           fill={iconColor}
                         />
-                      ) : route.name == "cards" ? (
+                      ) : route.name == "cardTab" ? (
                         <CardsSvg
                           width={SIZE.tiny}
                           height={SIZE.tiny}
@@ -128,14 +128,14 @@ const TabNavigator = (theme: any) => {
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   return (
     <Tab.Navigator
-      initialRouteName="home"
+      initialRouteName="homeTab"
       tabBar={(props) => <TabBar theme={theme} {...props} />}
     >
-      <Tab.Screen name="saving" component={Saving} />
-      <Tab.Screen name="earning" component={Earning} />
-      <Tab.Screen name="home" component={isChild ? ChildHome : Home} />
-      <Tab.Screen name="cards" component={Card} />
-      <Tab.Screen name="more" component={More} />
+      <Tab.Screen name="savingTab" component={Saving} />
+      <Tab.Screen name="earningTab" component={Earning} />
+      <Tab.Screen name="homeTab" component={isChild ? ChildHome : Home} />
+      <Tab.Screen name="cardTab" component={Card} />
+      <Tab.Screen name="moreTab" component={More} />
     </Tab.Navigator>
   );
 };

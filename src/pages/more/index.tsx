@@ -91,10 +91,7 @@ const More = ({ theme }: any) => {
                   id="child_spending"
                 />
               </TouchableOpacity>
-              <TouchableOpacity
-                // style={styles.itemsBox}
-                onPress={() => navigation.navigate("spent")}
-              ></TouchableOpacity>
+              <View />
             </View>
           </View>
         )}

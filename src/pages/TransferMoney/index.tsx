@@ -143,7 +143,7 @@ const TransferMoney: FC = (props: any) => {
     dispatch(
       TransferMoneyActions.transferMoney({ data: [] }, { sagas: false })
     );
-    navigation.navigate("home");
+    navigation.navigate("homeTab");
   }
 
   function handleSwitch() {
