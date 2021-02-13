@@ -77,11 +77,10 @@ const AddNewTask = () => {
       amount: amount,
       customDefault,
     };
-    console.log("newtask data", data);
     addNewTask(token, data)
       .then((response) => {
         childIdList.splice(0, childIdList.length);
-        navigation.reset({ index: 0, routes: [{ name: "earning" }] });
+        navigation.navigate("earningTab");
       })
       .catch((err) => {
         console.warn("ERROR: ", err.response);

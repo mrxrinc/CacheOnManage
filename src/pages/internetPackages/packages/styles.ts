@@ -18,4 +18,5 @@ export default StyleSheet.create({
     position: "absolute",
     bottom: 0,
   },
+  buttonBox:{ backgroundColor: "#fff", borderRadius: 30 }
 });

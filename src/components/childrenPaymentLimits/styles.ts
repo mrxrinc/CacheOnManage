@@ -28,7 +28,7 @@ export default StyleSheet.create({
     fontSize: 16,
     color: colors.text,
     marginLeft: 3,
-    marginTop: 20,
+    // marginTop: 20,
     lineHeight: 24,
   },
   itemDescription: {

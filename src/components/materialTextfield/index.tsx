@@ -53,6 +53,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
               placeholderTextColor="#bbbcbc"
               value={props.value}
               ref={inputRef}
+              onFocus={props.isOnFcous}
               secureTextEntry={
                 props.icon === "password" ? !showPassword : false
               }
@@ -81,7 +82,14 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
           />
 
           {props.hasUnit && (
-            <FormattedText id={"home.rial"} style={style.unit} />
+            <FormattedText
+              id={"home.rial"}
+              style={
+                props.error
+                  ? [style.unit, { bottom: 25 }]
+                  : [style.unit, { bottom: 12 }]
+              }
+            />
           )}
         </View>
       )}

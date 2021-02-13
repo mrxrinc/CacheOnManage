@@ -18,16 +18,30 @@ function* fetchTransferMoney(action: Action) {
       TransferMoneyService.transferMoney.bind(TransferMoneyService),
       action.payload
     );
-
     yield put(
-      TransferMoneyActions.transferMoney(transferMoneyRes, {
-        sagas: false,
-      })
+      TransferMoneyActions.transferMoney(
+        { data: transferMoneyRes, hasError: false },
+        {
+          sagas: false,
+        }
+      )
     );
 
     yield put(TransferMoneyActions.setLoading(false));
   } catch (error) {
+    if (error.response.data.details) {
+      yield put(
+        TransferMoneyActions.transferMoney(
+          { data: error.response.data.details, hasError: true },
+          {
+            sagas: false,
+          }
+        )
+      );
+    }
     console.log("DEBUG: function*fetchTransferMoney -> error", error.response);
+    yield put(TransferMoneyActions.setLoading(false));
+  } finally {
     yield put(TransferMoneyActions.setLoading(false));
   }
 }

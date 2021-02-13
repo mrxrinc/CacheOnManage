@@ -140,7 +140,7 @@ export default ({ route }: any) => {
                   <View style={style.accountDetailSection}>
                     <TouchableOpacity
                       style={style.amountWrapper}
-                      onPress={() => navigation.navigate("cards")}
+                      onPress={() => navigation.navigate("cardTab")}
                     >
                       <View style={style.amountRow}>
                         <CashIcon />
@@ -149,7 +149,7 @@ export default ({ route }: any) => {
                             style={style.balances}
                             fontFamily="Regular-FaNum"
                           >
-                            {formatNumber(childData.cardRemaining)}{" "}
+                            {formatNumber(childData.cardRemaining)}
                             <FormattedText
                               style={style.currency}
                               id={"home.rial"}
@@ -166,7 +166,7 @@ export default ({ route }: any) => {
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={style.amountWrapper}
-                      onPress={() => navigation.navigate("saving")}
+                      onPress={() => navigation.navigate("savingTab")}
                     >
                       <View style={style.amountRow}>
                         <SavingIcon />

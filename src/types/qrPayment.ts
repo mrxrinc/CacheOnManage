@@ -4,10 +4,13 @@ export interface QrPayment {
   amount: string;
 }
 
-export interface PaymentResult {
+export interface QrPaymentResult {
+  data: QrPaymentResultData;
+  hasError: boolean;
+}
+interface QrPaymentResultData {
   amount: string;
   date: string;
   description: string;
   followupNumber: string;
-  success: boolean;
 }
