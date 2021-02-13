@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
   },
   TextInput: {
     backgroundColor: "#f4f6fa",
-    height: 30,
+    height: 36,
     fontSize: 16,
     color: "black",
     width: 80,

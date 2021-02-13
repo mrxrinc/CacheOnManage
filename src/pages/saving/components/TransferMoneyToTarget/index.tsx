@@ -162,7 +162,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
     );
     formik.resetForm();
 
-    navigation.navigate("saving");
+    navigation.navigate("savingTab");
   }
 
   function handleCheckedTarget(id: string) {

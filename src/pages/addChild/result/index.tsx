@@ -93,10 +93,7 @@ export default (props: any) => {
                 color={colors.buttonSubmitActive}
                 title="بازگشت به صفحه اصلی‌"
                 onPress={() => {
-                  props.navigation.reset({
-                    index: 0,
-                    routes: [{ name: "home" }],
-                  });
+                  props.navigation.navigate("homeTab");
                 }}
               />
             </View>

@@ -6,8 +6,6 @@ import {
   ScrollView,
   ActivityIndicator,
   RefreshControl,
-  TouchableOpacity,
-  Text,
 } from "react-native";
 import MainHeader from "components/mainHeader";
 import Layout from "components/layout";
@@ -28,7 +26,7 @@ const Earning = (props: any) => {
   const navigation = useNavigation();
   const [childInfo, setChildInfo] = useState<any>([]);
   const token = useSelector<RootState, any>((state) => state.user.token);
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const earningDataa = useSelector<RootState, any>(
     (state) => state.earning.earningData
   );
@@ -36,18 +34,18 @@ const Earning = (props: any) => {
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
 
   const getChildData = () => {
+    setLoading(true);
     getChildInfo(token)
       .then((response: any) => {
-        setRefreshing(false);
+        setLoading(false);
         setChildInfo(response.data);
       })
       .catch(function (error) {
-        setRefreshing(false);
+        setLoading(false);
         throw error;
       });
   };
   const onRefresh = () => {
-    setRefreshing(true);
     getChildData();
   };
   useEffect(() => {
@@ -65,7 +63,7 @@ const Earning = (props: any) => {
             paddingBottom: 54,
           }}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            <RefreshControl refreshing={loading} onRefresh={onRefresh} />
           }
         >
           <AllowanceChart childInfo={item.data} />
@@ -93,7 +91,7 @@ const Earning = (props: any) => {
     <Layout>
       <MainHeader title={"درآمد فرزندان"} hasBack={hasBackButton} />
       <View style={styles.container}>
-        {childInfo != "" ? (
+        {loading == false && childInfo != "" ? (
           <ScrollableTabView
             style={{ backgroundColor: "#f4f6fa" }}
             hasTabbar={!isChild}

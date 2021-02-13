@@ -5,6 +5,7 @@ import {
   Dimensions,
   ScrollView,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import MainHeader from "components/mainHeader";
 import Layout from "components/layout";
@@ -22,6 +23,7 @@ const Cards = (props: any) => {
   const [childInfo, setChildInfo] = useState<any>([]);
   const [transactions, setTransactions] = useState<any>([]);
   const token = useSelector<RootState, any>((state) => state.user.token);
+  const [loading, setLoading] = React.useState(false);
   const callCardInfo = useSelector<RootStateType, any>(
     (State) => State.cards.callCardsInfo
   );
@@ -30,15 +32,20 @@ const Cards = (props: any) => {
   console.log(props.route);
 
   const getCardsData = () => {
+    setLoading(true);
     getChildsCardData(token)
       .then((response: any) => {
+        setLoading(false);
         setChildInfo(response.data);
       })
       .catch(function (error) {
+        setLoading(false);
         throw error;
       });
   };
-
+  const onRefresh = () => {
+    getCardsData();
+  };
   useEffect(() => {
     getCardsData();
   }, [callCardInfo]);
@@ -67,13 +74,19 @@ const Cards = (props: any) => {
 
   const CardsPage = (item: any) => {
     return (
-      <ScrollView contentContainerStyle={styles.cardsPageBox}>
+      <ScrollView
+        contentContainerStyle={styles.cardsPageBox}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={onRefresh} />
+        }
+      >
         <View
           style={{
             height: "100%",
             width: "100%",
             marginTop: 15,
-          }}>
+          }}
+        >
           {item.data.status == "NONE" ||
           item.data.status == "FORCED_PIN_CHANGE" ||
           item.data.status == "ORDERED" ? (
@@ -90,11 +103,12 @@ const Cards = (props: any) => {
     <Layout>
       <MainHeader title={"کارتها"} hasBack={hasBackButton} />
       <View style={styles.container}>
-        {childInfo != "" ? (
+        {loading == false && childInfo != "" ? (
           <ScrollableTabView
             onChangeTab={changeTab.bind(this)}
             hasTabbar={isChild ? false : true}
-            style={{ backgroundColor: "#f4f6fa" }}>
+            style={{ backgroundColor: "#f4f6fa" }}
+          >
             {childInfo.map((data: any, i: any) => {
               return (
                 <CardsPage

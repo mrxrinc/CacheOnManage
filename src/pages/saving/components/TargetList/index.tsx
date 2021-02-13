@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { View, TouchableOpacity } from "react-native";
 import { colors } from "constants/index";
 // Hooks
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,6 @@ import { formatNumber } from "utils";
 import Edit from "images/edit.svg";
 import Delete from "images/trash.svg";
 // UI Frameworks
-import { View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import ActionModalBottom from "components/modal/actionModalBottom";
 // Common Components
@@ -115,11 +115,12 @@ const TargetList: React.FC<Props> = (props) => {
                     onPress={() => handleShowDeleteModal(target.id)}
                   />
                 ) : (
-                  <Edit
-                    height={24}
-                    width={24}
+                  <TouchableOpacity
+                    style={styles.editBox}
                     onPress={() => handleEdit(target)}
-                  />
+                  >
+                    <Edit height={24} width={24} />
+                  </TouchableOpacity>
                 )}
               </View>
               <View>

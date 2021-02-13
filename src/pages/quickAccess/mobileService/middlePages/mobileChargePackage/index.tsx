@@ -61,13 +61,6 @@ const SelectChargePackage = () => {
       <View style={styles.container}>
         <Header staticTitle={rootPage} handleBack={() => navigation.goBack()} />
         <MobileInfo />
-        <View style={styles.descriptionBox}>
-          <Note width={16} height={16} />
-          <FormattedText
-            style={styles.descriptionText}
-            id="mobileTopUp.paymentDescription"
-          />
-        </View>
         <View style={styles.inputBox}>
           <FormattedText style={styles.inputBoxText}>مبلغ</FormattedText>
           <View style={styles.inputPack}>

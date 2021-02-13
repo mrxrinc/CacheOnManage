@@ -53,6 +53,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
               placeholderTextColor="#bbbcbc"
               value={props.value}
               ref={inputRef}
+              onFocus={props.isOnFcous}
               secureTextEntry={
                 props.icon === "password" ? !showPassword : false
               }

@@ -120,10 +120,8 @@ const CashDeposit: FC = (props: any) => {
   // }, []);
 
   const handleTopUp = () => {
-    logger("TOP UP: ", { form });
     topUp(token, form)
       .then((response: any) => {
-        logger("topUp response", response);
         const data = [];
         let index = 0;
         for (let [key, value] of Object.entries(response.data)) {
@@ -159,7 +157,6 @@ const CashDeposit: FC = (props: any) => {
         });
       })
       .catch((err: any) => {
-        console.warn("topUp err", err.response);
         setStatusMessage(err.response.data.message);
       });
   };
@@ -173,7 +170,6 @@ const CashDeposit: FC = (props: any) => {
           setTimeLeft(COUNTER);
         })
         .catch((err: any) => {
-          logger("err", err.response);
           setStatusMessage(err.response.data.message);
         });
     } else {
