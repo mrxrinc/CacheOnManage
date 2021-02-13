@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/core";
 const MainPage = (props: any) => {
   const navigation = useNavigation();
 
-  const { data } = props;
+  const { cardsInfo, data } = props;
 
   const renderListHead = () => (
     <>
@@ -22,14 +22,16 @@ const MainPage = (props: any) => {
         <View style={styles.transactionHeader}>
           <FormattedText
             fontFamily="Medium"
-            style={styles.transactionHeaderText}>
+            style={styles.transactionHeaderText}
+          >
             تراکنش ها
           </FormattedText>
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("totalTransactions", { data: data })
+              navigation.navigate("totalTransactions", { childInfo: cardsInfo })
             }
-            style={styles.moreButton}>
+            style={styles.moreButton}
+          >
             <FormattedText style={styles.moreText}>مشاهده همه</FormattedText>
             <Arrow style={styles.showAllIcon} />
           </TouchableOpacity>

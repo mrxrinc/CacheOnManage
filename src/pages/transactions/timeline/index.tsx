@@ -1,24 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ScrollView } from "react-native";
 import TimelineItem from "../timlineItem";
 import monthsName from "../monthsName.json";
 import styles from "./styles";
-
-const Timeline = () => {
+import { getTwoYearsDate } from "utils";
+const Timeline = (props: any) => {
+  const { onSelected } = props;
   const months = monthsName.data;
   const [selected, setSelected] = useState(null);
-  console.log(months);
+  const scrollViewRef = useRef<any>(null);
+
+  useEffect(() => {
+    scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: false });
+  }, []);
+
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}
       horizontal
+      ref={scrollViewRef}
       style={styles.container}
+      contentContainerStyle={styles.content}
     >
-      {months.map((item: any) => {
+      {getTwoYearsDate().map((item: any, index: any) => {
         return (
           <TimelineItem
-            enable={selected === item.id}
-            onSelected={() => setSelected(item.id)}
+            enable={
+              selected
+                ? selected === index
+                : index === getTwoYearsDate().length - 1
+            }
+            onSelected={(data: any) => {
+              onSelected(data);
+              setSelected(index);
+            }}
             data={item}
             months={months}
           />
