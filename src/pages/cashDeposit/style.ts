@@ -17,8 +17,10 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   materialInput: {
-    fontFamily: "IRANSansMobileFaNum",
     textAlign: "right",
+  },
+  materialInputStyle: {
+    fontSize: 14,
   },
   inputBox: {
     width: "100%",
@@ -29,6 +31,7 @@ export default StyleSheet.create({
     height: 25,
     padding: 0,
     lineHeight: IOS ? 22 : 30,
+    fontFamily: "IRANYekanMobileFaNum",
   },
   halfWidth: {
     width: "50%",
