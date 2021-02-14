@@ -209,11 +209,11 @@ const CashDeposit: FC = (props: any) => {
             <MaterialInput
               label="شماره کارت"
               tintColor={colors.title}
-              maxLength={19}
+              maxLength={25}
               keyboardType={"number-pad"}
-              onChangeText={(value: string) =>
-                _updateForm("sourcePan", value.replace(/-/g, ""))
-              }
+              onChangeText={(value: string) => {
+                _updateForm("sourcePan", value.replace(/ - /g, ""));
+              }}
               value={formatCardNumber(form.sourcePan)}
               style={style.materialInput}
             />
