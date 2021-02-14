@@ -56,6 +56,12 @@
         "keyTextColor":"#707070",
         "editIconColor":"#307fe2"
         
+      },
+      "earning":{
+        "chartBlue":"#307fe2",
+        "chartGreen":"#00bfb2",
+        "chartPurple":"#5f249f",
+        "chartGray":"#bbbcbc"
       }
     },
     {
@@ -115,7 +121,14 @@
         "infoText":"#515c6f",
         "keyTextColor":"#8d8b8b",
         "editIconColor":"#0c96ff"
-      }
+      },
+        "earning":{
+          "chartBlue":"#00afff",
+          "chartGreen":"#00bfb2",
+          "chartPurple":"#5f249f",
+          "chartGray":"#bbbcbc"
+        }
+ 
     },
     {
       "key": "FATHER MONEY",
@@ -175,6 +188,12 @@
         "keyTextColor":"#8d8b8b",
         "editIconColor":"#0c96ff"
         
+      },
+      "earning":{
+        "chartBlue":"#00afff",
+        "chartGreen":"#00bfb2",
+        "chartPurple":"#5f249f",
+        "chartGray":"#bbbcbc"
       }
     }
   ]

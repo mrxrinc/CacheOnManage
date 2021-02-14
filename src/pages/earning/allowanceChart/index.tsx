@@ -1,11 +1,14 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { FormattedText } from "components/format-text";
 import { formatNumber } from "utils";
-import { width, height, colors } from "constants/index";
+import { colors } from "constants/index";
+import styles from "./styles";
+import { withTheme } from "themeCore/themeProvider";
 
 let allowanceForChart: any = null;
-const AllowanceChart = ({ childInfo }: any) => {
+const AllowanceChart = ({ childInfo, theme }: any) => {
+  const themes = theme.earning;
   const allowanceAmount = childInfo.allowanceAmount;
   allowanceForChart = allowanceForChart ?? allowanceAmount;
   const remaining = childInfo.doneTaskAmount + childInfo.acceptTaskAmount;
@@ -30,7 +33,6 @@ const AllowanceChart = ({ childInfo }: any) => {
             {formatNumber(allowanceForChart + incomes + paidTaskAmount) || 0}
           </FormattedText>
           <FormattedText style={{ fontSize: 15 }} fontFamily="Regular">
-            {"  "}
             ریال
           </FormattedText>
         </View>
@@ -38,7 +40,7 @@ const AllowanceChart = ({ childInfo }: any) => {
         <View style={styles.chartUi}>
           <View
             style={{
-              backgroundColor: colors.buttonOpenActive,
+              backgroundColor: themes.chartBlue,
               width: handleChartValueWidth(allowanceForChart, sum) + "%",
               borderTopLeftRadius: 15,
               borderBottomLeftRadius: 15,
@@ -46,7 +48,7 @@ const AllowanceChart = ({ childInfo }: any) => {
           />
           <View
             style={{
-              backgroundColor: colors.buttonSubmitActive,
+              backgroundColor: themes.chartGreen,
               width: handleChartValueWidth(paidTaskAmount, sum) + "%",
               borderTopRightRadius: remaining ? 0 : 15,
               borderBottomRightRadius: remaining ? 0 : 15,
@@ -54,7 +56,7 @@ const AllowanceChart = ({ childInfo }: any) => {
           />
           <View
             style={{
-              backgroundColor: colors.placeholder,
+              backgroundColor: themes.chartPurple,
               width: handleChartValueWidth(incomes, sum) + "%",
               borderTopRightRadius: remaining ? 0 : 15,
               borderBottomRightRadius: remaining ? 0 : 15,
@@ -62,7 +64,7 @@ const AllowanceChart = ({ childInfo }: any) => {
           />
           <View
             style={{
-              backgroundColor: colors.gray900,
+              backgroundColor: themes.chartGray,
               width: handleChartValueWidth(remaining, sum) + "%",
               borderTopRightRadius: 15,
               borderBottomRightRadius: 15,
@@ -77,7 +79,7 @@ const AllowanceChart = ({ childInfo }: any) => {
                 style={[
                   styles.circleVector,
                   {
-                    backgroundColor: colors.buttonOpenActive,
+                    backgroundColor: themes.chartBlue,
                   },
                 ]}
               />
@@ -99,7 +101,7 @@ const AllowanceChart = ({ childInfo }: any) => {
                 style={[
                   styles.circleVector,
                   {
-                    backgroundColor: colors.buttonSubmitActive,
+                    backgroundColor: themes.chartGreen,
                   },
                 ]}
               />
@@ -120,7 +122,7 @@ const AllowanceChart = ({ childInfo }: any) => {
                 style={[
                   styles.circleVector,
                   {
-                    backgroundColor: colors.placeholder,
+                    backgroundColor: themes.chartPurple,
                   },
                 ]}
               />
@@ -142,7 +144,7 @@ const AllowanceChart = ({ childInfo }: any) => {
                 style={[
                   styles.circleVector,
                   {
-                    backgroundColor: "#e8e8e8",
+                    backgroundColor: themes.chartGray,
                   },
                 ]}
               />
@@ -163,64 +165,4 @@ const AllowanceChart = ({ childInfo }: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    height: height * 0.35,
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: width,
-    backgroundColor: "white",
-    marginTop: 10,
-  },
-  content: {
-    justifyContent: "space-around",
-    alignItems: "center",
-    height: "95%",
-  },
-  bigAmountContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  chartUi: {
-    width: width * 0.89,
-    height: 12,
-    borderRadius: 150,
-    overflow: "hidden",
-    flexDirection: "row",
-    backgroundColor: colors.gray800,
-    borderWidth: 0.5,
-    borderColor: colors.gray700,
-  },
-  detailBox: {
-    width: width * 0.89,
-    flexDirection: "column",
-    alignItems: "flex-start",
-  },
-  detailContent: {
-    width: "100%",
-    paddingVertical: 2,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  detailTextBox: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  detailText: {
-    fontSize: 12,
-    padding: 3,
-    color: colors.gray250,
-  },
-  circleVector: {
-    width: 16,
-    height: 16,
-    borderRadius: 30,
-  },
-  detailAmountText: {
-    color: colors.gray550,
-    fontSize: 14,
-  },
-});
-export default AllowanceChart;
+export default withTheme(AllowanceChart);
