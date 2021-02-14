@@ -62,9 +62,9 @@ const Cards = (props: any) => {
     };
     getTransactions(token, data)
       .then((result) => {
-        console.log(result.data);
+        console.log(result);
         setTransactions(result.data);
-        getTransactionData(result.data[0].childId);
+        // getTransactionData(result.data[0].childId);
       })
       .catch((error) => {
         console.log(error);

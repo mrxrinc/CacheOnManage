@@ -8,27 +8,27 @@ import { formatNumber, convertEpotchToDate } from "utils";
 import styles from "./styles";
 
 const Item = (props: any) => {
-  const { amount, date, remainingAmount, title, withdraw } = props.data;
+  const { amount, date, balance, description, type } = props.data;
   const dateConvert = convertEpotchToDate(date);
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.container}>
-      {withdraw ? <PaymentIn /> : <PaymentOut />}
+      {type == "DEPOSIT" ? <PaymentOut /> : <PaymentIn />}
       <View style={styles.title}>
-        <FormattedText style={styles.titleText}>{title}</FormattedText>
+        <FormattedText style={styles.titleText}>{description}</FormattedText>
         <FormattedText style={styles.titleTime} fontFamily="Regular-FaNum">
           {dateConvert}
         </FormattedText>
       </View>
       <View style={styles.payment}>
         <FormattedText
-          style={[styles.paymentTop, withdraw && styles.paymentIn]}
+          style={[styles.paymentTop, type !== "DEPOSIT" && styles.paymentIn]}
           fontFamily="Regular-FaNum"
         >
           {formatNumber(amount)}
-          {withdraw ? " + " : " - "}ریال
+          {type == "DEPOSIT" ? " - " : " + "}ریال
         </FormattedText>
         <FormattedText style={styles.paymentBottom} fontFamily="Regular-FaNum">
-          {formatNumber(remainingAmount)} ریال
+          {formatNumber(balance)} ریال
         </FormattedText>
       </View>
       <More />
