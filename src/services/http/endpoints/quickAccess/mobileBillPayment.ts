@@ -14,7 +14,6 @@ class MobileBillPaymentServiceProvider extends HttpService {
    */
 
   public fetchMobileBillPayment(data: BillPayment) {
-    console.log("fetchMobileBillPayment>> data is", data);
     return this.httpService.post("bill", data);
   }
 }

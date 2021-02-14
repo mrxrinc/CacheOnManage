@@ -10,7 +10,7 @@ import styles from "./styles";
 import { InvoiceData } from "constants/types";
 import ScrollableTabView from "components/scrollableTabView";
 import EmptyComponent from "components/emptyComponent";
-import Item from "./item";
+import Item from "pages/transactions/item";
 import SectionFooter from "./sectionFooter";
 import SectionHeader from "./sectionHeader";
 import { colors } from "constants/index";
@@ -67,8 +67,8 @@ const SpendParent: FC = (props: any) => {
       <SectionList
         stickySectionHeadersEnabled={false}
         sections={refinedData}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => <Item data={item} />}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={(item) => <Item data={item} />}
         renderSectionHeader={({ section }) => <SectionHeader data={section} />}
         renderSectionFooter={({ section }) => <SectionFooter data={section} />}
       />

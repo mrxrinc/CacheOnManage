@@ -26,7 +26,6 @@ const ActionModalBottom: React.FC<Props> = ({
   showHeader,
   theme,
 }) => {
-  console.log("themeis", theme);
   return (
     <Modal
       isVisible={showModal}

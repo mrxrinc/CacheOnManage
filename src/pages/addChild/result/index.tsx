@@ -20,7 +20,6 @@ const resultKeys: any = {
 
 export default (props: any) => {
   const { params } = props.route;
-  console.log("add Child Result: => ", params);
   const result: any = [];
   for (const [key, value] of Object.entries(params)) {
     if (key !== "id") result.push({ key, value });

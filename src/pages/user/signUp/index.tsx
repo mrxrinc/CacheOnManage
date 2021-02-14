@@ -101,14 +101,12 @@ export default (props: any) => {
       username,
       password,
     };
-    console.log({ data });
     register(token, data)
       .then((response: any) => {
         dispatch(otpTokenChanged(response.data.access_token));
         dispatch(signUpStepChanged("checkInfo"));
       })
       .catch((err: any) => {
-        console.log("err", err.response.data.message);
         setError({
           field: "error",
           message: err.response.data.message,

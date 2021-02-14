@@ -17,7 +17,6 @@ import { getEarningData } from "redux/actions/Earning";
 const confirmTaskPage = ({ route }: any) => {
   const dispatch = useDispatch();
   const { item } = route.params;
-  console.log({ item });
   const navigation = useNavigation();
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [confirmationModal, setConfirmationModal] = useState(false);

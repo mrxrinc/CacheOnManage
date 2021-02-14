@@ -24,7 +24,6 @@ export function handleCamera(
   handleSetSettingData: any
 ) {
   ImagePicker.openCamera(CAMERA_OPTIONS).then((image: any) => {
-    console.log(image);
     setAvatar(image.data);
     handleSetSettingData(image.data);
   });
@@ -35,7 +34,6 @@ export function handleImagePicker(
   handleSetSettingData: any
 ) {
   ImagePicker.openPicker(CAMERA_OPTIONS).then((image: any) => {
-    console.log(image);
     setAvatar(image.data);
     handleSetSettingData(image.data);
   });

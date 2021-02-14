@@ -29,7 +29,6 @@ const Cards = (props: any) => {
   );
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   const hasBackButton = props.route.params?.hasBackButton;
-  console.log(props.route);
 
   const getCardsData = () => {
     setLoading(true);
@@ -51,7 +50,6 @@ const Cards = (props: any) => {
   }, [callCardInfo]);
 
   const changeTab = (data: any) => {
-    console.log(childInfo[data.i]);
     getTransactionData(childInfo[data.i].childId);
   };
 
@@ -62,12 +60,10 @@ const Cards = (props: any) => {
     };
     getTransactions(token, data)
       .then((result) => {
-        console.log(result.data);
         setTransactions(result.data);
-        getTransactionData(result.data[0].childId);
+        // getTransactionData(result.data[0].childId);
       })
       .catch((error) => {
-        console.log(error);
         throw error;
       });
   };

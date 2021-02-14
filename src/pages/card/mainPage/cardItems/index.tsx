@@ -39,20 +39,17 @@ const CardItems = (props: any) => {
 
   const handleBlock = () => {
     setLoading(true);
-    console.log("setCardBlock called");
     const data = {
       childId: cardInfo.childId,
     };
-    console.log("setCardBlock response", data);
     setCardBlock(token, data)
       .then((response) => {
-        console.log("setCardBlock response", response);
         setShowModal(!showModal);
         dispatch(CardsActions.callCardInfo("block"));
         setLoading(false);
       })
-      .catch((err) => {
-        console.log("setCardBlock err", err.response);
+      .catch(() => {
+        return false;
       });
   };
 
@@ -70,7 +67,6 @@ const CardItems = (props: any) => {
         })
         .catch((err) => {
           setLoading(false);
-          console.log("handleDeactive err", err.response);
         });
     } else {
       setUnblockTemporary(token, data)
@@ -81,7 +77,6 @@ const CardItems = (props: any) => {
         })
         .catch((err) => {
           setLoading(false);
-          console.log("handleUnblock err", err.response);
         });
     }
   };
@@ -93,13 +88,11 @@ const CardItems = (props: any) => {
     if (password == reEnterPassword) {
       setNewPassword(token, data)
         .then((response) => {
-          console.log("handleChangePassword response", response);
           setSuccessChangePassword(true);
           setErrorText("");
           dispatch(CardsActions.callCardInfo("changePassword"));
         })
         .catch((err) => {
-          console.log("handleChangePassword err", err);
           setErrorText(err.response.data.message);
         });
     } else {

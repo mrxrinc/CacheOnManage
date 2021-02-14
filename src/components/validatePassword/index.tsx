@@ -8,9 +8,6 @@ import { checkBothCases, checkHasNumber } from "utils/validators";
 export default ({ password, handleValidatePassword, customStyle }: any) => {
   useEffect(() => {
     password = password.trim();
-    console.log("password > 7 ", password.length > 7);
-    console.log("both cases ", checkBothCases(password));
-    console.log("has capital ", checkHasNumber(password));
     if (
       password.length > 7 &&
       checkBothCases(password) &&
