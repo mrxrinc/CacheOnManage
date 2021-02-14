@@ -265,18 +265,14 @@ const TaskList = (props: any) => {
               )}
               {item.status == "TODO" && isChild && (
                 <TouchableOpacity
-                  style={
-                    styles.taskItemConfirmButton,
-                  }
+                  style={styles.taskItemConfirmButton}
                   onPress={() => {
                     setTaskId(item.id);
                     setTaskName(item.taskName);
                     setEndTaskModal(true);
                   }}
                 >
-                  <FormattedText
-                    style={styles.taskItemConfirmButtonText}
-                  >
+                  <FormattedText style={styles.taskItemConfirmButtonText}>
                     اتمام فعالیت
                   </FormattedText>
                 </TouchableOpacity>
@@ -514,12 +510,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 17,
-    backgroundColor: "#43e6c5"
+    backgroundColor: "#43e6c5",
   },
   taskItemConfirmButtonText: {
     lineHeight: IOS ? 8 : 13,
     textAlign: "center",
-    color: "#fff"
+    color: "#fff",
   },
   taskItemAcceptedText: {
     color: colors.buttonOpenActive,
