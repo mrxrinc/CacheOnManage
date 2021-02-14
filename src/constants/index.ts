@@ -76,4 +76,7 @@ export const colors = {
   eggplant: "#110820",
   pinkRed: "#e40046",
   turquoise: "#00bfb2",
+  cornflowerBlue: "#497edb",
+  lightGreyBlue: "#bbbcbc",
+  yellowOrange: "#f2a900",
 };

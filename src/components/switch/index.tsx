@@ -5,9 +5,10 @@ const Clickable = Animated.createAnimatedComponent(TouchableOpacity);
 
 type Props = {
   onChange: (state: boolean) => void;
+  activeColor: any;
 };
 
-export default ({ onChange }: Props) => {
+export default ({ onChange, activeColor }: Props) => {
   const [active, setActive] = useState<boolean>(false);
   const movement = useRef(new Animated.Value(0)).current;
 
@@ -45,7 +46,9 @@ export default ({ onChange }: Props) => {
       style={[
         style.container,
         {
-          backgroundColor: active ? colors.switch : colors.gray650,
+          backgroundColor: active
+            ? activeColor ?? colors.switch
+            : colors.gray650,
         },
       ]}
       onPress={() => handleChecked()}
