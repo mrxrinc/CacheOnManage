@@ -23,7 +23,7 @@ import WhiteLogo from "images/white-logo.svg";
 import Header from "./header";
 import FooterLogin from "./FooterLogin";
 import StatusLogin from "./StatusLogin";
-import FingerModal from "./FingerModal";
+import BioModal from "./BioModal";
 import ButtonLogin from "./ButtonLogin";
 import ErrorLogin from "./ErrorLogin";
 
@@ -94,41 +94,40 @@ const Login = ({ theme }: any) => {
 
   const setData = async () => {
     const user: any = await AsyncStorage.getItem("username");
-    console.log(user);
     setUsername(user);
-    AsyncStorage.getItem("childPhone").then((childPhone) => {
-      dispatch(childPhoneNumber(childPhone));
-    });
+    const childPhone = await AsyncStorage.getItem("childPhone");
+    dispatch(childPhoneNumber(childPhone));
   };
 
-  const handleTouch = async (username: string, password: string) => {
-    console.log(username);
-    console.log(password);
+  const handleTouch = async (
+    username: string,
+    password: string,
+    denyBiometric: boolean
+  ) => {
     setLoading(true);
     if (validateUserName(username)) {
       login(username, password, isChild)
         .then((response: any) => {
-          console.log(response);
           setLoading(false);
           if (response.status == 200) {
             dispatch(otpTokenChanged(response.data.access_token));
             AsyncStorage.setItem("token", response.data.access_token);
             AsyncStorage.setItem("username", username);
-            if (biometricType) {
+            if (biometricType && !denyBiometric) {
               (async () => {
                 const checkWasAssigened = await getLocalData("biometrics");
                 if (!checkWasAssigened) {
                   setShowBiometricModal(true);
                 } else {
-                  navigation.navigate("app");
                   setUsername("");
                   setPassword("");
+                  navigation.navigate("app");
                 }
               })();
             } else {
-              navigation.navigate("app");
               setUsername("");
               setPassword("");
+              navigation.navigate("app");
             }
           } else {
             setError({
@@ -178,13 +177,14 @@ const Login = ({ theme }: any) => {
         },
       };
       const credentials = await Keychain.getGenericPassword(options);
-      console.log(credentials);
       if (credentials) {
         setUsername(credentials.username);
-        handleTouch(credentials.username, credentials.password);
+        handleTouch(credentials.username, credentials.password, false);
       } else {
         setError({
-          errorText: "اثر انگشت شما ثبت نشده است",
+          errorText: isFace
+            ? "چهره شما ثبت نشده است"
+            : "اثر انگشت شما ثبت نشده است",
           isError: true,
         });
       }
@@ -200,11 +200,13 @@ const Login = ({ theme }: any) => {
 
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+      style={[styles.container, { backgroundColor: theme.backgroundColor }]}
+    >
       <StatusLogin theme={theme} />
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={styles.contentContainer}>
+        contentContainerStyle={styles.contentContainer}
+      >
         <Header theme={theme} onPress={() => setSupportModal(true)} />
         <View style={styles.content}>
           {bljTheme ? (
@@ -238,10 +240,10 @@ const Login = ({ theme }: any) => {
             password={password}
             onPress={() =>
               password
-                ? handleTouch(username, password)
+                ? handleTouch(username, password, false)
                 : isFace || isFinger
                 ? handleBiometricsAction()
-                : handleTouch(username, password)
+                : handleTouch(username, password, false)
             }
             loading={loading}
             isFace={isFace}
@@ -263,11 +265,14 @@ const Login = ({ theme }: any) => {
         title="پشتیبانی‌"
         phoneNumber="02147474747"
       />
-      <FingerModal
+      <BioModal
         showBiometricModal={showBiometricModal}
-        theme={theme}
         handleSetBiometricsLogin={handleSetBiometricsLogin}
-        deactive={() => setShowBiometricModal(false)}
+        deactive={() => {
+          handleTouch(username, password, true);
+          setShowBiometricModal(false);
+        }}
+        isFace={isFace}
       />
     </SafeAreaView>
   );
