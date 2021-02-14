@@ -33,7 +33,8 @@ export default FooterLogin;
 const styles = StyleSheet.create({
   noRegister: {
     alignSelf: "center",
-    marginVertical: 10,
+    marginTop: 10,
+    marginBottom: 20,
   },
   registerText: { alignSelf: "center", fontSize: 16, color: colors.links },
 });

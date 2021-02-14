@@ -49,7 +49,7 @@ export default class FanButton extends Component {
           ref={option.id}
           icon={option.icon}
           color={theme.fanBtn}
-          colorText={theme.fanBtn}
+          colorText={theme.fanBtnTextColor}
           colorIcon={theme.backgroundColor}
           type={option.type}
           number={option.id}

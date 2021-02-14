@@ -1,33 +1,47 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 import { FormattedText } from "components/format-text";
 import Button from "components/button";
 import { colors, iosBoxShadow } from "constants/index";
-import Fingerprint from "images/signIn/fingerprint.svg";
+import Fingerprint from "components/icons/fingerprint.svg";
+import FaceIDIcon from "components/icons/face-id.svg";
+import CloseIcon from "components/icons/close.svg";
 
-const FingerModal = (props: any) => {
+const BioModal = (props: any) => {
   const {
     showBiometricModal,
-    theme,
     handleSetBiometricsLogin,
     deactive,
+    isFace,
   } = props;
   return (
     <Modal
       isVisible={showBiometricModal}
       onBackdropPress={deactive}
       onBackButtonPress={deactive}
+      useNativeDriver
       style={styles.modal}
     >
       <View style={styles.modalContainer}>
-        <FormattedText style={styles.modalTitle} id="login.fingerprint" />
+        <TouchableOpacity style={styles.close} onPress={deactive}>
+          <CloseIcon width={14} height={14} fill={colors.gray400} />
+        </TouchableOpacity>
+
+        <FormattedText
+          style={styles.modalTitle}
+          id={isFace ? "login.FaceId" : "login.fingerprint"}
+        />
         <View style={styles.modalIconWrapper}>
-          <Fingerprint width={55} height={70} fill={theme.svg.fingerprint} />
+          {isFace ? (
+            <FaceIDIcon width={55} height={70} fill={colors.title} />
+          ) : (
+            <Fingerprint width={55} height={70} fill={colors.title} />
+          )}
         </View>
         <FormattedText
           style={styles.modalDescription}
-          id="login.fingerproint-quesion"
+          id={isFace ? "login.FaceId-quesion" : "login.fingerproint-quesion"}
         />
         <Button
           title="بله"
@@ -40,7 +54,7 @@ const FingerModal = (props: any) => {
     </Modal>
   );
 };
-export default FingerModal;
+export default BioModal;
 const styles = StyleSheet.create({
   modalDescription: {
     textAlign: "center",
@@ -53,6 +67,11 @@ const styles = StyleSheet.create({
     width: 170,
     height: 44,
     marginTop: 30,
+  },
+  close: {
+    alignSelf: "flex-start",
+    marginLeft: 5,
+    marginTop: 5,
   },
   modal: {
     margin: 0,
@@ -73,7 +92,8 @@ const styles = StyleSheet.create({
     ...iosBoxShadow,
   },
   modalTitle: {
-    fontSize: 14,
+    fontSize: 16,
+    color: colors.title,
   },
   modalIconWrapper: {
     paddingTop: 35,
