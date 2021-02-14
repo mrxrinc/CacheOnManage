@@ -17,10 +17,6 @@ class Option extends Component {
     y1: 0,
   };
 
-  logRange() {
-    console.log(this.validRange);
-  }
-
   _getStyle() {
     const { size, color } = this.props;
     const { scale, move } = this.state;

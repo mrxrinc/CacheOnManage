@@ -72,16 +72,13 @@ export const InquiryAddress = (props: any) => {
   };
 
   const handleAddressCheck = (value?: string) => {
-    console.log("AddressCheck");
     clearError();
     if (!value) value = postalCode;
     addressInqury(token, value)
       .then((response: any) => {
-        console.log(response.data);
         setAddress(response.data.address);
       })
       .catch((err: any) => {
-        console.log("err", err.response.data);
         setAddress(null);
         setError({
           field: "postalCode",
@@ -286,7 +283,6 @@ export const InquiryAddress = (props: any) => {
               onSubmitEditing={() => debounce(handleAddressCheck())}
               onChangeText={(value: string) => {
                 setPostalCode(value);
-                console.log(value);
                 setAddress(null);
                 if (value.length === 10) debounce(handleAddressCheck(value));
               }}

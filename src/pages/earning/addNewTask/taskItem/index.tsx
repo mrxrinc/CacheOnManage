@@ -6,7 +6,6 @@ import { formatNumber } from "utils";
 import styles from "./styles";
 const TaskItem = (props: any) => {
   const { icon, taskName, amount, onPress, isSingle } = props;
-  console.log(props);
   return (
     <TouchableOpacity
       activeOpacity={isSingle ? 1 : 0.6}

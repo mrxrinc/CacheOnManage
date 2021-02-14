@@ -40,7 +40,6 @@ const TaskList = (props: any) => {
         setDeleteTask(false);
       })
       .catch(function (error) {
-        console.log("deleteChildtask err" + error.message);
         throw error;
       });
   };
@@ -52,13 +51,10 @@ const TaskList = (props: any) => {
     };
     childStatusTask(token, data)
       .then((response) => {
-        console.log("handleChildDoneStatusTask res", response);
-
         dispatch(getEarningData(id));
         setStatusTask(false);
       })
       .catch(function (error) {
-        console.log("handleChildDoneStatusTask err", error);
         throw error;
       });
   };
@@ -70,12 +66,10 @@ const TaskList = (props: any) => {
   //   };
   //   childStatusTask(token, data)
   //     .then((response) => {
-  //       console.log("handleVerifyStatusTask res", response);
   //       dispatch(getEarningData(taskId));
   //       setStatusTask(false);
   //     })
   //     .catch(function (error) {
-  //       console.log("handleVerifyStatusTask err", error);
   //       throw error;
   //     });
   // };

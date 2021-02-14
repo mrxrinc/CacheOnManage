@@ -70,7 +70,6 @@ const Otp = () => {
     setNationalId(text);
     setNationalIdIsValid(false);
     if (text.length == 10) {
-      console.log("data is", validateNationalId(text));
       validateNationalId(text)
         ? setNationalIdIsValid(true)
         : setError({

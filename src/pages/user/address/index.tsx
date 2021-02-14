@@ -37,12 +37,10 @@ const Address = () => {
   const dispatch = useDispatch();
   const handleTouch = () => {
     setLoading(true);
-    console.log("handleTouch called", postalcode, phone);
     setAddress(token, postalcode, phone)
       .then((response: any) => {
         setLoading(false);
         if (response.status == 200) {
-          console.log("setAddress api is", response.data);
           setClientAddress(
             response.data.province +
               " - " +

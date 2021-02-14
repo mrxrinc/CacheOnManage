@@ -106,11 +106,9 @@ const ChildUser = (props: any) => {
       username,
       password,
     };
-    console.log({ data });
     addChild(token, data)
       .then((response: any) => {
         setLoading(false);
-        console.log({ response });
         props.navigation.push("result", response.data);
       })
       .catch((err: any) => {

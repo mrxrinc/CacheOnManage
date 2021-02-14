@@ -35,7 +35,6 @@ const CameraScreen = () => {
   const token = useSelector<RootState, any>((state) => state.user.token);
 
   const startRecording = async () => {
-    console.log("startRecording call");
     setRecording(true);
     const promise = cameraRef.current.recordAsync();
     setRecording(true);
@@ -51,7 +50,6 @@ const CameraScreen = () => {
       onUploadProgress: (progressEvent: any) => {
         const { loaded, total } = progressEvent;
         let precent = Math.floor((loaded * 100) / total);
-        console.log("precent is", precent);
         if (precent < 100) {
           setPercentage(precent);
         }
@@ -59,9 +57,6 @@ const CameraScreen = () => {
     };
 
     await RNFS.readFile(data.uri, "base64").then((res) => {
-      console.log("video base64 res is:", res);
-      console.log("token data is", token);
-      console.log("startRecording call2");
       axios
         .post(
           BASE_URL + "/api/v1/onboarding/notarization",
@@ -72,19 +67,13 @@ const CameraScreen = () => {
           options
         )
         .then((res) => {
-          console.log("video base64 is:", res);
           if ((res.status = 200)) {
             setPercentage(0);
             dispatch(signUpStepChanged(res.data.current));
             dispatch(currentStepChanged(2));
-            console.log("respons is::", res);
           }
         })
         .catch((error) => {
-          console.log(
-            "There has been a problem with your fetch operation: " +
-              error.response.data.message
-          );
           throw error;
         });
     });
@@ -98,15 +87,11 @@ const CameraScreen = () => {
   useEffect(() => {
     getLivenessText(token)
       .then((response: any) => {
-        console.log("getLivenessText api is", response.data);
         if (response.status == 200) {
           setLivenessText(response.data.text);
         }
       })
       .catch(function (error) {
-        console.log(
-          "There has been a problem with your fetch operation: " + error.message
-        );
         throw error;
       });
   }, []);

@@ -113,7 +113,6 @@ const TransferMoney: FC = (props: any) => {
     validateOnChange: firstSubmitted,
     validateOnBlur: false,
     validate: (values: any) => {
-      console.log("childName", childName);
       const errors: Errors = {};
       setFirstSubmitted(true);
       if (!values.amount) {

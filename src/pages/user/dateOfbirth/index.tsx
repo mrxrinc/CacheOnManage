@@ -38,8 +38,6 @@ const DateOfBirth = () => {
   };
 
   const handleClick = () => {
-    console.log("parentBirthDate>>", parentBirthDate);
-
     setLoading(true);
     dateOfBirth(token, parentBirthDate)
       .then((response: any) => {

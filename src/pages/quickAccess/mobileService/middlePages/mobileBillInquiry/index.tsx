@@ -42,10 +42,8 @@ const MobileBillInquiry = () => {
       mobile: childPhoneNum,
       operator: operatorName,
     };
-    console.log("mobileBillInquiry>> data", data);
     mobileBillInquiry(token, data)
       .then((response) => {
-        console.log("mobileBillInquiry>> response", response);
         let res = response.data;
         res.midBillTitle = "بدهی میان دوره";
         res.finalBillTitle = "بدهی پایان دوره";

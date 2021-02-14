@@ -138,8 +138,6 @@ function DrawerStack() {
     <Drawer.Navigator
       initialRouteName="TabScreens"
       drawerContent={(props) => {
-        console.log({ props });
-
         return <DrawerContent {...props} />;
       }}
     >

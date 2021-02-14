@@ -25,9 +25,7 @@ const AuthRoot = () => {
   const signUpSteps = useSelector<RootState, any>(
     (state) => state.user.signUpSteps
   );
-  console.log(exitModal);
   const handleBack = () => {
-    console.log("test");
     dispatch(signUpStepChanged("signIn"));
   };
 

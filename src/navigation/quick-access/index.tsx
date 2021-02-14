@@ -33,7 +33,6 @@ const QuickAccessNavigator = ({
     (state) => state.quickAccess.rootPage
   );
 
-  console.log("rootPage is>>", rootPage);
   return (
     <Stack.Navigator initialRouteName={rootPage}>
       <Stack.Screen

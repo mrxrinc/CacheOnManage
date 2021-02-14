@@ -26,7 +26,6 @@ function* fetchInvoiceList(action: Action) {
 
     yield put(InvoiceActions.setLoading(false));
   } catch (error) {
-    console.log("DEBUG: function*fetchInvoiceList -> error", error.response);
     yield put(InvoiceActions.setLoading(false));
   }
 }

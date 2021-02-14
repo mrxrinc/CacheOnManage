@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  SafeAreaView,
-  StatusBar,
-  UIManager,
-  Platform,
-  StyleSheet,
-} from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import HeaderKyc from "./KycHeader";
 import { colors } from "constants/index";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
