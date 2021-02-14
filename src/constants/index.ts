@@ -31,7 +31,7 @@ export const colors = {
   disable: "#c9cbcc",
 
   // new colors
-  blujrBtnOpenActive:"#307fe2",
+  blujrBtnOpenActive: "#307fe2",
   buttonOpenActive: "#00afff",
   buttonOpenActive50: "#00afff80",
   buttonOpenPressed: "#0498db",
@@ -71,4 +71,9 @@ export const colors = {
   // just for debugging purpose
   d: "#C8CA2633",
   f: "#ff00aa33",
+
+  //kyc
+  eggplant: "#110820",
+  pinkRed: "#e40046",
+  turquoise: "#00bfb2",
 };

@@ -7,8 +7,7 @@ export default StyleSheet.create({
     height: 75,
   },
   containerKyc: {
-    backgroundColor:'red',
-    paddingHorizontal:20,
+    paddingHorizontal: 20,
   },
   statusBar: {
     width: "100%",
@@ -40,7 +39,7 @@ export default StyleSheet.create({
     right: 0,
     top: 0,
   },
-  close:{
+  close: {
     width: undefined,
   },
 });

@@ -32,13 +32,13 @@ const Header: FC<Props> = ({
       end={{ x: 1, y: 0 }}
       style={isKyc ? styles.containerKyc : styles.container}
     >
+      {!isKyc && <View style={styles.statusBar} />}
       <StatusBar
         animated
-        translucent={true}
+        translucent={isKyc ? false : true}
         hidden={false}
         barStyle={"dark-content"}
       />
-      <View style={styles.statusBar} />
       <View style={[styles.navbar]}>
         {handleBack && (
           <TouchableOpacity style={styles.backWrapper} onPress={handleBack}>
