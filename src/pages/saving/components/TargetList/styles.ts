@@ -108,4 +108,10 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  editBox:{
+    width: 34,
+    height: 34,
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });

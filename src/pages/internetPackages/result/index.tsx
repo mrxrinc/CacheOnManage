@@ -34,13 +34,13 @@ export const TransactionResult = (props: any) => {
       if (!token) {
         props.navigation.reset({
           index: 0,
-          routes: [{ name: "entryType" }],
+          routes: [{ name: "auth" }],
         });
         return;
       }
       props.navigation.reset({
         index: 0,
-        routes: [{ name: "home" }],
+        routes: [{ name: "app" }],
       });
     });
     return;

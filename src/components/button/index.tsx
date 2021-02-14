@@ -4,7 +4,7 @@ import { FormattedText } from "components/format-text";
 import { colors, IOS, width } from "constants/index";
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
-import Fingerprint from "images/signIn/fingerprint.svg";
+import Fingerprint from "components/icons/fingerprint.svg";
 import FaceIDIcon from "components/icons/face-id.svg";
 import { shadeColor } from "utils";
 
@@ -70,7 +70,7 @@ const Button = ({
     >
       <TouchableHighlight
         style={[styles.button]}
-        underlayColor={shadeColor(color, -10)}
+        underlayColor={!outline ? shadeColor(color, -10) : colors.gray850}
         disabled={disabled}
         onPress={onPress}
         {...props}

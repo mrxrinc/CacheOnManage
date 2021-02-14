@@ -1,12 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../../customType";
 import { FormattedText } from "components/format-text";
@@ -16,14 +10,14 @@ import Earning from "pages/earning";
 import Saving from "pages/saving";
 import More from "pages/more";
 import Card from "pages/card";
-import curve from "images/curve.png";
+import Curve from "images/tabbar/curve.svg";
 import EarningSvg from "images/tabbar/earning.svg";
 import MoreSvg from "images/tabbar/more.svg";
 import SavingSvg from "images/tabbar/saving.svg";
 import CardsSvg from "images/tabbar/cards.svg";
 import HomeSvg from "images/tabbar/home.svg";
-import BluejrHome from "images/tabbar/bluejrHome.svg"
-import {withTheme} from "themeCore/themeProvider"
+import BluejrHome from "images/tabbar/bluejrHome.svg";
+import { withTheme } from "themeCore/themeProvider";
 
 const SIZE = {
   nano: 16,
@@ -35,11 +29,11 @@ const SIZE = {
 };
 
 export type TabParamList = {
-  saving: undefined;
-  home: undefined;
-  cards: undefined;
-  earning: undefined;
-  more: undefined;
+  savingTab: undefined;
+  homeTab: undefined;
+  cardTab: undefined;
+  earningTab: undefined;
+  moreTab: undefined;
 };
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -47,7 +41,8 @@ const Tab = createBottomTabNavigator<TabParamList>();
 const fullWidth = Dimensions.get("window").width;
 
 const TabBar = (props: any) => {
-  const focusedOptions = props.descriptors[props.state.routes[props.state.index].key].options;
+  const focusedOptions =
+    props.descriptors[props.state.routes[props.state.index].key].options;
   if (focusedOptions.tabBarVisible === false) {
     return null;
   }
@@ -56,7 +51,9 @@ const TabBar = (props: any) => {
       <View style={styles.tabbarBox}>
         {props.state.routes.map((route: any, index: number) => {
           const focused = props.state.index === index;
-          const iconColor = focused ? props.theme.theme.tabbar.activeLabelColor : props.theme.theme.tabbar.deactiveLabelColor;
+          const iconColor = focused
+            ? props.theme.theme.tabbar.activeLabelColor
+            : props.theme.theme.tabbar.deactiveLabelColor;
           return (
             <View key={index}>
               <TouchableOpacity
@@ -67,19 +64,19 @@ const TabBar = (props: any) => {
                 <View style={[styles.imgBox]}>
                   {index != 2 ? (
                     <View>
-                      {route.name == "saving" ? (
+                      {route.name == "savingTab" ? (
                         <SavingSvg
                           width={SIZE.tiny}
                           height={SIZE.tiny}
                           fill={iconColor}
                         />
-                      ) : route.name == "earning" ? (
+                      ) : route.name == "earningTab" ? (
                         <EarningSvg
                           width={SIZE.tiny}
                           height={SIZE.tiny}
                           fill={iconColor}
                         />
-                      ) : route.name == "cards" ? (
+                      ) : route.name == "cardTab" ? (
                         <CardsSvg
                           width={SIZE.tiny}
                           height={SIZE.tiny}
@@ -95,32 +92,27 @@ const TabBar = (props: any) => {
                     </View>
                   ) : (
                     <View style={styles.homeBox}>
-                      <Image source={curve} style={styles.curve} />
-                      {props.theme.theme.key == "FATHER BLU JUNIOR" ?
-                      (
-                      <BluejrHome
-                        width={62}
-                        height={62}
-                        style={{ position: "absolute" }}
-                        // fill={focused ? "#8387fc" : "#01065d"}
-                      />
-                      ):(
+                      <Curve style={styles.curve} />
+                      {props.theme.theme.key == "FATHER BLU JUNIOR" ? (
+                        <BluejrHome
+                          width={62}
+                          height={62}
+                          style={{ position: "absolute" }}
+                          // fill={focused ? "#8387fc" : "#01065d"}
+                        />
+                      ) : (
                         <HomeSvg
-                        width={62}
-                        height={62}
-                        style={{ position: "absolute" }}
-                        // fill={focused ? "#8387fc" : "#01065d"}
-                      />
-                      )
-        }
+                          width={62}
+                          height={62}
+                          style={{ position: "absolute" }}
+                          // fill={focused ? "#8387fc" : "#01065d"}
+                        />
+                      )}
                     </View>
                   )}
                   <FormattedText
                     id={route.name}
-                    style={[
-                      styles.tabbarLable,
-                      { color: iconColor, bottom: index == 2 ? 10 : 0 },
-                    ]}
+                    style={[styles.tabbarLable, { color: iconColor }]}
                   />
                 </View>
               </TouchableOpacity>
@@ -132,15 +124,18 @@ const TabBar = (props: any) => {
   );
 };
 
-const TabNavigator = (theme:any) => {
+const TabNavigator = (theme: any) => {
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   return (
-    <Tab.Navigator initialRouteName="home" tabBar={props => <TabBar theme = {theme} {...props} />}>
-      <Tab.Screen name="saving" component={Saving} />
-      <Tab.Screen name="earning" component={Earning} />
-      <Tab.Screen name="home" component={isChild ? ChildHome : Home} />
-      <Tab.Screen name="cards" component={Card} />
-      <Tab.Screen name="more" component={More} />
+    <Tab.Navigator
+      initialRouteName="homeTab"
+      tabBar={(props) => <TabBar theme={theme} {...props} />}
+    >
+      <Tab.Screen name="savingTab" component={Saving} />
+      <Tab.Screen name="earningTab" component={Earning} />
+      <Tab.Screen name="homeTab" component={isChild ? ChildHome : Home} />
+      <Tab.Screen name="cardTab" component={Card} />
+      <Tab.Screen name="moreTab" component={More} />
     </Tab.Navigator>
   );
 };
@@ -150,7 +145,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-end",
-    height: "9.8%",
+    height: 76,
     width: fullWidth,
     backgroundColor: "white",
   },
@@ -171,7 +166,7 @@ const styles = StyleSheet.create({
   curve: {
     width: 120,
     height: 90,
-    marginBottom: 20,
+    marginBottom: "-50%",
   },
   tabbarLable: {
     fontSize: 10,

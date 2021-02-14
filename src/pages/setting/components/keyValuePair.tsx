@@ -2,18 +2,24 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { FormattedText } from "components/format-text";
 import { colors, IOS } from "constants/index";
+import { withTheme } from "themeCore/themeProvider";
 
 type Props = {
   rowKey: string;
   value?: string;
   enNum?: boolean;
+  theme?: any;
 };
-export default ({ rowKey, value, enNum }: Props) => {
+const KeyValuePair = ({ rowKey, value, enNum, theme }: Props) => {
   return (
     <View style={style.container}>
-      <FormattedText style={style.rowKey}>{rowKey}</FormattedText>
       <FormattedText
-        style={style.value}
+        style={[style.rowKey, { color: theme.setting.keyTextColor }]}
+      >
+        {rowKey}
+      </FormattedText>
+      <FormattedText
+        style={[style.value, { color: theme.setting.infoText }]}
         fontFamily={enNum ? "Regular" : "Regular-FaNum"}
       >
         {value}
@@ -31,13 +37,12 @@ const style = StyleSheet.create({
   },
   rowKey: {
     fontSize: 12,
-    color: colors.gray500,
     lineHeight: IOS ? 20 : 23,
   },
   value: {
     fontSize: 12,
-    color: colors.gray300,
     marginLeft: 15,
     lineHeight: IOS ? 18 : 23,
   },
 });
+export default withTheme(KeyValuePair);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, forwardRef } from "react";
-import { View, TouchableOpacity, TextInput } from "react-native";
+import { View, TouchableOpacity, TextInput, StyleSheet } from "react-native";
 import { FilledTextField } from "react-native-material-textfield";
 import { FormattedText } from "components/format-text";
 import { colors } from "constants/index";
@@ -33,7 +33,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
       );
     } else if (props.icon === "password") {
       return showPassword ? (
-        <PasswordIcon width={22} height={22} fill={colors.gray300} />
+        <PasswordIcon width={22} height={22} style={style.password} />
       ) : (
         <PasswordVisibleIcon width={22} height={22} fill={colors.gray600} />
       );
@@ -53,6 +53,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
               placeholderTextColor="#bbbcbc"
               value={props.value}
               ref={inputRef}
+              onFocus={props.isOnFcous}
               secureTextEntry={
                 props.icon === "password" ? !showPassword : false
               }
@@ -81,7 +82,14 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
           />
 
           {props.hasUnit && (
-            <FormattedText id={"home.rial"} style={style.unit} />
+            <FormattedText
+              id={"home.rial"}
+              style={
+                props.error
+                  ? [style.unit, { bottom: 25 }]
+                  : [style.unit, { bottom: 12 }]
+              }
+            />
           )}
         </View>
       )}

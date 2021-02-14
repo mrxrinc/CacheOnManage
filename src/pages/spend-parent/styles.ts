@@ -3,7 +3,9 @@ import { colors } from "constants/index";
 
 export default StyleSheet.create({
   scrollTab:{ backgroundColor: colors.white },
-  loading:{
-    marginTop: 10,
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

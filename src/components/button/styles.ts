@@ -16,5 +16,6 @@ export default StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: 'row',
   },
 });

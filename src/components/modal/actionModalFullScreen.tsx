@@ -5,8 +5,15 @@ import LinearGradient from "react-native-linear-gradient";
 import { FormattedText } from "components/format-text";
 import CloseIcon from "components/icons/close.svg";
 import { colors, IOS } from "constants/index";
+import { withTheme } from "themeCore/themeProvider";
 
-export default ({ showModal, setShowModal, title, children }: any) => {
+const ActionModalFullScreen = ({
+  showModal,
+  setShowModal,
+  title,
+  children,
+  theme,
+}: any) => {
   return (
     <Modal
       isVisible={showModal}
@@ -15,7 +22,7 @@ export default ({ showModal, setShowModal, title, children }: any) => {
     >
       <View style={styles.modalContainer}>
         <LinearGradient
-          colors={[colors.gradientRight, colors.gradientLeft]}
+          colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={[styles.modalHead, { height: IOS ? 73 : 50 }]}
@@ -77,3 +84,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
 });
+
+export default withTheme(ActionModalFullScreen);

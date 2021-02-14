@@ -50,6 +50,7 @@ export default StyleSheet.create({
   flatList: {
     justifyContent: "center",
     backgroundColor: colors.gray900,
+    paddingBottom:25,
   },
   itemsTouch: {
     justifyContent: "space-around",

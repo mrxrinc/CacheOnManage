@@ -93,6 +93,8 @@ function AppStack() {
       <Stack.Screen name="transactionResult" component={TransactionResult} />
       <Stack.Screen name="quickAccess" component={QuickAccess} />
       <Stack.Screen name="spendParent" component={SpendParent} />
+      <Stack.Screen name="totalTransactions" component={Total} />
+      <Stack.Screen name="detailItem" component={DetailItem} />
     </Stack.Navigator>
   );
 }

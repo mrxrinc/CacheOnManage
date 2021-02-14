@@ -6,7 +6,17 @@ import PaymentItem from "../paymentItem";
 import styles from "./styles";
 import Header from "components/header";
 import Layout from "components/layout";
+import { formatNumber } from "utils/index";
+
 const DetailItem = (props: any) => {
+  const {
+    amount,
+    balance,
+    date,
+    description,
+    followupNumber,
+    referenceId,
+  } = props.route.params.data
   return (
     <Layout>
       <>
@@ -17,15 +27,15 @@ const DetailItem = (props: any) => {
         <View style={styles.content}>
           <View style={styles.header}>
             <Image style={styles.img} source={Payment} />
-            <FormattedText style={styles.title}>خرید از فروشگاه</FormattedText>
+            <FormattedText style={styles.title}>{description}</FormattedText>
           </View>
-          <PaymentItem isRial title="مبلغ" detail="2,560,000" />
-          <PaymentItem isRial title="مانده پس از تراکنش" detail="12,000,000" />
-          <PaymentItem title="تاریخ و ساعت" detail="99/04/28  22:30" />
-          <PaymentItem title="شماره کارت" detail="6219-8610-1234-5678" />
-          <PaymentItem title="شماره پیگیری" detail="2060271869" />
-          <PaymentItem title="شماره مرجع" detail="2060271869" />
-          <PaymentItem title="پایانه" detail="2060271869" />
+          <PaymentItem isRial title="مبلغ" detail={formatNumber(amount)} />
+          <PaymentItem isRial title="مانده پس از تراکنش" detail={formatNumber(balance)} />
+          <PaymentItem title="تاریخ و ساعت" detail={date} />
+          {/* <PaymentItem title="شماره کارت" detail="6219-8610-1234-5678" /> */}
+          <PaymentItem title="شماره پیگیری" detail={followupNumber} />
+          <PaymentItem title="شماره مرجع" detail={referenceId} />
+          {/* <PaymentItem title="پایانه" detail="2060271869" /> */}
         </View>
       </>
     </Layout>

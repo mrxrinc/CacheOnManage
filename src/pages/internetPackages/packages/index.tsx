@@ -95,18 +95,20 @@ export const Packages: FC = (props: any) => {
         />
         <View style={styles.container}>
           {packages && (
-            <ScrollableTabView tabbarBG={colors.gray900}>
+            <ScrollableTabView tabbarBG={colors.gray900} hasTabbar={true}>
               {packages.map((plan: any) => renderItems(plan))}
             </ScrollableTabView>
           )}
 
           <View style={styles.buttonWrapper}>
-            <Button
-              title="ادامه"
-              onPress={handleNextPage}
-              color={colors.buttonOpenActive}
-              disabled={!chosenPackage}
-            />
+            <View style={styles.buttonBox}>
+              <Button
+                title="ادامه"
+                onPress={handleNextPage}
+                color={colors.buttonOpenActive}
+                disabled={!chosenPackage}
+              />
+            </View>
           </View>
         </View>
       </>

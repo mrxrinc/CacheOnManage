@@ -8,7 +8,7 @@ export default StyleSheet.create({
     },
     textInputBox: {
       width: width * 0.89,
-      height: 69,
+      height: 59,
       marginTop: 20,
       flexDirection: "row",
       alignItems: "center",
@@ -16,8 +16,8 @@ export default StyleSheet.create({
     },
     plusIcon: {
       color: colors.gray600,
-      transform: [{ scale: 1 }],
-      right: 27,
+      right: "50%",
+      bottom:"4%"
     },
 
     earningBox: {

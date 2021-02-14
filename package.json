@@ -1,6 +1,6 @@
 {
   "name": "allowance",
-  "version": "1.5.13",
+  "version": "1.5.15",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "postinstall": "patch-package",
     "adb-reverse": "adb reverse tcp:8081 tcp:8081 && npm start",
-    "codepush-android": "NODE_ENV=production appcenter codepush release-react -d Production -a NIuniverse/tiptop-1  --debug && echo '\nTry: git tag codepush-vXX'"
+    "codepush-android": "NODE_ENV=production appcenter codepush release-react -d Production -a NIuniverse/tiptop-1  --debug && echo '\nTry: git tag codepush-vXX'",
+    "codepush-ios": "NODE_ENV=production appcenter codepush release-react -d Production -a NIuniverse/tiptop  --debug && echo '\nTry: git tag codepush-vXX'"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",

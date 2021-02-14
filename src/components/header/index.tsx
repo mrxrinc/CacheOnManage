@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, StatusBar } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { FormattedText } from "components/format-text";
 import BackIcon from "components/icons/back.svg";
@@ -32,7 +32,13 @@ const Header: FC<Props> = ({
       end={{ x: 1, y: 0 }}
       style={isKyc ? styles.containerKyc : styles.container}
     >
-      {!isKyc && <View style={styles.statusBar} />}
+      <StatusBar
+        animated
+        translucent={true}
+        hidden={false}
+        barStyle={"dark-content"}
+      />
+      <View style={styles.statusBar} />
       <View style={[styles.navbar]}>
         {handleBack && (
           <TouchableOpacity style={styles.backWrapper} onPress={handleBack}>

@@ -13,6 +13,7 @@ import EmptyComponent from "components/emptyComponent";
 import Item from "./item";
 import SectionFooter from "./sectionFooter";
 import SectionHeader from "./sectionHeader";
+import { colors } from "constants/index";
 
 const SpendParent: FC = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
@@ -102,7 +103,11 @@ const SpendParent: FC = (props: any) => {
           })}
         </ScrollableTabView>
       ) : (
-        <ActivityIndicator style={styles.loading} size="large" />
+        <ActivityIndicator
+          color={colors.gray600}
+          style={styles.loading}
+          size="large"
+        />
       )}
     </Layout>
   );

@@ -12,10 +12,11 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../customType";
 import { QuickAccessRootPage } from "store/QuickAccess/quickAccess.actions";
+import { withTheme } from "themeCore/themeProvider";
 
 const { width, height } = Dimensions.get("window");
 
-export default () => {
+const More = ({ theme }: any) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
@@ -82,16 +83,15 @@ export default () => {
                 style={styles.itemsBox}
                 onPress={() => navigation.navigate("spendParent")}
               >
-                <Spending />
+                <View style={styles.iconBox}>
+                  <Spending fill={theme.more.iconColor} />
+                </View>
                 <FormattedText
                   style={styles.descriptionText}
                   id="child_spending"
                 />
               </TouchableOpacity>
-              <TouchableOpacity
-                // style={styles.itemsBox}
-                onPress={() => navigation.navigate("spent")}
-              ></TouchableOpacity>
+              <View />
             </View>
           </View>
         )}
@@ -136,4 +136,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  iconBox: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 56,
+    height: 56,
+    backgroundColor: "rgb(233,242,253)",
+    borderRadius: 40,
+  },
 });
+export default withTheme(More);

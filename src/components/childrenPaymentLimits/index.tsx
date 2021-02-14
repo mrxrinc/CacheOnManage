@@ -11,6 +11,7 @@ import { RootState } from "../../../customType";
 import { formatNumber } from "utils";
 import styles from "./styles";
 import { chargingPayments } from "utils/api";
+import { withTheme } from "themeCore/themeProvider";
 
 type PaymentMethodType = {
   method: string;
@@ -51,7 +52,8 @@ const renderPaymentMethodItem = (
   method: string,
   paymentMethods: any,
   setPaymentMethods: any,
-  isChild: boolean
+  isChild: boolean,
+  theme: any
 ) => {
   let itemData = {
     title,
@@ -86,7 +88,7 @@ const renderPaymentMethodItem = (
               }
             }}
             disabled={isChild ? true : false}
-            color={colors.buttonSubmitActive}
+            color={theme.ButtonGreenColor}
           />
           <View>
             <FormattedText style={styles.itemTitle}>{title}</FormattedText>
@@ -100,7 +102,7 @@ const renderPaymentMethodItem = (
             <Input
               boxMode
               keyboardType="number-pad"
-              customStyle={styles.itemInput}
+              customStyle={[styles.itemInput]}
               value={formatNumber(rowAmount)}
               editable={isChild || !activeMethod ? false : true}
               onChangeText={(value: string) => {
@@ -131,12 +133,13 @@ const renderPaymentMethodItem = (
   );
 };
 
-export default ({
+const ChildrenPaymentLimits = ({
   showModal,
   setShowModal,
   handleGetPaymentLimits,
   childId,
   data,
+  theme,
 }: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
@@ -154,7 +157,9 @@ export default ({
           console.warn("err", err.response.data);
         });
     } else {
-      handleGetPaymentLimits(paymentMethods);
+      if (typeof handleGetPaymentLimits === "function") {
+        handleGetPaymentLimits(paymentMethods);
+      }
       setShowModal(false);
     }
   };
@@ -179,7 +184,8 @@ export default ({
               item.method,
               paymentMethods,
               setPaymentMethods,
-              isChild
+              isChild,
+              theme
             )
           )}
         </View>
@@ -189,7 +195,7 @@ export default ({
           <Button
             title="ذخیره"
             onPress={handleSubmit}
-            color={colors.buttonSubmitActive}
+            color={theme.ButtonGreenColor}
             disabled={false}
           />
         </View>
@@ -197,3 +203,5 @@ export default ({
     </ActionModalFullScreen>
   );
 };
+
+export default withTheme(ChildrenPaymentLimits);
