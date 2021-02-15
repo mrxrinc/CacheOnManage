@@ -29,8 +29,10 @@ export default ({
 }: any) => {
   return (
     <Modal
+      useNativeDriver
       isVisible={showModal}
       onBackdropPress={() => setShowModal(false)}
+      onBackButtonPress={setShowModal}
       style={style.modal}
       backdropOpacity={backOpacity ?? 0.3}
     >

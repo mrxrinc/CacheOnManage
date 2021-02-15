@@ -14,7 +14,6 @@ class MobileTopUpPaymentServiceProvider extends HttpService {
    */
 
   public fetchMobileTopUpPayment(data: MobileTopUp) {
-    console.log("fetchTopUpPayment>> data is", data);
     return this.httpService.post("mobile-topup", data);
   }
 }

@@ -40,7 +40,6 @@ const DrawerContent = (props: any) => {
   async function handleSignout() {
     try {
       const declareSignout = await signout(token);
-      console.log({ declareSignout });
       AsyncStorage.removeItem("token");
       setExitModal(false);
       DrawerActions.closeDrawer();

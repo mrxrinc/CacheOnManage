@@ -44,7 +44,6 @@ export default (props: any) => {
       logger("INSIDE ELSE : ");
       handleGetData(data);
     }
-    console.log({ data });
   }
 
   return (

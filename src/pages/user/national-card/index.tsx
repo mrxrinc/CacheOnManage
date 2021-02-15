@@ -110,9 +110,7 @@ const NationalCard = () => {
         newState.showSuccessFrame = false;
         newState.successFrame = "";
       }
-    } catch (error) {
-      console.log("error", error);
-    }
+    } catch (error) {}
   }
 
   function handleResult(result: any) {

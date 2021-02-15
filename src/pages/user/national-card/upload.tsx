@@ -35,15 +35,12 @@ const Upload = () => {
     setLoading(true);
 
     if (serial != "") {
-      console.log("handleTouch called", serial);
       nationalIdSerial(token, serial)
         .then((response: any) => {
-          console.log("nationalIdSerial response", response);
           if (response.status == 200) {
             uploadImg(token, faceImg, backImg, frontImg)
               .then((response) => {
                 if (response.status == 200) {
-                  console.log("uploadImg response", response);
                   dispatch(frontImgChanged(""));
                   dispatch(backImgChanged(""));
                   dispatch(faceImgChanged(""));
@@ -52,7 +49,6 @@ const Upload = () => {
                 }
               })
               .catch((err) => {
-                console.log("uploadImg err", err);
                 setError({
                   field: "invalidSerial",
                   message: err.response.data.message,
@@ -63,7 +59,6 @@ const Upload = () => {
           }
         })
         .catch((err) => {
-          console.log("nationalIdSerial response", err);
           setError({
             field: "invalidSerial",
             message: err.response.data.message,
@@ -79,7 +74,6 @@ const Upload = () => {
       isMounted.current = false;
     };
   }, []);
-  console.log("faceImg", frontImg);
   return (
     <View
       style={[

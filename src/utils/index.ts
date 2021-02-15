@@ -141,3 +141,29 @@ export const shadeColor = (color: string, percent: number): string => {
 
   return "#" + RR + GG + BB;
 };
+
+export const getTwoYearsDate = () => {
+  let thisMonth = moment().format("jYYYY/jM").slice(5);
+  let twoYearsAgo = (moment().jYear() - 2).toString().slice(2, 4);
+  let oneYearsAgo = (moment().jYear() - 1).toString().slice(2, 4);
+  let thisYear = moment().jYear().toString().slice(2, 4);
+  let data: any = [];
+
+  for (let year = Number(twoYearsAgo); year <= Number(thisYear); year++) {
+    for (
+      let month =
+        year === Number(oneYearsAgo) || year === Number(thisYear)
+          ? 1
+          : Number(thisMonth);
+      month <= (year === Number(thisYear) ? Number(thisMonth) : 12);
+      month++
+    ) {
+      let convertToString = {
+        year: year.toString(),
+        month: month.toString()
+      }
+      data.push(convertToString);
+    }
+  }
+  return data;
+};

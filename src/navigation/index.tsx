@@ -60,7 +60,8 @@ function AppStack() {
   return (
     <Stack.Navigator
       initialRouteName="drawerScreen"
-      screenOptions={{ gestureEnabled: false, headerShown: false }}>
+      screenOptions={{ gestureEnabled: false, headerShown: false }}
+    >
       <Stack.Screen name="drawerScreen" component={DrawerStack} />
       <Stack.Screen name="home" component={Home} />
       <Stack.Screen name="childHome" component={ChildHome} />
@@ -92,7 +93,7 @@ function AppStack() {
       <Stack.Screen name="transactionResult" component={TransactionResult} />
       <Stack.Screen name="quickAccess" component={QuickAccess} />
       <Stack.Screen name="spendParent" component={SpendParent} />
-      <Stack.Screen name="total" component={Total} />
+      <Stack.Screen name="totalTransactions" component={Total} />
       <Stack.Screen name="detailItem" component={DetailItem} />
     </Stack.Navigator>
   );
@@ -102,10 +103,14 @@ function AuthStack() {
   return (
     <Stack.Navigator
       initialRouteName="entryType"
-      screenOptions={{ gestureEnabled: false, headerShown: false }}>
-      <Stack.Screen name="login" component={Login} />
+      screenOptions={{ gestureEnabled: false, headerShown: false }}
+    >
+      {/* test total transaction */}
+      {/* <Stack.Screen name="total" component={Total} />
+      <Stack.Screen name="detailItem" component={DetailItem} /> */}
+      {/* <Stack.Screen name="login" component={Login} /> */}
       <Stack.Screen name="entryType" component={EntryType} />
-      {/* <Stack.Screen name="login" component={LoginNavigator} /> */}
+      <Stack.Screen name="login" component={LoginNavigator} />
       <Stack.Screen name="intro" component={Intro} />
       <Stack.Screen name="quickAccess" component={QuickAccess} />
       <Stack.Screen name="QRPayment" component={QRPayment} />
@@ -133,10 +138,9 @@ function DrawerStack() {
     <Drawer.Navigator
       initialRouteName="TabScreens"
       drawerContent={(props) => {
-        console.log({ props });
-
         return <DrawerContent {...props} />;
-      }}>
+      }}
+    >
       <Drawer.Screen name="TabScreens" component={TabStack} />
     </Drawer.Navigator>
   );

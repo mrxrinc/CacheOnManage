@@ -40,7 +40,6 @@ const VeryfiCode = () => {
   });
   const dispatch = useDispatch();
   const handleClick = () => {
-    console.log("code is ", verifyCode, phone);
     setLoading(true);
     checkVerifyCode(phone, verifyCode)
       .then((response: any) => {

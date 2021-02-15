@@ -12,7 +12,7 @@ import { withTheme } from "../../themeCore/themeProvider";
 import {
   getLocalData,
   setLocalData,
-  logLocalStorage,
+  // logLocalStorage,
 } from "utils/localStorage";
 import Update from "pages/update";
 
@@ -22,7 +22,7 @@ const EntryType = ({ setTheme }: any) => {
 
   const handleTouch = async (child: boolean) => {
     dispatch(isChild(child));
-    logLocalStorage();
+    // logLocalStorage();
     const firstLaunch = await getLocalData("FIRST_LAUNCH");
     if (!firstLaunch) {
       await setLocalData("FIRST_LAUNCH", "1");

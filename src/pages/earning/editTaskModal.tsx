@@ -55,13 +55,11 @@ export default ({
     };
     childEditTask(token, data, taskId)
       .then((response) => {
-        console.log("childEditTask response", response);
         setLoading(false);
         dispatch(getEarningData(Math.random()));
         setShowModal(false);
       })
       .catch(function (error) {
-        console.log("childEditTask err" + error.message);
         setLoading(false);
         throw error;
       });

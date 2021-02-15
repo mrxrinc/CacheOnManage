@@ -60,7 +60,6 @@ const AddAllowance = (props: any) => {
         dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
       })
       .catch((err) => {
-        console.log("err is", err.response);
         setDeleteAllowance(false);
       });
   };
