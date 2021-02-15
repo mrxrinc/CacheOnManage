@@ -44,12 +44,18 @@ export default StyleSheet.create({
     borderColor: colors.white,
     marginLeft: IOS ? 15 : 10,
   },
+  amountWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   balance: {
     fontSize: 22,
     color: colors.white,
   },
   currency: {
-    fontSize: 14,
+    fontSize: 18,
+    color: colors.white,
+    marginLeft: 3,
   },
   childTitleWrapper: {
     width: "100%",

@@ -56,10 +56,16 @@ const Header: FC<HomeHeaderType> = ({
         <View style={[styles.cashAvatarWrapper]}>
           {/* TODO: there is a warning (balance is string & cant use ">" ) */}
           {Number(balance) > 0 && (
-            <FormattedText style={styles.balance} fontFamily="Bold-FaNum">
-              {formatNumber(balance)}
-              <FormattedText style={styles.currency} id={"home.rial"} />
-            </FormattedText>
+            <View style={styles.amountWrapper}>
+              <FormattedText style={styles.balance} fontFamily="Bold-FaNum">
+                {formatNumber(balance)}
+              </FormattedText>
+              <FormattedText
+                style={styles.currency}
+                id={"home.rial"}
+                fontFamily="Bold-FaNum"
+              />
+            </View>
           )}
           <Image
             source={{ uri: `data:image/png;base64,${avatar}` }}
