@@ -64,9 +64,18 @@ export default StyleSheet.create({
     height: 44,
     borderRadius: 100,
   },
-  loading:{
+  loading: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  }
+  },
+  buttonBox: {
+    width: "48%",
+    height: 44,
+    backgroundColor: "#fff",
+    borderRadius: 100,
+  },
+  modal: {
+    margin: 0,
+  },
 });

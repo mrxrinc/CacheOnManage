@@ -48,6 +48,15 @@ function* fetchTransfetMoneyTransaction(action: Action) {
         }
       )
     );
+    const savingListRes = yield call(
+      SavingService.fetchSavingList.bind(SavingService)
+    );
+    yield put(
+      // @ts-ignore
+      SavingActions.setSavingsDataList(savingListRes, {
+        sagas: false,
+      })
+    );
 
     yield put(SavingActions.setLoading(false));
   } catch (error) {
@@ -99,7 +108,7 @@ function* addTarget(action: Action<AddTarget | TargetsData>) {
     // );
     yield put(
       // @ts-ignore
-      SavingActions.addTarget(savingListRes, { sagas: false })
+      SavingActions.setSavingsDataList(savingListRes, { sagas: false })
     );
   } catch (error) {
     yield put(SavingActions.setLoading(false));

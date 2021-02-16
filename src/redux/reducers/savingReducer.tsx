@@ -11,7 +11,7 @@ const initialState = {
 export default (state = initialState, action: any) => {
   switch (action.type) {
     case SELECTED_TARGETS_DATA:
-      return { ...state, selectedTargetsData: action.payload };
+      return { ...state, selectedTargetData: action.payload };
     case SAVINGS_DATA:
       return { ...state, savingData: action.payload };
     case DELETE_TARGET:
