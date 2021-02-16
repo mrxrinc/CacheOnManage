@@ -102,10 +102,6 @@ function* addTarget(action: Action<AddTarget | TargetsData>) {
     const savingListRes = yield call(
       SavingService.fetchSavingList.bind(SavingService)
     );
-    // const findSelectedChildTargets = R.find<AddTarget>(
-    //   (target) => target.childId === action.payload?.childId,
-    //   savingListRes
-    // );
     yield put(
       // @ts-ignore
       SavingActions.setSavingsDataList(savingListRes, { sagas: false })
