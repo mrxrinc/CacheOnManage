@@ -3,9 +3,10 @@ import { TouchableOpacity, View, Image } from "react-native";
 import { FormattedText } from "components/format-text";
 import styles from "./styles";
 import Tick from "components/icons/tick.svg";
-import { colors } from "constants/index";
+import { withTheme } from "themeCore/themeProvider";
 
 const Column = (props: any) => {
+  const theme = props.theme;
   const { title, isFavorite, onPress } = props;
   return (
     <TouchableOpacity
@@ -18,7 +19,8 @@ const Column = (props: any) => {
         style={[
           styles.avatarCheckbox,
           {
-            backgroundColor: isFavorite ? colors.buttonSubmitActive : "white",
+            backgroundColor: isFavorite ? theme.ButtonGreenColor : "white",
+            borderColor: theme.ButtonGreenColor,
           },
         ]}
       >
@@ -34,4 +36,4 @@ const Column = (props: any) => {
     </TouchableOpacity>
   );
 };
-export default Column;
+export default withTheme(Column);

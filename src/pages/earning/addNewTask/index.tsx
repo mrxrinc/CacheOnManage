@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
-  StyleSheet,
-  Dimensions,
   FlatList,
   TouchableOpacity,
   TextInput,
-  Image,
   ScrollView,
-  Text,
 } from "react-native";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
@@ -19,18 +15,22 @@ import Tick from "components/icons/tick.svg";
 import { getDefaultTask, getChildInfo, addNewTask } from "utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "components/button";
-import { colors, width, height } from "constants/index";
+import { colors, width } from "constants/index";
 import { RootState } from "../../../../customType";
 import PlusIcon from "components/icons/plus.svg";
-import BlueArrowIcon from "components/icons/blueArrow.svg";
 import NoteIcon from "components/icons/note.svg";
 import { formatNumber } from "utils";
 import styles from "./styles";
 import Column from "./column";
 import TaskItem from "./taskItem";
+import { withTheme } from "themeCore/themeProvider";
+import { getEarningData } from "redux/actions/Earning";
+
 const childIdList: any = [];
 
-const AddNewTask = () => {
+const AddNewTask = (props: any) => {
+  const theme = props.theme;
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [onFocus, setOnFocus] = useState(false);
   const token = useSelector<RootState, any>((state) => state.user.token);
@@ -80,6 +80,7 @@ const AddNewTask = () => {
     addNewTask(token, data)
       .then((response) => {
         childIdList.splice(0, childIdList.length);
+        dispatch(getEarningData(Math.random()));
         navigation.navigate("earningTab");
       })
       .catch((err) => {
@@ -138,7 +139,10 @@ const AddNewTask = () => {
         staticTitle={"addNewTask"}
         handleBack={() => navigation.goBack()}
       />
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
         <View style={styles.content}>
           {isDefaultTask ? (
             <TaskItem
@@ -164,6 +168,7 @@ const AddNewTask = () => {
           )}
           {!onFocus ? (
             <FlatList
+              keyboardShouldPersistTaps="handled"
               numColumns={1}
               contentContainerStyle={{
                 justifyContent: "center",
@@ -258,8 +263,9 @@ const AddNewTask = () => {
                       {
                         backgroundColor:
                           activityTask == "ONCE"
-                            ? colors.buttonSubmitActive
+                            ? theme.ButtonGreenColor
                             : "white",
+                        borderColor: theme.ButtonGreenColor,
                       },
                     ]}
                   >
@@ -284,8 +290,9 @@ const AddNewTask = () => {
                       {
                         backgroundColor:
                           activityTask == "WEEKLY"
-                            ? colors.buttonSubmitActive
+                            ? theme.ButtonGreenColor
                             : "white",
+                        borderColor: theme.ButtonGreenColor,
                       },
                     ]}
                   >
@@ -309,8 +316,9 @@ const AddNewTask = () => {
                       styles.recurringCheckbox,
                       {
                         backgroundColor: customDefault
-                          ? colors.buttonSubmitActive
+                          ? theme.ButtonGreenColor
                           : "white",
+                        borderColor: theme.ButtonGreenColor,
                       },
                     ]}
                   >
@@ -328,7 +336,7 @@ const AddNewTask = () => {
         {onFocus && (
           <Button
             style={styles.buttonWrapper}
-            color={colors.buttonSubmitActive}
+            color={theme.ButtonGreenColor}
             title="افزودن مسئولیت جدید"
             onPress={() => handleClick()}
             disabled={!factorCheck || (!isChild && childIdList.length === 0)}
@@ -338,4 +346,4 @@ const AddNewTask = () => {
     </Layout>
   );
 };
-export default AddNewTask;
+export default withTheme(AddNewTask);

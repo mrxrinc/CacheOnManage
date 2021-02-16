@@ -13,16 +13,15 @@ import { colors } from "constants/index";
 import { RootState } from "../../../customType";
 import { formatNumber } from "utils";
 import { getEarningData } from "redux/actions/Earning";
+import { withTheme } from "themeCore/themeProvider";
 
-const confirmTaskPage = ({ route }: any) => {
+const confirmTaskPage = ({ route, theme }: any) => {
   const dispatch = useDispatch();
   const { item } = route.params;
   const navigation = useNavigation();
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [rejectionModal, setRejectionModal] = useState(false);
-  const [taskName, setTaskName] = useState("");
-  const [amount, setAmount] = useState("");
   const [stars, setStars] = useState(0);
   const [status, setStatus] = useState<"ACCEPT" | "FAILED">("ACCEPT");
 
@@ -72,7 +71,7 @@ const confirmTaskPage = ({ route }: any) => {
           >{`${formatNumber(item.amount)} ریال`}</FormattedText>
         </View>
 
-        <FormattedText style={styles.mainText}>
+        <FormattedText style={[styles.mainText, { color: theme.titleColor }]}>
           لطفا کیفیت انجام مسئولیت را مشخص نمائید.
         </FormattedText>
         <FormattedText style={styles.description}>
@@ -98,9 +97,19 @@ const confirmTaskPage = ({ route }: any) => {
         />
 
         <View>
-          <FormattedText style={styles.rateAmount} fontFamily="Regular-FaNum">
+          <FormattedText
+            style={[styles.rateAmount, { color: theme.titleColor }]}
+            fontFamily="Regular-FaNum"
+          >
             {formatNumber(`${Math.floor(item.amount / 5) * stars}`)}
-            <FormattedText style={{ fontSize: 14 }}> ریال</FormattedText>
+            <FormattedText
+              style={{
+                fontSize: 14,
+                color: theme.titleColor,
+              }}
+            >
+              ریال
+            </FormattedText>
           </FormattedText>
         </View>
       </ScrollView>
@@ -109,7 +118,7 @@ const confirmTaskPage = ({ route }: any) => {
         <Button
           title="تائید انجام فعالیت"
           onPress={() => handleConfirmation("ACCEPT")}
-          color={colors.buttonSubmitActive}
+          color={theme.ButtonGreenColor}
           style={styles.buttons}
           disabled={!Boolean(stars)}
         />
@@ -117,7 +126,7 @@ const confirmTaskPage = ({ route }: any) => {
         <Button
           title="رد انجام فعالیت"
           onPress={() => handleConfirmation("FAILED")}
-          color={colors.buttonDestructiveActive}
+          color={theme.ButtonRedColor}
           style={styles.buttons}
         />
       </View>
@@ -127,7 +136,7 @@ const confirmTaskPage = ({ route }: any) => {
         title={"تائید انجام فعالیت"}
         description=" با تائید انجام فعالیت، درآمد حاصل از این فعالیت از حساب شما کسر و به حساب فرزندتان منتقل میگردد."
         rightTitle={"تائید"}
-        rightColor={colors.buttonSubmitPressed}
+        rightColor={theme.ButtonGreenColor}
         rightAction={() => handleAction("ACCEPT")}
         leftTitle="انصراف"
         leftAction={() => setConfirmationModal(false)}
@@ -139,7 +148,7 @@ const confirmTaskPage = ({ route }: any) => {
         title={"رد انجام فعالیت"}
         description=" با رد انجام فعالیت، درآمدی به فرزندتان تعلق نمیگیرد!"
         rightTitle="رد"
-        rightColor={colors.red}
+        rightColor={theme.ButtonRedColor}
         rightAction={() => handleAction("FAILED")}
         leftTitle="انصراف"
         leftAction={() => setRejectionModal(false)}
@@ -148,7 +157,7 @@ const confirmTaskPage = ({ route }: any) => {
     </Layout>
   );
 };
-export default confirmTaskPage;
+export default withTheme(confirmTaskPage);
 
 const styles = StyleSheet.create({
   container: {
@@ -166,10 +175,11 @@ const styles = StyleSheet.create({
   titleAndIcon: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
   },
   iconWrapper: {
-    width: 40,
-    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 20,
     marginRight: 5,
     backgroundColor: colors.gray950,
@@ -186,7 +196,6 @@ const styles = StyleSheet.create({
   },
   mainText: {
     fontSize: 16,
-    color: colors.title,
     textAlign: "center",
     marginTop: 30,
     marginBottom: 10,
@@ -207,7 +216,6 @@ const styles = StyleSheet.create({
   },
   rateAmount: {
     fontSize: 20,
-    color: colors.title,
     textAlign: "center",
     marginTop: 10,
     marginLeft: 10,

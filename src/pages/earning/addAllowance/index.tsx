@@ -53,7 +53,7 @@ const AddAllowance = (props: any) => {
       {!props.childInfo.allowanceAmount ? (
         <View style={styles.noAllowanceBox}>
           <FormattedText
-            style={styles.noAllowanseTitle}
+            style={[styles.noAllowanseTitle, { color: theme.titleColor }]}
             id="earning.allowance"
           />
           <FormattedText style={styles.noAllowanseDescription}>
@@ -61,7 +61,7 @@ const AddAllowance = (props: any) => {
           </FormattedText>
           <View style={styles.addAllowanceButton}>
             <Button
-              color={colors.buttonOpenActive}
+              color={theme.ButtonBlueColor}
               title="تعریف پول توجیبی"
               outline
               onPress={toggleModal}
@@ -87,7 +87,7 @@ const AddAllowance = (props: any) => {
                   toggleModal();
                 }}
               >
-                <Edit width={19} height={19} fill={theme.ButtonBlueColor} />
+                <Edit width={18} height={18} fill={theme.ButtonBlueColor} />
               </TouchableOpacity>
             )}
           </View>
@@ -95,6 +95,7 @@ const AddAllowance = (props: any) => {
       )}
       <View>
         <Modal
+          useNativeDriver
           isVisible={isModalVisible}
           onBackdropPress={() => setModalVisible(false)}
           backdropOpacity={0.3}
@@ -106,7 +107,11 @@ const AddAllowance = (props: any) => {
             <View style={styles.header}>
               <View />
               <FormattedText
-                style={{ color: "#00015d", fontSize: 16, lineHeight: 20 }}
+                style={{
+                  color: theme.titleColor,
+                  fontSize: 16,
+                  lineHeight: 20,
+                }}
                 fontFamily="Regular-FaNum"
               >
                 پول توجیبی {props.childInfo.nickname}
@@ -139,7 +144,9 @@ const AddAllowance = (props: any) => {
                 alignItems: "flex-start",
               }}
             >
-              <FormattedText style={styles.description}>
+              <FormattedText
+                style={[styles.description, { color: theme.titleColor }]}
+              >
                 پول توجیبی به همراه درآمد فرزند شما هر هفته جمعه راس ساعت ۱۲ شب
                 واریز خواهد شد.
               </FormattedText>
@@ -147,10 +154,10 @@ const AddAllowance = (props: any) => {
             <View style={styles.unequalButtonsWrapper}>
               <UnequalTwinButtons
                 mainText="ذخیره"
-                mainColor={colors.buttonSubmitActive}
+                mainColor={theme.ButtonGreenColor}
                 mainOnPress={handleAddAllowance}
                 secondaryText="حذف"
-                secondaryColor={colors.buttonDestructiveActive}
+                secondaryColor={theme.ButtonRedColor}
                 secondaryOnPress={() => setDeleteAllowance(true)}
               />
             </View>

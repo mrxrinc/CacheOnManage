@@ -14,7 +14,6 @@ export default StyleSheet.create({
     width: "100%",
   },
   noAllowanseTitle: {
-    color: colors.title,
     fontSize: 14,
     lineHeight: 17,
   },
@@ -97,7 +96,6 @@ export default StyleSheet.create({
   },
   description: {
     fontSize: 14,
-    color: colors.title,
     textAlign: "center",
     lineHeight: 28,
     paddingHorizontal: 20,

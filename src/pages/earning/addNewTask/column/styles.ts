@@ -10,7 +10,6 @@ export default StyleSheet.create({
         width: 20,
         height: 20,
         borderWidth: 1,
-        borderColor: colors.buttonSubmitActive,
         borderRadius: 10,
         position: "absolute",
         alignItems: 'center',
