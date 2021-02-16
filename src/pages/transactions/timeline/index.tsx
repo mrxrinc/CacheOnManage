@@ -13,7 +13,7 @@ const Timeline = (props: any) => {
   useEffect(() => {
     scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: false });
   }, []);
-
+  console.log(selected);
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}
@@ -25,8 +25,9 @@ const Timeline = (props: any) => {
       {getTwoYearsDate().map((item: any, index: any) => {
         return (
           <TimelineItem
+            key={index.toString()}
             enable={
-              selected
+              selected !== null
                 ? selected === index
                 : index === getTwoYearsDate().length - 1
             }

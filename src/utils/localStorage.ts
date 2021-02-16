@@ -30,16 +30,16 @@ export const removeLocalData = async (key: string) => {
   console.debug("Done removing local storage item");
 };
 
-export const logLocalStorage = () => {
-  AsyncStorage.getAllKeys((err, keys = [""]) => {
-    AsyncStorage.multiGet(keys, (error, stores = []) => {
-      console.log("=================");
-      console.log("LOCAL STORAGE IS: ");
-      stores.map((result, i, store) => {
-        console.log({ [store[i][0]]: store[i][1] });
-        return true;
-      });
-      console.log("=================");
-    });
-  });
-};
+// export const logLocalStorage = () => {
+//   AsyncStorage.getAllKeys((err, keys = [""]) => {
+//     AsyncStorage.multiGet(keys, (error, stores = []) => {
+//       console.log("=================");
+//       console.log("LOCAL STORAGE IS: ");
+//       stores.map((result, i, store) => {
+//         console.log({ [store[i][0]]: store[i][1] });
+//         return true;
+//       });
+//       console.log("=================");
+//     });
+//   });
+// };

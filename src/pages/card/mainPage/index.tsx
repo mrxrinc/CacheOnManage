@@ -48,6 +48,7 @@ const MainPage = (props: any) => {
       <FlatList
         contentContainerStyle={styles.flatList}
         data={data}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={(item) => <Item data={item} />}
         ListHeaderComponent={() => renderListHead()}
         ListHeaderComponentStyle={{ backgroundColor: "white" }}

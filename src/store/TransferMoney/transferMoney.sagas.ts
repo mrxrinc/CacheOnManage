@@ -39,7 +39,6 @@ function* fetchTransferMoney(action: Action) {
         )
       );
     }
-    console.log("DEBUG: function*fetchTransferMoney -> error", error.response);
     yield put(TransferMoneyActions.setLoading(false));
   } finally {
     yield put(TransferMoneyActions.setLoading(false));

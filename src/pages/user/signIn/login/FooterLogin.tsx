@@ -3,10 +3,13 @@ import { View, StyleSheet, Text } from "react-native";
 import { colors } from "constants/index";
 import FanButton from "../fanButton";
 import { FormattedText } from "components/format-text";
+import { useDispatch } from "react-redux";
+import { signUpStepChanged } from "redux/actions/User";
 
 const FooterLogin = (props: any) => {
-  const { childPhoneNum, navigation, isChild, theme } = props;
-  console.log(props);
+  const { childPhoneNum, navigation, isChild, theme, bljTheme } = props;
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.noRegister}>
       {isChild && !!childPhoneNum && (
@@ -14,6 +17,9 @@ const FooterLogin = (props: any) => {
       )}
       {!isChild && (
         <FormattedText
+          onPress={() =>
+            bljTheme ? dispatch(signUpStepChanged("license")) : null
+          }
           style={[styles.registerText, { color: theme.registerText }]}
         >
           قبلا ثبت‌نام نکرده‌اید؟

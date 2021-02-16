@@ -67,18 +67,15 @@ class Camera extends PureComponent {
   };
   handleTouch = () => this.setState({ startDetect: true });
   async faceProcess(faces) {
-    // console.log("close ===" + this.close)
     if (this.open && this.close && this.blinkIndex <= 3 && this.smiled) {
       this.close = false;
       this.open = false;
       this.blinkIndex++;
-      // console.error("blink");
     }
 
     if (faces.smilingProbability > 0.6 && !this.smiled && this.smiledTaken) {
       this.smiledTaken = false;
       await this.takePicture().then(() => {
-        // console.log('smiel');
         this.label = "لطفا چشمان خود را سه بار باز و بسته کنید";
         this.smiled = true;
       });
@@ -93,7 +90,6 @@ class Camera extends PureComponent {
     ) {
       this.open = true;
       await this.takePicture().then(() => {
-        // console.log('open');
       });
     }
     if (
@@ -104,29 +100,24 @@ class Camera extends PureComponent {
       this.blinkIndex <= 3
     ) {
       await this.takePicture().then(() => {
-        // console.log('close');
         this.close = true;
       });
     }
     // const data = new FormData();
     if (this.blinkIndex > 3 && !this.done) {
-      console.log("imageUrl isis:", this.images[0]);
       this.done = true;
 
       RNFS.readFile(this.images[0].uri, "base64").then((res) => {
         winkImg(this.props.token, res)
           .then((response) => {
-            console.log("wink reponse is", response);
             if (response.status == 200) {
               this.props.signUpStepChanged("3004");
             }
           })
           .catch((err) => {
-            console.log("wink err is", err.response.data.message);
           });
       });
 
-      this.images.forEach((e) => console.log(JSON.stringify(e)));
     }
   }
 

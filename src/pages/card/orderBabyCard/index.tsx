@@ -112,19 +112,15 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
   };
 
   const handleAddressCheck = (postalCode: string) => {
-    console.log("handleAddressCheck postal code ", postalCode);
     setMainLoading(true);
     setPostalCode(postalCode);
     if (inputRef) inputRef.current.blur();
     addressInqury(token, postalCode)
       .then((response) => {
-        console.log("handleAddressCheck response", response);
         setMainLoading(false);
         setAddress(response.data.address);
       })
       .catch((err) => {
-        console.log("handleAddressCheck err1", err);
-        console.log("handleAddressCheck err", err.response);
         setMainLoading(false);
         setResponse({
           description: err.response.data.message,
@@ -274,7 +270,6 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
               onSubmitEditing={() => {}}
               onChangeText={(value: string) => {
                 setCardPan(value);
-                console.log("value", value);
               }}
               // error={error.field === "postalCode" ? error.message : null}
             />

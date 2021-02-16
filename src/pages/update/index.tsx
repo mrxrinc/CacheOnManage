@@ -23,7 +23,6 @@ const index = () => {
       const { data } = response;
       setStatus(data.state);
       setUpdateData(data);
-      console.log(response);
     });
   }, []);
   switch (status) {

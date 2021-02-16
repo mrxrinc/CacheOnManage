@@ -9,17 +9,20 @@ import PaymentOut from "components/icons/payment-out.svg";
 import { formatNumber } from "utils/index";
 
 const Item = (props: any) => {
-  const { amount, balance, date, description, type } = props.data.item;
   const navigation = useNavigation();
+
+  const { amount, balance, date, description, type } = props.data.item;
+  const { disable } = props;
+
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate("detailItem", { data: props.data.item })
+        !disable && navigation.navigate("detailItem", { data: props.data.item })
       }
       activeOpacity={0.8}
       style={styles.container}
     >
-      {type == "DEPOSIT" ? <PaymentOut /> : <PaymentIn />}
+      {type === "DEPOSIT" ? <PaymentOut /> : <PaymentIn />}
       <View style={styles.title}>
         <FormattedText style={styles.titleText}>{description}</FormattedText>
         <FormattedText style={styles.titleTime} fontFamily="Regular-FaNum">
@@ -27,15 +30,18 @@ const Item = (props: any) => {
         </FormattedText>
       </View>
       <View style={styles.payment}>
-        <FormattedText style={styles.paymentTop} fontFamily="Regular-FaNum">
+        <FormattedText
+          fontFamily="Regular-FaNum"
+          style={[styles.paymentTop, type !== "DEPOSIT" && styles.paymentIn]}
+        >
           {formatNumber(amount)}
-          {type == "DEPOSIT" ? " - " : " + "}ریال
+          {type === "DEPOSIT" ? " - " : " + "}ریال
         </FormattedText>
         <FormattedText style={styles.paymentBottom} fontFamily="Regular-FaNum">
           {formatNumber(balance)} ریال
         </FormattedText>
       </View>
-      <More />
+      {!disable && <More />}
     </TouchableOpacity>
   );
 };

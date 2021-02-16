@@ -1,7 +1,6 @@
 import * as React from "react";
 import AsyncStorage from "@react-native-community/async-storage";
 import AppNavigator from "./navigation";
-import { LogBox } from "react-native";
 import { Provider } from "react-redux";
 import { ThemeContextProvider } from "./themeCore/themeProvider";
 // import { store } from "./redux/store";
@@ -11,8 +10,6 @@ import { codePushify } from "./utils/codepush";
 import appStore from "./store";
 import { NavigationContainer } from "@react-navigation/native";
 import { navigationRef } from "navigation/rootNavigation";
-
-LogBox.ignoreAllLogs();
 
 const globalAny: any = global;
 // for inspecting network requests in debugger

@@ -29,6 +29,7 @@ const Total = (props: any) => {
     };
     getTransactions(token, data)
       .then((result) => {
+        console.log(result);
         setTransactions(result.data);
         setLoading(false);
       })

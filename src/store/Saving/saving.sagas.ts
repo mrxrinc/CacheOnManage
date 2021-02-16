@@ -30,7 +30,6 @@ function* fetchSavingList(action: Action) {
     // }
     yield put(SavingActions.setLoading(false));
   } catch (error) {
-    console.log("DEBUG: function*fetchSavingList -> error", error.response);
     yield put(SavingActions.setLoading(false));
   }
 }
@@ -71,10 +70,7 @@ function* fetchTransfetMoneyTransaction(action: Action) {
         )
       );
     }
-    console.log(
-      "DEBUG: function*fetchTransfetMoneyTransaction -> error",
-      error.response
-    );
+
     yield put(SavingActions.setLoading(false));
   } finally {
     yield put(SavingActions.setLoading(false));
@@ -93,7 +89,6 @@ function* deleteTarget(action: Action<DeleteTarget>) {
       })
     );
   } catch (error) {
-    console.log("DEBUG: function*deleteTarget -> error", error);
     yield put(SavingActions.setLoading(false));
   }
 }
@@ -116,7 +111,6 @@ function* addTarget(action: Action<AddTarget | TargetsData>) {
       SavingActions.setSavingsDataList(savingListRes, { sagas: false })
     );
   } catch (error) {
-    console.log("DEBUG: function*addTarget -> error", error);
     yield put(SavingActions.setLoading(false));
   }
 }
@@ -138,7 +132,6 @@ function* finishTarget(action: Action<number>) {
       })
     );
   } catch (error) {
-    console.log("DEBUG: function*finishTarget -> error", error);
     yield put(SavingActions.setLoading(false));
   }
 }
@@ -159,7 +152,6 @@ function* updateTarget(action: Action<AddTarget>) {
       })
     );
   } catch (error) {
-    console.log("DEBUG: function*updateTarget -> error", error);
     yield put(SavingActions.setLoading(false));
   }
 }

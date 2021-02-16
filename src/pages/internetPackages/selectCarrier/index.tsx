@@ -56,7 +56,6 @@ export const SelectCarrier: FC = (props: any) => {
 
   const handleDefaultCarrier = (number: string) => {
     const thirdDigit = number.slice(2, 3);
-    console.log({ thirdDigit });
     if (thirdDigit === "1") return <Mci width={32} height={32} />;
     else if (thirdDigit === "3" || thirdDigit === "0")
       return <Irancell width={32} height={32} />;
