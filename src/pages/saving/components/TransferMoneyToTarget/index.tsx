@@ -21,7 +21,7 @@ import messages from "utils/fa";
 // Types
 import { StateNetwork } from "store/index.reducer";
 import { SavingState } from "store/Saving/saving.reducer";
-import { SelectedTargetsData } from "types/saving";
+import { SelectedTargetData } from "types/saving";
 // Actions;
 import SavingActions from "store/Saving/saving.actions";
 // Images
@@ -59,10 +59,9 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
   const [checkedTarget, setCheckedTarget] = React.useState("");
 
   // Store
-  const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
-    (state) => state.saving.selectedTargetsData
+  const selectedTargetData = useSelector<StateNetwork, SelectedTargetData>(
+    (state) => state.saving.selectedTargetData
   );
-
   const profileInfo = useSelector<any, any>((state) => state.home.homeData);
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving

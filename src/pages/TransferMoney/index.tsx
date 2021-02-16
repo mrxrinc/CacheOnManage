@@ -104,7 +104,6 @@ const TransferMoney: FC = (props: any) => {
 
   const formik = useFormik({
     initialValues: {
-      // child: cards.length > 0 ? cards[0].id : "",
       child: childName,
       parent: parentName,
       amount: "",
@@ -118,9 +117,7 @@ const TransferMoney: FC = (props: any) => {
       if (!values.amount) {
         errors.amount = "لطفا مبلغ را وارد نمایید";
       }
-      // if (!values.child) {
-      //   errors.child = "لطفا یک مورد را انتخاب نمایید";
-      // }
+
       if (!values.description) {
         errors.description = "لطفا توضیحات را وارد نمایید";
       }
@@ -264,7 +261,6 @@ const TransferMoney: FC = (props: any) => {
       <ActionModalBottom
         showModal={showPicker}
         setShowModal={() => setShowPicker(false)}
-        backdropOpacity={0.3}
         showHeader={false}
       >
         <PickerItem

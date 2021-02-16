@@ -60,6 +60,8 @@ const EditTarget: FC<Props> = (props) => {
     (state) => state.saving
   );
 
+  const isChild = useSelector<any, boolean>((state) => state.user.ischild);
+
   React.useEffect(() => {
     const $targetAmount = Number(targetAmount);
     const $weeklyAmount = Number(weeklyAmount);
@@ -129,8 +131,7 @@ const EditTarget: FC<Props> = (props) => {
           Number(removeCommas(values.targetAmount)) <
           Number(removeCommas(values.weeklySavings))
         ) {
-          errors.targetAmount =
-            "مبلغ هدف  نمی تواند کمتر از مبلغ پس انداز باشد";
+          errors.targetAmount = "مبلغ هدف نمی تواند کمتر از مبلغ پس انداز باشد";
         } else if (
           Number(removeCommas(props.allowance)) <
           Number(removeCommas(values.weeklySavings))
@@ -176,10 +177,6 @@ const EditTarget: FC<Props> = (props) => {
       }
     },
   });
-
-  const handleStartDate = () => {
-    setShowDateModal(false);
-  };
 
   function handleChangeTargetDate(value: string) {
     if (moment(value).isValid()) {
@@ -351,7 +348,11 @@ const EditTarget: FC<Props> = (props) => {
             props.data.paidAmount
               ? formatNumber(String(props.data.paidAmount))
               : "0"
-          } ریال از حساب پس انداز شما کسر شده و به کارت شما منتقل می شود.`}
+          } ریال از حساب پس انداز ${
+            isChild ? "شما" : props.childName
+          } کسر شده و به کارت ${
+            isChild ? "شما" : props.childName
+          } منتقل می شود.`}
           rightAction={handleFinishTarget}
           rightTitle="اتمام هدف"
           leftTitle="انصراف"
