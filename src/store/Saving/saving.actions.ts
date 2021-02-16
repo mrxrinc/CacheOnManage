@@ -24,11 +24,11 @@ class Actions {
     };
   }
 
-  public getTargetsData(data: any, options?: ExtraActionInfo): Action<any> {
+  public getTargetData(data: any, options?: ExtraActionInfo): Action<any> {
     return {
       type: options?.sagas
-        ? types.SAGAS_SELECTED_TARGETS_DATA
-        : types.SELECTED_TARGETS_DATA,
+        ? types.SAGAS_SELECTED_TARGET_DATA
+        : types.SELECTED_TARGET_DATA,
       payload: data,
     };
   }

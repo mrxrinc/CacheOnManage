@@ -23,7 +23,7 @@ import DatePicker from "components/datePicker";
 import { colors } from "constants/index";
 // Types
 import { RootState } from "../../../../../customType";
-import { AddTarget, SelectedTargetsData } from "types/saving";
+import { AddTarget, SelectedTargetData } from "types/saving";
 import { SavingState } from "store/Saving/saving.reducer";
 import { StateNetwork } from "store/index.reducer";
 // Styles
@@ -52,8 +52,8 @@ const AddNewTarget: FC<Props> = (props) => {
   const [changedBy, setChangedBy] = React.useState<string>();
 
   // Store
-  const selectedTargetData = useSelector<StateNetwork, SelectedTargetsData>(
-    (state) => state.saving.selectedTargetsData
+  const selectedTargetData = useSelector<StateNetwork, SelectedTargetData>(
+    (state) => state.saving.selectedTargetData
   );
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
