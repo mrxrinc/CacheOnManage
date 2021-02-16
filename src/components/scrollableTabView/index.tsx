@@ -1,12 +1,11 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import ScrollableTabView, {
-  DefaultTabBar,
-} from "react-native-scrollable-tab-view";
+import ScrollableTabView from "react-native-scrollable-tab-view";
 import { colors } from "constants/index";
 import TabBar from "./tabbar";
+import { withTheme } from "themeCore/themeProvider";
 
-export default (props: any) => {
+const ScrollableTabViewComp = (props: any) => {
   return (
     <ScrollableTabView
       style={style.container}
@@ -14,7 +13,13 @@ export default (props: any) => {
       renderTabBar={() =>
         props.hasTabbar ? (
           <TabBar
-            textStyle={{ fontFamily: "IRANSansMobileFaNum", fontWeight: "100" }}
+            textStyle={{
+              fontFamily:
+                props.theme.key === "FATHER BLU JUNIOR"
+                  ? "IRANYekanMobileFaNum"
+                  : "IRANSansMobileFaNum",
+              fontWeight: "100",
+            }}
             backgroundColor={props.tabbarBG || "white"}
           />
         ) : (
@@ -33,3 +38,5 @@ const style = StyleSheet.create({
     backgroundColor: colors.white,
   },
 });
+
+export default withTheme(ScrollableTabViewComp);

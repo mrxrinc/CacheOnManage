@@ -1,180 +1,181 @@
 [
-    {
-      "key": "FATHER BLU JUNIOR",
+  {
+    "key": "FATHER BLU JUNIOR",
+    "BlueGradient_Left": "#307fe2",
+    "BlueGradient_Right": "#307fe2",
+    "ButtonBlueColor": "#307fe2",
+    "ButtonGreenColor": "#00bfb2",
+    "backgroundColor": "#307fe2",
+    "titleColor": "#110820",
+    "fanBtnTextColor": "#fff",
+    "statusBarContent": "light-content",
+    "support": "#f5f7fa",
+    "warningColor": "#f2a900",
+    "fanBtn": "#f4f6fa",
+    "fanBtnMore": "#f2a900",
+    "registerText": "#f4f6fa",
+    "destructive": "#e40046",
+    "header": {
+      "BlueGradient_Left": "#fff",
+      "BlueGradient_Right": "#fff",
+      "contentColor": "#110820"
+    },
+    "text": {
+      "loginText": "#fff"
+    },
+    "svg": {
+      "fingerprint": "#fff"
+    },
+    "buttonBorderRadius": 10,
+    "home": {
+      "bgColorButton": "#307fe2",
+      "linearColor": "rgba(187, 188, 188, 0.5)",
+      "avatarBorder": "#307fe2"
+    },
+    "tabbar": {
+      "deactiveLabelColor": "#110820",
+      "activeLabelColor": "#307fe2"
+    },
+    "addChild": {
+      "subjectFont": "#110820",
+      "descriptionFont": "#707070",
+      "itemsBackground": "#fff",
+      "linearColor": "#f5f7fa",
+      "inquiryButton": "#307fe2",
+      "itemsButton": "#307fe2",
+      "mainButton": "#00bfb2"
+    },
+    "drawer": {
       "BlueGradient_Left": "#307fe2",
-      "BlueGradient_Right": "#307fe2",
-      "ButtonBlueColor":"#307fe2",
-      "ButtonGreenColor":"#00bfb2",
-      "backgroundColor": "#307fe2",
-      "titleColor":"#110820",
-      "fanBtnTextColor": "#fff", 
-      "statusBarContent": "light-content",
-      "support": "#f5f7fa",
-      "warningColor":"#f2a900",
-      "fanBtn": "#f4f6fa",
-      "fanBtnMore": "#f2a900",
-      "registerText": "#f4f6fa",
-      "header":{
-        "BlueGradient_Left": "#fff",
-        "BlueGradient_Right": "#fff",
-        "contentColor":"#110820"
-      },
-      "text":{
-        "loginText":"#fff"
-      },
-      "svg" : {
-        "fingerprint": "#fff"
-      },
-      "buttonBorderRadius":10,
-      "home":{
-        "bgColorButton":"#307fe2",
-        "linearColor":"rgba(187, 188, 188, 0.5)",
-        "avatarBorder":"#307fe2"
-      },
-      "tabbar":{
-        "deactiveLabelColor":"#110820",
-        "activeLabelColor":"#307fe2"
-      },
-      "addChild":{
-        "subjectFont":"#110820",
-        "descriptionFont":"#707070",
-        "itemsBackground":"#fff",
-        "linearColor":"#f5f7fa",
-        "inquiryButton":"#307fe2",
-        "itemsButton":"#307fe2",
-        "mainButton":"#00bfb2"
-      },
-      "drawer":{
-        "BlueGradient_Left": "#307fe2",
-        "BlueGradient_Right": "#307fe2"
-      },
-      "more":{
-        "iconColor":"#307fe2"
-      },
-      "setting":{
-        "infoText":"#110820",
-        "keyTextColor":"#707070",
-        "editIconColor":"#307fe2"
-        
-      }
+      "BlueGradient_Right": "#307fe2"
     },
-    {
-      "key": "CHILD MONEY",
-      "BlueGradient_Left": "#397fff",
-      "BlueGradient_Right": "#bb6aff",
-      "ButtonBlueColor":"#00afff",
-      "ButtonGreenColor":"#43e6c5",
-      "titleColor":"#00015d",
-      "fanBtnTextColor": "#00015d", 
-      "backgroundColor": "#f4f6fa",
-      "statusBarContent": "dark-content",
-      "support": "#000",
-      "warningColor":"#f73e3e",
-      "fanBtn": "#43e6c5",
-      "fanBtnMore": "#307fe2",
-      "registerText": "#307fe2",
-      "color": "#ffffff",
-      "header":{
-        "BlueGradient_Left": "#397fff",
-        "BlueGradient_Right": "#bb6aff",
-        "contentColor":"#fff"
-      },
-      "text":{
-        "loginText":"#00015d"
-      },
-      "svg" : {
-        "fingerprint": "#00015d"
-      },
-      "buttonBorderRadius":30,
-      "home":{
-        "bgColorButton":"#43e6c5",
-        "linearColor":"rgba(186, 239, 252, 0.5)",
-        "avatarBorder":"#8387fc"
-      },
-      "tabbar":{
-        "deactiveLabelColor":"#00015d",
-        "activeLabelColor":"#8387fc"
-      },
-      "addChild":{
-        "subjectFont":"#110820",
-        "descriptionFont":"#8d8b8b",
-        "itemsBackground":"#f5f7fa",
-        "linearColor":"#f5f7fa",
-        "inquiryButton":"#43e6c5",
-        "itemsButton":"#00afff",
-        "mainButton":"#43e6c5"
-      },
-      "drawer":{
-        "BlueGradient_Left": "#397fff",
-        "BlueGradient_Right": "#bb6aff"
-      },
-      "more":{
-        "iconColor":"#00afff"
-      },
-      "setting":{
-        "infoText":"#515c6f",
-        "keyTextColor":"#8d8b8b",
-        "editIconColor":"#0c96ff"
-      }
+    "more": {
+      "iconColor": "#307fe2"
     },
-    {
-      "key": "FATHER MONEY",
-      "BlueGradient_Left": "#397fff",
-      "BlueGradient_Right": "#bb6aff",
-      "ButtonBlueColor":"#00afff",
-      "ButtonGreenColor":"#43e6c5",
-      "fanBtnTextColor": "#00015d", 
-      "backgroundColor": "#f4f6fa",
-      "titleColor":"#00015d",
-      "statusBarContent": "dark-content",
-      "support": "#000",
-      "warningColor":"#f73e3e",
-      "fanBtn": "#43e6c5",
-      "fanBtnMore": "#307fe2",
-      "registerText": "#307fe2",
-      "color": "#ffffff",
-      "header":{
-        "BlueGradient_Left": "#397fff",
-        "BlueGradient_Right": "#bb6aff",
-        "contentColor":"#fff"
-      },
-      "text":{
-        "loginText":"#00015d"
-      },
-      "svg" : {
-        "fingerprint": "#00015d"
-      },
-      "buttonBorderRadius":30,
-      "home":{
-        "bgColorButton":"#43e6c5",
-        "linearColor":"rgba(186, 239, 252, 0.5)",
-        "avatarBorder":"#8387fc"
-      },
-      "tabbar":{
-        "deactiveLabelColor":"#00015d",
-        "activeLabelColor":"#8387fc"
-      },
-      "addChild":{
-        "subjectFont":"#110820",
-        "descriptionFont":"#8d8b8b",
-        "itemsBackground":"#f5f7fa",
-        "linearColor":"#f5f7fa",
-        "inquiryButton":"#43e6c5",
-        "itemsButton":"#00afff",
-        "mainButton":"#43e6c5"
-      },
-      "drawer":{
-        "BlueGradient_Left": "#397fff",
-        "BlueGradient_Right": "#bb6aff"
-      },
-      "more":{
-        "iconColor":"#00afff"
-      },
-      "setting":{
-        "infoText":"#515c6f",
-        "keyTextColor":"#8d8b8b",
-        "editIconColor":"#0c96ff"
-        
-      }
+    "setting": {
+      "infoText": "#110820",
+      "keyTextColor": "#707070",
+      "editIconColor": "#307fe2"
     }
-  ]
+  },
+  {
+    "key": "CHILD MONEY",
+    "BlueGradient_Left": "#397fff",
+    "BlueGradient_Right": "#bb6aff",
+    "ButtonBlueColor": "#00afff",
+    "ButtonGreenColor": "#43e6c5",
+    "titleColor": "#00015d",
+    "fanBtnTextColor": "#00015d",
+    "backgroundColor": "#f4f6fa",
+    "statusBarContent": "dark-content",
+    "support": "#000",
+    "warningColor": "#f73e3e",
+    "destructive": "#fa5050",
+    "fanBtn": "#43e6c5",
+    "fanBtnMore": "#307fe2",
+    "registerText": "#307fe2",
+    "color": "#ffffff",
+    "header": {
+      "BlueGradient_Left": "#397fff",
+      "BlueGradient_Right": "#bb6aff",
+      "contentColor": "#fff"
+    },
+    "text": {
+      "loginText": "#00015d"
+    },
+    "svg": {
+      "fingerprint": "#00015d"
+    },
+    "buttonBorderRadius": 30,
+    "home": {
+      "bgColorButton": "#43e6c5",
+      "linearColor": "rgba(186, 239, 252, 0.5)",
+      "avatarBorder": "#8387fc"
+    },
+    "tabbar": {
+      "deactiveLabelColor": "#00015d",
+      "activeLabelColor": "#8387fc"
+    },
+    "addChild": {
+      "subjectFont": "#110820",
+      "descriptionFont": "#8d8b8b",
+      "itemsBackground": "#f5f7fa",
+      "linearColor": "#f5f7fa",
+      "inquiryButton": "#43e6c5",
+      "itemsButton": "#00afff",
+      "mainButton": "#43e6c5"
+    },
+    "drawer": {
+      "BlueGradient_Left": "#397fff",
+      "BlueGradient_Right": "#bb6aff"
+    },
+    "more": {
+      "iconColor": "#00afff"
+    },
+    "setting": {
+      "infoText": "#515c6f",
+      "keyTextColor": "#8d8b8b",
+      "editIconColor": "#307fe2"
+    }
+  },
+  {
+    "key": "FATHER MONEY",
+    "BlueGradient_Left": "#397fff",
+    "BlueGradient_Right": "#bb6aff",
+    "ButtonBlueColor": "#00afff",
+    "ButtonGreenColor": "#43e6c5",
+    "fanBtnTextColor": "#00015d",
+    "backgroundColor": "#f4f6fa",
+    "titleColor": "#00015d",
+    "statusBarContent": "dark-content",
+    "support": "#000",
+    "warningColor": "#f73e3e",
+    "destructive": "#fa5050",
+    "fanBtn": "#43e6c5",
+    "fanBtnMore": "#307fe2",
+    "registerText": "#307fe2",
+    "color": "#ffffff",
+    "header": {
+      "BlueGradient_Left": "#397fff",
+      "BlueGradient_Right": "#bb6aff",
+      "contentColor": "#fff"
+    },
+    "text": {
+      "loginText": "#00015d"
+    },
+    "svg": {
+      "fingerprint": "#00015d"
+    },
+    "buttonBorderRadius": 30,
+    "home": {
+      "bgColorButton": "#43e6c5",
+      "linearColor": "rgba(186, 239, 252, 0.5)",
+      "avatarBorder": "#8387fc"
+    },
+    "tabbar": {
+      "deactiveLabelColor": "#00015d",
+      "activeLabelColor": "#8387fc"
+    },
+    "addChild": {
+      "subjectFont": "#110820",
+      "descriptionFont": "#8d8b8b",
+      "itemsBackground": "#f5f7fa",
+      "linearColor": "#f5f7fa",
+      "inquiryButton": "#43e6c5",
+      "itemsButton": "#00afff",
+      "mainButton": "#43e6c5"
+    },
+    "drawer": {
+      "BlueGradient_Left": "#397fff",
+      "BlueGradient_Right": "#bb6aff"
+    },
+    "more": {
+      "iconColor": "#00afff"
+    },
+    "setting": {
+      "infoText": "#515c6f",
+      "keyTextColor": "#8d8b8b",
+      "editIconColor": "#307fe2"
+    }
+  }
+]

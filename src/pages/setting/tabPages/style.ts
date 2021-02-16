@@ -118,4 +118,8 @@ export default StyleSheet.create({
     marginHorizontal: -15,
     alignItems: "center",
   },
+  biometricsSwitchLabel: {
+    color: colors.gray400,
+    fontSize: 16,
+  },
 });
