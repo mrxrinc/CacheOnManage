@@ -10,13 +10,10 @@ import Edit from "images/edit.svg";
 import Delete from "images/trash.svg";
 // UI Frameworks
 import LinearGradient from "react-native-linear-gradient";
-import ActionModalBottom from "components/modal/actionModalBottom";
 // Common Components
 import { FormattedText } from "components/format-text";
 import AlertController from "components/alertController";
 import Button from "components/button";
-// Local components
-import EditTarget from "../EditTarget";
 // Types
 import { SavingState } from "store/Saving/saving.reducer";
 import { StateNetwork } from "store/index.reducer";
@@ -28,10 +25,10 @@ import styles from "./styles";
 
 interface Props {
   data: SavingListData;
+  onEditTarget: (target: any, data: any) => void;
 }
 const TargetList: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
-  const isChild = useSelector<any, boolean>((state) => state.user.ischild);
 
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showFinishTargetModal, setShowFinishTargetModal] = useState<boolean>(
@@ -39,27 +36,15 @@ const TargetList: React.FC<Props> = (props) => {
   );
   const [deleteId, setDeleteId] = useState(0);
   const [finishTargetId, setFinishTargetId] = useState(0);
-
   const selectedTargetData = useSelector<StateNetwork, any>(
-    (state) => state.saving.selectedTargetsData
-  );
-  const { showEditModal } = useSelector<StateNetwork, any>(
-    (state) => state.saving
+    (state) => state.saving.selectedTargetData
   );
 
   // Store
   const savingStore = useSelector<StateNetwork, SavingState>(
     (state) => state.saving
   );
-
-  function handleEdit(target: TargetsData) {
-    dispatch(SavingActions.setEditModal(true));
-    dispatch(SavingActions.getTargetsData(target));
-  }
-
-  function handleCloseModal() {
-    dispatch(SavingActions.setEditModal(false));
-  }
+  const isChild = useSelector<any, boolean>((state) => state.user.ischild);
 
   function handleShowDeleteModal(id: number) {
     setShowDeleteModal(true);
@@ -79,7 +64,7 @@ const TargetList: React.FC<Props> = (props) => {
   }
 
   function handleShowFinishModal(target: any) {
-    dispatch(SavingActions.getTargetsData(target));
+    dispatch(SavingActions.getTargetData(target));
     setShowFinishTargetModal(true);
     setFinishTargetId(target.id);
   }
@@ -117,7 +102,7 @@ const TargetList: React.FC<Props> = (props) => {
                 ) : (
                   <TouchableOpacity
                     style={styles.editBox}
-                    onPress={() => handleEdit(target)}
+                    onPress={() => props.onEditTarget(target, props.data)}
                   >
                     <Edit height={24} width={24} />
                   </TouchableOpacity>
@@ -247,21 +232,6 @@ const TargetList: React.FC<Props> = (props) => {
                   leftTitle="انصراف"
                   leftAction={() => setShowFinishTargetModal(false)}
                 />
-
-                <ActionModalBottom
-                  showModal={showEditModal}
-                  onBackdropPress={handleCloseModal}
-                  setShowModal={handleCloseModal}
-                  style={styles.modal}
-                  title="ویرایش هدف پس انداز"
-                  backdropOpacity={0.3}
-                >
-                  <EditTarget
-                    data={selectedTargetData}
-                    allowance={props.data.allowance}
-                    childName={props.data.childName}
-                  />
-                </ActionModalBottom>
               </View>
             </View>
           );

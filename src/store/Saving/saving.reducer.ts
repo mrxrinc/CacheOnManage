@@ -7,27 +7,27 @@ import * as types from "./saving.constants";
 // Utilities
 import * as R from "ramda";
 import { Action } from "store/index.reducer";
-import { SavingListData, SelectedTargetsData } from "types/saving";
+import { SavingListData, SelectedTargetData } from "types/saving";
 
 export interface SavingState {
   savingList: SavingListData[];
-  selectedTargetsData: SelectedTargetsData;
+  selectedTargetData: SelectedTargetData;
   loading: boolean;
   transferMoneyToTargetTransactionResult: any;
   showEditModal: boolean;
-  childTargets: any;
+  childData: any;
 }
 
 export const initialState: SavingState = {
   savingList: [],
-  selectedTargetsData: {} as SelectedTargetsData,
+  selectedTargetData: {} as SelectedTargetData,
   loading: false,
   transferMoneyToTargetTransactionResult: {
     data: {},
     hasError: false,
   },
   showEditModal: false,
-  childTargets: [],
+  childData: [],
 };
 
 const reducer: React.Reducer<SavingState, Action> = (
@@ -52,13 +52,13 @@ const reducer: React.Reducer<SavingState, Action> = (
           return child;
         })(state.savingList),
       });
-    case types.SELECTED_TARGETS_DATA:
+    case types.SELECTED_TARGET_DATA:
       return update({
-        selectedTargetsData: action.payload,
+        selectedTargetData: action.payload,
       });
     case types.SET_CHILD_TARGETS:
       return update({
-        childTargets: action.payload,
+        childData: action.payload,
       });
     case types.FINISH_TARGET:
       return update({

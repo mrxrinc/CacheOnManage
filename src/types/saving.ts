@@ -17,7 +17,7 @@ export interface AddTarget {
 export interface EditTargetData extends AddTarget {
   id?: number;
 }
-export interface SelectedTargetsData {
+export interface SelectedTargetData {
   targets: any[];
   childId: number;
   allowance: number | string;
