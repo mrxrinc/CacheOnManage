@@ -206,8 +206,7 @@ const CashDeposit: FC = (props: any) => {
                 _updateForm("amount", value.replace(/,/g, ""))
               }
               value={formatNumber(form.amount)}
-              style={style.materialInput}
-              inputStyle={styles.materialInputStyle}
+              inputStyle={style.materialInput}
             />
           </View>
           <View style={style.inputWrapper}>
@@ -220,8 +219,7 @@ const CashDeposit: FC = (props: any) => {
                 _updateForm("sourcePan", value.replace(/ - /g, ""));
               }}
               value={formatCardNumber(form.sourcePan)}
-              style={style.materialInput}
-              inputStyle={styles.materialInputStyle}
+              inputStyle={style.materialInput}
             />
           </View>
           <View style={style.inputWrapper}>

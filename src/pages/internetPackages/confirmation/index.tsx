@@ -33,6 +33,7 @@ export const Confirmation: FC = (props: any) => {
   const [limitedQuotaModal, setLimitedQuotaModal] = useState<boolean>(false);
   const [totalLimit, setTotalLimit] = useState<string>("");
   const [spent, setSpent] = useState<string>("");
+  const [failMessage, setFailMessage] = useState<string>("");
 
   const handleOperatorIcon = (carrier: carrier) => {
     switch (carrier) {
@@ -101,8 +102,11 @@ export const Confirmation: FC = (props: any) => {
             setSpent(data.details.spent);
             setTotalLimit(data.details.totalLimit);
             setLimitedQuotaModal(true);
-          } else if (code === "99103") {
+          } else {
             setNotEnoughMoneyModal(true);
+            setFailMessage(
+              data?.details?.description || data?.message || "خطایی رخ داد!"
+            );
           }
         }
       });
