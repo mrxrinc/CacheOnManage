@@ -150,7 +150,10 @@ export const Confirmation: FC = (props: any) => {
                   <FormattedText style={styles.amountWithTaxTitle}>
                     مبلغ با احتساب مالیات بر ارزش افزوده
                   </FormattedText>
-                  <FormattedText fontFamily="Medium" style={styles.amount}>
+                  <FormattedText
+                    fontFamily="Regular-FaNum"
+                    style={styles.amount}
+                  >
                     {formatNumber(`${Number(chosenPackage.tax)}`)} ریال
                   </FormattedText>
                   <FormattedText
