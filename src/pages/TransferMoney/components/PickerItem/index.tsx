@@ -3,7 +3,7 @@ import { View, Image, TouchableOpacity } from "react-native";
 import * as R from "ramda";
 import { FormattedText } from "components/format-text";
 import styles from "./styles";
-import BluIcon from "images/transfer-blu.png";
+import BluIcon from "images/transfer-blu.svg";
 
 interface ChildMainInfo {
   id: number;
@@ -35,7 +35,7 @@ const PickerItem: React.FC<Props> = (props) => {
                   {child.nickname}
                 </FormattedText>
               </View>
-              <Image source={BluIcon} style={styles.bluIcon} />
+              <BluIcon style={styles.bluIcon} />
             </View>
           </TouchableOpacity>
         );
