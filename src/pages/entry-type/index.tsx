@@ -1,11 +1,9 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, Image, StatusBar } from "react-native";
-import logo from "images/logo.png";
-import Mony from "components/icons/money.svg";
+import { View, StyleSheet, Dimensions, StatusBar } from "react-native";
+import BluJrLogo from "components/icons/bluJrLogo.svg";
 import { useNavigation } from "@react-navigation/core";
 import Button from "components/button";
 import LinearGradient from "react-native-linear-gradient";
-import Leafs from "images/drawer/top-design.svg";
 import { useDispatch } from "react-redux";
 import { isChild } from "redux/actions/User";
 import { withTheme } from "../../themeCore/themeProvider";
@@ -33,47 +31,39 @@ const EntryType = ({ setTheme }: any) => {
   };
 
   return (
-    <LinearGradient colors={["#397fff", "#bb6aff"]} style={styles.container}>
-      <StatusBar hidden />
+    <LinearGradient colors={["#307fe2", "#307fe2"]} style={styles.container}>
+      <StatusBar backgroundColor={"#307fe2"} />
       <View
         style={{
-          width: width * 0.8,
-          height: height * 0.85,
+          flex: 0.7,
           justifyContent: "space-between",
           alignItems: "center",
+          paddingBottom: "10%",
         }}
       >
-        <View style={styles.imageBox}>
-          <Leafs width={120} height={144} />
-        </View>
-
         <View style={styles.logoBox}>
-          <Image source={logo} style={styles.logo} />
-          <Mony width={100} height={30} style={{ marginTop: 19.6 }} />
+          <BluJrLogo />
         </View>
         <View style={styles.bouttonBox}>
-          <Button
-            style={styles.button}
-            color={"#42e6c5"}
+          {/* <Button
+            color={"#00bfb2"}
             onPress={() => {
               handleTouch(false);
               setTheme("FATHER MONEY");
             }}
             title="ورود والدین مانی"
-          />
+          /> */}
           <Button
-            style={styles.button}
-            color={"#42e6c5"}
+            color={"#00bfb2"}
             onPress={() => {
               handleTouch(false);
               setTheme("FATHER BLU JUNIOR");
             }}
-            title=" ورود والدین بلوجونیور"
+            title=" ورود والدین"
           />
 
           <Button
-            style={styles.button}
-            color={"#42e6c5"}
+            color={"#00bfb2"}
             onPress={() => {
               handleTouch(true);
               setTheme("CHILD MONEY");
@@ -89,21 +79,10 @@ const EntryType = ({ setTheme }: any) => {
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
     alignItems: "center",
     width: width,
     flex: 1,
-  },
-  imageBox: {
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    width: width,
-    height: height * 0.27,
-    marginRight: 35,
-  },
-  logo: {
-    width: 118,
-    height: 67,
   },
   logoBox: {
     justifyContent: "center",
@@ -115,10 +94,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     width: width * 0.89,
-    height: height * 0.21,
-  },
-  button: {
-    borderRadius: 30,
+    height: height * 0.16,
   },
 });
 
