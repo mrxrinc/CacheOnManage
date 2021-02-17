@@ -291,7 +291,13 @@ const CashDeposit: FC = (props: any) => {
             </View>
             <View style={[style.halfWidth, style.getPassButtonWrapper]}>
               <TouchableOpacity
-                style={style.getPassButton}
+                style={[
+                  style.getPassButton,
+                  {
+                    borderRadius: theme.buttonBorderRadius,
+                    backgroundColor: theme.ButtonGreenColor,
+                  },
+                ]}
                 onPress={handleHarim}
                 disabled={timeLeft === 0 ? false : true}
               >
@@ -344,7 +350,7 @@ const CashDeposit: FC = (props: any) => {
             title={"پرداخت"}
             style={style.submitButton}
             onPress={handleTopUp}
-            color={colors.buttonSubmitActive}
+            color={theme.ButtonGreenColor}
             disabled={!readyToSubmit}
           />
         </View>

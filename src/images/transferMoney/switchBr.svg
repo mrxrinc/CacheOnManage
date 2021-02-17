@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+    <defs>
+        <filter id="Path_1537" width="50" height="50" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="Group_445" transform="rotate(90 591 2493)">
+        <g filter="url(#Path_1537)" transform="rotate(-90 591 2493)">
+            <path id="Path_1537-2" fill="#00bfb2" d="M16 0A16 16 0 1 1 0 16 16 16 0 0 1 16 0z" transform="rotate(90 17.5 23.5)"/>
+        </g>
+        <g id="_x37_4" transform="translate(-1954.263 2932.663)">
+            <path id="XMLID_153_" d="M435.081 121.319v2.181h-6.771v3.821l-4.91-4.91 4.91-4.908v3.819z" class="cls-2" transform="translate(-351.477)"/>
+            <path id="XMLID_154_" d="M70.8 455.6l4.908 4.91-4.908 4.907V461.6h-6.7v-2.177h6.7z" class="cls-2" transform="translate(0 -330.739)"/>
+        </g>
+    </g>
+</svg>

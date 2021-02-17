@@ -63,6 +63,10 @@
       "chartGreen":"#00bfb2",
       "chartPurple":"#5f249f",
       "chartGray":"#bbbcbc"
+    },
+    "transferMoney":{
+      "backgroundInInput":"#f5f7fa",
+      "borderColorInInput":"#fff"
     }
   },
   {
@@ -129,6 +133,10 @@
         "chartGreen":"#00bfb2",
         "chartPurple":"#5f249f",
         "chartGray":"#bbbcbc"
+      },
+      "transferMoney":{
+        "backgroundInInput":"#01065d",
+        "borderColorInInput":"#fff"
       }
 
   },
@@ -196,6 +204,10 @@
       "chartGreen":"#00bfb2",
       "chartPurple":"#5f249f",
       "chartGray":"#bbbcbc"
+    },
+    "transferMoney":{
+      "backgroundInInput":"#01065d",
+      "borderColorInInput":"#fff"
     }
   }
 ]

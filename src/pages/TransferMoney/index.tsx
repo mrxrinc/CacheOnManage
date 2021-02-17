@@ -36,11 +36,13 @@ import { StateNetwork } from "store/index.reducer";
 // Actions
 import TransferMoneyActions from "store/TransferMoney/transferMoney.actions";
 // Images
-import Switch from "images/switch.svg";
+import Switch from "images/transferMoney/switch.svg";
+import SwitchBr from "images/transferMoney/switchBr.svg";
 // Styles
 import style from "./styles";
 import ActionModalBottom from "components/modal/actionModalBottom";
 import PickerItem from "./components/PickerItem";
+import { withTheme } from "themeCore/themeProvider";
 
 const MessagesContext = React.createContext(messages);
 export interface Errors {
@@ -51,6 +53,7 @@ export interface Errors {
 }
 
 const TransferMoney: FC = (props: any) => {
+  const theme = props.theme;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const translate = React.useContext(MessagesContext);
@@ -161,7 +164,10 @@ const TransferMoney: FC = (props: any) => {
         behavior={IOS ? "padding" : "height"}
         style={style.container}
       >
-        <ScrollView contentContainerStyle={[style.content]}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={[style.content]}
+        >
           <Formik
             initialValues={formik.initialValues}
             onSubmit={(values: any) => formik.handleSubmit(values)}
@@ -171,7 +177,16 @@ const TransferMoney: FC = (props: any) => {
                 <View style={style.rightCol}>
                   <FormattedText>از</FormattedText>
                   {isFromParent ? (
-                    <View style={style.parentFeild}>
+                    <View
+                      style={[
+                        style.parentFeild,
+                        {
+                          borderColor: theme.transferMoney.borderColorInInput,
+                          backgroundColor:
+                            theme.transferMoney.backgroundInInput,
+                        },
+                      ]}
+                    >
                       <Image
                         source={{ uri: `data:image/png;base64,${avatar}` }}
                         style={style.avatar}
@@ -184,7 +199,16 @@ const TransferMoney: FC = (props: any) => {
                     <TouchableWithoutFeedback
                       onPress={() => setShowPicker(true)}
                     >
-                      <View style={style.childFeild}>
+                      <View
+                        style={[
+                          style.childFeild,
+                          {
+                            borderColor: theme.transferMoney.borderColorInInput,
+                            backgroundColor:
+                              theme.transferMoney.backgroundInInput,
+                          },
+                        ]}
+                      >
                         <FormattedText>
                           {formik.values.child
                             ? formik.values.child
@@ -196,7 +220,16 @@ const TransferMoney: FC = (props: any) => {
                   <FormattedText>به</FormattedText>
 
                   {!isFromParent ? (
-                    <View style={style.parentFeild}>
+                    <View
+                      style={[
+                        style.parentFeild,
+                        {
+                          borderColor: theme.transferMoney.borderColorInInput,
+                          backgroundColor:
+                            theme.transferMoney.backgroundInInput,
+                        },
+                      ]}
+                    >
                       <Image
                         source={{ uri: `data:image/png;base64,${avatar}` }}
                         style={style.avatar}
@@ -209,7 +242,16 @@ const TransferMoney: FC = (props: any) => {
                     <TouchableWithoutFeedback
                       onPress={() => setShowPicker(true)}
                     >
-                      <View style={style.childFeild}>
+                      <View
+                        style={[
+                          style.childFeild,
+                          {
+                            borderColor: theme.transferMoney.borderColorInInput,
+                            backgroundColor:
+                              theme.transferMoney.backgroundInInput,
+                          },
+                        ]}
+                      >
                         <FormattedText>
                           {childName ? childName : "انتخاب کنید "}
                         </FormattedText>
@@ -219,40 +261,44 @@ const TransferMoney: FC = (props: any) => {
                 </View>
                 <View style={style.leftCol}>
                   <TouchableOpacity onPress={handleSwitch}>
-                    <Switch height={60} width={60} />
+                    {theme.key == "FATHER BLU JUNIOR" ? (
+                      <SwitchBr height={60} width={60} />
+                    ) : (
+                      <Switch height={60} width={60} />
+                    )}
                   </TouchableOpacity>
                 </View>
               </View>
+              <View style={{ marginTop: "5%" }}>
+                <MaterialTextField
+                  label="مبلغ"
+                  value={formatNumber(formik.values.amount)}
+                  onChangeText={(value: string) =>
+                    formik.setFieldValue("amount", value.replace(/,/g, ""))
+                  }
+                  hasUnit
+                  maxLength={13}
+                  error={formik.errors.amount}
+                  keyboardType={"number-pad"}
+                />
 
-              <MaterialTextField
-                label="مبلغ"
-                value={formatNumber(formik.values.amount)}
-                onChangeText={(value: string) =>
-                  formik.setFieldValue("amount", value.replace(/,/g, ""))
-                }
-                hasUnit
-                maxLength={13}
-                error={formik.errors.amount}
-                keyboardType={"number-pad"}
-              />
-
-              <MaterialTextField
-                label="توضیحات"
-                value={formik.values.description}
-                onChangeText={(text: string) =>
-                  formik.setFieldValue("description", text)
-                }
-                maxLength={13}
-                error={formik.errors.description}
-              />
-
+                <MaterialTextField
+                  label="توضیحات"
+                  value={formik.values.description}
+                  onChangeText={(text: string) =>
+                    formik.setFieldValue("description", text)
+                  }
+                  maxLength={13}
+                  error={formik.errors.description}
+                />
+              </View>
               <Button
                 title="انتقال وجه"
                 style={style.submitButton}
                 onPress={formik.handleSubmit}
                 disabled={!formik.isValid || transferMoneyStore.loading}
                 loading={transferMoneyStore.loading}
-                color="#43e6c5"
+                color={theme.ButtonGreenColor}
               />
             </>
           </Formik>
@@ -284,4 +330,4 @@ const TransferMoney: FC = (props: any) => {
   );
 };
 
-export default TransferMoney;
+export default withTheme(TransferMoney);

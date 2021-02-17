@@ -4,7 +4,6 @@ import { colors, IOS } from "constants/index";
 export default StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: colors.gray850,
 	},
 	content: { paddingHorizontal: 17, padding: 30 },
 	columns: {
@@ -35,7 +34,6 @@ export default StyleSheet.create({
 		borderRadius: 5,
 		padding: 0,
 		borderWidth: 1,
-		borderColor: "#01065d",
 		marginTop: 10,
 		marginBottom: 10,
 		flexDirection: "row",
@@ -50,7 +48,6 @@ export default StyleSheet.create({
 		borderRadius: 5,
 		padding: 10,
 		borderWidth: 1,
-		borderColor: "#01065d",
 		marginTop: 10,
 		marginBottom: 10,
 		height: 50,
@@ -79,7 +76,6 @@ export default StyleSheet.create({
 	},
 	submitButton: {
 		height: 43,
-		borderRadius: 30,
 		justifyContent: "center",
 		alignItems: "center",
 		marginTop: 20,
