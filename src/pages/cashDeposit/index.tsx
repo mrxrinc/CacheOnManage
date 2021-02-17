@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import Modal from "react-native-modal";
+import { withTheme } from "themeCore/themeProvider";
 import { FormattedText } from "components/format-text";
 import Layout from "components/layout";
 import Header from "components/header";
@@ -25,6 +26,7 @@ import { formatNumber, formatCardNumber, formatExpirationDate } from "utils";
 import { topUp, harim } from "utils/api";
 import { RootState } from "../../../customType";
 import { useSelector } from "react-redux";
+import styles from "components/button/styles";
 
 type CardNumberType = {
   value: string;
@@ -32,9 +34,11 @@ type CardNumberType = {
 };
 
 const COUNTER = 120;
+const FATHER_BLU_JR = "FATHER BLU JUNIOR";
 
 const CashDeposit: FC = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
+  const theme = props.theme;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
@@ -202,20 +206,20 @@ const CashDeposit: FC = (props: any) => {
                 _updateForm("amount", value.replace(/,/g, ""))
               }
               value={formatNumber(form.amount)}
-              style={style.materialInput}
+              inputStyle={style.materialInput}
             />
           </View>
           <View style={style.inputWrapper}>
             <MaterialInput
               label="شماره کارت"
               tintColor={colors.title}
-              maxLength={19}
+              maxLength={25}
               keyboardType={"number-pad"}
-              onChangeText={(value: string) =>
-                _updateForm("sourcePan", value.replace(/-/g, ""))
-              }
+              onChangeText={(value: string) => {
+                _updateForm("sourcePan", value.replace(/ - /g, ""));
+              }}
               value={formatCardNumber(form.sourcePan)}
-              style={style.materialInput}
+              inputStyle={style.materialInput}
             />
           </View>
           <View style={style.inputWrapper}>
@@ -223,7 +227,15 @@ const CashDeposit: FC = (props: any) => {
               <Input
                 title={"cvv2"}
                 customStyle={style.inputBox}
-                inputCustomStyle={style.input}
+                inputCustomStyle={[
+                  style.input,
+                  {
+                    fontFamily:
+                      theme.key === FATHER_BLU_JR
+                        ? "IRANYekanMobileFaNum"
+                        : "IRANSansMobileFaNum",
+                  },
+                ]}
                 maxLength={4}
                 boxMode
                 keyboardType={"number-pad"}
@@ -235,7 +247,15 @@ const CashDeposit: FC = (props: any) => {
               <Input
                 title={"expirationDate"}
                 customStyle={style.inputBox}
-                inputCustomStyle={style.input}
+                inputCustomStyle={[
+                  style.input,
+                  {
+                    fontFamily:
+                      theme.key === FATHER_BLU_JR
+                        ? "IRANYekanMobileFaNum"
+                        : "IRANSansMobileFaNum",
+                  },
+                ]}
                 maxLength={5}
                 boxMode
                 keyboardType={"number-pad"}
@@ -253,7 +273,15 @@ const CashDeposit: FC = (props: any) => {
                 title={"secondPassword"}
                 maxLength={12}
                 customStyle={style.inputBox}
-                inputCustomStyle={style.input}
+                inputCustomStyle={[
+                  style.input,
+                  {
+                    fontFamily:
+                      theme.key === FATHER_BLU_JR
+                        ? "IRANYekanMobileFaNum"
+                        : "IRANSansMobileFaNum",
+                  },
+                ]}
                 boxMode
                 secureTextEntry
                 keyboardType={"number-pad"}
@@ -416,4 +444,4 @@ const CashDeposit: FC = (props: any) => {
   );
 };
 
-export default CashDeposit;
+export default withTheme(CashDeposit);

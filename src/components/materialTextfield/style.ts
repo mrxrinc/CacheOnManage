@@ -8,7 +8,6 @@ export default StyleSheet.create({
   },
   moneyInput: {
     backgroundColor: "transparent",
-    // fontFamily: "IRANSansMobile",
   },
   label: {
     fontFamily: "IRANSansMobileFaNum",
@@ -23,7 +22,6 @@ export default StyleSheet.create({
   inputStyle: {
     fontFamily: "IRANSansMobileFaNum",
     fontSize: 18,
-    // backgroundColor: "transparent",
   },
   unit: {
     color: colors.gray500,
@@ -47,7 +45,7 @@ export default StyleSheet.create({
   },
   blujrInput: {
     marginLeft: 10,
-    fontFamily: "IRANSansMobileFaNum",
+    fontFamily: "IRANYekanMobileFaNum",
     textAlign: "right",
     height: 44,
   },
@@ -63,5 +61,5 @@ export default StyleSheet.create({
     alignItems: "center",
     zIndex: 3,
   },
-  password: {color:colors.gray300}
+  password: { color: colors.gray300 },
 });

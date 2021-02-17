@@ -50,6 +50,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>IRANYekanMobileFaNum.ttf</string>
+		<string>IRANYekanMobileFaNum-Bold.ttf</string>
 		<string>IRANYekanMobile-Bold.ttf</string>
 		<string>IRANYekanMobile-Medium.ttf</string>
 		<string>IRANYekanMobile.ttf</string>

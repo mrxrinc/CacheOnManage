@@ -172,9 +172,11 @@ const ChildrenPaymentLimits = ({
     >
       <ScrollView>
         <View style={styles.container}>
-          <FormattedText style={styles.title}>
-            لطفا نوع پرداخت و سقف آن را مشخص نمائید.
-          </FormattedText>
+          {!isChild && (
+            <FormattedText style={styles.title}>
+              لطفا نوع پرداخت و سقف آن را مشخص نمائید.
+            </FormattedText>
+          )}
 
           {initialData.map((item: any) =>
             renderPaymentMethodItem(

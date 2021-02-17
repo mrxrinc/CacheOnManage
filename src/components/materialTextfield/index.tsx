@@ -9,13 +9,15 @@ import PasswordVisibleIcon from "components/icons/passwordVisible.svg";
 import style from "./style";
 import { withTheme } from "../../themeCore/themeProvider";
 
+const FATHER_BLU_JR = "FATHER BLU JUNIOR";
+
 const MaterialTextField = forwardRef((props: any, ref: any) => {
   let theme = props.theme;
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const inputRef = ref ?? useRef(null);
 
   useEffect(() => {
-    if (inputRef && theme.key !== "FATHER BLU JUNIOR")
+    if (inputRef && theme.key !== FATHER_BLU_JR)
       inputRef.current.setValue(props.value);
   }, [props.value]);
 
@@ -44,7 +46,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
 
   return (
     <View style={[style.container, props.style]}>
-      {theme.key === "FATHER BLU JUNIOR" ? (
+      {theme.key === FATHER_BLU_JR ? (
         <View style={style.blujrInputBox}>
           <View style={style.blujrInputWrapper}>
             <TextInput
@@ -59,19 +61,29 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
               }
               {...props}
             />
+            {props.hasUnit && (
+              <FormattedText
+                id={"home.rial"}
+                style={
+                  props.error
+                    ? [style.unit, { bottom: 25 }]
+                    : [style.unit, { bottom: 12 }]
+                }
+              />
+            )}
           </View>
           <FormattedText style={style.errorFont}>{props.error}</FormattedText>
         </View>
       ) : (
         <View>
           <FilledTextField
-            inputContainerStyle={[style.moneyInput, props.inputStyle]}
+            inputContainerStyle={[style.moneyInput, props.inputStyleContainer]}
             tintColor={props.tintColor || colors.title}
             label={props.label}
             labelTextStyle={props.labelTextStyle || style.label}
             titleTextStyle={props.titleTextStyle || style.title}
             labelOffset={{ x0: 10, x1: 10, y0: 5, y1: -5 }}
-            style={style.inputStyle}
+            style={[style.inputStyle, props.inputStyle]}
             onFocus={props.isOnFcous}
             ref={inputRef}
             defaultValue={props.value}
