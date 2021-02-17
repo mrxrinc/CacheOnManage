@@ -4,7 +4,7 @@ import { colors, width, height } from "constants/index";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    borderBottomWidth: 3,
+    // borderBottomWidth: 3,
   },
   bottomSpace: {
     height: 51,
@@ -12,7 +12,7 @@ export default StyleSheet.create({
   },
   titleWrapper: {
     height: 158,
-    justifyContent: "center",
+    justifyContent: "flex-end",
     paddingTop: 30,
     paddingHorizontal: 25,
   },
