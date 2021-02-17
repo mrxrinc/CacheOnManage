@@ -1,52 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet, StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import LinearGradient from "react-native-linear-gradient";
-import LottieView from "lottie-react-native";
+import BluJrLogo from "components/icons/bluJrLogo.svg";
 import { withTheme } from "themeCore/themeProvider";
 
 const Splash = ({ setTheme }: any) => {
   const navigation = useNavigation();
-
-  const [birdProcces, setBirdProcces] = useState(false);
-  const [step, setStep] = useState("1");
-
   useEffect(() => {
     setTheme("FATHER BLU JUNIOR");
+    const timer = setTimeout(() => {
+      navigation.navigate("auth");
+    }, 3000);
+    return () => clearTimeout(timer);
   }, []);
   return (
     <View style={styles.blackBackground}>
-      <StatusBar hidden />
+      <StatusBar backgroundColor={"#307fe2"} />
       <LinearGradient
-        colors={["#bb6aff", "#397fff"]}
+        colors={["#307fe2", "#307fe2"]}
         style={styles.linearGradient}
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 0 }}
       >
-        <View style={styles.logoAnimation}>
-          {step == "1" && (
-            <LottieView
-              style={styles.logoFile}
-              source={require("../../images/splash/logo.json")}
-              autoPlay
-              resizeMode="cover"
-              loop={false}
-              duration={4000}
-              onAnimationFinish={() => setStep("2")}
-            />
-          )}
-        </View>
-
-        {step == "2" && (
-          <LottieView
-            style={styles.birdsFile}
-            source={require("../../images/splash/bird.json")}
-            autoPlay
-            resizeMode="cover"
-            loop={birdProcces}
-            onAnimationFinish={() => navigation.navigate("auth")}
-          />
-        )}
+        <BluJrLogo />
       </LinearGradient>
     </View>
   );
@@ -58,30 +35,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  textStyle: {
-    color: "#27519e",
-    fontSize: 46,
-  },
-  logo: {
-    width: 118,
-    height: 67,
-  },
   linearGradient: {
     flex: 1,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  logoAnimation: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logoFile: { width: "100%", height: "100%" },
-  birdsFile: {
-    position: "absolute",
-    flex: 1,
   },
 });
 
