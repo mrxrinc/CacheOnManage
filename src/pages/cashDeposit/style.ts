@@ -43,8 +43,6 @@ export default StyleSheet.create({
     maxWidth: 130,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 25,
-    backgroundColor: colors.buttonSubmitActive,
     elevation: 3,
     shadowOpacity: 0.18,
     shadowColor: colors.dark,
@@ -80,7 +78,6 @@ export default StyleSheet.create({
   },
   submitButton: {
     height: 43,
-    borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
   },
