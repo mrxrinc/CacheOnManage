@@ -87,8 +87,7 @@ export const debounce = (callback: any, delay = 4000) => {
 };
 
 export const jalaliDate = (value: string) => {
-  const date = moment(value);
-  return `${date.jYear()}/${date.jMonth()}/${date.jDate()}`;
+  return moment(value, 'YYYY-M-D').format('jYYYY/jM/jD')
 };
 
 export const convertEpotchToDate = (date: number) => {

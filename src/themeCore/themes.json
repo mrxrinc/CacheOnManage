@@ -5,6 +5,7 @@
       "BlueGradient_Right": "#307fe2",
       "ButtonBlueColor":"#307fe2",
       "ButtonGreenColor":"#00bfb2",
+      "ButtonRedColor":"#e40046",
       "backgroundColor": "#307fe2",
       "titleColor":"#110820",
       "fanBtnTextColor": "#fff", 
@@ -56,6 +57,12 @@
         "keyTextColor":"#707070",
         "editIconColor":"#307fe2"
         
+      },
+      "earning":{
+        "chartBlue":"#307fe2",
+        "chartGreen":"#00bfb2",
+        "chartPurple":"#5f249f",
+        "chartGray":"#bbbcbc"
       }
     },
     {
@@ -64,6 +71,7 @@
       "BlueGradient_Right": "#bb6aff",
       "ButtonBlueColor":"#00afff",
       "ButtonGreenColor":"#43e6c5",
+      "ButtonRedColor":"#fa5050",
       "titleColor":"#00015d",
       "fanBtnTextColor": "#00015d", 
       "backgroundColor": "#f4f6fa",
@@ -115,7 +123,14 @@
         "infoText":"#515c6f",
         "keyTextColor":"#8d8b8b",
         "editIconColor":"#0c96ff"
-      }
+      },
+        "earning":{
+          "chartBlue":"#00afff",
+          "chartGreen":"#00bfb2",
+          "chartPurple":"#5f249f",
+          "chartGray":"#bbbcbc"
+        }
+ 
     },
     {
       "key": "FATHER MONEY",
@@ -175,6 +190,12 @@
         "keyTextColor":"#8d8b8b",
         "editIconColor":"#0c96ff"
         
+      },
+      "earning":{
+        "chartBlue":"#00afff",
+        "chartGreen":"#00bfb2",
+        "chartPurple":"#5f249f",
+        "chartGray":"#bbbcbc"
       }
     }
   ]

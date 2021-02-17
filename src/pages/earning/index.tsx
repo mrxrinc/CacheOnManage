@@ -19,10 +19,12 @@ import ChildTaskList from "./childTaskList";
 import { colors } from "constants/index";
 import { useNavigation } from "@react-navigation/core";
 import Button from "components/button";
+import { withTheme } from "themeCore/themeProvider";
+import messages from "utils/fa";
 
 const { width } = Dimensions.get("window");
-
 const Earning = (props: any) => {
+  const { theme } = props;
   const navigation = useNavigation();
   const [childInfo, setChildInfo] = useState<any>([]);
   const token = useSelector<RootState, any>((state) => state.user.token);
@@ -56,31 +58,21 @@ const Earning = (props: any) => {
     return (
       <View>
         <ScrollView
-          contentContainerStyle={{
-            width: width,
-            alignItems: "center",
-            backgroundColor: "transparent",
-            paddingBottom: 54,
-          }}
+          contentContainerStyle={styles.scrollView}
           refreshControl={
             <RefreshControl refreshing={loading} onRefresh={onRefresh} />
           }
         >
           <AllowanceChart childInfo={item.data} />
-          <View
-            style={{
-              width: width,
-              marginTop: 10,
-            }}
-          >
+          <View style={styles.allowanceBox}>
             <AddAllowance childInfo={item.data} />
           </View>
           <ChildTaskList childInfo={item.data} />
         </ScrollView>
         <View style={[styles.buttonWrapper]}>
           <Button
-            color={colors.buttonOpenActive}
-            title="افزودن مسئولیت جدید"
+            color={theme.ButtonBlueColor}
+            title={messages["earning.button"]}
             onPress={() => navigation.navigate("addNewTask")}
           />
         </View>
@@ -89,13 +81,10 @@ const Earning = (props: any) => {
   };
   return (
     <Layout>
-      <MainHeader title={"درآمد فرزندان"} hasBack={hasBackButton} />
+      <MainHeader title={messages["earning.title"]} hasBack={hasBackButton} />
       <View style={styles.container}>
         {loading == false && childInfo != "" ? (
-          <ScrollableTabView
-            style={{ backgroundColor: "#f4f6fa" }}
-            hasTabbar={!isChild}
-          >
+          <ScrollableTabView style={styles.tabView} hasTabbar={!isChild}>
             {childInfo.map((data: any, i: any) => {
               return (
                 <ChildPage
@@ -116,7 +105,7 @@ const Earning = (props: any) => {
     </Layout>
   );
 };
-export default Earning;
+export default withTheme(Earning);
 
 const styles = StyleSheet.create({
   container: {
@@ -134,5 +123,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "center",
     bottom: 30,
+  },
+  tabView: { backgroundColor: "#f4f6fa" },
+  scrollView: {
+    width: width,
+    alignItems: "center",
+    backgroundColor: "transparent",
+    paddingBottom: 54,
+  },
+  allowanceBox: {
+    width: width,
+    marginTop: 10,
   },
 });

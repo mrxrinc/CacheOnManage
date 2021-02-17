@@ -78,6 +78,8 @@ const messages: Record<string, string> = {
   cardTab: "کارتها",
   moreTab: "بیشتر",
   "earning.allowance": "پول توجیبی‌:",
+  "earning.title": "درآمد فرزندان",
+  "earning.button": "افزودن مسئولیت جدید",
   "earning.paymentDay": "روز پرداخت",
   "earning.taskTitle": "فعالیت‌های انجام شده در این هفته",
   "earning.taskDescription": "فعالیتی برای نمایش وجود ندارد.",
