@@ -25,6 +25,7 @@ import ArrowIcon from "components/icons/arrow.svg";
 import { RootState } from "../../../../customType";
 import { getHomeData } from "redux/actions/Home";
 import ChildrenPaymentLimits from "components/childrenPaymentLimits";
+import { withTheme } from "themeCore/themeProvider";
 
 type ChildData = {
   id: number;
@@ -59,7 +60,7 @@ const isEmptyObject = (obj: any) => {
   return JSON.stringify(obj) === JSON.stringify({});
 };
 
-export default ({ route }: any) => {
+const ChildHome = ({ route, theme }: any) => {
   const dispatch = useDispatch();
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<any, any>((state) => state.user.ischild);
@@ -212,7 +213,10 @@ export default ({ route }: any) => {
                     </FormattedText>
                     <View style={style.chart}>
                       <LinearGradient
-                        colors={[colors.gradientRight, colors.gradientLeft]}
+                        colors={[
+                          theme.BlueGradient_Left,
+                          theme.BlueGradient_Right,
+                        ]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
                         style={[
@@ -273,7 +277,7 @@ export default ({ route }: any) => {
                 <TouchableOpacity
                   style={style.contentBox}
                   onPress={() =>
-                    navigation.navigate("earning", { hasBackButton: true })
+                    navigation.navigate("earningTab", { hasBackButton: true })
                   }
                 >
                   <View style={style.twinChildRow}>
@@ -303,7 +307,7 @@ export default ({ route }: any) => {
                 <TouchableOpacity
                   style={style.contentBox}
                   onPress={() =>
-                    navigation.navigate("earning", { hasBackButton: true })
+                    navigation.navigate("earningTab", { hasBackButton: true })
                   }
                 >
                   <View style={style.twinChildRow}>
@@ -382,3 +386,4 @@ export default ({ route }: any) => {
     </Layout>
   );
 };
+export default withTheme(ChildHome);
