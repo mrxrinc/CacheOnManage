@@ -13,7 +13,6 @@ const Timeline = (props: any) => {
   useEffect(() => {
     scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: false });
   }, []);
-  console.log(selected);
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}

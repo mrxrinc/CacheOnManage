@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 
 const BUTTON_SIZE = 100;
 
@@ -15,10 +15,50 @@ export default class FanButton extends Component {
   state = {
     status: false,
     options: [
-      { id: 0, type: "internet", icon: <Internet width={24} height={24} fill={this.props.theme.backgroundColor} /> },
-      { id: 1, type: "mobileTopUp", icon: <Charge width={24} height={24} fill={this.props.theme.backgroundColor} /> },
-      { id: 2, type: "mobileBillPayment", icon: <Bill width={24} height={24} fill={this.props.theme.backgroundColor} /> },
-      { id: 3, type: "sepQrPayment", icon: <QrCode width={24} height={24} fill={this.props.theme.backgroundColor} /> },
+      {
+        id: 0,
+        type: "internet",
+        icon: (
+          <Internet
+            width={24}
+            height={24}
+            fill={this.props.theme.backgroundColor}
+          />
+        ),
+      },
+      {
+        id: 1,
+        type: "mobileTopUp",
+        icon: (
+          <Charge
+            width={24}
+            height={24}
+            fill={this.props.theme.backgroundColor}
+          />
+        ),
+      },
+      {
+        id: 2,
+        type: "mobileBillPayment",
+        icon: (
+          <Bill
+            width={24}
+            height={24}
+            fill={this.props.theme.backgroundColor}
+          />
+        ),
+      },
+      {
+        id: 3,
+        type: "sepQrPayment",
+        icon: (
+          <QrCode
+            width={24}
+            height={24}
+            fill={this.props.theme.backgroundColor}
+          />
+        ),
+      },
     ],
   };
 
@@ -27,7 +67,7 @@ export default class FanButton extends Component {
     const { options } = this.state;
     options.map((option) => {
       this.refs[option.id].moveOut();
-      this.refs[option.id].logRange();
+      // this.refs[option.id].logRange();
     });
   }
 
@@ -67,7 +107,6 @@ export default class FanButton extends Component {
     return (
       <View style={[styles.container]}>
         {this._renderOptions()}
-
         {!status ? (
           <TouchableOpacity
             style={[styles.button, { backgroundColor: theme.backgroundColor }]}
@@ -76,7 +115,7 @@ export default class FanButton extends Component {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={() => this._hideOptions()}>
-            <Close width={38} height={38} fill={theme.fanBtnMore}/>
+            <Close width={38} height={38} fill={theme.fanBtnMore} />
           </TouchableOpacity>
         )}
       </View>
