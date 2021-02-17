@@ -5,7 +5,7 @@ const Clickable = Animated.createAnimatedComponent(TouchableOpacity);
 
 type Props = {
   onChange: (state: boolean) => void;
-  activeColor: any;
+  activeColor?: any;
 };
 
 export default ({ onChange, activeColor }: Props) => {

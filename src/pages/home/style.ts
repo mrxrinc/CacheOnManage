@@ -25,11 +25,11 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     marginTop: 10,
   },
   button: {
-    width: "47%",
+    width: "48.5%",
     height: 44,
     elevation: 5,
   },

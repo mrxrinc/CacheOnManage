@@ -70,7 +70,7 @@ export default StyleSheet.create({
     textAlign: "center",
   },
   balances: {
-    fontSize: 18,
+    fontSize: 14,
     color: colors.title,
   },
   currency: {
@@ -96,7 +96,6 @@ export default StyleSheet.create({
     width: "90%",
     height: 1,
     backgroundColor: "#baeffc",
-    opacity: 0.5,
     marginVertical: 20,
     alignSelf: "center",
   },
@@ -136,7 +135,7 @@ export default StyleSheet.create({
     color: colors.gray400,
   },
   twinChildTextValue: {
-    fontSize: 18,
+    fontSize: 14,
     color: colors.gray200,
   },
   twinLinkWrapper: {

@@ -33,7 +33,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     minHeight: 30,
     alignItems: "center",
-    paddingRight: 10,
+    flex: 1,
   },
   rowKey: {
     fontSize: 12,
@@ -41,6 +41,7 @@ const style = StyleSheet.create({
   },
   value: {
     fontSize: 12,
+    flex: 1,
     marginLeft: 15,
     lineHeight: IOS ? 18 : 23,
   },

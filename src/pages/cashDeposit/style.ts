@@ -17,8 +17,8 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   materialInput: {
-    fontFamily: "IRANSansMobileFaNum",
     textAlign: "right",
+    fontSize: 14,
   },
   inputBox: {
     width: "100%",
@@ -28,7 +28,8 @@ export default StyleSheet.create({
   input: {
     height: 25,
     padding: 0,
-    lineHeight: IOS ? 22 : 30,
+    lineHeight: IOS ? 16 : 30,
+    fontSize: 14,
   },
   halfWidth: {
     width: "50%",
@@ -53,7 +54,7 @@ export default StyleSheet.create({
   getPassButtonTitle: {
     fontSize: 14,
     color: colors.white,
-    lineHeight: IOS ? 10 : 21,
+    lineHeight: IOS ? 10 : 14,
     textAlignVertical: "center",
   },
   timerWrapper: {

@@ -9,7 +9,7 @@ export default StyleSheet.create({
     height: 210,
     backgroundColor: colors.white,
     borderRadius: 15,
-    marginVertical: 20,
+    marginTop: 25,
     borderWidth: 1,
     borderColor: colors.gray800,
     elevation: 5,
@@ -39,6 +39,7 @@ export default StyleSheet.create({
   balances: {
     fontSize: 14,
     color: colors.title,
+    marginBottom: 8,
   },
   currency: {
     fontSize: 14,

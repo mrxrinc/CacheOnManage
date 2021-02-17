@@ -2,17 +2,16 @@ import React, { useState, useEffect } from "react";
 import { View, Image, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FormattedText } from "components/format-text";
-import { colors } from "constants/index";
+import * as Keychain from "react-native-keychain";
 import style from "./style";
 import Button from "components/button";
-import * as Keychain from "react-native-keychain";
 import { useSelector } from "react-redux";
 import MaterialTextField from "components/materialTextfield";
 import ActionModalButtom from "components/modal/actionModalBottom";
 import ValidatePassword from "components/validatePassword";
 import { handleUsernameValidator, checkHasNumber } from "utils/validators";
 import SupportController from "components/supportController";
-import UnequalTwinButtons from "components/unequalTwinButtons";
+import Switch from "components/switch";
 import EditIcon from "components/icons/editIcon.svg";
 import GalleryIcon from "components/icons/gallery.svg";
 import CameraIcon from "components/icons/camera.svg";
@@ -22,6 +21,7 @@ import Card from "pages/setting/components/card";
 import KeyValuePair from "pages/setting/components/keyValuePair";
 import { setSettingData, setFatherChangePassword } from "utils/api";
 import SigninModal from "components/signinModal";
+import { setLocalData, getLocalData } from "utils/localStorage";
 import { RootState } from "../../../customType";
 import {
   ModalType,
@@ -46,10 +46,91 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
   const [supportModal, setSupportModal] = useState<boolean>(false);
   const [showSigninModal, setShowSigninModal] = useState<boolean>(false);
   const [updatedData, setUpdatedData] = useState<any>(null);
+  const [acceptBiometrics, setAcceptBiometrics] = useState<boolean>(false);
+  const [
+    biometricType,
+    setBiometricType,
+  ] = useState<Keychain.BIOMETRY_TYPE | null>(null);
 
   useEffect(() => {
     clearError();
   }, [modal]);
+
+  useEffect(() => {
+    handleBiometricTypeCheck();
+  }, []);
+
+  const isFinger =
+    biometricType === "TouchID" || biometricType === "Fingerprint";
+  const isFace = biometricType === "FaceID";
+
+  const handleBiometricTypeCheck = async () => {
+    const biometricsType = await Keychain.getSupportedBiometryType();
+    const checkWasAssigened = await getLocalData("biometrics");
+    setBiometricType(biometricsType);
+    if (checkWasAssigened) {
+      handleBiometricsAction(true);
+    }
+  };
+
+  const handleSwitchBiometrics = async (value: boolean) => {
+    if (!value) {
+      setLocalData("biometrics", "false");
+      await Keychain.resetGenericPassword();
+    }
+    setAcceptBiometrics(value);
+  };
+
+  const handleSetBiometricsLogin = async () => {
+    // Store the credentials
+    try {
+      await Keychain.setGenericPassword(username, password, {
+        service: "MoneyApp",
+        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY,
+        accessible: Keychain.ACCESSIBLE.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
+      });
+      await setLocalData("biometrics", "true");
+      setUsername("");
+      setPassword("");
+      navigation.navigate("app");
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const handleBiometricsAction = async (firstTime: boolean = false) => {
+    try {
+      // Retrieve the credentials
+      const options: any = {
+        service: "MoneyApp",
+        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
+        authenticationPrompt: {
+          title: "ورود با اثر انگشت",
+          description: "لطفا انگشت خود را بر روی حسگر گوشی قرار دهید",
+          cancel: "انصراف",
+        },
+      };
+      const credentials = await Keychain.getGenericPassword(options);
+      if (credentials) {
+        setUsername(credentials.username);
+        setShowSigninModal(true);
+      } else {
+        setError({
+          errorText: isFace
+            ? "چهره شما ثبت نشده است"
+            : "اثر انگشت شما ثبت نشده است",
+          isError: true,
+        });
+      }
+    } catch (error) {
+      if (!firstTime) {
+        setError({
+          errorText: "شناسایی اثر انگشت با مشکل روبرو شد",
+          isError: true,
+        });
+      }
+    }
+  };
 
   const handleValidatePassword = (status: boolean) => {
     setPasswordIsValid(status);
@@ -253,8 +334,8 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
               <View style={style.edit}>
                 <EditIcon
                   fill={theme.setting.editIconColor}
-                  width={14}
-                  height={14}
+                  width={12}
+                  height={12}
                 />
               </View>
             </TouchableOpacity>
@@ -280,9 +361,23 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         </View>
 
         <View style={style.cardsWrapper}>
-          <Card title="امنیت">
-            <>
-              {/* <View style={style.cardRow}>
+          {biometricType && (
+            <Card title="امنیت">
+              <>
+                <View style={style.cardRow}>
+                  <FormattedText style={style.biometricsSwitchLabel}>
+                    {isFinger
+                      ? "ورود با اثر انگشت"
+                      : isFace
+                      ? "ورود با تشخیص چهره"
+                      : ""}
+                  </FormattedText>
+                  <Switch
+                    activeColor={theme.ButtonBlueColor}
+                    onChange={handleSwitchBiometrics}
+                  />
+                </View>
+                {/* <View style={style.cardRow}>
                 <KeyValuePair
                   rowKey="نام کاربری:"
                   value={fatherData.username}
@@ -305,7 +400,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
                   />
                 </TouchableOpacity>
               </View> */}
-              <View style={style.cardRow}>
+                {/* <View style={style.cardRow}>
                 <KeyValuePair rowKey="رمز ورود:" value="********" />
                 <TouchableOpacity
                   onPress={() =>
@@ -319,13 +414,14 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
                 >
                   <EditIcon
                     fill={theme.setting.editIconColor}
-                    width={20}
-                    height={20}
+                    width={16}
+                    height={16}
                   />
                 </TouchableOpacity>
-              </View>
-            </>
-          </Card>
+              </View> */}
+              </>
+            </Card>
+          )}
           <Card title="تنظیمات">
             <>
               <View style={style.cardRow}>
@@ -345,8 +441,8 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
                 >
                   <EditIcon
                     fill={theme.setting.editIconColor}
-                    width={20}
-                    height={20}
+                    width={16}
+                    height={16}
                   />
                 </TouchableOpacity>
               </View>
@@ -365,47 +461,23 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
       >
         <ScrollView contentContainerStyle={style.modalContent}>
           {renderModalContent()}
-          {modal.activeContent !== "AVATAR" &&
-            modal.activeContent !== "NICKNAME" && (
-              <Button
-                title="ذخیره"
-                onPress={() => handleSetSettingData()}
-                color={theme.ButtonGreenColor}
-                loading={loading}
-                disabled={
-                  loading
-                    ? loading
-                    : modal.activeContent === "PASSWORD"
-                    ? !passwordIsValid
-                    : modal.activeContent === "USERNAME"
-                    ? checkHasNumber(username ? username[0] : "")
-                    : false
-                }
-              />
-            )}
-          {modal.activeContent === "NICKNAME" &&
-            (fatherData.nickname.length !== 0 ? (
-              <UnequalTwinButtons
-                mainText="ذخیره"
-                mainColor={theme.ButtonGreenColor}
-                mainOnPress={() => handleSetSettingData()}
-                secondaryText="حذف"
-                secondaryColor={colors.buttonDestructiveActive}
-                secondaryOnPress={() => {
-                  setNickname("");
-                  handleSetSettingData();
-                }}
-                style={style.unequalButtonsWrapper}
-              />
-            ) : (
-              <Button
-                title="ذخیره"
-                onPress={() => handleSetSettingData()}
-                color={theme.ButtonGreenColor}
-                loading={loading}
-                disabled={loading ? loading : false}
-              />
-            ))}
+          {modal.activeContent !== "AVATAR" && (
+            <Button
+              title="ذخیره"
+              onPress={() => handleSetSettingData()}
+              color={theme.ButtonGreenColor}
+              loading={loading}
+              disabled={
+                loading
+                  ? loading
+                  : modal.activeContent === "PASSWORD"
+                  ? !passwordIsValid
+                  : modal.activeContent === "USERNAME"
+                  ? checkHasNumber(username ? username[0] : "")
+                  : false
+              }
+            />
+          )}
         </ScrollView>
       </ActionModalButtom>
 

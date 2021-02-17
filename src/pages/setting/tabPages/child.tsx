@@ -19,6 +19,7 @@ import {
   checkHasNumber,
   validatePhone,
 } from "utils/validators";
+import { withTheme } from "themeCore/themeProvider";
 import SupportController from "components/supportController";
 import GalleryIcon from "components/icons/gallery.svg";
 import CameraIcon from "components/icons/camera.svg";
@@ -32,7 +33,7 @@ import {
   OFFLOAD_MODAL,
 } from "./constants";
 
-export default ({ childData, handleUpdateData }: any) => {
+export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>(childData.username || "");
@@ -45,7 +46,6 @@ export default ({ childData, handleUpdateData }: any) => {
   const [avatar, setAvatar] = useState<string>(childData.avatar || "");
   const [modal, setModal] = useState<ModalType>(OFFLOAD_MODAL);
   const [error, setError] = useState<any>({ field: "", message: "" });
-
   useEffect(() => {
     clearError();
   }, [modal]);
@@ -311,7 +311,7 @@ export default ({ childData, handleUpdateData }: any) => {
               <EditIcon
                 width={20}
                 height={20}
-                style={{ color: colors.links }}
+                fill={theme.setting.editIconColor}
               />
             </TouchableOpacity>
           </View>
@@ -351,7 +351,7 @@ export default ({ childData, handleUpdateData }: any) => {
                   <EditIcon
                     width={20}
                     height={20}
-                    style={{ color: colors.links }}
+                    fill={theme.setting.editIconColor}
                   />
                 </TouchableOpacity>
               </View>
@@ -370,7 +370,7 @@ export default ({ childData, handleUpdateData }: any) => {
                   <EditIcon
                     width={20}
                     height={20}
-                    style={{ color: colors.links }}
+                    fill={theme.setting.editIconColor}
                   />
                 </TouchableOpacity>
               </View>
@@ -402,7 +402,7 @@ export default ({ childData, handleUpdateData }: any) => {
                   <EditIcon
                     width={20}
                     height={20}
-                    style={{ color: colors.links }}
+                    fill={theme.setting.editIconColor}
                   />
                 </TouchableOpacity>
               </View>
@@ -450,7 +450,7 @@ export default ({ childData, handleUpdateData }: any) => {
                 mainColor={colors.buttonSubmitActive}
                 mainOnPress={() => handleSetSettingData()}
                 secondaryText="حذف"
-                secondaryColor={colors.buttonDestructiveActive}
+                secondaryColor={theme.destructive}
                 secondaryOnPress={() => {
                   setNickname("");
                   handleSetSettingData(null, true);
@@ -478,3 +478,5 @@ export default ({ childData, handleUpdateData }: any) => {
     </View>
   );
 };
+
+export default withTheme(ChildSetting);
