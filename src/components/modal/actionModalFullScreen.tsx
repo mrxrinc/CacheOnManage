@@ -1,5 +1,10 @@
 import React from "react";
-import { View, TouchableOpacity as Button, StyleSheet } from "react-native";
+import {
+  View,
+  TouchableOpacity as Button,
+  StyleSheet,
+  StatusBar,
+} from "react-native";
 import Modal from "react-native-modal";
 import LinearGradient from "react-native-linear-gradient";
 import { FormattedText } from "components/format-text";
@@ -16,10 +21,18 @@ const ActionModalFullScreen = ({
 }: any) => {
   return (
     <Modal
+      useNativeDriver
       isVisible={showModal}
       onBackdropPress={() => setShowModal(false)}
       style={styles.modal}
     >
+      <StatusBar
+        backgroundColor={theme.backgroundColor}
+        animated
+        translucent={false}
+        hidden={false}
+        barStyle={theme.statusBarContent}
+      />
       <View style={styles.modalContainer}>
         <LinearGradient
           colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
