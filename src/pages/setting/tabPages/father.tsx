@@ -21,7 +21,7 @@ import Card from "pages/setting/components/card";
 import KeyValuePair from "pages/setting/components/keyValuePair";
 import { setSettingData, setFatherChangePassword } from "utils/api";
 import SigninModal from "components/signinModal";
-import { setLocalData, getLocalData } from "utils/localStorage";
+import { getLocalData, removeLocalData } from "utils/localStorage";
 import { RootState } from "../../../customType";
 import {
   ModalType,
@@ -68,6 +68,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
     const biometricsType = await Keychain.getSupportedBiometryType();
     setBiometricType(biometricsType);
     const checkWasAssigned = await getLocalData("biometrics");
+    console.log({ checkWasAssigned });
     if (checkWasAssigned === "true") {
       setDefinedBiometrics(true);
     } else {
@@ -76,11 +77,12 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
   };
 
   const handleSwitchBiometrics = async (value: boolean) => {
+    console.log({ value });
     if (!value) {
-      setLocalData("biometrics", "false");
-      await Keychain.resetGenericPassword();
-    } else {
-      setShowSigninModal(true);
+      await Keychain.resetGenericPassword({ service: "MoneyApp" });
+      removeLocalData("biometrics");
+    } else if (value && definedBiometrics) {
+      // setShowSigninModal(true);
     }
   };
 
@@ -324,6 +326,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
                       ? "ورود با تشخیص چهره"
                       : ""}
                   </FormattedText>
+                  {console.log({ definedBiometrics })}
                   <Switch
                     isActive={definedBiometrics}
                     activeColor={theme.ButtonBlueColor}
@@ -446,11 +449,11 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         setShowModal={setShowSigninModal}
         handleSignIn={() => handleUpdateData(updatedData)}
         handleCancel={() => {
-          // navigation.reset({
-          //   index: 0,
-          //   routes: [{ name: "auth" }],
-          // });
           setShowSigninModal(false);
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "auth" }],
+          });
         }}
         beginWithBiometrics={false}
       />
