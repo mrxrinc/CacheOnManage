@@ -14,12 +14,14 @@ import { childPhoneNumber } from "store/MobileTopUp/mobileTopUp.actions";
 import { colors } from "constants/index";
 import styles from "./styles";
 import { otpTokenChanged } from "redux/actions/User";
+import { setLocalData } from "utils/localStorage";
 
 type Props = {
   showModal: boolean;
   setShowModal: (status: boolean) => void;
   handleSignIn: (token: string) => void;
   handleCancel: () => void;
+  beginWithBiometrics: boolean;
 };
 type Error = {
   errorText: string;
@@ -31,12 +33,8 @@ const SigninModal: FC<Props> = ({
   setShowModal,
   handleSignIn,
   handleCancel = () => null,
+  beginWithBiometrics = false,
 }) => {
-  const [
-    biometricType,
-    setBiometricType,
-  ] = useState<Keychain.BIOMETRY_TYPE | null>(null);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -61,7 +59,13 @@ const SigninModal: FC<Props> = ({
   });
 
   useEffect(() => {
-    if (showModal === true) handleBiometricTypeCheck();
+    if (showModal === true) {
+      if (!beginWithBiometrics) {
+        setShowSignInModal(true);
+      } else {
+        handleBiometricTypeCheck();
+      }
+    }
   }, [showModal]);
 
   const handleBiometricTypeCheck = async () => {
@@ -108,6 +112,23 @@ const SigninModal: FC<Props> = ({
     }
   };
 
+  const handleSetBiometricsLogin = async () => {
+    // Store the credentials
+    try {
+      await Keychain.setGenericPassword(username, password, {
+        service: "MoneyApp",
+        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY,
+        accessible: Keychain.ACCESSIBLE.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
+      });
+      await setLocalData("biometrics", "true");
+      setUsername("");
+      setPassword("");
+    } catch (error) {
+      console.warn("ERROR ON SETTING KEYCHAIN: ", error);
+      return false;
+    }
+  };
+
   const handleSubmitSignin = async (username: string, password: string) => {
     setLoading(true);
     if (validateUserName(username)) {
@@ -117,6 +138,7 @@ const SigninModal: FC<Props> = ({
           if (response.status == 200) {
             dispatch(otpTokenChanged(response.data.access_token));
             AsyncStorage.setItem("token", response.data.access_token);
+            handleSetBiometricsLogin();
             handleSignIn(response.data.access_token);
             setShowSignInModal(false);
           } else {
@@ -155,7 +177,6 @@ const SigninModal: FC<Props> = ({
               onChangeText={(value: any) => {
                 setUsername(value);
               }}
-              style={{ fontFamily: "IRANSansMobile" }}
               value={username}
               //   error={}
             />
@@ -170,7 +191,6 @@ const SigninModal: FC<Props> = ({
               onChangeText={(value: any) => {
                 setPassword(value);
               }}
-              style={{ fontFamily: "IRANSansMobile" }}
               value={password}
               //   error={}
             />
@@ -198,6 +218,7 @@ const SigninModal: FC<Props> = ({
             handleCancel();
           }}
           style={styles.buttonsWrapper}
+          mainLoading={loading}
         />
       </ScrollView>
     </Modal>
