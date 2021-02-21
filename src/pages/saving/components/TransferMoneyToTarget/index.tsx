@@ -29,9 +29,11 @@ import Tick from "components/icons/tick.svg";
 // Styles
 import style from "./styles";
 import { colors } from "constants/index";
+import { withTheme } from "themeCore/themeProvider";
 
 interface Props {
   navigation: any;
+  theme: any;
 }
 
 interface Errors {
@@ -50,6 +52,7 @@ const MessagesContext = React.createContext(messages);
 
 const TransferMoneyToTarget: FC<Props> = (props) => {
   const dispatch = useDispatch();
+  const { theme } = props;
   const navigation = useNavigation<any>();
   const translate = React.useContext(MessagesContext);
 
@@ -193,52 +196,31 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
                     ? filterActiveTargets?.map((target: any, index: number) => {
                         return (
                           <View key={index}>
-                            {checkedTarget === target.id ? (
-                              <TouchableOpacity style={style.activityButton}>
-                                <View
-                                  style={[
-                                    formik.errors.target
-                                      ? { borderColor: "red" }
-                                      : {
-                                          borderColor:
-                                            colors.buttonSubmitActive,
-                                        },
-                                    style.radioBtn,
-                                    style.radioGreenBg,
-                                  ]}
-                                >
-                                  <Tick width={14} height={14} fill={"white"} />
-                                </View>
-
-                                <FormattedText style={style.activityText}>
-                                  {target.title}
-                                </FormattedText>
-                              </TouchableOpacity>
-                            ) : (
-                              <TouchableOpacity
-                                onPress={() => {
-                                  handleCheckedTarget(target.id);
-                                }}
-                                style={style.activityButton}
+                            <TouchableOpacity
+                              style={style.activityButton}
+                              onPress={() => {
+                                handleCheckedTarget(target.id);
+                              }}
+                            >
+                              <View
+                                style={[
+                                  {
+                                    borderColor: theme.ButtonGreenColor,
+                                    backgroundColor:
+                                      checkedTarget === target.id
+                                        ? theme.ButtonGreenColor
+                                        : "#fff",
+                                  },
+                                  style.radioBtn,
+                                ]}
                               >
-                                <View
-                                  style={[
-                                    style.radioBtn,
-                                    style.radioWhiteBg,
-                                    formik.errors.target
-                                      ? { borderColor: colors.red }
-                                      : {
-                                          borderColor:
-                                            colors.buttonSubmitActive,
-                                        },
-                                  ]}
-                                />
+                                <Tick width={14} height={14} fill={"white"} />
+                              </View>
 
-                                <FormattedText style={style.activityText}>
-                                  {target.title}
-                                </FormattedText>
-                              </TouchableOpacity>
-                            )}
+                              <FormattedText style={style.activityText}>
+                                {target.title}
+                              </FormattedText>
+                            </TouchableOpacity>
                           </View>
                         );
                       })
@@ -270,7 +252,7 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
               savingStore.loading
             }
             loading={savingStore.loading}
-            color={colors.buttonSubmitActive}
+            color={theme.ButtonGreenColor}
           />
         </View>
       </>
@@ -291,4 +273,4 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
   );
 };
 
-export default TransferMoneyToTarget;
+export default withTheme(TransferMoneyToTarget);

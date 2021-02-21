@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 // Helpers & Utils
 import { formatNumber } from "utils";
 // Images
-import Edit from "images/edit.svg";
-import Delete from "images/trash.svg";
+import Edit from "components/icons/editIcon.svg";
+import Delete from "components/icons/trashIcon.svg";
 // UI Frameworks
 import LinearGradient from "react-native-linear-gradient";
 // Common Components
@@ -22,14 +22,16 @@ import { SavingListData, TargetsData } from "types/saving";
 import SavingActions from "store/Saving/saving.actions";
 // Styles
 import styles from "./styles";
+import { withTheme } from "themeCore/themeProvider";
 
 interface Props {
   data: SavingListData;
   onEditTarget: (target: any, data: any) => void;
+  theme: any;
 }
 const TargetList: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
-
+  const theme = props.theme;
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showFinishTargetModal, setShowFinishTargetModal] = useState<boolean>(
     false
@@ -89,14 +91,17 @@ const TargetList: React.FC<Props> = (props) => {
           return (
             <View style={styles.targetBox} key={index}>
               <View style={styles.row}>
-                <FormattedText style={styles.targetTitle}>
+                <FormattedText
+                  style={[styles.targetTitle, { color: theme.titleColor }]}
+                >
                   {target.title}
                 </FormattedText>
 
                 {target.state === "DONE" || target.state === "CANCELED" ? (
                   <Delete
-                    height={24}
-                    width={24}
+                    width={18}
+                    height={18}
+                    fill={theme.ButtonRedColor}
                     onPress={() => handleShowDeleteModal(target.id)}
                   />
                 ) : (
@@ -104,7 +109,7 @@ const TargetList: React.FC<Props> = (props) => {
                     style={styles.editBox}
                     onPress={() => props.onEditTarget(target, props.data)}
                   >
-                    <Edit height={24} width={24} />
+                    <Edit width={18} height={18} fill={theme.ButtonBlueColor} />
                   </TouchableOpacity>
                 )}
               </View>
@@ -150,7 +155,7 @@ const TargetList: React.FC<Props> = (props) => {
                 </View>
                 <View style={styles.progressBarGray}>
                   <LinearGradient
-                    colors={["#bb6aff", "#397fff"]}
+                    colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
                     style={{
@@ -247,4 +252,4 @@ const TargetList: React.FC<Props> = (props) => {
   );
 };
 
-export default TargetList;
+export default withTheme(TargetList);

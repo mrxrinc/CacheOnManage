@@ -19,7 +19,6 @@ export default StyleSheet.create({
 
   submitButton: {
     height: 44,
-    borderRadius: 30,
     width: "100%",
   },
   submitButtonWrapper: {
@@ -41,10 +40,11 @@ export default StyleSheet.create({
     marginLeft: 5,
   },
   radioBtn: {
+    justifyContent: "center",
+    alignItems: "center",
     width: 20,
     height: 20,
     borderWidth: 1,
-    borderColor: colors.buttonSubmitActive,
     borderRadius: 10,
   },
   redColor: {
@@ -52,9 +52,6 @@ export default StyleSheet.create({
   },
   radioBtnBox: {
     marginBottom: 20,
-  },
-  radioGreenBg: {
-    backgroundColor: colors.buttonSubmitActive,
   },
   radioWhiteBg: {
     backgroundColor: colors.white,

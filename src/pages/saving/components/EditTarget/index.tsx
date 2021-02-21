@@ -26,6 +26,7 @@ import { StateNetwork } from "store/index.reducer";
 import { colors } from "constants/index";
 // Styles
 import styles from "./styles";
+import { withTheme } from "themeCore/themeProvider";
 
 export interface Errors {
   title?: string;
@@ -37,10 +38,11 @@ interface Props {
   data: TargetsData;
   childName: string;
   allowance: number | string;
+  theme: any;
 }
 const EditTarget: FC<Props> = (props) => {
   const dispatch = useDispatch();
-
+  const { theme } = props;
   const [targetDate, setTargetDate] = useState(props.data.targetDate);
   const [showDateModal, setShowDateModal] = useState<boolean>(false);
   const [weeklyAmount, setWeeklyAmount] = useState<string>(
@@ -329,14 +331,14 @@ const EditTarget: FC<Props> = (props) => {
             onPress={formik.handleSubmit}
             disabled={!formik.isValid || savingStore.loading}
             title="ذخیره"
-            color="#43e6c5"
+            color={theme.ButtonGreenColor}
             style={styles.submitButton}
             loading={savingStore.loading}
           />
           <Button
             onPress={handleFinishTargetModal}
             title="اتمام هدف"
-            color={colors.buttonSubmitActive}
+            color={theme.ButtonGreenColor}
             style={styles.submitButton}
           />
         </View>
@@ -374,4 +376,4 @@ const EditTarget: FC<Props> = (props) => {
   );
 };
 
-export default EditTarget;
+export default withTheme(EditTarget);
