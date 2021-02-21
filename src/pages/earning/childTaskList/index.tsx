@@ -321,7 +321,8 @@ const TaskList = (props: any) => {
                   ]}
                   fontFamily="Bold"
                 >
-                  {item.description || "--"}
+                  {item.description.substring(0, 30) || "--"}
+                  {item.description.length > 30 && "..."}
                 </FormattedText>
                 <FormattedText
                   style={styles.otherPaymentsAmount}
