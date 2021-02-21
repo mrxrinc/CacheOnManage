@@ -288,7 +288,7 @@ const TransferMoney: FC = (props: any) => {
                   onChangeText={(text: string) =>
                     formik.setFieldValue("description", text)
                   }
-                  maxLength={13}
+                  maxLength={55}
                   error={formik.errors.description}
                 />
               </View>
