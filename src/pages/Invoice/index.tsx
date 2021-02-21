@@ -70,6 +70,7 @@ const Invoice: FC<Props> = (props) => {
       />
       <View style={[styles.container]}>
         <SectionList
+          stickySectionHeadersEnabled
           sections={refinedData}
           keyExtractor={(item, index) => index.toString()}
           onRefresh={pullToRefresh}

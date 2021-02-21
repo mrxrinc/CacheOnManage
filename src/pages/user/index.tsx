@@ -13,7 +13,7 @@ import VideoRecorder from "./video-recorder";
 import FaceDetection from "./face-recognition";
 import CardUpload from "./national-card/upload";
 import CheckInformation from "./check-information";
-import License from "./kyc/License";
+import License from "./kyc/license";
 import KycLayout from "./kyc";
 import { HeaderTitle } from "./kyc/config";
 import AlertController from "components/alertController";
