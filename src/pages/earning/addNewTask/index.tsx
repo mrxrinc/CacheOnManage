@@ -29,6 +29,7 @@ import { getEarningData } from "redux/actions/Earning";
 const childIdList: any = [];
 
 const AddNewTask = (props: any) => {
+  const { ChildData } = props.route.params;
   const theme = props.theme;
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -36,6 +37,7 @@ const AddNewTask = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [defaulTask, setDefualtTask] = useState([]);
   const [childInfo, setChildInfo] = useState([]);
+  const [childList, setChildList] = useState([]);
   const [taskName, setTaskName] = useState("");
   const [amount, setAmount] = useState("");
   const [icon, setIcon] = useState("");
@@ -77,25 +79,49 @@ const AddNewTask = (props: any) => {
       amount: amount,
       customDefault,
     };
-    addNewTask(token, data)
-      .then((response) => {
-        childIdList.splice(0, childIdList.length);
-        dispatch(getEarningData(Math.random()));
-        navigation.navigate("earningTab");
-      })
-      .catch((err) => {
-        console.warn("ERROR: ", err.response);
-      });
+    console.log(data);
+    // addNewTask(token, data)
+    //   .then((response) => {
+    //     childIdList.splice(0, childIdList.length);
+    //     dispatch(getEarningData(Math.random()));
+    //     navigation.navigate("earningTab");
+    //   })
+    //   .catch((err) => {
+    //     console.warn("ERROR: ", err.response);
+    //   });
+  };
+
+  const handleAddChild = (child: any) => {
+    let newList = childList.concat(child);
+    setChildList(newList);
+  };
+
+  const handleRemoveChild = (child: any) => {
+    var index = childList.indexOf(child);
+    if (index > -1) {
+      childList.splice(index, 1);
+    }
+    return childList;
   };
 
   const renderChildName = ({ item, index, favorites, setFavorite }: any) => {
+    // console.log("=================");
+    // console.log(item);
+    // console.log(ChildData);
+    // console.log(favorites);
+    // console.log("=================");
     return (
       <Column
         index={index}
         title={item}
-        isFavorite={favorites.includes(item)}
+        isFavorite={
+          favorites.includes(item) ||
+          JSON.stringify(item) === JSON.stringify(ChildData)
+        }
         onPress={(item: any) => {
           setFavorite((favoriteItems: any) => {
+            console.log(favoriteItems);
+            console.log(item);
             let isFavorite = favoriteItems.includes(item);
 
             if (isFavorite) {
@@ -339,7 +365,7 @@ const AddNewTask = (props: any) => {
             color={theme.ButtonGreenColor}
             title="افزودن مسئولیت جدید"
             onPress={() => handleClick()}
-            disabled={!factorCheck || (!isChild && childIdList.length === 0)}
+            // disabled={!factorCheck || (!isChild && childIdList.length === 0)}
           />
         )}
       </ScrollView>

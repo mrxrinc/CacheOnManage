@@ -183,8 +183,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginRight: 5,
     backgroundColor: colors.gray950,
-    borderColor: colors.gray650,
-    borderWidth: 0.5,
   },
   itemIcon: {
     width: 32,

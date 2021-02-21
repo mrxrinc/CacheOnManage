@@ -51,6 +51,7 @@ import Total from "pages/transactions/total";
 import DetailItem from "pages/transactions/detailItem";
 import SpendParent from "pages/spend-parent";
 import Login from "pages/user/signIn/login";
+import AddNew from "pages/earning/addNew";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -71,7 +72,7 @@ function AppStack() {
       <Stack.Screen name="spent" component={Spent} />
       <Stack.Screen name="more" component={More} />
       <Stack.Screen name="earning" component={Earning} />
-      <Stack.Screen name="addNewTask" component={AddNewTask} />
+      <Stack.Screen name="addNewTask" component={AddNew} />
       <Stack.Screen name="confirmTask" component={confirmTask} />
       <Stack.Screen name="saving" component={Saving} />
       <Stack.Screen name="addNewTarget" component={AddNewTarget} />

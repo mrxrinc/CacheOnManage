@@ -30,10 +30,9 @@ const AllowanceChart = ({ childInfo, theme }: any) => {
             fontFamily="Bold-FaNum"
             style={{ fontSize: 28, color: colors.gray250 }}
           >
-            {" "}
             {formatNumber(allowanceForChart + incomes + paidTaskAmount) || 0}
           </FormattedText>
-          <FormattedText style={{ fontSize: 15 }} fontFamily="Regular">
+          <FormattedText style={styles.rial} fontFamily="Regular">
             ریال
           </FormattedText>
         </View>
