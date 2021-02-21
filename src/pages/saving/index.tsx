@@ -33,8 +33,9 @@ import SavingActions from "store/Saving/saving.actions";
 import { colors } from "constants/index";
 // Styles
 import styles from "./styles";
+import { withTheme } from "themeCore/themeProvider";
 
-const Saving: FC = () => {
+const Saving: FC = ({ theme }: any) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
   const [selectedTab, setSelectedTab] = React.useState<number>(0);
@@ -101,7 +102,7 @@ const Saving: FC = () => {
         : ([] as any);
 
     return (
-      <View>
+      <View style={styles.content}>
         <ScrollView
           contentContainerStyle={contentContainerStyle}
           refreshControl={
@@ -120,7 +121,7 @@ const Saving: FC = () => {
               title="تعریف هدف جدید"
               onPress={() => handleAddNewTargetPress(item.data)}
               disabled={filterActiveTargets?.length >= 2 ? true : false}
-              color={colors.buttonOpenActive}
+              color={theme.ButtonBlueColor}
             />
           </View>
           <View style={styles.buttonBox}>
@@ -128,7 +129,7 @@ const Saving: FC = () => {
               title="انتقال وجه به هدف"
               onPress={() => handleTransferMoneyToTarget(item.data)}
               disabled={filterActiveTargets?.length > 0 ? false : true}
-              color={colors.buttonOpenActive}
+              color={theme.ButtonBlueColor}
             />
           </View>
         </View>
@@ -186,4 +187,4 @@ const Saving: FC = () => {
   );
 };
 
-export default Saving;
+export default withTheme(Saving);
