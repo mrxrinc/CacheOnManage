@@ -24,6 +24,7 @@ type Props = {
   theme: any;
   isFinger?: any;
   isFaceId?: any;
+  isHide?: boolean;
 };
 
 function handleBackground(
@@ -51,9 +52,10 @@ const Button = ({
   loading,
   isFinger,
   isFaceId,
+  isHide,
   ...props
 }: Props) => {
-  return (
+  return !isHide ? (
     <View
       style={[
         styles.container,
@@ -101,7 +103,7 @@ const Button = ({
         )}
       </TouchableHighlight>
     </View>
-  );
+  ) : null;
 };
 
 export default withTheme(Button);
