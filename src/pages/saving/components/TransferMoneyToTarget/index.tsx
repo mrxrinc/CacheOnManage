@@ -135,7 +135,6 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
         description: " ",
       };
       dispatch(SavingActions.transferMoneyToTarget(data, { sagas: true }));
-      formik.resetForm();
     },
   });
 
@@ -155,7 +154,10 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
   }, [checkedTarget]);
 
   function handleAmountChange(value: string) {
-    formik.setFieldValue("amount", value.replace(/,/g, ""));
+    formik.setFieldValue(
+      "amount",
+      value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
+    );
   }
 
   function handleCloseModal() {

@@ -53,12 +53,12 @@ export interface Errors {
 }
 
 const TransferMoney: FC = (props: any) => {
+  const { cards, header } = props.route.params;
   const theme = props.theme;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const translate = React.useContext(MessagesContext);
 
-  const [cards, setCards] = useState<Array<BalanceCardType>>([]);
   const [parentName, setParentName] = useState<string>("");
   const [parentId, setParentId] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
@@ -73,31 +73,24 @@ const TransferMoney: FC = (props: any) => {
     (state) => state.transferMoney
   );
 
-  const token = useSelector<any, any>((state) => state.user.token);
-
   useEffect(() => {
-    (async () => {
-      try {
-        const { cards, header } = await getHomePageData(token);
-
-        setCards(cards.cards);
-        if (header.id !== "") {
-          setParentName(header.nickname);
-          setParentId(header.id);
-          setAvatar(header.avatar);
-        }
-      } catch (error) {
-        console.warn(error);
-      }
-    })();
+    formik.resetForm();
+    if (header.id !== "") {
+      setParentName(header.nickname);
+      setParentId(header.id);
+      setAvatar(header.avatar);
+    }
   }, []);
 
   const transactionResults = React.useMemo(() => {
     if (transferMoneyStore.transactionResult?.data) {
       const result = R.map((key: string) => {
+        const isAmount = key === "amount";
         return {
           key: translate[key],
-          value: transferMoneyStore.transactionResult.data[key],
+          value: isAmount
+            ? formatNumber(transferMoneyStore.transactionResult.data[key])
+            : transferMoneyStore.transactionResult.data[key],
         };
       }, Object.keys(transferMoneyStore.transactionResult.data));
 
@@ -134,7 +127,6 @@ const TransferMoney: FC = (props: any) => {
         description: values.description,
       };
       dispatch(TransferMoneyActions.transferMoney(data, { sagas: true }));
-      formik.resetForm();
     },
   });
 
@@ -210,9 +202,7 @@ const TransferMoney: FC = (props: any) => {
                         ]}
                       >
                         <FormattedText>
-                          {formik.values.child
-                            ? formik.values.child
-                            : "انتخاب کنید "}
+                          {childName ? childName : "انتخاب کنید "}
                         </FormattedText>
                       </View>
                     </TouchableWithoutFeedback>
@@ -274,7 +264,10 @@ const TransferMoney: FC = (props: any) => {
                   label="مبلغ"
                   value={formatNumber(formik.values.amount)}
                   onChangeText={(value: string) =>
-                    formik.setFieldValue("amount", value.replace(/,/g, ""))
+                    formik.setFieldValue(
+                      "amount",
+                      value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
+                    )
                   }
                   hasUnit
                   maxLength={13}
@@ -310,7 +303,7 @@ const TransferMoney: FC = (props: any) => {
         showHeader={false}
       >
         <PickerItem
-          data={cards}
+          data={cards.cards}
           onSelectedChild={(id, nickname) => handleSelectedChild(id, nickname)}
         />
       </ActionModalBottom>

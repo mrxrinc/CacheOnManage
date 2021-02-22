@@ -138,7 +138,7 @@ const AddNewTarget: FC<Props> = (props) => {
           Number(removeCommas(values.weeklySavings))
         ) {
           errors.targetAmount =
-            "مبلغ هدف  نمی تواند کمتر از مبلغ پس انداز باشد";
+            "مبلغ هدف نمی تواند کمتر از مبلغ پس انداز هفتگی باشد";
         } else if (
           Number(removeCommas(selectedTargetData.allowance)) <
           Number(removeCommas(values.weeklySavings))
