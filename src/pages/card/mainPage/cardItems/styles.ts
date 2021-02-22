@@ -56,7 +56,7 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    // marginBottom: 5,
+    height: 50,
   },
   modalResultKeyText: {
     fontSize: 13,
@@ -90,14 +90,16 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 20,
   },
-  errorBox: { width: "100%", height: 50 },
+  errorBox: { width: "100%", marginVertical: 8 },
   errorText: { color: "#f73e3e", fontSize: 11 },
-  changePasswordInput: { width: 160, height: 40 },
+  changePasswordInput: {
+    width: 160,
+    marginVertical: 0,
+
+    backgroundColor: "red",
+  },
   buttonBox: {
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
     marginBottom: 15,
   },
 });

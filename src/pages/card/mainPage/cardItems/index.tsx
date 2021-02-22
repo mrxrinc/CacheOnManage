@@ -22,6 +22,8 @@ import Input from "components/input";
 import UnequalTwinButtons from "components/unequalTwinButtons";
 import { colors } from "constants/index";
 import CardsActions from "store/Cards/cards.action";
+import Button from "components/button";
+import { TextInput } from "react-native-gesture-handler";
 
 const CardItems = (props: any) => {
   const dispatch = useDispatch();
@@ -113,6 +115,7 @@ const CardItems = (props: any) => {
           <FormattedText style={styles.modalResultKeyText}>
             رمز جدید
           </FormattedText>
+          <TextInput />
           <View>
             <Input
               customStyle={styles.changePasswordInput}
@@ -131,7 +134,7 @@ const CardItems = (props: any) => {
           <FormattedText style={styles.modalResultKeyText}>
             تکرار رمز جدید
           </FormattedText>
-          <View style={{}}>
+          <View>
             <Input
               customStyle={styles.changePasswordInput}
               boxMode
@@ -152,13 +155,10 @@ const CardItems = (props: any) => {
         </View>
         <View style={styles.buttonBox}>
           {!successChangePassword ? (
-            <UnequalTwinButtons
-              mainColor={colors.buttonSubmitActive}
-              mainText={"ذخیره"}
-              mainOnPress={handleChangePassword}
-              secondaryColor={colors.buttonDestructiveActive}
-              buttonType={"single"}
-              style={{ marginHorizontal: "-19%" }}
+            <Button
+              color={colors.buttonSubmitActive}
+              title="ذخیره"
+              onPress={handleChangePassword}
             />
           ) : (
             <LottieView

@@ -123,6 +123,8 @@ const messages: Record<string, string> = {
   mobile_bill: "قبض موبایل",
   mobileBillPayment: "پرداخت قبض موبایل",
   child_spending: "مخارج",
+  changePasswordDescription:
+    "برای فعال سازی، لطفا دو بار رمز جدید را وارد کنید.",
   "orderBabyCard.orderDescription":
     "کارتی وجود ندارد. لطفا جهت استفاده از امکانات برنامه برای او کارت سفارش دهید.",
   "orderBabyCard.activationDescription":
@@ -153,6 +155,6 @@ const messages: Record<string, string> = {
   to: "به",
   operator: "اپراتور",
   mobile: "شماره موبایل",
-  totalLimit:"سقف محدودیت"
+  totalLimit: "سقف محدودیت",
 };
 export default messages;
