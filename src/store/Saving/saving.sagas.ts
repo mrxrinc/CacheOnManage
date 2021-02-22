@@ -19,7 +19,6 @@ function* fetchSavingList(action: Action) {
     const savingListRes = yield call(
       SavingService.fetchSavingList.bind(SavingService)
     );
-    console.log("savingListRes>>", savingListRes);
     // if (!savingListRes) {
     // TODO: should set error text
     // } else {
