@@ -6,6 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
+  content: { flex: 1 },
   savingInfoBox: {
     backgroundColor: colors.white,
     height: 92,

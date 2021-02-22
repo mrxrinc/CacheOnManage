@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, ActivityIndicator } from "react-native";
 import { WebView } from "react-native-webview";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
@@ -44,6 +44,7 @@ export const InquiryAddress = (props: any) => {
   const [mobileNumber, setMobileNumber] = useState<string | null>(null);
   const [acceptPolicies, setAcceptPolicies] = useState<boolean>(false);
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [form, setForm] = useState<FormType>({
     nickname: "",
     enableAddress: false,
@@ -72,6 +73,7 @@ export const InquiryAddress = (props: any) => {
   };
 
   const handleAddressCheck = (value?: string) => {
+    setLoading(true);
     clearError();
     if (!value) value = postalCode;
     addressInqury(token, value)
@@ -84,6 +86,9 @@ export const InquiryAddress = (props: any) => {
           field: "postalCode",
           message: err.response.data.message,
         });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -127,6 +132,7 @@ export const InquiryAddress = (props: any) => {
               />
               <MaterialTextField
                 label="نام مستعار (اختیاری)"
+                maxLength={30}
                 onChange={clearError}
                 onChangeText={(value: any) => _updateForm("nickname", value)}
                 error={error.field === "nickname" ? error.message : null}
@@ -174,6 +180,8 @@ export const InquiryAddress = (props: any) => {
                   label="تلفن همراه"
                   disabled={!form.enableMobile}
                   keyboardType="phone-pad"
+                  maxLength={11}
+                  editable={form.enableMobile}
                   onChange={clearError}
                   onChangeText={(value: any) => setMobileNumber(value)}
                   error={error.field === "mobileNumber" ? error.message : null}
@@ -279,16 +287,18 @@ export const InquiryAddress = (props: any) => {
               label="کد پستی"
               onChange={clearError}
               maxLength={10}
+              editable={!loading}
               keyboardType="number-pad"
               onSubmitEditing={() => debounce(handleAddressCheck())}
               onChangeText={(value: string) => {
                 setPostalCode(value);
+                clearError();
                 setAddress(null);
                 if (value.length === 10) debounce(handleAddressCheck(value));
               }}
               error={error.field === "postalCode" ? error.message : null}
             />
-            {address && (
+            {address && !loading && (
               <>
                 <View style={style.addressWrapper}>
                   <FormattedText id="address" />
@@ -304,6 +314,11 @@ export const InquiryAddress = (props: any) => {
                   />
                 </View>
               </>
+            )}
+            {loading && (
+              <View style={style.loadingWrapper}>
+                <ActivityIndicator size="large" color={colors.gray500} />
+              </View>
             )}
           </View>
         </ActionModalBottom>

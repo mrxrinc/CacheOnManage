@@ -129,6 +129,7 @@ const QRPayment: React.FC<Props> = (props) => {
                       width: "100%",
                     }}
                     type={cameraInfo.type}
+                    captureAudio={false}
                   >
                     <BarcodeMask
                       showAnimatedLine={false}

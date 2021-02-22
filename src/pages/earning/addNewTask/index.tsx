@@ -230,8 +230,10 @@ const AddNewTask = (props: any) => {
                     maxLength={10}
                     underlineColorAndroid={"transparent"}
                     onChangeText={(value) => {
-                      setAmount(value.replace(/,/g, ""));
-                      handleFactorCheck(value.replace(/,/g, ""));
+                      setAmount(value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, ""));
+                      handleFactorCheck(
+                        value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
+                      );
                     }}
                     onLayout={() => handleFactorCheck(amount)}
                     value={formatNumber(amount)}

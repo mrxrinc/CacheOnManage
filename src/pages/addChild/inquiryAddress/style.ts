@@ -23,7 +23,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderTopWidth: 2,
-    height:45
+    height: 45,
   },
   haveCardTitle: {
     fontSize: 16,
@@ -128,5 +128,10 @@ export default StyleSheet.create({
   },
   mobilePaymentMethodButtonWrapper: {
     padding: 20,
+  },
+  loadingWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

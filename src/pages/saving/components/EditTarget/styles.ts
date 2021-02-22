@@ -72,7 +72,6 @@ export default StyleSheet.create({
   submitButton: {
     width: "47%",
     height: 44,
-    borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 45,

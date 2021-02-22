@@ -143,8 +143,10 @@ export default ({
               maxLength={10}
               underlineColorAndroid={"transparent"}
               onChangeText={(value) => {
-                setInputAmount(value.replace(/,/g, ""));
-                handleFactorCheck(value.replace(/,/g, ""));
+                setInputAmount(value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, ""));
+                handleFactorCheck(
+                  value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
+                );
               }}
               value={formatNumber(inputAmount)}
             />

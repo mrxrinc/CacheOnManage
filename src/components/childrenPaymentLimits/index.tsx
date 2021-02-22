@@ -103,12 +103,12 @@ const renderPaymentMethodItem = (
               boxMode
               keyboardType="number-pad"
               customStyle={[styles.itemInput]}
-              value={formatNumber(rowAmount)}
+              value={formatNumber(activeMethod ? rowAmount || "10000000" : "")}
               editable={isChild || !activeMethod ? false : true}
               onChangeText={(value: string) => {
                 itemData = {
                   ...itemData,
-                  amount: value.replace(/,/g, ""),
+                  amount: value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, ""),
                 };
                 if (activeMethod) {
                   setPaymentMethods([
@@ -168,7 +168,10 @@ const ChildrenPaymentLimits = ({
     <ActionModalFullScreen
       showModal={showModal}
       title="تعیین سقف پرداخت"
-      setShowModal={(val: boolean) => setShowModal(val)}
+      setShowModal={(val: boolean) => {
+        setShowModal(val);
+        if (!val) setPaymentMethods([]);
+      }}
     >
       <ScrollView>
         <View style={styles.container}>

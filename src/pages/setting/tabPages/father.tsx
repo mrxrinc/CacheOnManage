@@ -21,7 +21,7 @@ import Card from "pages/setting/components/card";
 import KeyValuePair from "pages/setting/components/keyValuePair";
 import { setSettingData, setFatherChangePassword } from "utils/api";
 import SigninModal from "components/signinModal";
-import { setLocalData, getLocalData } from "utils/localStorage";
+import { getLocalData, removeLocalData } from "utils/localStorage";
 import { RootState } from "../../../customType";
 import {
   ModalType,
@@ -46,7 +46,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
   const [supportModal, setSupportModal] = useState<boolean>(false);
   const [showSigninModal, setShowSigninModal] = useState<boolean>(false);
   const [updatedData, setUpdatedData] = useState<any>(null);
-  const [acceptBiometrics, setAcceptBiometrics] = useState<boolean>(false);
+  const [definedBiometrics, setDefinedBiometrics] = useState<boolean>(false);
   const [
     biometricType,
     setBiometricType,
@@ -66,69 +66,23 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
 
   const handleBiometricTypeCheck = async () => {
     const biometricsType = await Keychain.getSupportedBiometryType();
-    const checkWasAssigened = await getLocalData("biometrics");
     setBiometricType(biometricsType);
-    if (checkWasAssigened) {
-      handleBiometricsAction(true);
+    const checkWasAssigned = await getLocalData("biometrics");
+    console.log({ checkWasAssigned });
+    if (checkWasAssigned === "true") {
+      setDefinedBiometrics(true);
+    } else {
+      setDefinedBiometrics(false);
     }
   };
 
   const handleSwitchBiometrics = async (value: boolean) => {
+    console.log({ value });
     if (!value) {
-      setLocalData("biometrics", "false");
-      await Keychain.resetGenericPassword();
-    }
-    setAcceptBiometrics(value);
-  };
-
-  const handleSetBiometricsLogin = async () => {
-    // Store the credentials
-    try {
-      await Keychain.setGenericPassword(username, password, {
-        service: "MoneyApp",
-        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY,
-        accessible: Keychain.ACCESSIBLE.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
-      });
-      await setLocalData("biometrics", "true");
-      setUsername("");
-      setPassword("");
-      navigation.navigate("app");
-    } catch (error) {
-      return false;
-    }
-  };
-
-  const handleBiometricsAction = async (firstTime: boolean = false) => {
-    try {
-      // Retrieve the credentials
-      const options: any = {
-        service: "MoneyApp",
-        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
-        authenticationPrompt: {
-          title: "ورود با اثر انگشت",
-          description: "لطفا انگشت خود را بر روی حسگر گوشی قرار دهید",
-          cancel: "انصراف",
-        },
-      };
-      const credentials = await Keychain.getGenericPassword(options);
-      if (credentials) {
-        setUsername(credentials.username);
-        setShowSigninModal(true);
-      } else {
-        setError({
-          errorText: isFace
-            ? "چهره شما ثبت نشده است"
-            : "اثر انگشت شما ثبت نشده است",
-          isError: true,
-        });
-      }
-    } catch (error) {
-      if (!firstTime) {
-        setError({
-          errorText: "شناسایی اثر انگشت با مشکل روبرو شد",
-          isError: true,
-        });
-      }
+      await Keychain.resetGenericPassword({ service: "MoneyApp" });
+      removeLocalData("biometrics");
+    } else if (value && definedBiometrics) {
+      // setShowSigninModal(true);
     }
   };
 
@@ -179,7 +133,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         modal.activeContent === "USERNAME" ||
         modal.activeContent === "PASSWORD"
       ) {
-        await Keychain.resetGenericPassword();
+        await Keychain.resetGenericPassword({ service: "MoneyApp" });
         setShowSigninModal(true);
       }
       console.warn("ERROR ON UPDATING FATHER DATA: ", err.response);
@@ -347,6 +301,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
           <KeyValuePair rowKey="شماره تماس:" value={fatherData.mobile} />
           <KeyValuePair rowKey="آدرس:" value={fatherData.address} />
         </View>
+
         <View style={style.callInformation}>
           <FormattedText style={style.callText} fontFamily="Regular-FaNum">
             <Text>در صورت تمایل به تغییر اطلاعات حساب خود با شماره </Text>
@@ -372,7 +327,9 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
                       ? "ورود با تشخیص چهره"
                       : ""}
                   </FormattedText>
+                  {console.log({ definedBiometrics })}
                   <Switch
+                    isActive={definedBiometrics}
                     activeColor={theme.ButtonBlueColor}
                     onChange={handleSwitchBiometrics}
                   />
@@ -493,11 +450,13 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         setShowModal={setShowSigninModal}
         handleSignIn={() => handleUpdateData(updatedData)}
         handleCancel={() => {
+          setShowSigninModal(false);
           navigation.reset({
             index: 0,
             routes: [{ name: "auth" }],
           });
         }}
+        beginWithBiometrics={false}
       />
     </View>
   );
