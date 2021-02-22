@@ -108,7 +108,7 @@ const renderPaymentMethodItem = (
               onChangeText={(value: string) => {
                 itemData = {
                   ...itemData,
-                  amount: value.replace(/,/g, ""),
+                  amount: value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, ""),
                 };
                 if (activeMethod) {
                   setPaymentMethods([

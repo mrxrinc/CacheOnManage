@@ -24,7 +24,6 @@ export default StyleSheet.create({
   targetTitle: {
     fontSize: 14,
     marginBottom: 5,
-    color: "#00015d",
   },
   halfWidth: {
     width: "50%",
@@ -108,10 +107,10 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  editBox:{
+  editBox: {
     width: 34,
     height: 34,
     justifyContent: "center",
     alignItems: "center",
-  }
+  },
 });

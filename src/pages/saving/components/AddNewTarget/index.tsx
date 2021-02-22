@@ -28,6 +28,7 @@ import { SavingState } from "store/Saving/saving.reducer";
 import { StateNetwork } from "store/index.reducer";
 // Styles
 import styles from "./styles";
+import { withTheme } from "themeCore/themeProvider";
 
 export interface Errors {
   title?: string;
@@ -38,9 +39,11 @@ export interface Errors {
 
 interface Props {
   navigation: any;
+  theme: any;
 }
 
 const AddNewTarget: FC<Props> = (props) => {
+  const { theme } = props;
   const navigation = useNavigation<any>();
   const dispatch = useDispatch();
 
@@ -135,7 +138,7 @@ const AddNewTarget: FC<Props> = (props) => {
           Number(removeCommas(values.weeklySavings))
         ) {
           errors.targetAmount =
-            "مبلغ هدف  نمی تواند کمتر از مبلغ پس انداز باشد";
+            "مبلغ هدف نمی تواند کمتر از مبلغ پس انداز هفتگی باشد";
         } else if (
           Number(removeCommas(selectedTargetData.allowance)) <
           Number(removeCommas(values.weeklySavings))
@@ -317,7 +320,7 @@ const AddNewTarget: FC<Props> = (props) => {
                 onPress={formik.handleSubmit}
                 disabled={!formik.isValid || savingStore.loading}
                 title="تعریف هدف جدید"
-                color={colors.buttonSubmitActive}
+                color={theme.ButtonGreenColor}
               />
             </View>
           </>
@@ -327,4 +330,4 @@ const AddNewTarget: FC<Props> = (props) => {
   );
 };
 
-export default AddNewTarget;
+export default withTheme(AddNewTarget);

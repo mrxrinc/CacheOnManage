@@ -24,13 +24,13 @@ export default StyleSheet.create({
   },
   imageWrapper: {
     alignItems: "center",
-    justifyContent:"flex-end",
+    justifyContent: "flex-end",
     flex: 1,
   },
   image: {
     resizeMode: "contain",
     width: width - 104,
-    height: "80%",
+    height: "75%",
   },
   descriptionWrapper: {
     width: "95%",

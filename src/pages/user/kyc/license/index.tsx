@@ -3,7 +3,7 @@ import { fontFamily, fontSize } from "global";
 import React, { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Switch from "components/switch";
-import Steps from "../Steps";
+import Steps from "../steps";
 import Button from "components/button";
 
 const License = () => {
