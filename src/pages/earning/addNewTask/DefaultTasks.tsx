@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList } from "react-native";
-import TaskItem from "../addNewTask/taskItem";
+import TaskItem from "./taskItem";
 
 const DefaultTasks = (props: any) => {
   const { defaulTask, onItem, isVisible } = props;

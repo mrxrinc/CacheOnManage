@@ -1,6 +1,5 @@
 import React from "react";
-import { Text, FlatList } from "react-native";
-import Column from "../addNewTask/column";
+import Column from "./column";
 
 const ChildItem = (props: any) => {
   const { index, item, onSelect, isFavorite } = props;

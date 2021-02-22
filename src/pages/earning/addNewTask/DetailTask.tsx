@@ -19,13 +19,24 @@ const DetailTask = (props: any) => {
     setCustomDefault,
     customDefault,
     onSelect,
+    childSelected,
+    onChangeText,
+    onLayout,
+    factorCheck,
   } = props;
   return (
     <View style={styles.container}>
       {isVisible && (
         <>
-          <EarningBox setAmount={setAmount} amount={amount} />
+          <EarningBox
+            onChangeText={onChangeText}
+            onLayout={onLayout}
+            setAmount={setAmount}
+            amount={amount}
+            factorCheck={factorCheck}
+          />
           <ChildList
+            childSelected={childSelected}
             onSelect={onSelect}
             childInfo={childInfo}
             isChild={isChild}

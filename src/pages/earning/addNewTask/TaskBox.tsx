@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import MaterialTextField from "components/materialTextfield";
-import TaskItem from "../addNewTask/taskItem";
+import TaskItem from "./taskItem";
 import PlusIcon from "components/icons/plus.svg";
 import { colors } from "constants/index";
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import { colors } from "constants/index";
 import { FormattedText } from "components/format-text";
@@ -6,16 +6,7 @@ import { formatNumber } from "utils";
 import NoteIcon from "components/icons/note.svg";
 
 const EarningBox = (props: any) => {
-  const { amount, setAmount } = props;
-  const [factorCheck, setFactorCheck] = useState(false);
-
-  const handleFactorCheck = (value: string) => {
-    if (parseInt(value) % 5000 === 0) {
-      setFactorCheck(true);
-    } else {
-      setFactorCheck(false);
-    }
-  };
+  const { amount, factorCheck, onChangeText, onLayout } = props;
 
   return (
     <View style={styles.container}>
@@ -28,11 +19,8 @@ const EarningBox = (props: any) => {
             keyboardType="numeric"
             maxLength={10}
             underlineColorAndroid={"transparent"}
-            onChangeText={(value) => {
-              setAmount(value.replace(/,/g, ""));
-              handleFactorCheck(value.replace(/,/g, ""));
-            }}
-            onLayout={() => handleFactorCheck(amount)}
+            onChangeText={onChangeText}
+            onLayout={onLayout}
             value={formatNumber(amount)}
           />
           <FormattedText id="home.rial" style={styles.unitText} />

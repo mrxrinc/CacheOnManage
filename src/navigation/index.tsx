@@ -21,7 +21,6 @@ import More from "pages/more";
 import Intro from "pages/intro";
 //earning
 import Earning from "pages/earning";
-import AddNewTask from "pages/earning/addNewTask";
 import confirmTask from "pages/earning/confirmTask";
 //saving
 import Saving from "pages/saving";
@@ -50,8 +49,7 @@ import QuickAccess from "navigation/quick-access";
 import Total from "pages/transactions/total";
 import DetailItem from "pages/transactions/detailItem";
 import SpendParent from "pages/spend-parent";
-import Login from "pages/user/signIn/login";
-import AddNew from "pages/earning/addNew";
+import AddNewTask from "pages/earning/addNewTask";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -72,7 +70,7 @@ function AppStack() {
       <Stack.Screen name="spent" component={Spent} />
       <Stack.Screen name="more" component={More} />
       <Stack.Screen name="earning" component={Earning} />
-      <Stack.Screen name="addNewTask" component={AddNew} />
+      <Stack.Screen name="addNewTask" component={AddNewTask} />
       <Stack.Screen name="confirmTask" component={confirmTask} />
       <Stack.Screen name="saving" component={Saving} />
       <Stack.Screen name="addNewTarget" component={AddNewTarget} />

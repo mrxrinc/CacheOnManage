@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import ChildItem from "./ChildItem";
 const ChildList = (props: any) => {
-  const { isChild, childInfo, onSelect, isFavorite } = props;
-  const [selected, setSelected] = useState(null);
+  const { isChild, childInfo, childSelected, onSelect } = props;
 
   return (
     <View style={styles.container}>
@@ -11,8 +10,10 @@ const ChildList = (props: any) => {
         ? childInfo.map((item: any, index: any) => {
             return (
               <ChildItem
-                onSelect={() => setSelected(item.id)}
-                isFavorite={selected === item.id}
+                onSelect={onSelect}
+                isFavorite={childSelected.find(
+                  (data: any) => data.id == item.id
+                )}
                 key={index.toString()}
                 item={item}
                 index={index}
