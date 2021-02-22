@@ -8,7 +8,6 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: 'center',
     marginBottom: 20,
-    marginTop:15,
   },
   invoiceTitle: {
     textAlign: "center",

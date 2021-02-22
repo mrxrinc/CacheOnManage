@@ -22,7 +22,7 @@ const Item = (props: any) => {
       activeOpacity={0.8}
       style={styles.container}
     >
-      {type === "DEPOSIT" ? <PaymentOut /> : <PaymentIn />}
+      {type === "DEPOSIT" ? <PaymentIn /> : <PaymentOut />}
       <View style={styles.title}>
         <FormattedText style={styles.titleText}>{description}</FormattedText>
         <FormattedText style={styles.titleTime} fontFamily="Regular-FaNum">
@@ -32,10 +32,10 @@ const Item = (props: any) => {
       <View style={styles.payment}>
         <FormattedText
           fontFamily="Regular-FaNum"
-          style={[styles.paymentTop, type !== "DEPOSIT" && styles.paymentIn]}
+          style={[styles.paymentTop, type === "DEPOSIT" && styles.paymentIn]}
         >
           {formatNumber(amount)}
-          {type === "DEPOSIT" ? " - " : " + "}ریال
+          {type === "DEPOSIT" ? " + " : " - "}ریال
         </FormattedText>
         <FormattedText style={styles.paymentBottom} fontFamily="Regular-FaNum">
           {formatNumber(balance)} ریال
