@@ -153,6 +153,8 @@ const messages: Record<string, string> = {
   to: "به",
   operator: "اپراتور",
   mobile: "شماره موبایل",
-  totalLimit:"سقف محدودیت"
+  totalLimit: "سقف محدودیت",
+  billId: "شناسه قبض",
+  paymentId: "شناسه پرداخت",
 };
 export default messages;
