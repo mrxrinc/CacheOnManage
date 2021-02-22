@@ -1,10 +1,12 @@
 import React from "react";
 import { View, TouchableOpacity as Button, StyleSheet } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import Modal from "react-native-modal";
 import { FormattedText } from "components/format-text";
 import CloseIcon from "components/icons/close.svg";
 import { colors } from "constants/index";
 import { withTheme } from "themeCore/themeProvider";
+import styles from "components/button/styles";
 
 interface Props {
   showModal: boolean;
@@ -35,26 +37,31 @@ const ActionModalBottom: React.FC<Props> = ({
       backdropOpacity={backdropOpacity}
       useNativeDriver
     >
-      <View style={style.modalContainer}>
-        {showHeader && (
-          <View style={style.modalHead}>
-            <View
-              style={[style.modalTitleWrapper, { alignItems: titleAlignItems }]}
-            >
-              <FormattedText
-                style={[style.modalTitle, { color: theme.titleColor }]}
+      <ScrollView contentContainerStyle={style.scrollView}>
+        <View style={style.modalContainer}>
+          {showHeader && (
+            <View style={style.modalHead}>
+              <View
+                style={[
+                  style.modalTitleWrapper,
+                  { alignItems: titleAlignItems },
+                ]}
               >
-                {title}
-              </FormattedText>
+                <FormattedText
+                  style={[style.modalTitle, { color: theme.titleColor }]}
+                >
+                  {title}
+                </FormattedText>
+              </View>
+              <Button style={style.modalCloseWrapper} onPress={setShowModal}>
+                <CloseIcon width={14} height={14} fill={colors.gray400} />
+              </Button>
             </View>
-            <Button style={style.modalCloseWrapper} onPress={setShowModal}>
-              <CloseIcon width={14} height={14} fill={colors.gray400} />
-            </Button>
-          </View>
-        )}
+          )}
 
-        <View style={style.modalContent}>{children}</View>
-      </View>
+          <View style={style.modalContent}>{children}</View>
+        </View>
+      </ScrollView>
     </Modal>
   );
 };
@@ -69,13 +76,13 @@ const style = StyleSheet.create({
   modal: {
     margin: 0,
   },
+  scrollView: { justifyContent: "flex-end", flexGrow: 1 },
   modalContainer: {
     minHeight: 200,
     width: "100%",
     backgroundColor: colors.white,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
-    position: "absolute",
     bottom: 0,
     elevation: 15,
   },

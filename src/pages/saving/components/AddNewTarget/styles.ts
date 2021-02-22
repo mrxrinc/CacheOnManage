@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "constants/index";
+import { colors, width } from "constants/index";
 
 export default StyleSheet.create({
   container: {
@@ -7,12 +7,14 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     padding: 20,
   },
-  titleInput: {
-    padding: 0,
-    fontFamily: "IRANSansMobile",
-  },
+
   titleInputWrapper: {
-    marginBottom: 0,
+    width: width * 0.89,
+    height: 59,
+    marginTop: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "center",
   },
   halfWidth: {
     width: "45%",
