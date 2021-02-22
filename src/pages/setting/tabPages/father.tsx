@@ -133,7 +133,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         modal.activeContent === "USERNAME" ||
         modal.activeContent === "PASSWORD"
       ) {
-        await Keychain.resetGenericPassword();
+        await Keychain.resetGenericPassword({ service: "MoneyApp" });
         setShowSigninModal(true);
       }
       console.warn("ERROR ON UPDATING FATHER DATA: ", err.response);
@@ -301,6 +301,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
           <KeyValuePair rowKey="شماره تماس:" value={fatherData.mobile} />
           <KeyValuePair rowKey="آدرس:" value={fatherData.address} />
         </View>
+
         <View style={style.callInformation}>
           <FormattedText style={style.callText} fontFamily="Regular-FaNum">
             <Text>در صورت تمایل به تغییر اطلاعات حساب خود با شماره </Text>

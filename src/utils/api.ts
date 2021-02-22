@@ -342,7 +342,8 @@ export const setChildrenChangePassword = (token: any, data: any) =>
       },
     }
   );
-  export const setFatherChangePassword = (token: any, data: any) =>
+
+export const setFatherChangePassword = (token: any, data: any) =>
   instance.put(
     `/api/v1/settings/change-password`,
     {
@@ -507,7 +508,6 @@ export const setUnblockTemporary = (token: string, data: any) =>
     },
   });
 
-
 export const getUpdate = (data: any) =>
   instance.get(`/api/version`, {
     headers: {
@@ -515,14 +515,12 @@ export const getUpdate = (data: any) =>
     },
   });
 
-
 export const getSpendParent = (token: string) =>
   instance.get(`/api/v1/accounts/invoice/children`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
   });
-
 
 export const getTransactions = (token: string, data: any) =>
   instance.post(`/api/v1/cards/transactions`, data, {
