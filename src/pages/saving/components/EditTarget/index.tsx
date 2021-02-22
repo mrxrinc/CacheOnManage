@@ -133,7 +133,8 @@ const EditTarget: FC<Props> = (props) => {
           Number(removeCommas(values.targetAmount)) <
           Number(removeCommas(values.weeklySavings))
         ) {
-          errors.targetAmount = "مبلغ هدف نمی تواند کمتر از مبلغ پس انداز باشد";
+          errors.targetAmount =
+            "مبلغ هدف نمی تواند کمتر از مبلغ پس انداز هفتگی باشد";
         } else if (
           Number(removeCommas(props.allowance)) <
           Number(removeCommas(values.weeklySavings))

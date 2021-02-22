@@ -203,7 +203,10 @@ const CashDeposit: FC = (props: any) => {
               maxLength={13}
               keyboardType={"number-pad"}
               onChangeText={(value: string) =>
-                _updateForm("amount", value.replace(/,/g, ""))
+                _updateForm(
+                  "amount",
+                  value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
+                )
               }
               value={formatNumber(form.amount)}
               inputStyle={style.materialInput}

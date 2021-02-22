@@ -90,7 +90,9 @@ const Home: FC = ({ theme }: any) => {
           style={style.button}
           color={theme.home.bgColorButton}
           titleStyle={{ color: colors.white }}
-          onPress={() => navigation.navigate("transferMoney")}
+          onPress={() =>
+            navigation.navigate("transferMoney", { cards, header })
+          }
           title="انتقال وجه"
         />
         <Button
