@@ -21,7 +21,6 @@ import More from "pages/more";
 import Intro from "pages/intro";
 //earning
 import Earning from "pages/earning";
-import AddNewTask from "pages/earning/addNewTask";
 import confirmTask from "pages/earning/confirmTask";
 //saving
 import Saving from "pages/saving";
@@ -50,7 +49,7 @@ import QuickAccess from "navigation/quick-access";
 import Total from "pages/transactions/total";
 import DetailItem from "pages/transactions/detailItem";
 import SpendParent from "pages/spend-parent";
-import Login from "pages/user/signIn/login";
+import AddNewTask from "pages/earning/addNewTask";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();

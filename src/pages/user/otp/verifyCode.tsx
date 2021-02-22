@@ -18,7 +18,6 @@ import { RootState } from "../../../../customType";
 import { FormattedText } from "components/format-text";
 import edit from "images/otp/edit.png";
 import errorIcon from "images/error.png";
-import OTPInputView from "@twotalltotems/react-native-otp-input";
 import Button from "components/button";
 import { colors } from "constants/index";
 
@@ -90,17 +89,6 @@ const VeryfiCode = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <OTPInputView
-          style={{ width: "80%", height: 100 }}
-          pinCount={6}
-          code={verifyCode}
-          onCodeChanged={(code) => setVerifyCode(code)}
-          autoFocusOnLoad
-          editable
-          codeInputFieldStyle={styles.underlineStyleBase}
-          codeInputHighlightStyle={styles.underlineStyleHighLighted}
-          // onCodeFilled={handleClick}
-        />
         {error.isError && (
           <View style={styles.errorBox}>
             <Image source={errorIcon} style={{ width: 16, height: 16 }} />

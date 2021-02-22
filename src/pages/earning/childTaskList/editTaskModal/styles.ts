@@ -85,8 +85,6 @@ export default StyleSheet.create({
       height: 32,
       borderRadius: 50,
       backgroundColor: colors.gray950,
-      borderColor: colors.gray650,
-      borderWidth: 0.5,
     },
     itemIcon: {
       width: 32,

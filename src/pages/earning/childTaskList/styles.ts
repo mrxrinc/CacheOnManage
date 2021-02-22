@@ -74,6 +74,8 @@ export default StyleSheet.create({
     fontSize: 14,
     color: colors.gray500,
     textAlign: "right",
+    marginLeft: 6,
+    marginRight: 4,
   },
   taskItemAmountOptions: {
     justifyContent: "space-between",
@@ -85,6 +87,7 @@ export default StyleSheet.create({
   },
   recurringText: {
     fontSize: 12,
+    color: colors.gray500,
   },
   waitingToConfirmText: {
     fontSize: 12,
@@ -196,5 +199,9 @@ export default StyleSheet.create({
     lineHeight: 22,
     color: colors.gray500,
     marginTop: 5,
+  },
+  taskTextWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
