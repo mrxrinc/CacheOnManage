@@ -4,17 +4,22 @@ import { colors } from "constants/index";
 const Clickable = Animated.createAnimatedComponent(TouchableOpacity);
 
 type Props = {
+  isActive: boolean;
   onChange: (state: boolean) => void;
   activeColor?: any;
 };
 
-export default ({ onChange, activeColor }: Props) => {
-  const [active, setActive] = useState<boolean>(false);
+export default ({ isActive = false, onChange, activeColor }: Props) => {
+  const [active, setActive] = useState<boolean>(isActive);
   const movement = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     handleAnimation();
   }, [active]);
+
+  useEffect(() => {
+    handleAnimation(true);
+  }, [isActive === true]);
 
   function handleChecked() {
     setActive(!active);
@@ -22,8 +27,8 @@ export default ({ onChange, activeColor }: Props) => {
     handleAnimation();
   }
 
-  function handleAnimation() {
-    if (active) {
+  function handleAnimation(perActive: boolean = false) {
+    if (active || perActive) {
       Animated.timing(movement, {
         toValue: 1,
         duration: 200,
