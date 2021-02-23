@@ -173,7 +173,7 @@ const AddNewTarget: FC<Props> = (props) => {
       };
       dispatch(SavingActions.addTarget(data as AddTarget, { sagas: true }));
       formik.resetForm();
-      navigation.navigate("saving");
+      navigation.navigate("savingTab");
     },
   });
 
@@ -234,11 +234,11 @@ const AddNewTarget: FC<Props> = (props) => {
               <View style={styles.titleInputWrapper}>
                 <MaterialTextField
                   label="عنوان هدف"
+                  keyboardType="default"
                   value={formik.values.title}
                   onChangeText={(value: string) =>
                     formik.setFieldValue("title", value)
                   }
-                  style={styles.titleInput}
                   error={formik.errors.title}
                 />
               </View>
