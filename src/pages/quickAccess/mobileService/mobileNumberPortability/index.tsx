@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, ScrollView } from "react-native";
 import { FormattedText } from "components/format-text";
 import Rightel from "images/mobile-topup/oprators/rightel.svg";
 import Irancell from "images/mobile-topup/oprators/irancell.svg";
@@ -36,9 +36,12 @@ const MNP = () => {
     }
   }, []);
   return (
-    <View style={styles.container}>
-      <FormattedText style={styles.opratorName} id="mobileTopUp.description" />
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.opratorBox}>
+        <FormattedText
+          style={styles.opratorName}
+          id="mobileTopUp.description"
+        />
         <TouchableOpacity
           style={styles.opratorPack}
           onPress={() => {
@@ -111,20 +114,19 @@ const MNP = () => {
           </View>
         </TouchableOpacity>
       </View>
-      <View style={styles.button}>
-        <Button
-          color={colors.buttonOpenActive}
-          title="ادامه"
-          onPress={() => {
-            if (rootPage == "mobileTopUp") {
-              navigation.navigate("mobileChargePackage");
-            } else if (rootPage == "mobileBillPayment") {
-              navigation.navigate("mobileBillInquiry");
-            }
-          }}
-        />
-      </View>
-    </View>
+      <Button
+        style={styles.button}
+        color={colors.buttonOpenActive}
+        title="ادامه"
+        onPress={() => {
+          if (rootPage == "mobileTopUp") {
+            navigation.navigate("mobileChargePackage");
+          } else if (rootPage == "mobileBillPayment") {
+            navigation.navigate("mobileBillInquiry");
+          }
+        }}
+      />
+    </ScrollView>
   );
 };
 export default MNP;
