@@ -141,11 +141,11 @@ android {
     defaultConfig {
         missingDimensionStrategy 'react-native-camera', 'mlkit'
         multiDexEnabled true
-        applicationId "com.allowance"
+        applicationId "com.samanpr.blujr"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.5"
+        versionCode 1
+        versionName "1.0"
     }
     splits {
         abi {
