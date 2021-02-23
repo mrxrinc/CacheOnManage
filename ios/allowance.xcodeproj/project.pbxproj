@@ -24,6 +24,8 @@
 		41938AF1093448279474B33E /* IRANSansMobile-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4BAAFEC9C49428A98BB152E /* IRANSansMobile-Medium.ttf */; };
 		47F1E6A27E2E4FE4998074C5 /* IRANYekanMobileFaNum-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B8945196F6443A0B01D58C2 /* IRANYekanMobileFaNum-Bold.ttf */; };
 		68D5F80E39A94831816F6A30 /* IRANYekanMobileFaNum.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96E57A0E5F4C40F18B8EEF58 /* IRANYekanMobileFaNum.ttf */; };
+		6B2B3E3D25E513B20044ABEF /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6B2B3E3C25E513B10044ABEF /* AppCenter-Config.plist */; };
+		6B2B3E3E25E513B20044ABEF /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6B2B3E3C25E513B10044ABEF /* AppCenter-Config.plist */; };
 		6E1438C51CFE4625B083099A /* IRANSansMobile-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2CC873AA97C42B182A5FD84 /* IRANSansMobile-Bold.ttf */; };
 		6EA4DC68E51C414DA66C60A5 /* IRANSansMobile.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70D30A4663C942AE82EC3B1D /* IRANSansMobile.ttf */; };
 		77A5F794B2FE4BED9B4E8EC3 /* IRANYekanMobile-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC498C3A2E40448F85B85A /* IRANYekanMobile-Medium.ttf */; };
@@ -74,6 +76,7 @@
 		5B62551F027C72F57519C560 /* Pods-allowance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-allowance.debug.xcconfig"; path = "Target Support Files/Pods-allowance/Pods-allowance.debug.xcconfig"; sourceTree = "<group>"; };
 		676754065F66A4A42E98F66A /* libPods-allowance-allowanceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-allowance-allowanceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6993FCE701574B219C7B57A5 /* IRANSansMobile-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile-Light.ttf"; path = "../assets/fonts/IRANSansMobile-Light.ttf"; sourceTree = "<group>"; };
+		6B2B3E3C25E513B10044ABEF /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		70D30A4663C942AE82EC3B1D /* IRANSansMobile.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansMobile.ttf; path = ../assets/fonts/IRANSansMobile.ttf; sourceTree = "<group>"; };
 		7ADC498C3A2E40448F85B85A /* IRANYekanMobile-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANYekanMobile-Medium.ttf"; path = "../assets/fonts/IRANYekanMobile-Medium.ttf"; sourceTree = "<group>"; };
 		879B8347312392ECE8AD9A30 /* libPods-allowance.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-allowance.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +170,7 @@
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				6B2B3E3C25E513B10044ABEF /* AppCenter-Config.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -337,7 +341,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = K4XC5CTW7S;
+						DevelopmentTeam = 46J5FYMR6A;
 						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 					};
@@ -390,6 +394,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				056045BA9BDF42B58AC209D8 /* IRANSansFaNum-Bold.ttf in Resources */,
+				6B2B3E3D25E513B20044ABEF /* AppCenter-Config.plist in Resources */,
 				6E1438C51CFE4625B083099A /* IRANSansMobile-Bold.ttf in Resources */,
 				41938AF1093448279474B33E /* IRANSansMobile-Medium.ttf in Resources */,
 				6EA4DC68E51C414DA66C60A5 /* IRANSansMobile.ttf in Resources */,
@@ -408,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
+				6B2B3E3E25E513B20044ABEF /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,7 +824,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = K4XC5CTW7S;
+				DEVELOPMENT_TEAM = 46J5FYMR6A;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -832,7 +838,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Money.m;
+				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Moneyy.m;
 				PRODUCT_NAME = allowance;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -851,7 +857,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = K4XC5CTW7S;
+				DEVELOPMENT_TEAM = 46J5FYMR6A;
 				INFOPLIST_FILE = allowance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -860,7 +866,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Money.m;
+				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Moneyy.m;
 				PRODUCT_NAME = allowance;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

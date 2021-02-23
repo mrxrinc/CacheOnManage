@@ -73,7 +73,9 @@ const Earning = (props: any) => {
           <Button
             color={theme.ButtonBlueColor}
             title={messages["earning.button"]}
-            onPress={() => navigation.navigate("addNewTask")}
+            onPress={() =>
+              navigation.navigate("addNewTask", { ChildData: item.data })
+            }
           />
         </View>
       </View>

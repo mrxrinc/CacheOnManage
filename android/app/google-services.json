@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:337095073895:android:53881dc0a18514b0f574c2",
         "android_client_info": {
-          "package_name": "com.allowance"
+          "package_name": "com.samanpr.blujr"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "337095073895-5h9qjcqbog5afsea5sc6s3h2d9elvroc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.allowance"
+                "bundle_id": "com.samanpr.blujr"
               }
             }
           ]

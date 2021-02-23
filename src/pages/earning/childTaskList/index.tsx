@@ -153,18 +153,21 @@ const TaskList = (props: any) => {
             </FormattedText>
           </View>
           <View style={styles.taskItemAmountOptions}>
-            <FormattedText
-              style={styles.taskItemAmount}
-              fontFamily="Regular-FaNum"
-            >
+            <View style={styles.taskTextWrapper}>
               {item.status !== "ACCEPT" && item.type !== "PAID" && (
                 <FormattedText style={styles.recurringText}>
                   {handleTaskRecurringType(item.type)}
                 </FormattedText>
               )}
-              {formatNumber(item.amount)}
-              <FormattedText style={styles.recurringText}> ريال</FormattedText>
-            </FormattedText>
+              <FormattedText
+                style={styles.taskItemAmount}
+                fontFamily="Regular-FaNum"
+              >
+                {formatNumber(item.amount)}
+              </FormattedText>
+              <FormattedText style={styles.recurringText}>ريال</FormattedText>
+            </View>
+
             <View style={styles.taskItemOptionsBox}>
               {item.status == "ACCEPT" && (
                 <StarRating
