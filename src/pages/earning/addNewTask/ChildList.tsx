@@ -3,7 +3,6 @@ import { StyleSheet, View } from "react-native";
 import ChildItem from "./ChildItem";
 const ChildList = (props: any) => {
   const { isChild, childInfo, childSelected, onSelect } = props;
-
   return (
     <View style={styles.container}>
       {!isChild
@@ -30,5 +29,6 @@ const styles = StyleSheet.create({
   container: {
     flexWrap: "wrap",
     flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

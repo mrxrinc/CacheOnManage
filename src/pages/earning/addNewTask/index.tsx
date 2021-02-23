@@ -179,7 +179,7 @@ const AddNew = (props: any) => {
           title="تعریف فعالیت جدید"
           onPress={() => handleClick()}
           disabled={
-            !factorCheck || isChild || loading || childSelected.length === 0
+            !factorCheck || loading || childSelected.length === 0
           }
           loading={loading}
         />

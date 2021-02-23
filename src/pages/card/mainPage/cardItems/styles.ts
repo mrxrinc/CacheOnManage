@@ -46,9 +46,9 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  changePasswordDescription: { width: "100%", marginBottom: "5%" },
+  changePasswordDescription: { width: "100%",marginBottom:30, },
   changePasswordDescriptionText: {
-    color: "#00015d",
+    color: colors.title,
     fontSize: 16,
   },
   modalResultRow: {
@@ -56,7 +56,7 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    height: 50,
+    marginBottom:20,
   },
   modalResultKeyText: {
     fontSize: 13,
@@ -90,13 +90,19 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 20,
   },
-  errorBox: { width: "100%", marginVertical: 8 },
+  errorBox: { width: "100%", marginBottom: 8,marginTop:-12 },
   errorText: { color: "#f73e3e", fontSize: 11 },
   changePasswordInput: {
-    width: 160,
+    width: 130,
+    height:30,
     marginVertical: 0,
-
-    backgroundColor: "red",
+    fontFamily: "IRANSansMobileFaNum",
+    backgroundColor: colors.gray900,
+    borderRadius: 8,
+    color: colors.title,
+    paddingVertical:0,
+    fontSize: 12,
+    textAlign: 'center',
   },
   buttonBox: {
     flexDirection: "row",

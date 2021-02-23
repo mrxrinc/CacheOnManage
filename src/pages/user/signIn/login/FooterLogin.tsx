@@ -7,20 +7,30 @@ import { useDispatch } from "react-redux";
 import { signUpStepChanged } from "redux/actions/User";
 
 const FooterLogin = (props: any) => {
-  const { childPhoneNum, navigation, isChild, theme, bljTheme, forceClose } = props;
+  const {
+    childPhoneNum,
+    navigation,
+    isChild,
+    theme,
+    bljTheme,
+  } = props;
   const dispatch = useDispatch();
 
   return (
     <View style={styles.noRegister}>
       {isChild && !!childPhoneNum && (
-        <FanButton forceClose={forceClose} theme={theme} navigation={navigation} />
+        <FanButton
+          theme={theme}
+          navigation={navigation}
+        />
       )}
       {!isChild && (
         <FormattedText
           // onPress={() =>
           //   bljTheme ? dispatch(signUpStepChanged("license")) : null
           // }
-          style={[styles.registerText, { color: theme.registerText }]}>
+          style={[styles.registerText, { color: theme.registerText }]}
+        >
           قبلا ثبت‌نام نکرده‌اید؟
         </FormattedText>
       )}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, TextInput } from "react-native";
 import { FormattedText } from "components/format-text";
 import styles from "./styles";
 import Activation from "images/cards/mainPage/activation.svg";
@@ -23,7 +23,6 @@ import UnequalTwinButtons from "components/unequalTwinButtons";
 import { colors } from "constants/index";
 import CardsActions from "store/Cards/cards.action";
 import Button from "components/button";
-import { TextInput } from "react-native-gesture-handler";
 
 const CardItems = (props: any) => {
   const dispatch = useDispatch();
@@ -115,38 +114,31 @@ const CardItems = (props: any) => {
           <FormattedText style={styles.modalResultKeyText}>
             رمز جدید
           </FormattedText>
-          <TextInput />
-          <View>
-            <Input
-              customStyle={styles.changePasswordInput}
-              boxMode
-              maxLength={4}
-              secureTextEntry={true}
-              keyboardType={"number-pad"}
-              onChangeText={(value: string) => {
-                setPassword(value);
-              }}
-              value={password}
-            />
-          </View>
+          <TextInput
+            style={styles.changePasswordInput}
+            maxLength={4}
+            secureTextEntry={true}
+            keyboardType={"number-pad"}
+            onChangeText={(value: string) => {
+              setPassword(value);
+            }}
+            value={password}
+          />
         </View>
         <View style={styles.modalResultRow}>
           <FormattedText style={styles.modalResultKeyText}>
             تکرار رمز جدید
           </FormattedText>
-          <View>
-            <Input
-              customStyle={styles.changePasswordInput}
-              boxMode
-              maxLength={4}
-              secureTextEntry={true}
-              keyboardType={"number-pad"}
-              onChangeText={(value: string) => {
-                setReEnterPassword(value);
-              }}
-              value={reEnterPassword}
-            />
-          </View>
+          <TextInput
+            style={styles.changePasswordInput}
+            maxLength={4}
+            secureTextEntry={true}
+            keyboardType={"number-pad"}
+            onChangeText={(value: string) => {
+              setReEnterPassword(value);
+            }}
+            value={reEnterPassword}
+          />
         </View>
         <View style={styles.errorBox}>
           {errorText != "" && (
