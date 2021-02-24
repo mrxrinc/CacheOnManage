@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, TextInput } from "react-native";
 import { FormattedText } from "components/format-text";
 import styles from "./styles";
-import Note from "components/icons/note.svg";
 import Button from "components/button";
 import { colors } from "constants/index";
-import Input from "components/input";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 import { formatNumber } from "utils/index";
@@ -14,6 +12,7 @@ import Layout from "components/layout";
 import Header from "components/header";
 import { useSelector } from "react-redux";
 import { RootStateType } from "../../../../../../customType";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const data = [
   { id: 1, amount: "10000" },
@@ -30,7 +29,7 @@ const SelectChargePackage = () => {
   );
   const [amount, setAmount] = useState("");
   const [active, setActive] = useState(null);
-  const renderRow = (item: any, index: any) => {
+  const renderRow = (item: any, index: any, isMobileCharge: boolean) => {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -39,7 +38,10 @@ const SelectChargePackage = () => {
         }}
         style={[
           styles.amountBox,
-          { backgroundColor: active == index ? "#43e6c5" : "#f4f6fa" },
+          {
+            backgroundColor: active == index ? "#43e6c5" : "#f4f6fa",
+            marginBottom: isMobileCharge ? 20 : 0,
+          },
         ]}
       >
         {
@@ -58,16 +60,15 @@ const SelectChargePackage = () => {
   };
   return (
     <Layout>
-      <View style={styles.container}>
+      <KeyboardAwareScrollView contentContainerStyle={styles.container}>
         <Header staticTitle={rootPage} handleBack={() => navigation.goBack()} />
         <MobileInfo />
         <View style={styles.inputBox}>
           <FormattedText style={styles.inputBoxText}>مبلغ</FormattedText>
           <View style={styles.inputPack}>
-            <Input
-              placeholder={"مبلغ دلخواه"}
-              customStyle={{ width: 150, height: 44 }}
-              boxMode
+            <TextInput
+              placeholder="مبلغ دلخواه"
+              placeholderTextColor={colors.gray500}
               maxLength={13}
               keyboardType={"number-pad"}
               onChangeText={(value: string) => {
@@ -75,35 +76,32 @@ const SelectChargePackage = () => {
                 setActive(null);
               }}
               value={formatNumber(amount)}
+              style={styles.input}
             />
-            <FormattedText style={styles.inputBoxText}>ریال</FormattedText>
+            <FormattedText style={styles.rial}>ریال</FormattedText>
           </View>
         </View>
-        <View style={styles.chargePackageBox}>
-          <View style={styles.chargeBox}>
-            <FlatList
-              numColumns={3}
-              contentContainerStyle={styles.flatList}
-              data={data}
-              renderItem={({ item, index }) => renderRow(item, index)}
-            />
-          </View>
-        </View>
-        <View style={styles.button}>
-          <Button
-            color={colors.buttonOpenActive}
-            title="پرداخت"
-            disabled={amount == "" ? true : false}
-            onPress={() => {
-              const data = {
-                amount: amount,
-                type: "mobileTopUp",
-              };
-              navigation.navigate("quickAccessPayment", { data });
-            }}
-          />
-        </View>
-      </View>
+        <FlatList
+          numColumns={3}
+          style={styles.flatList}
+          columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
+          data={data}
+          renderItem={({ item, index }) => renderRow(item, index, true)}
+        />
+      </KeyboardAwareScrollView>
+      <Button
+        color={colors.buttonOpenActive}
+        style={styles.button}
+        title="پرداخت"
+        disabled={amount == "" ? true : false}
+        onPress={() => {
+          const data = {
+            amount: amount,
+            type: "mobileTopUp",
+          };
+          navigation.navigate("quickAccessPayment", { data });
+        }}
+      />
     </Layout>
   );
 };

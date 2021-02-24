@@ -1,16 +1,18 @@
+import { colors } from "constants/index";
 import { StyleSheet, Dimensions } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
   container: {
-    width: width * 0.89,
-    height: height * 0.81,
-    justifyContent: "space-around",
+    flex: 1,
+  },
+  content: {
+    justifyContent: "space-between",
+    flexGrow: 1,
   },
   opratorBox: {
-    height: height * 0.31,
-    justifyContent: "space-between",
-    marginBottom: "60%",
+    width: width * 0.89,
+    alignSelf: 'center',
   },
   opratorPack: {
     flexDirection: "row",
@@ -31,6 +33,6 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  opratorName: { fontSize: 16, color: "#00015d" },
-  button: { width: width * 0.89, height: 44 },
+  opratorName: { fontSize: 16, color: colors.title, marginVertical: 20 },
+  button: { width: width * 0.89, height: 44, marginVertical: 20,alignSelf: 'center' },
 });

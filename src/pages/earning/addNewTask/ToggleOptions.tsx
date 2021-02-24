@@ -34,7 +34,7 @@ const ToggleOptions = (props: any) => {
           keyItem={customDefault}
           activityTask={customDefault}
           setActivityTask={setCustomDefault}
-          title={"earning.weeklyActivity"}
+          title={"earning.addToPopularList"}
           style={styles.customToggle}
         />
       )}
