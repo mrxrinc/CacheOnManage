@@ -8,21 +8,35 @@ import Layout from "components/layout";
 import styles from "./styles";
 import Button from "components/button";
 import { withTheme } from "themeCore/themeProvider";
-import CustomCardFront from "images/card-design/custom-front.png";
-import CustomCardBack from "images/card-design/custom-back.png";
+import VipCardFront from "images/card-design/custom-front.png";
+import VipCardBack from "images/card-design/custom-back.png";
 import PlusIcon from "components/icons/plus.svg";
 import FlipIcon from "components/icons/flip.svg";
 import CARDS_DATA from "./assets/cards";
 
-type TabType = "CUSTOM" | "OTHER";
+type TabType = "VIP" | "OTHER";
 
 const DefineCard: FC = ({ navigation, theme }: any) => {
-  const [activeTab, setActiveTab] = useState<TabType>("OTHER");
+  const [activeTab, setActiveTab] = useState<TabType>("VIP");
   const [flip, setFlip] = useState<boolean>(false);
   const [flipSecondary, setFlipSecondary] = useState<number | null>(null);
-  const [activeOtherCard, setActiveOtherCard] = useState<number | null>(null);
+  const [activeCard, setActiveCard] = useState<number>(5);
+
   const handleNextPage = () => {
-    navigation.navigate("confirmCard");
+    navigation.navigate("confirmCard", {
+      frontImage:
+        activeTab === "VIP"
+          ? VipCardFront
+          : CARDS_DATA[reverseIndex(activeCard, 5)].front,
+      backImage:
+        activeTab === "VIP"
+          ? VipCardBack
+          : CARDS_DATA[reverseIndex(activeCard, 5)].back,
+    });
+  };
+
+  const reverseIndex = (min: number, max: number) => {
+    return max - min;
   };
 
   const switchTab = (tab: TabType) => {
@@ -35,17 +49,17 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === "CUSTOM" && {
+            activeTab === "VIP" && {
               backgroundColor: theme.ButtonBlueColor,
             },
           ]}
-          onPress={() => switchTab("CUSTOM")}
+          onPress={() => switchTab("VIP")}
         >
           <FormattedText
             style={[
               styles.tabButtonText,
               {
-                color: activeTab === "CUSTOM" ? "#fff" : theme.ButtonBlueColor,
+                color: activeTab === "VIP" ? "#fff" : theme.ButtonBlueColor,
               },
             ]}
           >
@@ -76,7 +90,7 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
     );
   };
 
-  const renderCustomTab = () => {
+  const renderVipTab = () => {
     return (
       <View style={styles.customTabContainer}>
         <FormattedText style={styles.pageTitle} fontFamily="Bold">
@@ -89,7 +103,7 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
         <View style={styles.cardBuilderContainer}>
           <View style={styles.customCardBody}>
             <Image
-              source={flip ? CustomCardBack : CustomCardFront}
+              source={flip ? VipCardBack : VipCardFront}
               style={styles.customCardImage}
             />
             {!flip && (
@@ -136,6 +150,9 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
               inactiveSlideScale={0.8}
               inactiveSlideOpacity={0.7}
               containerCustomStyle={{ height: 166 }}
+              onSnapToItem={(i: number) => {
+                setActiveCard(reverseIndex(i, 5));
+              }}
             />
           </View>
 
@@ -144,7 +161,7 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
               style={styles.flipButton}
               onPress={() =>
                 setFlipSecondary(
-                  flipSecondary === activeOtherCard ? null : activeOtherCard
+                  flipSecondary === activeCard ? null : activeCard
                 )
               }
             >
@@ -162,7 +179,7 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
         style={styles.carouselSlide}
         key={item.id}
         onPress={() => {
-          setActiveOtherCard(item.id);
+          setActiveCard(item.id);
         }}
       >
         <Image
@@ -182,7 +199,7 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
       <View style={{ flex: 1 }}>
         {renderTabs()}
 
-        {activeTab === "CUSTOM" && renderCustomTab()}
+        {activeTab === "VIP" && renderVipTab()}
 
         {activeTab === "OTHER" && renderOtherTab()}
       </View>

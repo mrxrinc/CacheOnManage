@@ -156,5 +156,6 @@ const messages: Record<string, string> = {
   totalLimit: "سقف محدودیت",
   defineCard: "انتخاب طرح کارت",
   confirmCard: "سفارش کارت",
+  orderCard: "سفارش کارت",
 };
 export default messages;

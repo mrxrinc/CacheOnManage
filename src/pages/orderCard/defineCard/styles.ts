@@ -114,7 +114,6 @@ export default StyleSheet.create({
   carouselContainer: {
     paddingTop: 24,
     width: "100%",
-    // alignItems: "center",
   },
   carouselSlide: {
     borderWidth: 0.3,
@@ -122,8 +121,11 @@ export default StyleSheet.create({
     borderRadius: 15,
     backgroundColor: "#fff",
     elevation: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.18,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 3 },
   },
-
   buttonWrapper: {
     width: "100%",
     paddingHorizontal: 20,

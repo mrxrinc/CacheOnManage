@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { View, ScrollView, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { colors } from "constants/index";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
@@ -8,23 +8,52 @@ import styles from "./styles";
 import Button from "components/button";
 import { withTheme } from "themeCore/themeProvider";
 
-const ConfirmCard: FC = (props: any) => {
+const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
+  const { frontImage, backImage } = route.params;
+  const [flip, setFlip] = useState<boolean>(false);
   const handleConfirm = () => {
-    props.navigation.navigate("confirmCard");
+    navigation.navigate("confirmCard");
   };
 
   return (
     <Layout>
       <Header
-        staticTitle={"internetPackage"}
-        handleBack={() => props.navigation.goBack()}
+        staticTitle={"orderCard"}
+        handleBack={() => navigation.goBack()}
       />
-      <ScrollView></ScrollView>
+      <View style={{ flex: 1 }}>
+        <View style={styles.cardContainer}>
+          <TouchableOpacity style={styles.card} onPress={() => setFlip(!flip)}>
+            <Image
+              source={!flip ? frontImage : backImage}
+              style={styles.cardImage}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.addressSection}>
+          <FormattedText style={styles.Title} fontFamily="Bold">
+            کارت سارا به آدرس زیر ارسال می‌شود:
+          </FormattedText>
+          <FormattedText style={styles.Description}>
+            با انتخاب این گزینه شما می‌توانید عکس فرزندتان را روی کارت او چاپ
+            کنید.
+          </FormattedText>
+          <View style={styles.addressButtonWrapper}>
+            <Button
+              title="ویرایش آدرس"
+              onPress={handleConfirm}
+              color={theme.ButtonBlueColor}
+            />
+          </View>
+        </View>
+      </View>
+
       <View style={styles.buttonWrapper}>
         <Button
           title="تائید و سفارش"
           onPress={handleConfirm}
-          color={colors.buttonOpenActive}
+          color={theme.ButtonGreenColor}
         />
       </View>
     </Layout>
