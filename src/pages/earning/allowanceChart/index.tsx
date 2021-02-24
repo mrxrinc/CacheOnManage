@@ -6,15 +6,13 @@ import { colors } from "constants/index";
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
 
-let allowanceForChart: any = null;
 const AllowanceChart = ({ childInfo, theme }: any) => {
   const themes = theme.earning;
-  const allowanceAmount = childInfo.allowanceAmount;
-  allowanceForChart = allowanceForChart ?? allowanceAmount;
   const remaining = childInfo.doneTaskAmount + childInfo.acceptTaskAmount;
   const incomes = childInfo.incoms;
   const paidTaskAmount = childInfo.paiedTaskAmount;
-  const sum = allowanceForChart + remaining + incomes + paidTaskAmount;
+  const paiedAllowance = childInfo.paiedAllowance;
+  const sum = paiedAllowance + remaining + incomes + paidTaskAmount;
 
   const handleChartValueWidth = (val1: number, val2: number) => {
     const res = (val1 / val2) * 100;
@@ -31,9 +29,9 @@ const AllowanceChart = ({ childInfo, theme }: any) => {
             style={{ fontSize: 28, color: colors.gray250 }}
           >
             {" "}
-            {formatNumber(allowanceForChart + incomes + paidTaskAmount) || 0}
+            {formatNumber(paiedAllowance + incomes + paidTaskAmount) || 0}
           </FormattedText>
-          <FormattedText style={{ fontSize: 15 }} fontFamily="Regular">
+          <FormattedText style={styles.rial} fontFamily="Regular">
             ریال
           </FormattedText>
         </View>
@@ -42,7 +40,7 @@ const AllowanceChart = ({ childInfo, theme }: any) => {
           <View
             style={{
               backgroundColor: themes.chartBlue,
-              width: handleChartValueWidth(allowanceForChart, sum) + "%",
+              width: handleChartValueWidth(paiedAllowance, sum) + "%",
               borderTopLeftRadius: 15,
               borderBottomLeftRadius: 15,
             }}
@@ -85,14 +83,14 @@ const AllowanceChart = ({ childInfo, theme }: any) => {
                 ]}
               />
               <FormattedText style={styles.detailText}>
-                پول توجیبی
+                پول توجیبی واریز شده
               </FormattedText>
             </View>
             <FormattedText
               fontFamily="Regular-FaNum"
               style={styles.detailAmountText}
             >
-              {formatNumber(allowanceForChart) || 0} ریال
+              {formatNumber(paiedAllowance) || 0} ریال
             </FormattedText>
           </View>
 

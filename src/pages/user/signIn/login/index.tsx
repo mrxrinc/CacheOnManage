@@ -39,7 +39,6 @@ const Login = ({ theme }: any) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [isFocus, setIsFocus] = useState<boolean>(false);
   const [showBiometricModal, setShowBiometricModal] = useState<boolean>(false);
   const [
     biometricType,
@@ -224,8 +223,6 @@ const Login = ({ theme }: any) => {
               onChangeText={setUsername}
               value={username}
               initValue={username}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
             />
             <MaterialTextField
               label="رمز عبور"
@@ -235,8 +232,6 @@ const Login = ({ theme }: any) => {
               onChange={clearError}
               onChangeText={setPassword}
               value={password}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
             />
             <ErrorLogin theme={theme} error={error} />
           </View>
@@ -262,7 +257,6 @@ const Login = ({ theme }: any) => {
           navigation={navigation}
           bljTheme={bljTheme}
           theme={theme}
-          forceClose={isFocus}
         />
       </KeyboardAwareScrollView>
       <SupportController

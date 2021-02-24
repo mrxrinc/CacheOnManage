@@ -60,4 +60,5 @@ export default StyleSheet.create({
     color: colors.gray550,
     fontSize: 14,
   },
+  rial: { fontSize: 15, marginLeft: 10 },
 });

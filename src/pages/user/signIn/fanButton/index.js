@@ -102,22 +102,28 @@ export default class FanButton extends Component {
   }
 
   render() {
-    const { status } = this.state;
+    const { status, forceClose } = this.state;
     const { theme } = this.props;
     return (
-      <View style={[styles.container]}>
-        {this._renderOptions()}
-        {!status ? (
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: theme.backgroundColor }]}
-            onPress={() => this._showOptions()}>
-            <More width={38} height={38} fill={theme.fanBtnMore} />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={() => this._hideOptions()}>
-            <Close width={38} height={38} fill={theme.fanBtnMore} />
-          </TouchableOpacity>
-        )}
+      <View style={styles.container}>
+          <View style={styles.content}>
+            {this._renderOptions()}
+            {!status ? (
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  { backgroundColor: theme.backgroundColor },
+                ]}
+                onPress={() => this._showOptions()}
+              >
+                <More width={38} height={38} fill={theme.fanBtnMore} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this._hideOptions()}>
+                <Close width={38} height={38} fill={theme.fanBtnMore} />
+              </TouchableOpacity>
+            )}
+          </View>
       </View>
     );
   }
@@ -125,14 +131,18 @@ export default class FanButton extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
+    height: 1.6 * BUTTON_SIZE,
+  },
+  content: {
+    justifyContent: "flex-end",
     alignItems: "center",
+    flex: 1,
     marginBottom: 20,
   },
   button: {
-    width: 55,
-    height: 55,
-    backgroundColor: "#f4f6fa",
+    width: 57,
+    height: 57,
+    // backgroundColor: "#f4f6fa",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30,

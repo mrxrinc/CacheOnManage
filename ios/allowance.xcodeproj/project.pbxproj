@@ -24,6 +24,8 @@
 		41938AF1093448279474B33E /* IRANSansMobile-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4BAAFEC9C49428A98BB152E /* IRANSansMobile-Medium.ttf */; };
 		47F1E6A27E2E4FE4998074C5 /* IRANYekanMobileFaNum-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B8945196F6443A0B01D58C2 /* IRANYekanMobileFaNum-Bold.ttf */; };
 		68D5F80E39A94831816F6A30 /* IRANYekanMobileFaNum.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96E57A0E5F4C40F18B8EEF58 /* IRANYekanMobileFaNum.ttf */; };
+		6B2B3E3D25E513B20044ABEF /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6B2B3E3C25E513B10044ABEF /* AppCenter-Config.plist */; };
+		6B2B3E3E25E513B20044ABEF /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6B2B3E3C25E513B10044ABEF /* AppCenter-Config.plist */; };
 		6E1438C51CFE4625B083099A /* IRANSansMobile-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2CC873AA97C42B182A5FD84 /* IRANSansMobile-Bold.ttf */; };
 		6EA4DC68E51C414DA66C60A5 /* IRANSansMobile.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70D30A4663C942AE82EC3B1D /* IRANSansMobile.ttf */; };
 		77A5F794B2FE4BED9B4E8EC3 /* IRANYekanMobile-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC498C3A2E40448F85B85A /* IRANYekanMobile-Medium.ttf */; };
@@ -74,6 +76,7 @@
 		5B62551F027C72F57519C560 /* Pods-allowance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-allowance.debug.xcconfig"; path = "Target Support Files/Pods-allowance/Pods-allowance.debug.xcconfig"; sourceTree = "<group>"; };
 		676754065F66A4A42E98F66A /* libPods-allowance-allowanceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-allowance-allowanceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6993FCE701574B219C7B57A5 /* IRANSansMobile-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile-Light.ttf"; path = "../assets/fonts/IRANSansMobile-Light.ttf"; sourceTree = "<group>"; };
+		6B2B3E3C25E513B10044ABEF /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		70D30A4663C942AE82EC3B1D /* IRANSansMobile.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansMobile.ttf; path = ../assets/fonts/IRANSansMobile.ttf; sourceTree = "<group>"; };
 		7ADC498C3A2E40448F85B85A /* IRANYekanMobile-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANYekanMobile-Medium.ttf"; path = "../assets/fonts/IRANYekanMobile-Medium.ttf"; sourceTree = "<group>"; };
 		879B8347312392ECE8AD9A30 /* libPods-allowance.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-allowance.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +170,7 @@
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				6B2B3E3C25E513B10044ABEF /* AppCenter-Config.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -246,7 +250,6 @@
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "allowanceTests" */;
 			buildPhases = (
 				BCBEA82CA17C8323C5F3B3B8 /* [CP] Check Pods Manifest.lock */,
-				95A0FA1E3C44DD5D4E81F868 /* [CP] Prepare Artifacts */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -269,7 +272,6 @@
 			buildPhases = (
 				4076C7A4737AEBBACEF3FA29 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
-				8A387E3A6788AD40004C16AC /* [CP] Prepare Artifacts */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -339,7 +341,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = K4XC5CTW7S;
+						DevelopmentTeam = 46J5FYMR6A;
 						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 					};
@@ -392,6 +394,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				056045BA9BDF42B58AC209D8 /* IRANSansFaNum-Bold.ttf in Resources */,
+				6B2B3E3D25E513B20044ABEF /* AppCenter-Config.plist in Resources */,
 				6E1438C51CFE4625B083099A /* IRANSansMobile-Bold.ttf in Resources */,
 				41938AF1093448279474B33E /* IRANSansMobile-Medium.ttf in Resources */,
 				6EA4DC68E51C414DA66C60A5 /* IRANSansMobile.ttf in Resources */,
@@ -410,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
+				6B2B3E3E25E513B20044ABEF /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,24 +565,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-allowance/Pods-allowance-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8A387E3A6788AD40004C16AC /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-allowance/Pods-allowance-artifacts.sh",
-				"${PODS_ROOT}/PPBlinkID/Microblink.xcframework",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-allowance/Pods-allowance-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8CB5AE101CC3B93275540AC1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -586,32 +572,15 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-allowance/Pods-allowance-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Microblink/Microblink.framework/Microblink",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Microblink.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-allowance/Pods-allowance-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		95A0FA1E3C44DD5D4E81F868 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-allowance-allowanceTests/Pods-allowance-allowanceTests-artifacts.sh",
-				"${PODS_ROOT}/PPBlinkID/Microblink.xcframework",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-allowance-allowanceTests/Pods-allowance-allowanceTests-artifacts.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		99C1D9566E8E93CA6C270096 /* [CP] Check Pods Manifest.lock */ = {
@@ -665,10 +634,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-allowance-allowanceTests/Pods-allowance-allowanceTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Microblink/Microblink.framework/Microblink",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Microblink.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -854,7 +824,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = K4XC5CTW7S;
+				DEVELOPMENT_TEAM = 46J5FYMR6A;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -868,7 +838,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Money.m;
+				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Moneyy.m;
 				PRODUCT_NAME = allowance;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -887,7 +857,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = K4XC5CTW7S;
+				DEVELOPMENT_TEAM = 46J5FYMR6A;
 				INFOPLIST_FILE = allowance/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -896,7 +866,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Money.m;
+				PRODUCT_BUNDLE_IDENTIFIER = com.allowance.Moneyy.m;
 				PRODUCT_NAME = allowance;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

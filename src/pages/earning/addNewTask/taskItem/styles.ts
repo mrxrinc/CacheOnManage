@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { colors,width } from "constants/index";
+import { colors, width } from "constants/index";
 export default StyleSheet.create({
-imgWrapper:{
+  imgWrapper: {
     width: 32,
     height: 32,
     borderRadius: 30,
@@ -31,12 +31,16 @@ imgWrapper:{
     justifyContent: "space-between",
     alignItems: "center",
     height: 50,
-    width: width * 0.89,
   },
-  amount:{
-      alignItems:'center',
-      flexDirection:'row',
+  amount: {
+    alignItems: "center",
+    flexDirection: "row",
   },
-  img:{ width: 32, height: 32 },
-  selectedItem:{backgroundColor: colors.gray900,width: width,paddingHorizontal:20,marginTop:20}
-})
+  img: { width: 32, height: 32 },
+  selectedItem: {
+    backgroundColor: colors.gray900,
+    paddingHorizontal: 20,
+    height: 50,
+    marginHorizontal: -20,
+  },
+});

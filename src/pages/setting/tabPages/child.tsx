@@ -92,41 +92,34 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
       id: childData.id,
     };
 
+    if (newAvatar) requestBody = { avatar: newAvatar, id: childData.id };
     try {
-      if (newAvatar) requestBody = { avatar: newAvatar, id: childData.id };
       if (modal.activeContent === "PASSWORD") {
-        const { status, data } = await setChildrenChangePassword(
-          token,
-          requestBody
-        );
-        setLoading(false);
-        if (status === 200) {
-          handleUpdateData(data);
-          setModal(OFFLOAD_MODAL);
-          if (modal.activeContent === "PASSWORD") {
-            await Keychain.resetGenericPassword();
-          }
-        }
+        const { data } = await setChildrenChangePassword(token, requestBody);
+        handleUpdateData(data);
+        setModal(OFFLOAD_MODAL);
       } else {
-        const { status, data } = await setChildrenSettingData(
-          token,
-          requestBody
-        );
-        setLoading(false);
-        if (status === 200) {
-          handleUpdateData(data);
-          setModal(OFFLOAD_MODAL);
-          if (
-            modal.activeContent === "USERNAME" ||
-            modal.activeContent === "PASSWORD"
-          ) {
-            await Keychain.resetGenericPassword();
-          }
-        }
+        const { data } = await setChildrenSettingData(token, requestBody);
+        handleUpdateData(data);
+        setModal(OFFLOAD_MODAL);
       }
-    } catch (err) {
+    } catch (error) {
+      console.warn("ERROR ON CHILD SET SETTING: ", error?.response);
+      setError({
+        field:
+          modal.activeContent === "PASSWORD"
+            ? "currentPassword"
+            : modal.activeContent === "USERNAME"
+            ? "username"
+            : modal.activeContent === "MOBILE"
+            ? "mobile"
+            : modal.activeContent === "NICKNAME"
+            ? "nickname"
+            : "",
+        message: error.response.data.message || "ERORR!",
+      });
+    } finally {
       setLoading(false);
-      console.warn("ERROR ON UPDATING CHILD DATA: ", err.response);
     }
   };
 
@@ -156,7 +149,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
         label="نام کاربری جدید"
         title="نام کاربری باید با حروف انگلیسی باشد و با عدد شروع نشود."
         onChange={clearError}
-        style={{ fontFamily: "IRANSansMobile" }}
+        maxLength={30}
         onChangeText={(value: any) => {
           setUsername(value);
           handleUsernameValidator(value, setError);
@@ -176,7 +169,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
         onChangeText={(value: any) => {
           setCurrentPassword(value);
         }}
-        error={error.field === "password" ? error.message : null}
+        error={error.field === "currentPassword" ? error.message : null}
       />
       <MaterialTextField
         icon="password"
@@ -211,6 +204,8 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
             ? error.message
             : mobile === ""
             ? "شماره همراه نمیتواند خالی باشد."
+            : !validatePhone(mobile)
+            ? "شماره همراه معتبر نیست!"
             : null
         }
       />
@@ -222,6 +217,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
       <MaterialTextField
         label="نام مستعار"
         onChange={clearError}
+        maxLength={30}
         onChangeText={(value: any) => setNickname(value)}
         value={nickname}
         error={error.field === "nickname" ? error.message : null}

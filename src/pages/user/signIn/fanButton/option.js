@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     height: 54,
     justifyContent: "center",
     alignItems: "center",
+
   },
   itemNameBox: {
     position: "absolute",

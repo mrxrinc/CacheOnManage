@@ -1,4 +1,4 @@
-package com.allowance;
+package com.samanpr.blujr;
 
 import com.facebook.react.ReactActivity;
 
