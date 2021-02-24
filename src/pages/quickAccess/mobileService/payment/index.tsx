@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/core";
 import Rightel from "images/mobile-topup/oprators/rightel.svg";
 import Irancell from "images/mobile-topup/oprators/irancell.svg";
 import Hamrahaval from "images/mobile-topup/oprators/hamrahaval.svg";
-import { RootStateType } from "../../../../../customType";
+import { RootState, RootStateType } from "../../../../../customType";
 import { formatNumber } from "utils/index";
 import { numberToWords } from "utils/formaters/numberToWords";
 import { colors } from "constants/index";
@@ -30,6 +30,7 @@ const MessagesContext = React.createContext(messages);
 const Payment = (props: any) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const loginToken = useSelector<RootState, any>((state) => state.user.token);
   const [loading, setLoading] = useState(false);
   const data = props.route.params?.data;
   const childPhoneNum = useSelector<RootStateType, any>(
@@ -44,9 +45,10 @@ const Payment = (props: any) => {
   const rootPage = useSelector<RootStateType, any>(
     (state) => state.quickAccess.rootPage
   );
-  const [showInquiryResponseModal, setShowInquiryResponseModal] = useState<
-    boolean
-  >(false);
+  const [
+    showInquiryResponseModal,
+    setShowInquiryResponseModal,
+  ] = useState<boolean>(false);
   const translate = React.useContext(MessagesContext);
 
   const amount = data.amount + "";
@@ -102,7 +104,14 @@ const Payment = (props: any) => {
   function handleCloseQrPayment() {
     dispatch(setMobileTopUpPayment({ data: {} } as any));
     dispatch(setMobileBillPayment({ data: {} } as any));
-    navigation.navigate("auth");
+    if (loginToken == "") {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "auth" }],
+      });
+    } else {
+      navigation.navigate("homeTab");
+    }
   }
   return (
     <Layout>
@@ -198,10 +207,17 @@ const Payment = (props: any) => {
                   color={colors.blue}
                   title="ویرایش"
                   onPress={() => {
-                    navigation.reset({
-                      index: 0,
-                      routes: [{ name: "mobileBillInquiry" }],
-                    });
+                    if (data.type == "mobileTopUp") {
+                      navigation.reset({
+                        index: 0,
+                        routes: [{ name: "mobileChargePackage" }],
+                      });
+                    } else {
+                      navigation.reset({
+                        index: 0,
+                        routes: [{ name: "mobileBillInquiry" }],
+                      });
+                    }
                   }}
                 />
               </View>
