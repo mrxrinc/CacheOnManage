@@ -10,7 +10,7 @@ const Splash = ({ setTheme }: any) => {
   useEffect(() => {
     setTheme("FATHER BLU JUNIOR");
     const timer = setTimeout(() => {
-      navigation.navigate("auth");
+      navigation.navigate("app");
     }, 3000);
     return () => clearTimeout(timer);
   }, []);

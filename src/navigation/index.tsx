@@ -28,6 +28,7 @@ import AddNewTarget from "pages/saving/components/AddNewTarget";
 import TransferMoneyToTarget from "pages/saving/components/TransferMoneyToTarget";
 //cards
 import Card from "pages/card";
+import { DefineCard, ConfirmCard } from "pages/orderCard";
 //landing
 import InvoiceNavigator from "pages/Invoice";
 import QRPayment from "pages/QRPayment";
@@ -58,7 +59,7 @@ const RootStack = createStackNavigator();
 function AppStack() {
   return (
     <Stack.Navigator
-      initialRouteName="drawerScreen"
+      initialRouteName="defineCard"
       screenOptions={{ gestureEnabled: false, headerShown: false }}
     >
       <Stack.Screen name="drawerScreen" component={DrawerStack} />
@@ -79,6 +80,8 @@ function AppStack() {
         component={TransferMoneyToTarget}
       />
       <Stack.Screen name="card" component={Card} />
+      <Stack.Screen name="defineCard" component={DefineCard} />
+      <Stack.Screen name="confirmCard" component={ConfirmCard} />
       <Stack.Screen name="invoice" component={InvoiceNavigator} />
       <Stack.Screen name="QRPayment" component={QRPayment} />
       <Stack.Screen name="confirmQRPayment" component={ConfirmQRPayment} />
