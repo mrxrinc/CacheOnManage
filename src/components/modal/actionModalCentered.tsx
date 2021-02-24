@@ -8,6 +8,7 @@ import { colors } from "constants/index";
 export default ({ showModal, setShowModal, title, children }: any) => {
   return (
     <Modal
+      useNativeDriver
       isVisible={showModal}
       onBackdropPress={() => setShowModal(false)}
       style={style.modal}

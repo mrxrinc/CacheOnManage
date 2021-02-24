@@ -65,7 +65,7 @@ const messages: Record<string, string> = {
   "drawer.help": "راهنمای برنامه",
   "drawer.suppurt": "پشتیبانی",
   "drawer.signOut": "خروج",
-  addNewTask: "تعریف مسئولیت جدید",
+  addNewTask: "تعریف فعالیت جدید",
   invoice: "صورتحساب",
   //tabbar
   home: "خانه",
@@ -79,7 +79,7 @@ const messages: Record<string, string> = {
   moreTab: "بیشتر",
   "earning.allowance": "پول توجیبی‌:",
   "earning.title": "درآمد فرزندان",
-  "earning.button": "افزودن مسئولیت جدید",
+  "earning.button": "افزودن فعالیت جدید",
   "earning.paymentDay": "روز پرداخت",
   "earning.taskTitle": "فعالیت‌های انجام شده در این هفته",
   "earning.taskDescription": "فعالیتی برای نمایش وجود ندارد.",
@@ -123,6 +123,8 @@ const messages: Record<string, string> = {
   mobile_bill: "قبض موبایل",
   mobileBillPayment: "پرداخت قبض موبایل",
   child_spending: "مخارج",
+  changePasswordDescription:
+    "برای فعال سازی، لطفا دو بار رمز جدید را وارد کنید.",
   "orderBabyCard.orderDescription":
     "کارتی وجود ندارد. لطفا جهت استفاده از امکانات برنامه برای او کارت سفارش دهید.",
   "orderBabyCard.activationDescription":
@@ -153,6 +155,6 @@ const messages: Record<string, string> = {
   to: "به",
   operator: "اپراتور",
   mobile: "شماره موبایل",
-  totalLimit:"سقف محدودیت"
+  totalLimit: "سقف محدودیت",
 };
 export default messages;
