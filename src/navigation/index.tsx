@@ -59,7 +59,7 @@ const RootStack = createStackNavigator();
 function AppStack() {
   return (
     <Stack.Navigator
-      initialRouteName="defineCard"
+      initialRouteName="drawerScreen"
       screenOptions={{ gestureEnabled: false, headerShown: false }}
     >
       <Stack.Screen name="drawerScreen" component={DrawerStack} />

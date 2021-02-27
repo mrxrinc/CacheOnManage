@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { View, TouchableOpacity, Image } from "react-native";
 import Carousel from "react-native-snap-carousel";
-import { colors, width } from "constants/index";
+import { width } from "constants/index";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
 import Layout from "components/layout";
@@ -13,6 +13,14 @@ import VipCardBack from "images/card-design/custom-back.png";
 import PlusIcon from "components/icons/plus.svg";
 import FlipIcon from "components/icons/flip.svg";
 import CARDS_DATA from "./assets/cards";
+import GalleryIcon from "components/icons/gallery.svg";
+import CameraIcon from "components/icons/camera.svg";
+import TrashIcon from "components/icons/trash.svg";
+import ActionModalButtom from "components/modal/actionModalBottom";
+import {
+  handleCamera,
+  handleImagePicker,
+} from "pages/setting/tabPages/constants";
 
 type TabType = "VIP" | "OTHER";
 
@@ -21,6 +29,8 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
   const [flip, setFlip] = useState<boolean>(false);
   const [flipSecondary, setFlipSecondary] = useState<number | null>(null);
   const [activeCard, setActiveCard] = useState<number>(5);
+  const [avatar, setAvatar] = useState<string | null>(null);
+  const [imagePickerModal, setImagePickerModal] = useState<boolean>(true);
 
   const handleNextPage = () => {
     navigation.navigate("confirmCard", {
@@ -32,6 +42,8 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
         activeTab === "VIP"
           ? VipCardBack
           : CARDS_DATA[reverseIndex(activeCard, 5)].back,
+      avatar,
+      template: activeTab === "OTHER" ? activeCard : null,
     });
   };
 
@@ -106,13 +118,32 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
               source={flip ? VipCardBack : VipCardFront}
               style={styles.customCardImage}
             />
-            {!flip && (
-              <TouchableOpacity style={styles.avatarUploadButton}>
+            {!flip && !avatar && (
+              <TouchableOpacity
+                style={styles.avatarUploadButton}
+                onPress={() => setImagePickerModal(true)}
+              >
                 <PlusIcon width={40} height={40} style={styles.plusIcon} />
                 <FormattedText style={styles.avatarUploadText}>
                   آپلود عکس
                 </FormattedText>
               </TouchableOpacity>
+            )}
+            {!flip && !!avatar && (
+              <View style={styles.avatarWrapper}>
+                <Image
+                  style={styles.avatar}
+                  source={{
+                    uri: `data:image/png;base64, ${avatar}`,
+                  }}
+                />
+                <TouchableOpacity
+                  style={styles.avatarEditWrapper}
+                  onPress={() => setImagePickerModal(true)}
+                >
+                  <FormattedText id="editImage" style={styles.avatarEdit} />
+                </TouchableOpacity>
+              </View>
             )}
           </View>
           <View style={styles.flipButtonContainer}>
@@ -190,6 +221,42 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
     );
   };
 
+  const renderAvatarEdit = () => (
+    <View>
+      <View style={styles.imageUploadWrapper}>
+        <TouchableOpacity
+          onPress={() => {
+            handleCamera(setAvatar, () => null);
+            setImagePickerModal(false);
+          }}
+        >
+          <CameraIcon />
+          <FormattedText style={styles.uploadTitle}>دوربین</FormattedText>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            handleImagePicker(setAvatar, () => null);
+            setImagePickerModal(false);
+          }}
+        >
+          <GalleryIcon />
+          <FormattedText style={styles.uploadTitle}>آلبوم</FormattedText>
+        </TouchableOpacity>
+        {!!avatar && avatar.length > 0 && (
+          <TouchableOpacity
+            onPress={() => {
+              setAvatar("");
+              setImagePickerModal(false);
+            }}
+          >
+            <TrashIcon />
+            <FormattedText style={styles.uploadTitle}>حذف</FormattedText>
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  );
+
   return (
     <Layout>
       <Header
@@ -210,6 +277,13 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
           color={theme.ButtonBlueColor}
         />
       </View>
+
+      <ActionModalButtom
+        showModal={imagePickerModal}
+        setShowModal={() => setImagePickerModal(false)}
+      >
+        {renderAvatarEdit()}
+      </ActionModalButtom>
     </Layout>
   );
 };

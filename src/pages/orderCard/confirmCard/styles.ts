@@ -15,7 +15,7 @@ export default StyleSheet.create({
   card: {
     borderWidth: 0.3,
     borderColor: "#ccc",
-    borderRadius: 15,
+    borderRadius: 20,
     backgroundColor: "#fff",
     elevation: 5,
     shadowColor: "#000",
@@ -26,6 +26,23 @@ export default StyleSheet.create({
   cardImage: {
     width: 254,
     height: 158,
+  },
+  avatarWrapper: {
+    width: 80,
+    height: 100,
+    borderRadius: 8,
+    overflow: "hidden",
+    position: "absolute",
+    top: 10,
+    left: 10,
+    zIndex: 2,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  avatar: {
+    width: 80,
+    height: 100,
   },
   addressSection: {
     height: 176,
@@ -49,11 +66,13 @@ export default StyleSheet.create({
     paddingLeft: "50%",
     marginTop: 20,
   },
-
   buttonWrapper: {
     width: "100%",
     paddingHorizontal: 20,
     paddingTop: 5,
     paddingBottom: 32,
+  },
+  modalContent: {
+    paddingHorizontal: 20,
   },
 });

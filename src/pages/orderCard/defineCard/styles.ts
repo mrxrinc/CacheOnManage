@@ -87,6 +87,37 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  avatarWrapper: {
+    width: 80,
+    height: 100,
+    borderRadius: 8,
+    overflow: "hidden",
+    position: "absolute",
+    top: 10,
+    left: 10,
+    zIndex: 2,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  avatar: {
+    width: 80,
+    height: 100,
+  },
+  avatarEditWrapper: {
+    width: "100%",
+    height: 27,
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: "#00000066",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  avatarEdit: {
+    fontSize: 14,
+    color: "#fff",
+    lineHeight: 14,
+  },
   plusIcon: {
     color: "#fff",
   },
@@ -131,5 +162,13 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 5,
     paddingBottom: 32,
+  },
+  imageUploadWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  uploadTitle: {
+    fontSize: 16,
+    textAlign: "center",
   },
 });

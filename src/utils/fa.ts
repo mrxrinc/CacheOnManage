@@ -161,5 +161,6 @@ const messages: Record<string, string> = {
   orderCard: "سفارش کارت",
   billId: "شناسه قبض",
   paymentId: "شناسه پرداخت",
+  editImage: "ویرایش عکس",
 };
 export default messages;

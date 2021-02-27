@@ -22,7 +22,7 @@ import KeyValuePair from "pages/setting/components/keyValuePair";
 import { setSettingData, setFatherChangePassword } from "utils/api";
 import SigninModal from "components/signinModal";
 import { getLocalData, removeLocalData } from "utils/localStorage";
-import { RootState } from "../../../customType";
+import { RootState } from "../../../../customType";
 import {
   ModalType,
   handleCamera,
