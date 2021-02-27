@@ -136,7 +136,7 @@ const SigninModal: FC<Props> = ({
         .then((response: any) => {
           setLoading(false);
           if (response.status == 200) {
-            dispatch(otpTokenChanged(response.data.access_token));
+            // dispatch(otpTokenChanged(response.data.access_token));
             AsyncStorage.setItem("token", response.data.access_token);
             handleSetBiometricsLogin();
             handleSignIn(response.data.access_token);
@@ -217,6 +217,7 @@ const SigninModal: FC<Props> = ({
             setShowModal(false);
             handleCancel();
           }}
+          mainLoading={loading}
           style={styles.buttonsWrapper}
           mainLoading={loading}
         />

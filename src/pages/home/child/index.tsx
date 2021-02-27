@@ -25,6 +25,7 @@ import ArrowIcon from "components/icons/arrow.svg";
 import { RootState } from "../../../../customType";
 import { getHomeData } from "redux/actions/Home";
 import ChildrenPaymentLimits from "components/childrenPaymentLimits";
+import { childPhoneNumber } from "store/QuickAccess/quickAccess.actions";
 import { withTheme } from "themeCore/themeProvider";
 
 type ChildData = {
@@ -81,6 +82,7 @@ const ChildHome = ({ route, theme }: any) => {
       const resp = await getChildHomeData(token, childId);
       setChildData(resp.data);
       setLoading(false);
+      dispatch(childPhoneNumber(resp.data.mobile));
       AsyncStorage.setItem("childPhone", resp.data.mobile ?? "");
       if (isChild) {
         dispatch(getHomeData(resp.data));

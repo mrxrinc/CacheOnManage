@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "constants/index";
+import { colors, iosBoxShadow } from "constants/index";
 
 const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
@@ -9,7 +9,8 @@ export default StyleSheet.create({
     height: height * 0.54,
     justifyContent: "space-around",
     alignItems: "center",
-    elevation: 5,
+    ...iosBoxShadow,
+    elevation: 10,
     backgroundColor: "#fff",
     marginTop: "4%",
     borderRadius: 15,

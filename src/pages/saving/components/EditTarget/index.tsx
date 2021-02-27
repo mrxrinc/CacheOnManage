@@ -133,8 +133,7 @@ const EditTarget: FC<Props> = (props) => {
           Number(removeCommas(values.targetAmount)) <
           Number(removeCommas(values.weeklySavings))
         ) {
-          errors.targetAmount =
-            "مبلغ هدف نمی تواند کمتر از مبلغ پس انداز هفتگی باشد";
+          errors.targetAmount = "مبلغ هدف نمی تواند کمتر از مبلغ پس انداز باشد";
         } else if (
           Number(removeCommas(props.allowance)) <
           Number(removeCommas(values.weeklySavings))
@@ -233,100 +232,93 @@ const EditTarget: FC<Props> = (props) => {
       onSubmit={(values: any) => formik.handleSubmit(values)}
     >
       <View style={styles.container}>
-        <ScrollView>
-          <View style={styles.titleInputWrapper}>
-            <MaterialTextField
-              label="عنوان هدف"
-              value={formik.values.title}
-              onChangeText={(value: string) =>
-                formik.setFieldValue("title", value)
-              }
-              error={formik.errors.title}
+        <View style={styles.titleInputWrapper}>
+          <MaterialTextField
+            label="عنوان هدف"
+            value={formik.values.title}
+            onChangeText={(value: string) =>
+              formik.setFieldValue("title", value)
+            }
+            error={formik.errors.title}
+          />
+        </View>
+
+        <View style={styles.inputWrapper}>
+          <FormattedText style={[styles.halfWidth, styles.gray]}>
+            مبلغ هدف
+          </FormattedText>
+          <View style={styles.halfWidth}>
+            <Input
+              value={formatNumber(String(formik.values.targetAmount))}
+              onChangeText={(value: string) => handleTargetAmountChange(value)}
+              keyboardType={"number-pad"}
+              maxLength={11}
+              boxMode
+              customStyle={styles.input}
+              containerCustomStyle={styles.inputContainer}
+              inputCustomStyle={styles.inputInner}
             />
           </View>
+          <FormattedText style={[styles.unit]}>ریال</FormattedText>
+        </View>
 
-          <View style={styles.inputWrapper}>
-            <FormattedText style={[styles.halfWidth, styles.gray]}>
-              مبلغ هدف
-            </FormattedText>
-            <View style={styles.halfWidth}>
-              <Input
-                value={formatNumber(String(formik.values.targetAmount))}
-                onChangeText={(value: string) =>
-                  handleTargetAmountChange(value)
-                }
-                keyboardType={"number-pad"}
-                maxLength={11}
-                boxMode
-                customStyle={styles.input}
-                containerCustomStyle={styles.inputContainer}
-                inputCustomStyle={styles.inputInner}
-              />
-            </View>
-            <FormattedText style={[styles.unit]}>ریال</FormattedText>
-          </View>
-
-          <FormattedText style={styles.amountHint} fontFamily="Regular-FaNum">
-            {` ${props.childName} مبلغ ${formatNumber(
-              String(props.data.paidAmount)
-                ? String(props.data.paidAmount)
-                : "0"
-            )} از ${formatNumber(
-              String(formik.values.targetAmount)
-            )} ریال را ذخیره کرده است `}
+        <FormattedText style={styles.amountHint} fontFamily="Regular-FaNum">
+          {` ${props.childName} مبلغ ${formatNumber(
+            String(props.data.paidAmount) ? String(props.data.paidAmount) : "0"
+          )} از ${formatNumber(
+            String(formik.values.targetAmount)
+          )} ریال را ذخیره کرده است `}
+        </FormattedText>
+        {formik.errors.targetAmount && (
+          <FormattedText style={styles.error}>
+            {formik.errors.targetAmount}
           </FormattedText>
-          {formik.errors.targetAmount && (
-            <FormattedText style={styles.error}>
-              {formik.errors.targetAmount}
-            </FormattedText>
-          )}
-          <View style={styles.inputWrapper}>
-            <FormattedText style={[styles.halfWidth, styles.gray]}>
-              مبلغ پس انداز هفتگی
-            </FormattedText>
-            <View style={[styles.halfWidth]}>
-              <Input
-                editable={!!formik.values.targetAmount}
-                value={formatNumber(String(formik.values.weeklySavings))}
-                onChangeText={(value: string) =>
-                  handleWeeklyAmountChange(value)
-                }
-                keyboardType={"number-pad"}
-                boxMode
-                maxLength={11}
-                customStyle={styles.input}
-                containerCustomStyle={styles.inputContainer}
-                inputCustomStyle={styles.inputInner}
-              />
-            </View>
-            <FormattedText style={[styles.unit]}>ریال</FormattedText>
+        )}
+        <View style={styles.inputWrapper}>
+          <FormattedText style={[styles.halfWidth, styles.gray]}>
+            مبلغ پس انداز هفتگی
+          </FormattedText>
+          <View style={[styles.halfWidth]}>
+            <Input
+              editable={!!formik.values.targetAmount}
+              value={formatNumber(String(formik.values.weeklySavings))}
+              onChangeText={(value: string) => handleWeeklyAmountChange(value)}
+              keyboardType={"number-pad"}
+              boxMode
+              maxLength={11}
+              customStyle={styles.input}
+              containerCustomStyle={styles.inputContainer}
+              inputCustomStyle={styles.inputInner}
+            />
           </View>
-          {formik.errors.weeklySavings && (
-            <FormattedText style={styles.error}>
-              {formik.errors.weeklySavings}
-            </FormattedText>
-          )}
+          <FormattedText style={[styles.unit]}>ریال</FormattedText>
+        </View>
+        {formik.errors.weeklySavings && (
+          <FormattedText style={styles.error}>
+            {formik.errors.weeklySavings}
+          </FormattedText>
+        )}
 
-          <View style={styles.dateWrapper}>
-            <FormattedText style={[styles.halfWidth, styles.gray]}>
-              تاریخ رسیدن به هدف
-            </FormattedText>
-            <View style={styles.targetDateBox}>
-              <DatePicker
-                noIcon
-                light
-                defaultValue={targetDate}
-                active={formik.values.targetAmount}
-                handleChosenDate={(val: string) => {
-                  handleChangeTargetDate(val);
-                  setShowDateModal(false);
-                }}
-                color={colors.title}
-              />
-            </View>
-            <FormattedText style={[styles.unit]}></FormattedText>
+        <View style={styles.dateWrapper}>
+          <FormattedText style={[styles.halfWidth, styles.gray]}>
+            تاریخ رسیدن به هدف
+          </FormattedText>
+          <View style={styles.targetDateBox}>
+            <DatePicker
+              noIcon
+              light
+              defaultValue={targetDate}
+              active={formik.values.targetAmount}
+              handleChosenDate={(val: string) => {
+                handleChangeTargetDate(val);
+                setShowDateModal(false);
+              }}
+              color={colors.title}
+            />
           </View>
-        </ScrollView>
+          <FormattedText style={[styles.unit]}></FormattedText>
+        </View>
+
         <View style={styles.inputWrapper}>
           <Button
             onPress={formik.handleSubmit}

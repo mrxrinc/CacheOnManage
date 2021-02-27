@@ -1,6 +1,6 @@
 {
   "name": "allowance",
-  "version": "1.5.15",
+  "version": "1.5.17",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -36,6 +36,9 @@
     "@types/react-native-snap-carousel": "^3.8.2",
     "@types/react-native-star-rating": "^1.1.1",
     "@types/yup": "^0.29.6",
+    "appcenter": "4.0.2",
+    "appcenter-analytics": "4.0.2",
+    "appcenter-crashes": "4.0.2",
     "axios": "^0.19.2",
     "blinkid-react-native": "^5.9.0",
     "formik": "^2.1.5",

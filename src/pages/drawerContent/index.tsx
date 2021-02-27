@@ -15,19 +15,21 @@ import { Icon } from "images";
 import HighDesign from "images/drawer/top-design.svg";
 import BottomDesign from "images/drawer/bottom-design.svg";
 import BluPattern from "images/drawer/repeat-grid.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../customType";
 import AlertController from "components/alertController";
 import SupportController from "components/supportController";
 import { signout } from "utils/api";
 import { colors } from "constants/index";
 import { withTheme } from "themeCore/themeProvider";
+import { otpTokenChanged } from "redux/actions/User";
 
 export const { width, height } = Dimensions.get("screen");
 
 var pkg = require("../../../package.json");
 
 const DrawerContent = (props: any) => {
+  const dispatch = useDispatch();
   const theme = props.theme;
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<any, any>((state) => state.user.ischild);
@@ -39,6 +41,7 @@ const DrawerContent = (props: any) => {
 
   async function handleSignout() {
     try {
+      dispatch(otpTokenChanged(""));
       const declareSignout = await signout(token);
       AsyncStorage.removeItem("token");
       setExitModal(false);
