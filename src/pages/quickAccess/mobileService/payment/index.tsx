@@ -77,7 +77,7 @@ const Payment = (props: any) => {
     const transactionMainKeys = [
       {
         key: "عملیات",
-        value: "خرید شارژ موبایل",
+        value: data.type == "mobileTopUp" ? "خرید شارژ موبایل" : "پرداخت قیض",
       },
     ];
     const result = R.map((key: string) => {
@@ -240,6 +240,8 @@ const Payment = (props: any) => {
         <PaymentTransactionResult
           data={transactionResults}
           hasError={quickAccessStore.paymentResult.hasError}
+          description={quickAccessStore.paymentResult.data.description}
+          message={quickAccessStore.paymentResult.message}
           onClose={handleCloseQrPayment}
         />
       </ActionModalCentered>

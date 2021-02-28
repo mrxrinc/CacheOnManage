@@ -137,10 +137,10 @@ const DrawerContent = (props: any) => {
               <Icon name="bills" size="small" />
               <FormattedText style={styles.itemsFont} id="drawer.bills" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.itemBox}>
+            {/* <TouchableOpacity style={styles.itemBox}>
               <Icon name="help" size="small" />
               <FormattedText style={styles.itemsFont} id="drawer.help" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={styles.itemBox}
               onPress={() => setSupportModal(true)}
