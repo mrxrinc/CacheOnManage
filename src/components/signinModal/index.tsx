@@ -217,6 +217,7 @@ const SigninModal: FC<Props> = ({
             setShowModal(false);
             handleCancel();
           }}
+          mainLoading={loading}
           style={styles.buttonsWrapper}
           mainLoading={loading}
         />
