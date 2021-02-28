@@ -30,7 +30,7 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
   const [flipSecondary, setFlipSecondary] = useState<number | null>(null);
   const [activeCard, setActiveCard] = useState<number>(5);
   const [avatar, setAvatar] = useState<string | null>(null);
-  const [imagePickerModal, setImagePickerModal] = useState<boolean>(true);
+  const [imagePickerModal, setImagePickerModal] = useState<boolean>(false);
 
   const handleNextPage = () => {
     navigation.navigate("confirmCard", {
@@ -44,6 +44,7 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
           : CARDS_DATA[reverseIndex(activeCard, 5)].back,
       avatar,
       template: activeTab === "OTHER" ? activeCard : null,
+      vip: activeTab === "VIP",
     });
   };
 

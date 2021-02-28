@@ -11,12 +11,12 @@ import PostalCodeInquiry from "../confirmAddress/postalCodeInquiry";
 import Address from "../confirmAddress/address";
 
 const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
-  const { frontImage, backImage, avatar, template } = route.params;
+  const { frontImage, backImage, avatar, template, vip } = route.params;
   const [loading, setLoading] = useState(false);
   const [flip, setFlip] = useState<boolean>(false);
   const [showAddressInquiryModal, setShowAddressInquiryModal] = useState<
     boolean
-  >(true);
+  >(false);
   const [postalCode, setPostalcode] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
@@ -28,7 +28,7 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
 
   const handleConfirm = ({ province, city, address }: any) => {
     setLoading(true);
-    // orderCard({token, province, city, address: clientAddress, postalCode, phone, avatar, template})
+    // orderCard({token, province, city, address: clientAddress, postalCode, phone, avatar, template, vip})
     setLoading(false);
   };
 
