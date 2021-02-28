@@ -14,9 +14,12 @@ interface Props {
   hasError?: boolean;
   onClose: () => void;
   theme: any;
+  description: string;
+  message: string;
 }
 const PaymentTransactionResult: React.FC<Props> = (props) => {
   const { theme } = props;
+  const desss = null;
   return (
     <>
       <View style={[styles.inquiryResultWrapper]}>
@@ -31,24 +34,37 @@ const PaymentTransactionResult: React.FC<Props> = (props) => {
         >
           {props.hasError ? "پرداخت ناموفق" : "پرداخت موفق"}
         </FormattedText>
+        <FormattedText
+          style={{
+            color: props.hasError ? theme.ButtonRedColor : theme.titleColor,
+            fontSize: 16,
+            marginBottom: 20,
+          }}
+        >
+          {props.description ? props.description : props.message}
+        </FormattedText>
         {props.data.map((item: any) => {
           return (
-            <View style={styles.modalResultRow}>
-              <View style={styles.modalResultKey}>
-                <FormattedText style={styles.modalResultKeyText}>
-                  {item.key}
-                </FormattedText>
-              </View>
-              <View style={styles.modalResultMiddleLine} />
-              <View style={styles.modalResultVal}>
-                <FormattedText
-                  style={styles.modalResultKeyText}
-                  fontFamily="Regular-FaNum"
-                >
-                  {item.value}
-                </FormattedText>
-              </View>
-            </View>
+            <>
+              {item.key != "توضیحات" && (
+                <View style={styles.modalResultRow}>
+                  <View style={styles.modalResultKey}>
+                    <FormattedText style={styles.modalResultKeyText}>
+                      {item.key}
+                    </FormattedText>
+                  </View>
+                  <View style={styles.modalResultMiddleLine} />
+                  <View style={styles.modalResultVal}>
+                    <FormattedText
+                      style={styles.modalResultKeyText}
+                      fontFamily="Regular-FaNum"
+                    >
+                      {item.value}
+                    </FormattedText>
+                  </View>
+                </View>
+              )}
+            </>
           );
         })}
       </View>
