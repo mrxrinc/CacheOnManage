@@ -21,7 +21,7 @@ const messages: Record<string, string> = {
   "signIn.noRegister": "قبلا ثبت نام نکرده‌اید؟",
   "signIn.forgetPassword": "رمز عبور خود را فراموش کرده اید؟",
   "home.transferMoney": "انتقال وجه",
-  "home.addMoney": "افزایش حساب",
+  "home.addMoney": "افزایش موجودی حساب",
   "home.payable": "قابل پرداخت",
   "home.liable": "پس انداز",
   "home.rial": "ريال",
@@ -33,7 +33,7 @@ const messages: Record<string, string> = {
   "nationalCard.scan":
     "روی کارت ملی خود را مقابل دوربین قرار دهیدسپس دکمه اسکن را فشار دهید",
   "nationalCard.handleClick": "اسکن",
-  cashDeposit: "افزایش حساب",
+  cashDeposit: "افزایش موجودی حساب",
   amount: "مبلغ",
   cardNumber: "شماره کارت",
   cvv2: "Cvv2",
