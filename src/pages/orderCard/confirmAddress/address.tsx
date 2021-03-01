@@ -112,5 +112,6 @@ const styles = StyleSheet.create({
     minHeight: 120,
     textAlignVertical: "top",
     textAlign: "right",
+    fontFamily: "IRANYekanMobileFaNum",
   },
 });

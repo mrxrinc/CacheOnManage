@@ -4,13 +4,17 @@ import { FormattedText } from "components/format-text";
 import Header from "components/header";
 import Layout from "components/layout";
 import styles from "./styles";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../customType";
 import Button from "components/button";
 import { withTheme } from "themeCore/themeProvider";
 import FullScreenModal from "components/modal/actionModalFullScreen";
 import PostalCodeInquiry from "../confirmAddress/postalCodeInquiry";
 import Address from "../confirmAddress/address";
+import { orderCard } from "utils/api";
 
 const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
+  const childId = "";
   const { frontImage, backImage, avatar, template, vip } = route.params;
   const [loading, setLoading] = useState(false);
   const [flip, setFlip] = useState<boolean>(false);
@@ -22,28 +26,66 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
   const [city, setCity] = useState("");
   const [province, setProvince] = useState("");
   const [clientAddress, setClientAddress] = useState("");
+  const [street, setStreet] = useState("");
+  const [buildingNo, setBuildingNo] = useState("");
+  const [floor, setFloor] = useState("");
   const [modalPage, setModalPage] = useState<"postalCode" | "address">(
     "postalCode"
   );
+  const token = useSelector<RootState, any>((state) => state.user.token);
 
   const handleConfirm = ({ province, city, address }: any) => {
     setLoading(true);
-    // orderCard({token, province, city, address: clientAddress, postalCode, phone, avatar, template, vip})
+    orderCard(token, {
+      childId,
+      province,
+      city,
+      street,
+      buildingNo,
+      floor,
+      address,
+      postalCode,
+      phone,
+      avatar,
+      template,
+      vip,
+    })
+      .then((response) => {
+        logger(response);
+      })
+      .catch((error) => {
+        logger(error.response);
+      });
     setLoading(false);
   };
 
   const handleGetAddressDetail = ({
     province,
     city,
+    street,
+    buildingNo,
+    floor,
     address,
     postalCode,
     phone,
   }: any) => {
-    console.log({ province, city, address, postalCode, phone });
+    logger({
+      province,
+      city,
+      address,
+      postalCode,
+      phone,
+      street,
+      buildingNo,
+      floor,
+    });
     setPostalcode(postalCode);
     setPhone(phone);
     setProvince(province);
     setCity(city);
+    setStreet(street);
+    setBuildingNo(buildingNo);
+    setFloor(floor);
     setClientAddress(address);
     setModalPage("address");
   };
@@ -61,7 +103,7 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
               source={!flip ? frontImage : backImage}
               style={styles.cardImage}
             />
-            {!flip && !!avatar && (
+            {!flip && !!avatar && vip && (
               <View style={styles.avatarWrapper}>
                 <Image
                   style={styles.avatar}

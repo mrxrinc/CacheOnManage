@@ -528,3 +528,56 @@ export const getTransactions = (token: string, data: any) =>
       authorization: `Bearer ${token}`,
     },
   });
+
+export const getAddressByPostalCode = (token: string, postalCode: string) =>
+  instance.post(
+    `/api/v1/common/inquiryAddress`,
+    {
+      postalCode: postalCode,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+export const orderCard = (
+  token: string,
+  {
+    childId,
+    province,
+    city,
+    street,
+    buildingNo,
+    floor,
+    address,
+    postalCode,
+    phone,
+    avatar,
+    template,
+    vip,
+  }: any
+) =>
+  instance.post(
+    `/api/v1/common/inquiryAddress`,
+    {
+      childId,
+      province,
+      city,
+      street,
+      buildingNo,
+      floor,
+      address,
+      postalCode,
+      phone,
+      avatar,
+      template,
+      vip,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );

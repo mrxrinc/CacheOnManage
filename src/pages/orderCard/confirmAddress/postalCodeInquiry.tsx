@@ -3,7 +3,7 @@ import { fontFamily, fontSize } from "global";
 import React, { useState, useRef } from "react";
 import { View, StyleSheet, LayoutAnimation, ScrollView } from "react-native";
 import Button from "components/button";
-import { setAddress } from "utils/api";
+import { getAddressByPostalCode } from "utils/api";
 import { useSelector } from "react-redux";
 import MaterialTextInput from "components/materialTextfield";
 import { RootState } from "../../../../customType";
@@ -16,6 +16,9 @@ type Props = {
     city: string;
     address: string;
     postalCode: string;
+    street: string;
+    buildingNo: string;
+    floor: string;
     phone: string;
   }) => void;
   theme: any;
@@ -47,13 +50,17 @@ const PostalCodeInquiry = ({ handleGetAddressDetail, theme }: Props) => {
   const handleTouch = () => {
     clearError();
     setLoading(true);
-    setAddress(token, postalCode, phone)
+    getAddressByPostalCode(token, postalCode)
       .then((response: any) => {
-        console.log(response);
+        logger(response);
         setLoading(false);
         if (response.status == 200) {
-          const province = response.data.province;
-          const city = response.data.city;
+          const data = response.data;
+          const province = data.province;
+          const city = data.city;
+          const street = data.street;
+          const buildingNo = data.buildingNo;
+          const floor = data.floor;
           const address =
             response.data.province +
             " - " +
@@ -67,6 +74,9 @@ const PostalCodeInquiry = ({ handleGetAddressDetail, theme }: Props) => {
           handleGetAddressDetail({
             province,
             city,
+            street,
+            buildingNo,
+            floor,
             address,
             postalCode,
             phone,
@@ -83,7 +93,8 @@ const PostalCodeInquiry = ({ handleGetAddressDetail, theme }: Props) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
+        logger(err.response);
         LayoutAnimation.configureNext(
           LayoutAnimation.create(
             200,
