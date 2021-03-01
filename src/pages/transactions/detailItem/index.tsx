@@ -16,7 +16,8 @@ const DetailItem = (props: any) => {
     description,
     followupNumber,
     referenceId,
-  } = props.route.params.data
+    terminalId,
+  } = props.route.params.data;
   return (
     <Layout>
       <>
@@ -30,12 +31,15 @@ const DetailItem = (props: any) => {
             <FormattedText style={styles.title}>{description}</FormattedText>
           </View>
           <PaymentItem isRial title="مبلغ" detail={formatNumber(amount)} />
-          <PaymentItem isRial title="مانده پس از تراکنش" detail={formatNumber(balance)} />
+          <PaymentItem
+            isRial
+            title="مانده پس از تراکنش"
+            detail={formatNumber(balance)}
+          />
           <PaymentItem title="تاریخ و ساعت" detail={date} />
-          {/* <PaymentItem title="شماره کارت" detail="6219-8610-1234-5678" /> */}
           <PaymentItem title="شماره پیگیری" detail={followupNumber} />
           <PaymentItem title="شماره مرجع" detail={referenceId} />
-          {/* <PaymentItem title="پایانه" detail="2060271869" /> */}
+          <PaymentItem title="پایانه" detail={terminalId} />
         </View>
       </>
     </Layout>

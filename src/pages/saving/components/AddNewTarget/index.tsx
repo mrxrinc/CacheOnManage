@@ -229,7 +229,10 @@ const AddNewTarget: FC<Props> = (props) => {
         staticTitle={"addNewTarget"}
         handleBack={() => props.navigation.goBack()}
       />
-      <ScrollView contentContainerStyle={[styles.container]}>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={[styles.container]}
+      >
         <FormattedText style={styles.targetDesc}>
           تعریف هدف پس انداز برای{" "}
           {isChild ? "شما" : selectedTargetData.childName}
@@ -239,7 +242,7 @@ const AddNewTarget: FC<Props> = (props) => {
           onSubmit={(values: any) => formik.handleSubmit(values)}
         >
           <>
-            <ScrollView>
+            <ScrollView keyboardShouldPersistTaps="handled">
               <View style={styles.titleInputWrapper}>
                 <MaterialTextField
                   label="عنوان هدف"

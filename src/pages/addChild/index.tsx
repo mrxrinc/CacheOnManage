@@ -187,7 +187,10 @@ const AddChild: FC = (props: any) => {
         staticTitle={"addChild"}
         handleBack={!noBackButton ? () => props.navigation.goBack() : null}
       />
-      <ScrollView contentContainerStyle={[style.content]}>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={[style.content]}
+      >
         <FormattedText
           id="addChild.firstInput"
           style={[style.title, { color: props.theme.addChild.descriptionFont }]}
