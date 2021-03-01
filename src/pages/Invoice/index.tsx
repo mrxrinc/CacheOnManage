@@ -39,7 +39,9 @@ const Invoice: FC<Props> = (props) => {
     const currentDate = moment();
 
     const filteredCurrentWeekData = invoiceState.invoiceList.filter(
-      (date: InvoiceData) => moment(date.date).isSame(currentDate, "week")
+      (date: InvoiceData) => {
+        moment(date.date).isSame(currentDate, "week");
+      }
     );
     const filteredOthersData = invoiceState.invoiceList.filter(
       (date: InvoiceData) => !moment(date.date).isSame(currentDate, "week")

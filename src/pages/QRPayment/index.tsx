@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Hooks
 import { useDispatch } from "react-redux";
 // UI Frameworks
-import { Text, View } from "react-native";
+import { Text, View, Linking } from "react-native";
 import Modal from "react-native-modal";
 import { RNCamera } from "react-native-camera";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -18,6 +18,8 @@ import PayAmount from "./components/PayAmount";
 // Styles
 import styles from "./styles";
 import BarcodeMask from "react-native-barcode-mask";
+import { check, PERMISSIONS, request } from "react-native-permissions";
+
 interface BarcodeInfo {
   type: string;
   data: any;
@@ -74,6 +76,25 @@ const QRPayment: React.FC<Props> = (props) => {
     setByHandPaymentBtnActive(true);
   }
 
+  const CheckPermission = async () => {
+    const Rationale = {
+      title: "test",
+      message: "salam",
+      buttonPositive: "yes",
+      buttonNegative: "no",
+      buttonNeutral: "hi",
+    };
+    request(PERMISSIONS.IOS.CAMERA).then((result) => console.log(result));
+
+    const permission = await check(PERMISSIONS.IOS.CAMERA);
+    console.log(permission);
+    if (permission === "denied" || "blocked") {
+      request(PERMISSIONS.IOS.CAMERA).then((result) => console.log(result));
+    }
+  };
+  useEffect(() => {
+    CheckPermission();
+  }, []);
   return (
     <Layout>
       <Header
@@ -112,7 +133,9 @@ const QRPayment: React.FC<Props> = (props) => {
             {byHandBtnActive && (
               <ByHandPayment payAmount={() => setPayAmount(true)} />
             )}
-
+            <TouchableOpacity onPress={() => Linking.openURL("app-settings:")}>
+              <Text>test</Text>
+            </TouchableOpacity>
             {showModal && (
               <View style={styles.qrContainer}>
                 <View style={styles.qrPreview}>
@@ -120,10 +143,6 @@ const QRPayment: React.FC<Props> = (props) => {
                     ref={camera}
                     flashMode={cameraInfo.flashMode}
                     onBarCodeRead={onBarCodeRead.bind(this)}
-                    permissionDialogTitle={"Permission to use camera"}
-                    permissionDialogMessage={
-                      "We need your permission to use your camera phone"
-                    }
                     style={{
                       flex: 1,
                       width: "100%",
