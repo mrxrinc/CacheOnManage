@@ -26,7 +26,6 @@ import { formatNumber, formatCardNumber, formatExpirationDate } from "utils";
 import { topUp, harim } from "utils/api";
 import { RootState } from "../../../customType";
 import { useSelector } from "react-redux";
-import styles from "components/button/styles";
 
 type CardNumberType = {
   value: string;
@@ -44,7 +43,7 @@ const CashDeposit: FC = (props: any) => {
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
   const [cashDepositResponse, setCashDepositResponse] = useState<any>(null);
   const [timeLeft, setTimeLeft] = useState(0);
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState<any>({
     sourcePan: "",
     amount: 0,
@@ -89,43 +88,11 @@ const CashDeposit: FC = (props: any) => {
     setForm({ ...form, [k]: v });
   };
 
-  // useEffect(() => { // just for test the result modal _ DELETE AT THE END
-  //   const row = {
-  //     status: true,
-  //     message: "انتقال با موفقیت انجام شد.",
-  //     sourcePan: "5859831027363836",
-  //     amount: 5000,
-  //     transactionDate: "1399/05/19",
-  //     transactionTime: "14:19",
-  //     followUpCode: "258270",
-  //     terminalNo: "",
-  //   };
-  //   const data = [];
-  //   let index = 0;
-  //   for (let [key, value] of Object.entries(row)) {
-  //     if (key !== "transactionTime" && key !== "message") {
-  //       data.push({
-  //         id: index++,
-  //         key,
-  //         value:
-  //           key === "transactionDate"
-  //             ? `${value}    ${row.transactionTime}`
-  //             : value !== ""
-  //             ? value
-  //             : " - ",
-  //         unit: key === "amount" ? true : false,
-  //       });
-  //     }
-  //   }
-  //   setCashDepositResponse({
-  //     message: row.message,
-  //     data,
-  //   });
-  // }, []);
-
   const handleTopUp = () => {
+    setLoading(true);
     topUp(token, form)
       .then((response: any) => {
+        setLoading(false);
         const data = [];
         let index = 0;
         for (let [key, value] of Object.entries(response.data)) {
@@ -161,6 +128,7 @@ const CashDeposit: FC = (props: any) => {
         });
       })
       .catch((err: any) => {
+        setLoading(false);
         setStatusMessage(err.response.data.message);
       });
   };
@@ -182,7 +150,7 @@ const CashDeposit: FC = (props: any) => {
   };
 
   return (
-    <Layout keyboard={(val) => setKeyboardVisible(val)}>
+    <Layout>
       <Header
         staticTitle={"cashDeposit"}
         handleBack={() => props.navigation.goBack()}
@@ -342,19 +310,15 @@ const CashDeposit: FC = (props: any) => {
             </FormattedText>
           </View>
         </ScrollView>
-        <View style={{ flex: 1 }} />
-        <View
-          style={[
-            style.submitButtonWrapper,
-            { height: isKeyboardVisible ? 60 : 90 },
-          ]}
-        >
+
+        <View style={style.submitButtonWrapper}>
           <Button
             title={"پرداخت"}
             style={style.submitButton}
             onPress={handleTopUp}
             color={theme.ButtonGreenColor}
             disabled={!readyToSubmit}
+            loading={loading}
           />
         </View>
 

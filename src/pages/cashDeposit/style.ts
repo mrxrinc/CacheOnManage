@@ -71,10 +71,11 @@ export default StyleSheet.create({
   },
   submitButtonWrapper: {
     width: "100%",
-    height: 90,
     paddingHorizontal: 20,
     paddingBottom: 50,
     paddingTop: 5,
+    backgroundColor: "transparent",
+    height: 60,
   },
   submitButton: {
     height: 43,

@@ -134,7 +134,11 @@ const AddNew = (props: any) => {
     handleFactorCheck(amount.replace(/,/g, ""));
   };
 
-  let disableBtn = !factorCheck || loading || childSelected.length === 0 || amount.charAt(0) === '0'
+  let disableBtn =
+    !factorCheck ||
+    loading ||
+    childSelected.length === 0 ||
+    amount.charAt(0) === "0";
 
   return (
     <Layout>
