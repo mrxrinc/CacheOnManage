@@ -16,6 +16,7 @@ export interface SavingState {
   transferMoneyToTargetTransactionResult: any;
   showEditModal: boolean;
   childData: any;
+  showFinishTargetModal: boolean;
 }
 
 export const initialState: SavingState = {
@@ -27,6 +28,7 @@ export const initialState: SavingState = {
     hasError: false,
   },
   showEditModal: false,
+  showFinishTargetModal: false,
   childData: [],
 };
 
@@ -83,6 +85,10 @@ const reducer: React.Reducer<SavingState, Action> = (
     case types.SET_EDIT_MODAL:
       return update({
         showEditModal: action.payload,
+      });
+    case types.SET_FINISH_TARGET_MODAL:
+      return update({
+        showFinishTargetModal: action.payload,
       });
     default:
       return state;

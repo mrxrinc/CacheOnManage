@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, TouchableOpacity } from "react-native";
 import { colors } from "constants/index";
 // Hooks
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // Helpers & Utils
 import { formatNumber } from "utils";
 // Images
@@ -12,14 +12,12 @@ import Delete from "components/icons/trashIcon.svg";
 import LinearGradient from "react-native-linear-gradient";
 // Common Components
 import { FormattedText } from "components/format-text";
-import AlertController from "components/alertController";
 import Button from "components/button";
 // Types
 import { SavingState } from "store/Saving/saving.reducer";
 import { StateNetwork } from "store/index.reducer";
 import { SavingListData, TargetsData } from "types/saving";
-// Actions
-import SavingActions from "store/Saving/saving.actions";
+
 // Styles
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
@@ -27,20 +25,12 @@ import { withTheme } from "themeCore/themeProvider";
 interface Props {
   data: SavingListData;
   onEditTarget: (target: any, data: any) => void;
+  onShowFinishTargetModal: (target: TargetsData, childName: string) => void;
+  onShowDeleteModal: (targetId: number, childId: number) => void;
   theme: any;
 }
 const TargetList: React.FC<Props> = (props) => {
-  const dispatch = useDispatch();
   const theme = props.theme;
-  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  const [showFinishTargetModal, setShowFinishTargetModal] = useState<boolean>(
-    false
-  );
-  const [deleteId, setDeleteId] = useState(0);
-  const [finishTargetId, setFinishTargetId] = useState(0);
-  const selectedTargetData = useSelector<StateNetwork, any>(
-    (state) => state.saving.selectedTargetData
-  );
 
   // Store
   const savingStore = useSelector<StateNetwork, SavingState>(
@@ -48,33 +38,12 @@ const TargetList: React.FC<Props> = (props) => {
   );
   const isChild = useSelector<any, boolean>((state) => state.user.ischild);
 
-  function handleShowDeleteModal(id: number) {
-    setShowDeleteModal(true);
-    setDeleteId(id);
+  function handleShowDeleteModal(targetId: number) {
+    props.onShowDeleteModal(targetId, props.data.childId);
   }
 
-  function handleDelete() {
-    setShowFinishTargetModal(false);
-    dispatch(
-      SavingActions.deleteTarget(
-        // @ts-ignore
-        { targetId: deleteId, childId: props.data.childId },
-        { sagas: true }
-      )
-    );
-    setShowDeleteModal(false);
-  }
-
-  function handleShowFinishModal(target: any) {
-    dispatch(SavingActions.getTargetData(target));
-    setShowFinishTargetModal(true);
-    setFinishTargetId(target.id);
-  }
-
-  function handleFinishTarget() {
-    dispatch(SavingActions.finishTarget(finishTargetId, { sagas: true }));
-    setShowFinishTargetModal(false);
-    dispatch(SavingActions.setEditModal(false));
+  function handleShowFinishTargetModal(target: TargetsData, childName: string) {
+    props.onShowFinishTargetModal(target, childName);
   }
 
   return (
@@ -200,7 +169,13 @@ const TargetList: React.FC<Props> = (props) => {
                     <Button
                       style={styles.button}
                       titleStyle={{ color: colors.white }}
-                      onPress={() => handleShowFinishModal(target)}
+                      //onPress={() => handleShowFinishModal(target)}
+                      onPress={() =>
+                        handleShowFinishTargetModal(
+                          target,
+                          props.data.childName
+                        )
+                      }
                       title="اتمام هدف"
                       loading={savingStore.loading}
                     />
@@ -210,33 +185,6 @@ const TargetList: React.FC<Props> = (props) => {
                     </FormattedText>
                   )}
                 </View>
-                <AlertController
-                  showModal={showDeleteModal}
-                  setShowModal={() => setShowDeleteModal(false)}
-                  title="حذف هدف"
-                  description="آیا از حذف هدف اطمینان دارید؟"
-                  leftAction={handleDelete}
-                  leftTitle="بله"
-                  leftColor={colors.red}
-                  rightTitle="انصراف"
-                  rightAction={() => setShowDeleteModal(false)}
-                />
-                <AlertController
-                  showModal={showFinishTargetModal}
-                  setShowModal={() => setShowFinishTargetModal(false)}
-                  title="اتمام هدف"
-                  description={`با تایید اتمام هدف ${
-                    selectedTargetData.title
-                  } , مبلغ ${
-                    selectedTargetData?.paidAmount
-                      ? formatNumber(selectedTargetData?.paidAmount)
-                      : "0"
-                  } ریال از حساب پس انداز شما کسر شده و به کارت شما منتقل می شود.`}
-                  rightAction={handleFinishTarget}
-                  rightTitle="اتمام هدف"
-                  leftTitle="انصراف"
-                  leftAction={() => setShowFinishTargetModal(false)}
-                />
               </View>
             </View>
           );
