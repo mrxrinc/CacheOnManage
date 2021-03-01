@@ -317,6 +317,8 @@ const TransferMoney: FC = (props: any) => {
           data={transactionResults}
           hasError={transferMoneyStore.transactionResult.hasError}
           onClose={handleCloseModal}
+          description={transferMoneyStore.transactionResult.data.description}
+          message={transferMoneyStore.transactionResult.message}
         />
       </ActionModalCentered>
     </Layout>

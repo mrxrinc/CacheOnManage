@@ -144,6 +144,8 @@ const ConfirmQRPayment: React.FC<Props> = (props) => {
             data={transactionResults}
             hasError={qrStore.paymentResult.hasError}
             onClose={handleCloseQrPayment}
+            description={qrStore.paymentResult.data.description}
+            message={qrStore.paymentResult.message}
           />
         </ActionModalCentered>
       </View>
