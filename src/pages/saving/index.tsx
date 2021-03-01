@@ -105,6 +105,7 @@ const Saving: FC = ({ theme }: any) => {
       <View style={styles.content}>
         <ScrollView
           contentContainerStyle={contentContainerStyle}
+          keyboardShouldPersistTaps="handled"
           refreshControl={
             <RefreshControl
               refreshing={savingStore.loading}

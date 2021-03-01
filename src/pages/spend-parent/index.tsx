@@ -36,23 +36,14 @@ const SpendParent: FC = (props: any) => {
   };
 
   const clcData = (data: any, childId: number) => {
-    const currentDate = moment();
-    const filteredCurrentWeekData = data[
-      childId
-    ].results.filter((date: InvoiceData) =>
-      moment(date.date).isSame(currentDate, "week")
-    );
-    const filteredOthersData = data[childId].results.filter(
-      (date: InvoiceData) => !moment(date.date).isSame(currentDate, "week")
-    );
     setRefinedData([
       {
         title: "هفته جاری",
-        data: filteredCurrentWeekData,
+        data: data[childId].currentWeek,
       },
       {
         title: "سایر تراکنش ها",
-        data: filteredOthersData,
+        data: data[childId].results,
       },
     ]);
     setChilds(data);

@@ -72,6 +72,7 @@ const Cards = (props: any) => {
     return (
       <ScrollView
         contentContainerStyle={styles.cardsPageBox}
+        keyboardShouldPersistTaps="handled"
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={onRefresh} />
         }
