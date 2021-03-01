@@ -52,4 +52,7 @@ export default StyleSheet.create({
   buttonWrapper: {
     padding: 20,
   },
+  error: {
+    color: "#e40046",
+  },
 });

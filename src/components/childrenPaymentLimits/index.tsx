@@ -61,6 +61,7 @@ const renderPaymentMethodItem = (
     amount,
     method,
   };
+
   const activeMethod =
     paymentMethods.filter((n: any) => n.method === method).length > 0;
   let rowAmount = paymentMethods.filter((n: any) => n.method === method)[0];
@@ -101,9 +102,10 @@ const renderPaymentMethodItem = (
           <View>
             <Input
               boxMode
+              maxLength={11}
               keyboardType="number-pad"
               customStyle={[styles.itemInput]}
-              value={formatNumber(activeMethod ? rowAmount || "10000000" : "")}
+              value={formatNumber(activeMethod ? rowAmount : "")}
               editable={isChild || !activeMethod ? false : true}
               onChangeText={(value: string) => {
                 itemData = {
@@ -143,22 +145,30 @@ const ChildrenPaymentLimits = ({
 }: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [paymentMethods, setPaymentMethods] = useState<
     Array<PaymentMethodType>
   >(data ? data : []);
 
   const handleSubmit = () => {
+    setLoading(true);
+    setErrorMessage("");
     if (childId) {
       chargingPayments(token, childId, paymentMethods)
         .then(() => {
+          setLoading(false);
           setShowModal(false);
         })
         .catch((err: any) => {
-          console.warn("err", err.response.data);
+          setLoading(false);
+          setErrorMessage(err.response.data.message);
+          // console.warn("err", err.response.data.message);
         });
     } else {
       if (typeof handleGetPaymentLimits === "function") {
         handleGetPaymentLimits(paymentMethods);
+        setLoading(false);
       }
       setShowModal(false);
     }
@@ -170,7 +180,7 @@ const ChildrenPaymentLimits = ({
       title="تعیین سقف پرداخت"
       setShowModal={(val: boolean) => {
         setShowModal(val);
-        if (!val) setPaymentMethods([]);
+        // if (!val) setPaymentMethods([]);
       }}
     >
       <ScrollView>
@@ -193,6 +203,7 @@ const ChildrenPaymentLimits = ({
               theme
             )
           )}
+          <FormattedText style={styles.error}>{errorMessage}</FormattedText>
         </View>
       </ScrollView>
       {!isChild && (
@@ -202,6 +213,7 @@ const ChildrenPaymentLimits = ({
             onPress={handleSubmit}
             color={theme.ButtonGreenColor}
             disabled={false}
+            loading={loading}
           />
         </View>
       )}

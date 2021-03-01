@@ -33,10 +33,12 @@ const AddAllowance = (props: any) => {
   const [deleteAllowance, setDeleteAllowance] = useState<boolean>(false);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
+  const [loading, setLoading] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
   const handleAddAllowance = ({ remove }: { remove: boolean }) => {
+    setLoading(true);
     const data = {
       paymentDay: paymentDay,
       childId: props.childInfo.id,
@@ -44,12 +46,14 @@ const AddAllowance = (props: any) => {
     };
     addAllowance(token, data)
       .then((response) => {
+        setLoading(false);
         dispatch(getEarningData(Math.random()));
         toggleModal();
         setDeleteAllowance(false);
         dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
       })
       .catch((err) => {
+        setLoading(false);
         setDeleteAllowance(false);
       });
   };
@@ -164,6 +168,7 @@ const AddAllowance = (props: any) => {
             secondaryText="حذف"
             secondaryColor={theme.ButtonRedColor}
             secondaryOnPress={() => setDeleteAllowance(true)}
+            mainLoading={loading}
           />
 
           <AlertController
