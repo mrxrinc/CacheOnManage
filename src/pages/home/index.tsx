@@ -48,6 +48,8 @@ const Home: FC = ({ theme }: any) => {
     try {
       setLoading(true);
       const { cards, header } = await getHomePageData(token);
+      const data= await getHomePageData(token);
+      console.log(data)
       dispatch(getHomeData(header));
       setCards(cards);
       setHeader(header);
@@ -100,7 +102,7 @@ const Home: FC = ({ theme }: any) => {
           color={theme.home.bgColorButton}
           titleStyle={{ color: colors.white }}
           onPress={() => navigation.navigate("cashDeposit")}
-          title="افزایش حساب"
+          title="افزایش موجودی حساب"
         />
       </View>
     </View>

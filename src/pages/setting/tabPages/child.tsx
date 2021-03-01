@@ -472,7 +472,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
         showModal={supportModal}
         setShowModal={() => setSupportModal(false)}
         title="پشتیبانی‌"
-        phoneNumber="02147474747"
+        phoneNumber="02187641"
       />
     </View>
   );

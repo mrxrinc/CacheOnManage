@@ -102,7 +102,7 @@ function AuthStack() {
   return (
     <Stack.Navigator
       initialRouteName="entryType"
-      screenOptions={{ gestureEnabled: false, headerShown: false }}
+      screenOptions={{ gestureEnabled: true, headerShown: false }}
     >
       {/* test total transaction */}
       {/* <Stack.Screen name="total" component={Total} />
