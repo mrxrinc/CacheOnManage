@@ -71,7 +71,13 @@ const AddNewTarget: FC<Props> = (props) => {
     if ($targetAmount >= 1 && $weeklyAmount >= 1 && changedBy !== "field") {
       const week = ($targetAmount / $weeklyAmount) * 7;
       let targetDate = moment().add(week, "days").format("jYYYY/jMM/jDD");
-      setTargetDate(targetDate);
+
+      if (targetDate === "Invalid date") {
+        setTargetDate("غیر قابل محاسبه");
+      } else {
+        setTargetDate(targetDate);
+      }
+
       if (moment(targetDate).isValid()) {
         setChangedBy("system");
       }
@@ -159,6 +165,9 @@ const AddNewTarget: FC<Props> = (props) => {
           errors.weeklySavings =
             "مبلغ پس انداز هفتگی نمی‌تواند بیشتر از مبلغ پول توجیبی باشد.";
         }
+      }
+      if (targetDate === "غیر قابل محاسبه") {
+        errors.targetDate = "لطفا تاریخ صحیح را وارد نمایید";
       }
 
       return errors;
