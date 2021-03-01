@@ -26,6 +26,7 @@ export const initialState: SavingState = {
   transferMoneyToTargetTransactionResult: {
     data: {},
     hasError: false,
+    message: "",
   },
   showEditModal: false,
   showFinishTargetModal: false,

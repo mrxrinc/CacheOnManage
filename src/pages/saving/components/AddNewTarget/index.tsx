@@ -330,6 +330,7 @@ const AddNewTarget: FC<Props> = (props) => {
                 disabled={!formik.isValid || savingStore.loading}
                 title="تعریف هدف جدید"
                 color={theme.ButtonGreenColor}
+                loading={savingStore.loading}
               />
             </View>
           </>

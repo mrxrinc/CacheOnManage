@@ -52,7 +52,11 @@ function* fetchQrPayment(action: Action) {
     if (error.response.data.details) {
       yield put(
         QRPaymentActions.setQrPayment(
-          { data: error.response.data.details, hasError: true },
+          {
+            data: error.response.data.details,
+            hasError: true,
+            message: error.response.data.message,
+          },
           {
             sagas: false,
           }
