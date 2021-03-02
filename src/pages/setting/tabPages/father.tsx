@@ -34,6 +34,8 @@ import { withTheme } from "themeCore/themeProvider";
 const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
   const navigation = useNavigation();
   const token = useSelector<RootState, any>((state) => state.user.token);
+  const user = useSelector<RootState, any>((state) => state);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>(fatherData.username || "");
   const [newPassword, setNewPassword] = useState<string>("");
@@ -83,9 +85,23 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
       // setShowSigninModal(true);
     }
   };
-
   const handleValidatePassword = (status: boolean) => {
     setPasswordIsValid(status);
+  };
+
+  const checkNickName = (input: string) => {
+    clearError()
+    let isSame = fatherData.children.find(
+      (item: any) => item.username === input
+    );
+    if (isSame) {
+      setError({
+        field: "nickname",
+        message: "این نام کاربری قبلا انتخاب شده است",
+      });
+    } else {
+      handleSetSettingData();
+    }
   };
 
   const handleSetSettingData = async (newAvatar: string | null = null) => {
@@ -179,6 +195,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         }}
         value={username}
         error={error.field === "username" ? error.message : null}
+        maxLength={32}
       />
     </>
   );
@@ -223,6 +240,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         }}
         value={nickname}
         error={error.field === "nickname" ? error.message : null}
+        maxLength={32}
       />
     </>
   );
@@ -307,7 +325,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
               style={style.bluePhoneNumber}
               onPress={() => setSupportModal(true)}
             >
-              02112345678
+              02187641
             </Text>
             <Text> تماس حاصل نمائید.</Text>
           </FormattedText>
@@ -421,7 +439,11 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
           {modal.activeContent !== "AVATAR" && (
             <Button
               title="ذخیره"
-              onPress={() => handleSetSettingData()}
+              onPress={() =>
+                modal.activeContent === "NICKNAME"
+                  ? checkNickName(nickname)
+                  : handleSetSettingData()
+              }
               color={theme.ButtonGreenColor}
               loading={loading}
               disabled={
