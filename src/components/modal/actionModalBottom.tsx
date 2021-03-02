@@ -6,7 +6,6 @@ import { FormattedText } from "components/format-text";
 import CloseIcon from "components/icons/close.svg";
 import { colors } from "constants/index";
 import { withTheme } from "themeCore/themeProvider";
-import styles from "components/button/styles";
 
 interface Props {
   showModal: boolean;
@@ -78,7 +77,7 @@ const style = StyleSheet.create({
   },
   scrollView: { justifyContent: "flex-end", flexGrow: 1 },
   modalContainer: {
-    minHeight: 200,
+    minHeight: 150,
     width: "100%",
     backgroundColor: colors.white,
     borderTopRightRadius: 15,

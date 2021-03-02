@@ -8,8 +8,8 @@ import Layout from "components/layout";
 import styles from "./styles";
 import Button from "components/button";
 import { withTheme } from "themeCore/themeProvider";
-import VipCardFront from "images/card-design/custom-front.png";
-import VipCardBack from "images/card-design/custom-back.png";
+import VipCardFront from "images/card-design/vip-front.png";
+import VipCardBack from "images/card-design/vip-back.png";
 import PlusIcon from "components/icons/plus.svg";
 import FlipIcon from "components/icons/flip.svg";
 import CARDS_DATA from "./assets/cards";
@@ -24,41 +24,70 @@ import {
 
 type TabType = "VIP" | "OTHER";
 
-const DefineCard: FC = ({ navigation, theme }: any) => {
+type ActiveCard =
+  | "VIP"
+  | "BLUJR_1"
+  | "BLUJR_2"
+  | "BLUJR_3"
+  | "BLUJR_4"
+  | "BLUJR_5";
+
+const DefineCard: FC = ({ navigation, route, theme }: any) => {
+  const childId = route.params?.childId;
+  const fromAddChild = route.params?.fromAddChild;
+  logger({ childId });
   const [activeTab, setActiveTab] = useState<TabType>("VIP");
   const [flip, setFlip] = useState<boolean>(false);
-  const [flipSecondary, setFlipSecondary] = useState<number | null>(null);
-  const [activeCard, setActiveCard] = useState<number>(5);
+  const [flipSecondary, setFlipSecondary] = useState<string | null>(null);
+  const [activeCard, setActiveCard] = useState<ActiveCard>("VIP");
   const [avatar, setAvatar] = useState<string | null>(null);
   const [imagePickerModal, setImagePickerModal] = useState<boolean>(false);
 
   const handleNextPage = () => {
-    logger(reverseIndex(1, 5));
-    logger(reverseIndex(2, 5));
-    logger(reverseIndex(3, 5));
-    logger(reverseIndex(4, 5));
-    logger(reverseIndex(5, 5));
     navigation.navigate("confirmCard", {
       frontImage:
         activeTab === "VIP"
           ? VipCardFront
-          : CARDS_DATA[reverseIndex(activeCard, 5)].front,
+          : CARDS_DATA.filter((n) => n.id === activeCard)[0].front,
       backImage:
         activeTab === "VIP"
           ? VipCardBack
-          : CARDS_DATA[reverseIndex(activeCard, 5)].back,
+          : CARDS_DATA.filter((n) => n.id === activeCard)[0].back,
       avatar,
-      template: activeTab === "OTHER" ? reverseIndex(activeCard + 1, 5) : null,
+      template: activeTab === "OTHER" ? activeCard : "VIP",
       vip: activeTab === "VIP",
+      childId,
+      fromAddChild,
     });
   };
 
-  const reverseIndex = (min: number, max: number) => {
-    return max - min;
-  };
+  // // use this coz Carousel has a reversed index duo to project being RTL!
+  // const reverseIndex = (min: number, max: number) => {
+  //   return max - min;
+  // };
 
   const switchTab = (tab: TabType) => {
     setActiveTab(tab);
+    if (tab === "VIP") setActiveCard("VIP");
+    else if (tab === "OTHER") setActiveCard("BLUJR_1");
+  };
+
+  const handleChosenCard = (index: number) => {
+    // index = reverseIndex(index, 4);
+    switch (index) {
+      case 0:
+        return "BLUJR_1";
+      case 1:
+        return "BLUJR_2";
+      case 2:
+        return "BLUJR_3";
+      case 3:
+        return "BLUJR_4";
+      case 4:
+        return "BLUJR_5";
+      default:
+        return "VIP";
+    }
   };
 
   const renderTabs = () => {
@@ -188,7 +217,12 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
               inactiveSlideOpacity={0.7}
               containerCustomStyle={{ height: 166 }}
               onSnapToItem={(i: number) => {
-                setActiveCard(reverseIndex(i, 5));
+                setActiveCard(handleChosenCard(i));
+                logger(handleChosenCard(i));
+                logger(
+                  CARDS_DATA.filter((n) => n.id === handleChosenCard(i))[0]
+                    .front
+                );
               }}
             />
           </View>
@@ -217,6 +251,7 @@ const DefineCard: FC = ({ navigation, theme }: any) => {
         key={item.id}
         onPress={() => {
           setActiveCard(item.id);
+          logger(item);
         }}
       >
         <Image

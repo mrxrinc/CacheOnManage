@@ -23,6 +23,7 @@ import MaterialTextField from "components/materialTextfield";
 import Input from "components/input";
 import CardsActions from "store/Cards/cards.action";
 import { withTheme } from "themeCore/themeProvider";
+import { navigationRef } from "navigation/rootNavigation";
 
 interface IResponse {
   description: String;
@@ -74,11 +75,12 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
 
   const handleTouch = () => {
     if (cardsInfo.status == "NONE") {
-      setModal({
-        title: response.isSuccess == null ? "سفارش کارت" : "",
-        activeContent: "ORDER",
-        visibility: true,
-      });
+      // setModal({
+      //   title: response.isSuccess == null ? "سفارش کارت" : "",
+      //   activeContent: "ORDER",
+      //   visibility: true,
+      // });
+      navigationRef.navigate("defineCard");
     } else {
       //  set activation
       setModal({

@@ -75,4 +75,16 @@ export default StyleSheet.create({
   modalContent: {
     paddingHorizontal: 20,
   },
+  successModalContent: {},
+  successIcon: {
+    alignItems: "center",
+  },
+  successContent: {
+    justifyContent: "center",
+  },
+  successMessage: {
+    fontSize: 14,
+    textAlign: "center",
+    marginTop: 10,
+  },
 });

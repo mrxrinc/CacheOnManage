@@ -12,9 +12,11 @@ import FullScreenModal from "components/modal/actionModalFullScreen";
 import PostalCodeInquiry from "../confirmAddress/postalCodeInquiry";
 import Address from "../confirmAddress/address";
 import { orderCard } from "utils/api";
+import ActionModalButtom from "components/modal/actionModalBottom";
+import Success from "images/cards/orderBabyCard/success.svg";
 
 const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
-  const childId = "";
+  const { childId, fromAddChild } = route.params;
   const { frontImage, backImage, avatar, template, vip } = route.params;
   const [loading, setLoading] = useState(false);
   const [flip, setFlip] = useState<boolean>(false);
@@ -32,6 +34,8 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
   const [modalPage, setModalPage] = useState<"postalCode" | "address">(
     "postalCode"
   );
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const token = useSelector<RootState, any>((state) => state.user.token);
 
   const handleConfirm = ({ province, city, address }: any) => {
@@ -51,12 +55,25 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
       vip,
     })
       .then((response) => {
+        setLoading(false);
+        setShowAddressInquiryModal(false);
+        if (fromAddChild) {
+          navigation.navigate("inquiryAddress", {
+            hasCard: true,
+          });
+        } else {
+          setShowSuccessModal(true);
+        }
         logger(response);
       })
       .catch((error) => {
         logger(error.response);
+        console.warn(error.response);
+        setError(
+          `${error.response.data?.message} - ${error.response.data?.status}`
+        );
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   const handleGetAddressDetail = ({
@@ -134,11 +151,19 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
         </View>
       </View>
 
+      {!!error && (
+        <FormattedText style={[styles.successMessage, { color: "red" }]}>
+          {error}
+        </FormattedText>
+      )}
+
       <View style={styles.buttonWrapper}>
         <Button
           title="تائید و سفارش"
           onPress={handleConfirm}
           color={theme.ButtonGreenColor}
+          loading={loading}
+          disabled={loading}
         />
       </View>
 
@@ -166,6 +191,23 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
           />
         )}
       </FullScreenModal>
+
+      <ActionModalButtom
+        showModal={showSuccessModal}
+        setShowModal={() => {
+          setShowSuccessModal(false);
+          navigation.navigate("cardTab");
+        }}
+      >
+        <View style={[styles.successModalContent]}>
+          <View style={styles.successIcon}>{!error && <Success />}</View>
+          <View style={styles.successContent}>
+            <FormattedText style={styles.successMessage}>
+              {!!error ? error : "سفارش کارت با موفقیت ثبت شد."}
+            </FormattedText>
+          </View>
+        </View>
+      </ActionModalButtom>
     </Layout>
   );
 };
