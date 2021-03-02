@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import ActionModalFullScreen from "components/modal/actionModalFullScreen";
 import { FormattedText } from "components/format-text";
-import { colors } from "constants/index";
 import Button from "components/button";
 import Input from "components/input";
 import Checkbox from "components/checkbox";
@@ -19,30 +18,10 @@ type PaymentMethodType = {
 };
 
 const initialData = [
-  {
-    title: "پرداخت قبض موبایل",
-    description: "سقف ماهیانه پرداخت قبض موبایل",
-    amount: "",
-    method: "mobileBill",
-  },
-  {
-    title: "خرید بسته اینترنتی",
-    description: "سقف ماهیانه خرید بسته اینترنت",
-    amount: "",
-    method: "internetPackage",
-  },
-  {
-    title: "خرید شارژ سیم کارت",
-    description: "سقف ماهیانه خرید شارژ سیم‌کارت",
-    amount: "",
-    method: "mobilePerPayment",
-  },
-  {
-    title: "پرداخت با QR",
-    description: "سقف ماهیانه پرداخت با QR",
-    amount: "",
-    method: "qrPayment",
-  },
+  { amount: " ", method: "qrPayment" },
+  { amount: " ", method: "mobilePerPayment" },
+  { amount: " ", method: "internetPackage" },
+  { amount: " ", method: "mobileBill" },
 ];
 
 const renderPaymentMethodItem = (
@@ -147,6 +126,8 @@ const ChildrenPaymentLimits = ({
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [activeMethod, setActiveMethod] = useState<boolean>(false);
+  const [info, setInfo] = useState([]);
   const [paymentMethods, setPaymentMethods] = useState<
     Array<PaymentMethodType>
   >(data ? data : []);
@@ -173,7 +154,9 @@ const ChildrenPaymentLimits = ({
       setShowModal(false);
     }
   };
-
+  useEffect(() => {
+    data != "" ? setInfo(data) : setInfo(initialData);
+  }, []);
   return (
     <ActionModalFullScreen
       showModal={showModal}
@@ -191,18 +174,55 @@ const ChildrenPaymentLimits = ({
             </FormattedText>
           )}
 
-          {initialData.map((item: any) =>
-            renderPaymentMethodItem(
-              item.title,
-              item.description,
-              item.amount,
-              item.method,
-              paymentMethods,
-              setPaymentMethods,
-              isChild,
-              theme
-            )
-          )}
+          {info.map((item: any) => (
+            <View
+              style={{
+                borderWidth: 1,
+                marginTop: 20,
+                height: 60,
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexDirection: "row",
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <View>
+                  <Checkbox
+                    showActive={activeMethod}
+                    onChange={() => {}}
+                    disabled={isChild ? true : false}
+                    color={theme.ButtonGreenColor}
+                  />
+                </View>
+                <View>
+                  <FormattedText>پرداخت قبض موبایل</FormattedText>
+                  <FormattedText>سقف ماهیانه خرید شارژ سیم‌کارت</FormattedText>
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View>
+                  <Input
+                    boxMode
+                    maxLength={11}
+                    keyboardType="number-pad"
+                    customStyle={styles.itemInput}
+                    value={formatNumber(item.amount ? item.amount : "")}
+                    editable={isChild || !activeMethod ? false : true}
+                    onChangeText={(value: string) => {}}
+                  />
+                </View>
+              </View>
+              <View>
+                <FormattedText id={"home.rial"} style={styles.currencyUnit} />
+              </View>
+            </View>
+          ))}
           <FormattedText style={styles.error}>{errorMessage}</FormattedText>
         </View>
       </ScrollView>

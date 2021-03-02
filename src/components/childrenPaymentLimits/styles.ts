@@ -47,7 +47,7 @@ export default StyleSheet.create({
   },
   currencyUnit: {
     fontSize: 13,
-    color: colors.gray600,
+    color: "#00015d",
   },
   buttonWrapper: {
     padding: 20,
