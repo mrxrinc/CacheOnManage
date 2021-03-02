@@ -14,11 +14,13 @@ import { withTheme } from "themeCore/themeProvider";
 const BalanceCard = ({
   id,
   balance,
-  liable,
+  available,
   avatar,
   onPress,
   nickname,
   paymentMethods,
+  incomes,
+  spending,
   theme,
 }: BalanceCardType) => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -52,7 +54,7 @@ const BalanceCard = ({
           <View style={style.amountWrapper}>
             <SavingIcon />
             <FormattedText style={style.balances} fontFamily="Regular-FaNum">
-              {formatNumber(`${liable}`)}{" "}
+              {formatNumber(`${available}`)}{" "}
               <FormattedText style={style.currency} id={"home.rial"} />
             </FormattedText>
           </View>
@@ -72,7 +74,7 @@ const BalanceCard = ({
               end={{ x: 1, y: 0 }}
               style={[
                 style.progress,
-                { width: `${(liable / balance) * 100}%` },
+                { width: `${(spending / incomes) * 100}%` },
               ]}
             />
           </View>

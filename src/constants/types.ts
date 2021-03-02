@@ -15,8 +15,10 @@ export type BalanceCardType = {
   nickname: string;
   theme: any;
   balance: number;
-  liable: number;
+  available: number;
   avatar: string;
+  incomes: number;
+  spending: number;
   onPress?: (T: any) => void;
   children?: JSX.Element;
   paymentMethods: {

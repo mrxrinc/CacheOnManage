@@ -36,6 +36,8 @@ type ChildData = {
   cardRemaining: number;
   savingRemaining: number;
   weeklyRemaining: number;
+  incomes: number;
+  spending: number;
   weeklySpent: number;
   paymentMethods: {
     amount: string;
@@ -229,9 +231,7 @@ const ChildHome = ({ route, theme }: any) => {
                           style.progress,
                           {
                             width: `${
-                              (childData.weeklySpent /
-                                childData.weeklySpendingLimit) *
-                              100
+                              (childData.weeklySpent / childData.incomes) * 100
                             }%`,
                           },
                         ]}
@@ -249,7 +249,9 @@ const ChildHome = ({ route, theme }: any) => {
                       fontFamily="Regular-FaNum"
                       style={style.twinChildTextValue}
                     >
-                      {formatNumber(childData.weeklyRemaining) || 0}{" "}
+                      {formatNumber(
+                        childData.incomes - childData.weeklySpent
+                      ) || 0}{" "}
                       <FormattedText style={style.currency} id={"home.rial"} />
                     </FormattedText>
                   </View>
