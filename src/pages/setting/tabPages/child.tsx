@@ -490,7 +490,7 @@ export const ChildSetting = ({
                 mainColor={colors.buttonSubmitActive}
                 mainOnPress={() => handleSetSettingData()}
                 secondaryText="حذف"
-                secondaryColor={theme.destructive}
+                secondaryColor={colors.pinkRed}
                 secondaryOnPress={() => {
                   setNickname("");
                   handleSetSettingData(null, true);

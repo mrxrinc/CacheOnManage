@@ -45,10 +45,9 @@ const Payment = (props: any) => {
   const rootPage = useSelector<RootStateType, any>(
     (state) => state.quickAccess.rootPage
   );
-  const [
-    showInquiryResponseModal,
-    setShowInquiryResponseModal,
-  ] = useState<boolean>(false);
+  const [showInquiryResponseModal, setShowInquiryResponseModal] = useState<
+    boolean
+  >(false);
   const translate = React.useContext(MessagesContext);
 
   const amount = data.amount + "";
