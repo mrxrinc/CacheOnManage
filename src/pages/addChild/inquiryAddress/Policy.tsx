@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, ScrollView, useWindowDimensions } from "react-native";
+import {
+  ActivityIndicator,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
 import { getPolicy } from "utils/api";
 import { RootState } from "../../../../customType";
 import { useSelector } from "react-redux";
@@ -17,7 +21,6 @@ const Policy = () => {
     getPolicy(token)
       .then((data) => {
         setLoading(false);
-        console.log(data.data.content);
         setPolicyContent(data.data.content);
       })
       .catch((err) => {
@@ -31,8 +34,14 @@ const Policy = () => {
   }, []);
   return (
     <ScrollView style={{ flex: 1 }}>
-      {loading ? <ActivityIndicator size='large' color={colors.blujrBtnOpenActive}  /> : (
-        <HTML containerStyle={{padding: 20}} source={{html: policyContent}} contentWidth={contentWidth} />
+      {loading ? (
+        <ActivityIndicator size="large" color={colors.blujrBtnOpenActive} />
+      ) : (
+        <HTML
+          containerStyle={{ padding: 20 }}
+          source={{ html: policyContent }}
+          contentWidth={contentWidth}
+        />
       )}
     </ScrollView>
   );

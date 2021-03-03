@@ -48,8 +48,6 @@ const Home: FC = ({ theme }: any) => {
     try {
       setLoading(true);
       const { cards, header } = await getHomePageData(token);
-      const data= await getHomePageData(token);
-      console.log(data)
       dispatch(getHomeData(header));
       setCards(cards);
       setHeader(header);
