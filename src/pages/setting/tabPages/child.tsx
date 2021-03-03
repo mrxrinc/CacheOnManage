@@ -33,7 +33,12 @@ import {
   OFFLOAD_MODAL,
 } from "./constants";
 
-export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
+export const ChildSetting = ({
+  childData,
+  handleUpdateData,
+  theme,
+  settingData,
+}: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>(childData.username || "");
@@ -123,6 +128,22 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
     }
   };
 
+  const checkUsername = (input: string) => {
+    clearError();
+    let isSame = settingData.children.find(
+      (item: any) => item.username === input
+    );
+    let isSameFather = input === settingData.nickname;
+    if (isSame || isSameFather) {
+      setError({
+        field: "username",
+        message: "این نام کاربری قبلا انتخاب شده است",
+      });
+    } else {
+      handleSetSettingData();
+    }
+  };
+
   const renderModalContent = () => {
     switch (modal.activeContent) {
       case "USERNAME":
@@ -169,6 +190,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
         onChangeText={(value: any) => {
           setCurrentPassword(value);
         }}
+        value={currentPassword}
         error={error.field === "currentPassword" ? error.message : null}
       />
       <MaterialTextField
@@ -178,6 +200,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
         onChangeText={(value: any) => {
           setNewPassword(value);
         }}
+        value={newPassword}
       />
       <ValidatePassword
         password={newPassword}
@@ -211,7 +234,17 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
       />
     </>
   );
-
+  const checkPassword = () => {
+    let isSame = currentPassword === newPassword;
+    if (isSame) {
+      setError({
+        field: "currentPassword",
+        message: "رمز عبور جدید نمیتواند با رمز عبور فعلی یکسان باشد",
+      });
+    } else {
+      handleSetSettingData();
+    }
+  };
   const renderNicknameEdit = () => (
     <>
       <MaterialTextField
@@ -224,6 +257,14 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
       />
     </>
   );
+
+  const save = () => {
+    modal.activeContent === "USERNAME"
+      ? checkUsername(username)
+      : modal.activeContent === "PASSWORD"
+      ? checkPassword()
+      : handleSetSettingData();
+  };
 
   const renderAvatarEdit = () => (
     <View>
@@ -424,7 +465,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
             modal.activeContent !== "NICKNAME" && (
               <Button
                 title="ذخیره"
-                onPress={() => handleSetSettingData()}
+                onPress={save}
                 color={colors.buttonSubmitActive}
                 loading={loading}
                 disabled={
@@ -449,7 +490,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
                 mainColor={colors.buttonSubmitActive}
                 mainOnPress={() => handleSetSettingData()}
                 secondaryText="حذف"
-                secondaryColor={theme.destructive}
+                secondaryColor={colors.pinkRed}
                 secondaryOnPress={() => {
                   setNickname("");
                   handleSetSettingData(null, true);

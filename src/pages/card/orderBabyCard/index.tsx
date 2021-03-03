@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { FormattedText } from "components/format-text";
-import Card from "images/cards/orderBabyCard/deactive.svg";
+import Card from "images/cards/mainPage/ActiveCard.svg";
 import Plus from "images/cards/orderBabyCard/plus.svg";
 import Success from "images/cards/orderBabyCard/success.svg";
 import Button from "components/button";
@@ -23,6 +23,7 @@ import MaterialTextField from "components/materialTextfield";
 import Input from "components/input";
 import CardsActions from "store/Cards/cards.action";
 import { withTheme } from "themeCore/themeProvider";
+import { validatePostalCode } from "helpers";
 
 interface IResponse {
   description: String;
@@ -38,6 +39,7 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
     description: "",
     isSuccess: null,
   });
+  const [postalCodeError, setPostalCodeError] = React.useState("");
   const [cardPan, setCardPan] = useState("");
   const [password, setPassword] = useState("");
   const [reEnterPassword, setReEnterPassword] = useState("");
@@ -73,9 +75,12 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
   };
 
   const handleTouch = () => {
-    if (cardsInfo.status == "NONE") {
+    if (cardsInfo.status === "NONE") {
       setModal({
-        title: response.isSuccess == null ? "سفارش کارت" : "",
+        title:
+          response.isSuccess == null
+            ? `سفارش کارت برای ${cardsInfo.firstName}`
+            : "",
         activeContent: "ORDER",
         visibility: true,
       });
@@ -122,13 +127,26 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
       })
       .catch((err) => {
         setMainLoading(false);
-        setResponse({
-          description: err.response.data.message,
-          isSuccess: false,
-        });
+        setPostalCodeError(err.response.data.message);
+        // setResponse({
+        // 	description: err.response.data.message,
+        // 	isSuccess: false,
+        // });
       });
   };
+  function handleChangePostalCode(value: string) {
+    if (value.length === 10) {
+      if (validatePostalCode(value)) {
+        setPostalCodeError("");
 
+        handleAddressCheck(value);
+      } else {
+        setPostalCodeError("کد پستی وارد شده نادرست است.");
+      }
+    } else {
+      setPostalCodeError("");
+    }
+  }
   const renderOrderCard = () => {
     return (
       <View>
@@ -149,7 +167,7 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
               </View>
               {edit && (
                 <>
-                  <View style={{ width: "89%" }}>
+                  <View style={{ width: "89%", marginBottom: 20 }}>
                     <MaterialTextField
                       label="کد پستی"
                       style={{ fontFamily: "IRANSansMobileFaNum" }}
@@ -158,11 +176,14 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
                       ref={inputRef}
                       autoFocus
                       onChangeText={(value: string) => {
-                        if (value.length === 10) handleAddressCheck(value);
+                        handleChangePostalCode(value);
                       }}
                       // onChange={clearError}
                       // error={error.field === "postalCode" ? error.message : null}
                     />
+                    <FormattedText style={{ color: "red" }}>
+                      {postalCodeError}
+                    </FormattedText>
                   </View>
                   {!mainLoading && !!address && (
                     <>
@@ -324,11 +345,7 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
       <View style={styles.cardBox}>
         <View style={styles.cardPack}>
           <View style={styles.imgBox}>
-            <Card
-              width={height * 0.89}
-              height={width * 0.8}
-              style={{ position: "absolute", opacity: 0.7 }}
-            />
+            <Card />
             <TouchableOpacity onPress={handleTouch}>
               {cardsInfo.status == "NONE" && <Plus />}
             </TouchableOpacity>
@@ -340,7 +357,9 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
               style={styles.descriptionText}
               id={
                 cardsInfo.status == "NONE"
-                  ? "orderBabyCard.orderDescription"
+                  ? isChild
+                    ? "orderBabyCard.orderChildDescription"
+                    : "orderBabyCard.orderDescription"
                   : "orderBabyCard.activationDescription"
               }
             />

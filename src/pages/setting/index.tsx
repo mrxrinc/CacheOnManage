@@ -65,6 +65,7 @@ export default (props: any) => {
                 tabLabel={child.nickname}
                 key={child.username}
                 childData={child}
+                settingData={settingData}
                 handleUpdateData={handleUpdateData}
               />
             ))}

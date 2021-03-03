@@ -13,7 +13,7 @@ export default StyleSheet.create({
   cardBox: {
     justifyContent: "center",
     alignItems: "center",
-    height: height * 0.6,
+    height: height * 0.5,
   },
   cardPack: {
     height: "40.8%",
@@ -25,8 +25,6 @@ export default StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
-    width: width * 0.9,
-    height: height * 0.3,
   },
 
   description: {
@@ -65,6 +63,7 @@ export default StyleSheet.create({
   addressTitle: {
     width: "89%",
     height: 64,
+    marginBottom: 30,
     justifyContent: "center",
   },
   editAddressTitleText: {

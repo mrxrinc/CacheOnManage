@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../customType";
 import { QuickAccessRootPage } from "store/QuickAccess/quickAccess.actions";
 import { withTheme } from "themeCore/themeProvider";
+import { iosBoxShadow } from "constants/index";
 
 const { width, height } = Dimensions.get("window");
 
@@ -129,7 +130,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     borderRadius: 15,
-    elevation: 1,
+    elevation: 3,
+    ...iosBoxShadow,
   },
   items: {
     flex: 0.6,

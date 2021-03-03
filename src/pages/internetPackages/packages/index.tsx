@@ -14,7 +14,7 @@ export const Packages: FC = (props: any) => {
   const operator = props.route.params?.chosenCarrier;
   const simcardType = props.route.params?.simcardType;
   const [packages, setPackages] = useState<any>(null);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [refreshing, setRefreshing] = useState<boolean>(true);
   const [planId, setPlanId] = useState<number>(0);
   const [chosenPackage, setChosenPackage] = useState<any>(null);
 
@@ -85,7 +85,6 @@ export const Packages: FC = (props: any) => {
       />
     </View>
   );
-
   return (
     <Layout>
       <>

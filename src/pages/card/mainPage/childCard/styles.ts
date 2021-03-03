@@ -11,14 +11,11 @@ export default StyleSheet.create({
   cardBox: {
     width: 300,
     height: 200,
-    paddingHorizontal: 30,
+    paddingHorizontal: 15,
     paddingTop: 36,
     paddingBottom: 19,
   },
-  frontDataWrapper: {
-    justifyContent: "space-between",
-    height: "100%",
-  },
+  frontDataWrapper: {},
   cardImage: {
     position: "absolute",
     top: 0,
@@ -35,6 +32,7 @@ export default StyleSheet.create({
   ownerInformationWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 15,
   },
   cartTexts: {
     color: colors.white,
@@ -42,5 +40,9 @@ export default StyleSheet.create({
   },
   userStateWrapper: {
     alignItems: "flex-end",
+  },
+  amount: {
+    alignItems: "flex-end",
+    marginTop: 25,
   },
 });
