@@ -1,3 +1,4 @@
+import { iosBoxShadow } from "constants/index";
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
@@ -5,10 +6,7 @@ export default StyleSheet.create({
     width: "100%",
     height: 45,
     backgroundColor: "#fff",
-    overflow: "hidden",
-    shadowColor: "#000",
-    shadowRadius: 3,
-    shadowOffset: { width: 0, height: 3 },
+    ...iosBoxShadow,
   },
   button: {
     flex: 1,
@@ -16,6 +14,6 @@ export default StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: 'row',
+    flexDirection: "row",
   },
 });
