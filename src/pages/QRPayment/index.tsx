@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 // Hooks
 import { useDispatch } from "react-redux";
 // UI Frameworks
-import { Text, View, Linking } from "react-native";
+import { Text, View, Linking, Platform } from "react-native";
 import Modal from "react-native-modal";
 import { RNCamera } from "react-native-camera";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -18,7 +18,9 @@ import PayAmount from "./components/PayAmount";
 // Styles
 import styles from "./styles";
 import BarcodeMask from "react-native-barcode-mask";
-import { check, PERMISSIONS, request } from "react-native-permissions";
+import { check, PERMISSIONS, request, RESULTS } from "react-native-permissions";
+import AlertController from "components/alertController";
+import { colors } from "constants/index";
 
 interface BarcodeInfo {
   type: string;
@@ -39,6 +41,7 @@ const QRPayment: React.FC<Props> = (props) => {
   const [qrBtnActive, setQrBtnActive] = React.useState(true);
   const [payAmount, setPayAmount] = React.useState(false);
   const [byHandBtnActive, setByHandPaymentBtnActive] = React.useState(false);
+  const [isModal, setIsModal] = React.useState(false);
 
   function onBarCodeRead(scanResult: BarcodeInfo) {
     console.warn(scanResult.type);
@@ -76,25 +79,25 @@ const QRPayment: React.FC<Props> = (props) => {
     setByHandPaymentBtnActive(true);
   }
 
-  const CheckPermission = async () => {
-    const Rationale = {
-      title: "test",
-      message: "salam",
-      buttonPositive: "yes",
-      buttonNegative: "no",
-      buttonNeutral: "hi",
-    };
-    request(PERMISSIONS.IOS.CAMERA).then((result) => console.log(result));
+  useEffect(() => {
+    checkCameraAccess();
+  }, []);
 
-    const permission = await check(PERMISSIONS.IOS.CAMERA);
-    console.log(permission);
-    if (permission === "denied" || "blocked") {
-      request(PERMISSIONS.IOS.CAMERA).then((result) => console.log(result));
+  const requestCameraAccess = async (status: string) => {
+    if (status === RESULTS.DENIED) {
+      await request(PERMISSIONS.IOS.CAMERA);
+    } else if (status === (RESULTS.BLOCKED || RESULTS.LIMITED)) {
+      setIsModal(true);
     }
   };
-  useEffect(() => {
-    CheckPermission();
-  }, []);
+
+  const checkCameraAccess = async () => {
+    if (Platform.OS === "ios") {
+      let status = await check(PERMISSIONS.IOS.CAMERA);
+      requestCameraAccess(status);
+    }
+  };
+
   return (
     <Layout>
       <Header
@@ -133,9 +136,6 @@ const QRPayment: React.FC<Props> = (props) => {
             {byHandBtnActive && (
               <ByHandPayment payAmount={() => setPayAmount(true)} />
             )}
-            <TouchableOpacity onPress={() => Linking.openURL("app-settings:")}>
-              <Text>test</Text>
-            </TouchableOpacity>
             {showModal && (
               <View style={styles.qrContainer}>
                 <View style={styles.qrPreview}>
@@ -168,6 +168,19 @@ const QRPayment: React.FC<Props> = (props) => {
           </>
         )}
       </ScrollView>
+      <AlertController
+        showModal={isModal}
+        setShowModal={() => setIsModal(false)}
+        title="عدم دسترسی به دوربین"
+        centerText
+        description={`لطفا دسترسی به دوربین را در تنظیمات ${"\n"} فعال کنید`}
+        leftAction={() => Linking.openURL("app-settings:")}
+        rightTitle="انصراف"
+        leftColor={colors.blujrBtnOpenActive}
+        leftTitle="ورود به تنظیمات"
+        rightColor={colors.blujrBtnOpenActive}
+        rightAction={() => setIsModal(false)}
+      />
     </Layout>
   );
 };
