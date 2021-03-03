@@ -59,7 +59,6 @@ const Home: FC = ({ theme }: any) => {
       }
     } catch (error) {
       setLoading(false);
-      console.warn(error.response);
     }
   };
 

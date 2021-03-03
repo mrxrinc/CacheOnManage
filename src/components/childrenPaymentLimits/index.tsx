@@ -3,6 +3,7 @@ import { View, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import ActionModalFullScreen from "components/modal/actionModalFullScreen";
 import { FormattedText } from "components/format-text";
+import { colors } from "constants/index";
 import Button from "components/button";
 import Input from "components/input";
 import Checkbox from "components/checkbox";
@@ -18,10 +19,30 @@ type PaymentMethodType = {
 };
 
 const initialData = [
-  { amount: " ", method: "qrPayment" },
-  { amount: " ", method: "mobilePerPayment" },
-  { amount: " ", method: "internetPackage" },
-  { amount: " ", method: "mobileBill" },
+  {
+    title: "پرداخت قبض موبایل",
+    description: "سقف ماهیانه پرداخت قبض موبایل",
+    amount: "",
+    method: "mobileBill",
+  },
+  {
+    title: "خرید بسته اینترنتی",
+    description: "سقف ماهیانه خرید بسته اینترنت",
+    amount: "",
+    method: "internetPackage",
+  },
+  {
+    title: "خرید شارژ سیم کارت",
+    description: "سقف ماهیانه خرید شارژ سیم‌کارت",
+    amount: "",
+    method: "mobilePerPayment",
+  },
+  {
+    title: "پرداخت با QR",
+    description: "سقف ماهیانه پرداخت با QR",
+    amount: "",
+    method: "qrPayment",
+  },
 ];
 
 const renderPaymentMethodItem = (
@@ -32,7 +53,9 @@ const renderPaymentMethodItem = (
   paymentMethods: any,
   setPaymentMethods: any,
   isChild: boolean,
-  theme: any
+  theme: any,
+  setDefualtAmount: any,
+  defaultAmount: string
 ) => {
   let itemData = {
     title,
@@ -40,10 +63,10 @@ const renderPaymentMethodItem = (
     amount,
     method,
   };
-
   const activeMethod =
     paymentMethods.filter((n: any) => n.method === method).length > 0;
   let rowAmount = paymentMethods.filter((n: any) => n.method === method)[0];
+
   rowAmount = rowAmount ? rowAmount["amount"] : "";
   return (
     <View style={styles.itemsWrapper} key={itemData.title}>
@@ -58,10 +81,12 @@ const renderPaymentMethodItem = (
                 );
                 itemData.amount = "";
               } else {
+                setDefualtAmount("10000000");
+
                 setPaymentMethods([
                   ...paymentMethods,
                   {
-                    amount: itemData.amount,
+                    amount: itemData.amount || 10000000,
                     method: itemData.method,
                   },
                 ]);
@@ -84,9 +109,13 @@ const renderPaymentMethodItem = (
               maxLength={11}
               keyboardType="number-pad"
               customStyle={[styles.itemInput]}
-              value={formatNumber(activeMethod ? rowAmount : "")}
+              value={formatNumber(
+                activeMethod ? rowAmount || defaultAmount : ""
+              )}
               editable={isChild || !activeMethod ? false : true}
               onChangeText={(value: string) => {
+                setDefualtAmount("");
+                rowAmount = "";
                 itemData = {
                   ...itemData,
                   amount: value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, ""),
@@ -126,18 +155,17 @@ const ChildrenPaymentLimits = ({
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [activeMethod, setActiveMethod] = useState<boolean>(false);
-  const [info, setInfo] = useState([]);
+  const [defaultAmount, setDefualtAmount] = useState("10000000");
+  const [clean, setClean] = useState<any>(null);
   const [paymentMethods, setPaymentMethods] = useState<
     Array<PaymentMethodType>
-  >(data ? data : []);
+  >([]);
 
   const handleSubmit = () => {
     setLoading(true);
-    setErrorMessage("");
     if (childId) {
       chargingPayments(token, childId, paymentMethods)
-        .then(() => {
+        .then((response) => {
           setLoading(false);
           setShowModal(false);
         })
@@ -149,21 +177,21 @@ const ChildrenPaymentLimits = ({
     } else {
       if (typeof handleGetPaymentLimits === "function") {
         handleGetPaymentLimits(paymentMethods);
-        setLoading(false);
       }
       setShowModal(false);
     }
   };
   useEffect(() => {
-    data != "" ? setInfo(data) : setInfo(initialData);
-  }, []);
+    setPaymentMethods(data ? data : []);
+  }, [clean]);
   return (
     <ActionModalFullScreen
       showModal={showModal}
       title="تعیین سقف پرداخت"
       setShowModal={(val: boolean) => {
         setShowModal(val);
-        // if (!val) setPaymentMethods([]);
+        setDefualtAmount("");
+        if (!val) setClean(Math.random());
       }}
     >
       <ScrollView>
@@ -174,56 +202,20 @@ const ChildrenPaymentLimits = ({
             </FormattedText>
           )}
 
-          {info.map((item: any) => (
-            <View
-              style={{
-                borderWidth: 1,
-                marginTop: 20,
-                height: 60,
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexDirection: "row",
-              }}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <View>
-                  <Checkbox
-                    showActive={activeMethod}
-                    onChange={() => {}}
-                    disabled={isChild ? true : false}
-                    color={theme.ButtonGreenColor}
-                  />
-                </View>
-                <View>
-                  <FormattedText>پرداخت قبض موبایل</FormattedText>
-                  <FormattedText>سقف ماهیانه خرید شارژ سیم‌کارت</FormattedText>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <View>
-                  <Input
-                    boxMode
-                    maxLength={11}
-                    keyboardType="number-pad"
-                    customStyle={styles.itemInput}
-                    value={formatNumber(item.amount ? item.amount : "")}
-                    editable={isChild || !activeMethod ? false : true}
-                    onChangeText={(value: string) => {}}
-                  />
-                </View>
-              </View>
-              <View>
-                <FormattedText id={"home.rial"} style={styles.currencyUnit} />
-              </View>
-            </View>
-          ))}
-          <FormattedText style={styles.error}>{errorMessage}</FormattedText>
+          {initialData.map((item: any) =>
+            renderPaymentMethodItem(
+              item.title,
+              item.description,
+              item.amount,
+              item.method,
+              paymentMethods,
+              setPaymentMethods,
+              isChild,
+              theme,
+              setDefualtAmount,
+              defaultAmount
+            )
+          )}
         </View>
       </ScrollView>
       {!isChild && (
