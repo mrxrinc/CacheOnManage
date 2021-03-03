@@ -17,7 +17,7 @@ const EarningBox = (props: any) => {
             style={styles.TextInput}
             returnKeyType="done"
             keyboardType="numeric"
-            maxLength={10}
+            maxLength={11}
             underlineColorAndroid={"transparent"}
             onChangeText={onChangeText}
             onLayout={onLayout}

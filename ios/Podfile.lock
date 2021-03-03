@@ -26,10 +26,10 @@ PODS:
     - React
   - CocoaAsyncSocket (7.6.5)
   - CocoaLibEvent (1.0.0)
-  - CodePush (6.4.1):
+  - CodePush (6.3.0):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.12)
-    - React-Core
+    - React
     - SSZipArchive (~> 2.2.2)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.63.4)
@@ -105,6 +105,8 @@ PODS:
   - OpenSSL-Universal (1.0.2.20):
     - OpenSSL-Universal/Static (= 1.0.2.20)
   - OpenSSL-Universal/Static (1.0.2.20)
+  - Permission-Camera (3.0.1):
+    - RNPermissions
   - PPBlinkID (5.9.0)
   - RCTRequired (0.63.4)
   - RCTTypeSafety (0.63.4):
@@ -272,35 +274,35 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-camera (3.42.3):
-    - React-Core
-    - react-native-camera/RCT (= 3.42.3)
-    - react-native-camera/RN (= 3.42.3)
-  - react-native-camera/RCT (3.42.3):
-    - React-Core
-  - react-native-camera/RN (3.42.3):
-    - React-Core
-  - react-native-cameraroll (4.0.2):
-    - React-Core
-  - react-native-nfc-manager (2.3.0):
+  - react-native-camera (3.35.0):
+    - React
+    - react-native-camera/RCT (= 3.35.0)
+    - react-native-camera/RN (= 3.35.0)
+  - react-native-camera/RCT (3.35.0):
+    - React
+  - react-native-camera/RN (3.35.0):
+    - React
+  - react-native-cameraroll (4.0.0):
+    - React
+  - react-native-nfc-manager (2.1.9):
     - React
   - react-native-restart (0.0.20):
     - React-Core
-  - react-native-safe-area-context (3.1.9):
+  - react-native-safe-area-context (3.1.8):
     - React-Core
-  - react-native-segmented-control (2.2.2):
-    - React-Core
-  - react-native-slider (3.0.3):
+  - react-native-segmented-control (2.1.0):
     - React
-  - react-native-video (5.1.1):
-    - React-Core
-    - react-native-video/Video (= 5.1.1)
-  - react-native-video/Video (5.1.1):
-    - React-Core
-  - react-native-viewpager (4.2.3):
-    - React-Core
-  - react-native-webview (10.10.2):
-    - React-Core
+  - react-native-slider (3.0.0):
+    - React
+  - react-native-video (5.1.0-alpha8):
+    - React
+    - react-native-video/Video (= 5.1.0-alpha8)
+  - react-native-video/Video (5.1.0-alpha8):
+    - React
+  - react-native-viewpager (4.1.0):
+    - React
+  - react-native-webview (10.8.0):
+    - React
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
   - React-RCTAnimation (0.63.4):
@@ -363,18 +365,18 @@ PODS:
     - React-jsi (= 0.63.4)
   - RNCAsyncStorage (1.12.1):
     - React-Core
-  - RNCClipboard (1.5.1):
-    - React-Core
+  - RNCClipboard (1.2.3):
+    - React
   - RNCMaskedView (0.1.10):
     - React
-  - RNCPicker (1.8.1):
-    - React-Core
+  - RNCPicker (1.6.5):
+    - React
   - RNDeviceInfo (8.0.1):
     - React-Core
   - RNFS (2.16.6):
     - React
-  - RNGestureHandler (1.10.2):
-    - React-Core
+  - RNGestureHandler (1.8.0):
+    - React
   - RNImageCropPicker (0.34.1):
     - React-Core
     - React-RCTImage
@@ -386,10 +388,12 @@ PODS:
     - TOCropViewController
   - RNKeychain (6.2.0):
     - React
-  - RNReanimated (1.13.2):
+  - RNPermissions (3.0.1):
     - React-Core
-  - RNScreens (2.17.1):
-    - React-Core
+  - RNReanimated (1.13.1):
+    - React
+  - RNScreens (2.11.0):
+    - React
   - RNSVG (12.1.0):
     - React
   - RNVectorIcons (4.6.0):
@@ -433,6 +437,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
+  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -474,6 +479,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNKeychain (from `../node_modules/react-native-keychain`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -529,6 +535,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/lottie-ios"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
+  Permission-Camera:
+    :path: "../node_modules/react-native-permissions/ios/Camera"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -607,6 +615,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-crop-picker"
   RNKeychain:
     :path: "../node_modules/react-native-keychain"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -630,7 +640,7 @@ SPEC CHECKSUMS:
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
-  CodePush: 352a7efabd0a7079a1138a5c6f677baedb0dedf9
+  CodePush: 69186fd1143f7e5e5c6f65383cf14f4927e28213
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
@@ -647,6 +657,7 @@ SPEC CHECKSUMS:
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   lottie-react-native: 1fb4ce21d6ad37dab8343eaff8719df76035bd93
   OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
+  Permission-Camera: b2e50546c095139bb1264be9c34c796332340d32
   PPBlinkID: c7b722ea59710c33b726cbb90caa19d912ca8d25
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
@@ -658,16 +669,16 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-camera: 5396a8db53a44121b1312065a3095f0594a92322
-  react-native-cameraroll: 1965db75c851b15e77a22ca0ac78e32af6b571ae
-  react-native-nfc-manager: f2de215e2a46dbf3d920df87ac9f9caa2091af13
+  react-native-camera: d9e7b66e40420dcef111f3265a00f01eea54c52c
+  react-native-cameraroll: ae0a7c0cc8462508855707ff623b1e789b692865
+  react-native-nfc-manager: 523a918c0ded58b8dba7bf50bda0f21e90bf1b7d
   react-native-restart: a01029aadfe8e71f9e8205fdb17da2f0a4472d50
-  react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
-  react-native-segmented-control: 65df6cd0619b780b3843d574a72d4c7cec396097
-  react-native-slider: e99fc201cefe81270fc9d81714a7a0f5e566b168
-  react-native-video: 0bb76b6d6b77da3009611586c7dbf817b947f30e
-  react-native-viewpager: 936c67cba6e9ca19793d04321427a44cb8e43395
-  react-native-webview: 0aa2cde4ee7e3e1c5fffdf64dbce9c709aa18155
+  react-native-safe-area-context: 79fea126c6830c85f65947c223a5e3058a666937
+  react-native-segmented-control: 4ce904755f67bf17d5250d265d57e40db045ac34
+  react-native-slider: 12bd76d3d568c9c5500825db54123d44b48e4ad4
+  react-native-video: dbb8df4f0bbdf80de6797c90fcad8bc12b19401d
+  react-native-viewpager: 6f8c102e8081d70259252b254143b4193a9fb4cb
+  react-native-webview: bbe20ef0e39caf153c1446621f0d56d460c1f1f5
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -679,16 +690,17 @@ SPEC CHECKSUMS:
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
-  RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
+  RNCClipboard: 48eaf27bea3de7c9a265529725434268d47a2ee9
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNCPicker: 914b557e20b3b8317b084aca9ff4b4edb95f61e4
+  RNCPicker: 55b9b4240d0a9eba8733d02616775d4040de2e7d
   RNDeviceInfo: 921a809eaf9de79645a24de1c6ca90db6cb91786
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
-  RNGestureHandler: e66feb0fda7da74ea6a3094656b3c1efe05f5c07
+  RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
   RNImageCropPicker: 39ec170dc53c227ea352b706c76f7960070309a8
   RNKeychain: b8e0711b959a19c5b057d1e970d3c83d159b6da5
-  RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
-  RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
+  RNPermissions: 4c8a37b4dde50f1f152bf8cd08c4a43d2355829e
+  RNReanimated: dd8c286ab5dd4ba36d3a7fef8bff7e08711b5476
+  RNScreens: 0e91da98ab26d5d04c7b59a9b6bd694124caf88c
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNVectorIcons: a3c395829c56e2cb054a0730126298bf805a2dca
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
@@ -696,6 +708,6 @@ SPEC CHECKSUMS:
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: ac4b888d251f5f085adfeee9486f9e7b8720df43
+PODFILE CHECKSUM: d402a610afbedddc81d6507c49be5617a701d628
 
-COCOAPODS: 1.10.0.rc.1
+COCOAPODS: 1.10.1
