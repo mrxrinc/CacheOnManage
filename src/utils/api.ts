@@ -528,3 +528,10 @@ export const getTransactions = (token: string, data: any) =>
       authorization: `Bearer ${token}`,
     },
   });
+
+export const getPolicy = (token: string) =>
+  instance.get(`/api/v1/users/term`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
