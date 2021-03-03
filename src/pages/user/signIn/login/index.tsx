@@ -201,7 +201,6 @@ const Login = ({ theme }: any) => {
       }
     }
   };
-
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.backgroundColor }]}
@@ -226,7 +225,6 @@ const Login = ({ theme }: any) => {
               onChange={clearError}
               onChangeText={setUsername}
               value={username}
-              initValue={username}
             />
             <MaterialTextField
               label="رمز عبور"
