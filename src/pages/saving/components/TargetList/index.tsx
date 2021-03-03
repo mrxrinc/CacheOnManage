@@ -169,7 +169,6 @@ const TargetList: React.FC<Props> = (props) => {
                     <Button
                       style={styles.button}
                       titleStyle={{ color: colors.white }}
-                      //onPress={() => handleShowFinishModal(target)}
                       onPress={() =>
                         handleShowFinishTargetModal(
                           target,
@@ -178,6 +177,7 @@ const TargetList: React.FC<Props> = (props) => {
                       }
                       title="اتمام هدف"
                       loading={savingStore.loading}
+                      color={theme.ButtonGreenColor}
                     />
                   ) : (
                     <FormattedText style={styles.targetInfo}>
