@@ -33,12 +33,10 @@ export default StyleSheet.create({
   },
   blujrInputBox: {
     width: "100%",
-    height: 62,
     justifyContent: "center",
   },
   blujrInputWrapper: {
     width: "100%",
-    height: 52,
     backgroundColor: "#f5f7fa",
     borderRadius: 10,
     justifyContent: "center",

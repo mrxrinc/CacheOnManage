@@ -6,7 +6,6 @@ import { FormattedText } from "components/format-text";
 import CloseIcon from "components/icons/close.svg";
 import { colors } from "constants/index";
 import { withTheme } from "themeCore/themeProvider";
-import styles from "components/button/styles";
 
 interface Props {
   showModal: boolean;
@@ -17,6 +16,7 @@ interface Props {
   backdropOpacity?: number;
   showHeader?: boolean;
   theme?: any;
+  containerStyle?: any;
 }
 const ActionModalBottom: React.FC<Props> = ({
   showModal,
@@ -27,6 +27,7 @@ const ActionModalBottom: React.FC<Props> = ({
   backdropOpacity,
   showHeader,
   theme,
+  containerStyle,
 }) => {
   return (
     <Modal
@@ -41,7 +42,7 @@ const ActionModalBottom: React.FC<Props> = ({
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={style.scrollView}
       >
-        <View style={style.modalContainer}>
+        <View style={[style.modalContainer, containerStyle]}>
           {showHeader && (
             <View style={style.modalHead}>
               <View
@@ -81,7 +82,7 @@ const style = StyleSheet.create({
   },
   scrollView: { justifyContent: "flex-end", flexGrow: 1 },
   modalContainer: {
-    minHeight: 200,
+    minHeight: 150,
     width: "100%",
     backgroundColor: colors.white,
     borderTopRightRadius: 15,
