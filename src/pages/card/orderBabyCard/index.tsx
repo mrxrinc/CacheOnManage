@@ -23,6 +23,7 @@ import MaterialTextField from "components/materialTextfield";
 import Input from "components/input";
 import CardsActions from "store/Cards/cards.action";
 import { withTheme } from "themeCore/themeProvider";
+import { useNavigation } from "@react-navigation/native";
 import { validatePostalCode } from "helpers";
 
 interface IResponse {
@@ -30,6 +31,7 @@ interface IResponse {
   isSuccess: any;
 }
 const OrderBabyCard = ({ theme, cardsInfo }: any) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const [modal, setModal] = useState<ModalType>(OFFLOAD_MODAL);
   // const cardInfo = props.cardsInfo;
@@ -75,15 +77,8 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
   };
 
   const handleTouch = () => {
-    if (cardsInfo.status === "NONE") {
-      setModal({
-        title:
-          response.isSuccess == null
-            ? `سفارش کارت برای ${cardsInfo.firstName}`
-            : "",
-        activeContent: "ORDER",
-        visibility: true,
-      });
+    if (cardsInfo.status == "NONE") {
+      navigation.navigate("defineCard");
     } else {
       //  set activation
       setModal({

@@ -159,7 +159,11 @@ const messages: Record<string, string> = {
   operator: "اپراتور",
   mobile: "شماره موبایل",
   totalLimit: "سقف محدودیت",
+  defineCard: "انتخاب طرح کارت",
+  confirmCard: "سفارش کارت",
+  orderCard: "سفارش کارت",
   billId: "شناسه قبض",
   paymentId: "شناسه پرداخت",
+  editImage: "ویرایش عکس",
 };
 export default messages;

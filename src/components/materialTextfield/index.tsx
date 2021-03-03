@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, forwardRef } from "react";
-import { View, TouchableOpacity, TextInput, StyleSheet } from "react-native";
+import { View, TouchableOpacity, TextInput } from "react-native";
 import { FilledTextField } from "react-native-material-textfield";
 import { FormattedText } from "components/format-text";
 import { colors } from "constants/index";
@@ -47,15 +47,23 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
   return (
     <View style={[style.container, props.style]}>
       {theme.key === FATHER_BLU_JR ? (
-        <View style={style.blujrInputBox}>
-          <View style={style.blujrInputWrapper}>
+        <View style={[style.blujrInputBox, !props.multiline && { height: 62 }]}>
+          <View
+            style={[
+              style.blujrInputWrapper,
+              !props.multiline && { height: 52 },
+            ]}
+          >
             <TextInput
-              style={style.blujrInput}
+              style={[style.blujrInput, props.inputStyle]}
               placeholder={props.initValue ?? props.label}
               placeholderTextColor="#bbbcbc"
               value={props.value}
               ref={inputRef}
               onFocus={props.isOnFcous}
+              onSubmitEditing={() =>
+                props.nextRef ? props.nextRef.current.focus() : null
+              }
               secureTextEntry={
                 props.icon === "password" ? !showPassword : false
               }
@@ -85,6 +93,9 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
             labelOffset={{ x0: 10, x1: 10, y0: 5, y1: -5 }}
             style={[style.inputStyle, props.inputStyle]}
             onFocus={props.isOnFcous}
+            onSubmitEditing={() =>
+              props.nextRef ? props.nextRef.current.focus() : null
+            }
             ref={inputRef}
             defaultValue={props.value}
             placeholder={props.initValue}
