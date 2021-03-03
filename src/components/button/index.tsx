@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TouchableHighlight, ActivityIndicator } from "react-native";
 import { FormattedText } from "components/format-text";
 import { colors, IOS, width } from "constants/index";
@@ -71,7 +71,7 @@ const Button = ({
       ]}
     >
       <TouchableHighlight
-        style={[styles.button]}
+        style={[styles.button, { borderRadius: theme.buttonBorderRadius }]}
         underlayColor={!outline ? shadeColor(color, -10) : colors.gray850}
         disabled={disabled}
         onPress={onPress}
