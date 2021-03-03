@@ -88,6 +88,12 @@ class Actions {
       payload: status,
     };
   }
+  public setFinishTargetModal(status: boolean): Action<boolean> {
+    return {
+      type: types.SET_FINISH_TARGET_MODAL,
+      payload: status,
+    };
+  }
   public setChildTargets(data: any, options?: ExtraActionInfo): Action<any> {
     return {
       type: options?.sagas

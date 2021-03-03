@@ -128,10 +128,18 @@ const AddNew = (props: any) => {
       navigation.goBack();
     }
   };
+
   const onChangeAmount = (amount: any) => {
     setAmount(amount.replace(/,/g, ""));
     handleFactorCheck(amount.replace(/,/g, ""));
   };
+
+  let disableBtn =
+    !factorCheck ||
+    loading ||
+    childSelected.length === 0 ||
+    (amount && amount.toString().charAt(0) === "0");
+
   return (
     <Layout>
       <Header dynamicTitle={"تعریف فعالیت جدید"} handleBack={handleBack} />
@@ -178,9 +186,7 @@ const AddNew = (props: any) => {
           color={theme.ButtonGreenColor}
           title="تعریف فعالیت جدید"
           onPress={() => handleClick()}
-          disabled={
-            !factorCheck || loading || childSelected.length === 0
-          }
+          disabled={disableBtn}
           loading={loading}
         />
       </ScrollView>

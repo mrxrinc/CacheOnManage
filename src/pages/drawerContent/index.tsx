@@ -51,7 +51,6 @@ const DrawerContent = (props: any) => {
       console.warn("ERROR DECLARING SIGNOUT: ", err, err.response);
     }
   }
-
   return (
     <LinearGradient
       colors={[theme.BlueGradient_Right, theme.BlueGradient_Left]}
@@ -137,10 +136,10 @@ const DrawerContent = (props: any) => {
               <Icon name="bills" size="small" />
               <FormattedText style={styles.itemsFont} id="drawer.bills" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.itemBox}>
+            {/* <TouchableOpacity style={styles.itemBox}>
               <Icon name="help" size="small" />
               <FormattedText style={styles.itemsFont} id="drawer.help" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={styles.itemBox}
               onPress={() => setSupportModal(true)}
@@ -194,7 +193,7 @@ const DrawerContent = (props: any) => {
         showModal={supportModal}
         setShowModal={() => setSupportModal(false)}
         title="پشتیبانی‌"
-        phoneNumber="02147474747"
+        phoneNumber="02187641"
       />
     </LinearGradient>
   );

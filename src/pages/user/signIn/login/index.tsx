@@ -77,7 +77,7 @@ const Login = ({ theme }: any) => {
     const biometricsType = await Keychain.getSupportedBiometryType();
     const checkWasAssigened = await getLocalData("biometrics");
     setBiometricType(biometricsType);
-    if (checkWasAssigened) {
+    if (checkWasAssigened && !isChild) {
       handleBiometricsAction(true);
     }
   };
@@ -93,7 +93,9 @@ const Login = ({ theme }: any) => {
   };
 
   const setData = async () => {
-    const user: any = await AsyncStorage.getItem("username");
+    const parentUsername: any = await AsyncStorage.getItem("parentUsername");
+    const childUsername: any = await AsyncStorage.getItem("childUsername");
+    let user = isChild ? childUsername : parentUsername;
     setUsername(user);
     const childPhone = await AsyncStorage.getItem("childPhone");
     dispatch(childPhoneNumber(childPhone));
@@ -112,7 +114,9 @@ const Login = ({ theme }: any) => {
           if (response.status == 200) {
             dispatch(otpTokenChanged(response.data.access_token));
             AsyncStorage.setItem("token", response.data.access_token);
-            AsyncStorage.setItem("username", username);
+            isChild
+              ? AsyncStorage.setItem("childUsername", username)
+              : AsyncStorage.setItem("parentUsername", username);
             if (biometricType && !denyBiometric) {
               (async () => {
                 const checkWasAssigened = await getLocalData("biometrics");
@@ -197,7 +201,6 @@ const Login = ({ theme }: any) => {
       }
     }
   };
-
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.backgroundColor }]}
@@ -222,7 +225,6 @@ const Login = ({ theme }: any) => {
               onChange={clearError}
               onChangeText={setUsername}
               value={username}
-              initValue={username}
             />
             <MaterialTextField
               label="رمز عبور"
@@ -263,7 +265,7 @@ const Login = ({ theme }: any) => {
         showModal={supportModal}
         setShowModal={() => setSupportModal(false)}
         title="پشتیبانی‌"
-        phoneNumber="02147474747"
+        phoneNumber="02187641"
       />
       <BioModal
         showBiometricModal={showBiometricModal}

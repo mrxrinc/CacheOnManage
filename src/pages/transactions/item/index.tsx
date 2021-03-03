@@ -38,7 +38,7 @@ const Item = (props: any) => {
           {type === "DEPOSIT" ? " + " : " - "}ریال
         </FormattedText>
         <FormattedText style={styles.paymentBottom} fontFamily="Regular-FaNum">
-          {formatNumber(balance)} ریال
+          {balance !== 0 ? formatNumber(balance) : 0} ریال
         </FormattedText>
       </View>
       {!disable && <More />}

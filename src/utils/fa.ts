@@ -21,7 +21,7 @@ const messages: Record<string, string> = {
   "signIn.noRegister": "قبلا ثبت نام نکرده‌اید؟",
   "signIn.forgetPassword": "رمز عبور خود را فراموش کرده اید؟",
   "home.transferMoney": "انتقال وجه",
-  "home.addMoney": "افزایش حساب",
+  "home.addMoney": "افزایش موجودی حساب",
   "home.payable": "قابل پرداخت",
   "home.liable": "پس انداز",
   "home.rial": "ريال",
@@ -33,7 +33,7 @@ const messages: Record<string, string> = {
   "nationalCard.scan":
     "روی کارت ملی خود را مقابل دوربین قرار دهیدسپس دکمه اسکن را فشار دهید",
   "nationalCard.handleClick": "اسکن",
-  cashDeposit: "افزایش حساب",
+  cashDeposit: "افزایش موجودی حساب",
   amount: "مبلغ",
   cardNumber: "شماره کارت",
   cvv2: "Cvv2",
@@ -79,6 +79,7 @@ const messages: Record<string, string> = {
   moreTab: "بیشتر",
   "earning.allowance": "پول توجیبی‌:",
   "earning.title": "درآمد فرزندان",
+  "earning.child.title": "درآمد",
   "earning.button": "افزودن فعالیت جدید",
   "earning.paymentDay": "روز پرداخت",
   "earning.taskTitle": "فعالیت‌های انجام شده در این هفته",
@@ -127,11 +128,13 @@ const messages: Record<string, string> = {
     "برای فعال سازی، لطفا دو بار رمز جدید را وارد کنید.",
   "orderBabyCard.orderDescription":
     "کارتی وجود ندارد. لطفا جهت استفاده از امکانات برنامه برای او کارت سفارش دهید.",
+  "orderBabyCard.orderChildDescription":
+    "کارتی وجود ندارد. لطفا جهت استفاده از امکانات برنامه برای خود کارت سفارش دهید.",
   "orderBabyCard.activationDescription":
     "سفارش کارت با موفقیت ثبت شده است و طی‌ ۳ روز کاری به دست شما خواهد رسید. لطفا در صورت دریافت کارت با استفاده از گزینه فعالسازی، آن را فعال کنید.",
   "appUpdate.title": "به روز رسانی برنامه",
   "appUpdate.dsc.codePush":
-    "برنامه مانی با موفقیت به‌روز‌رسانی شد. برای بهره‌مندی از قابلیت‌های جدید لیست شده در زیر، لطفا یک بار از برنامه خارج شوید و دوباره وارد شوید.",
+    "برنامه بلو جونیور با موفقیت به‌روز‌رسانی شد. برای بهره‌مندی از قابلیت‌های جدید لیست شده در زیر، لطفا یک بار از برنامه خارج شوید و دوباره وارد شوید.",
   "appUpdate.dsc.light":
     "با دریافت نسخه جدید (نام) از قابلیت‌های جدید این برنامه بهره مند شوید.",
   "transactions.total": "تراکنش‌ها",

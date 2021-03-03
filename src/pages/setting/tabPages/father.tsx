@@ -34,6 +34,8 @@ import { withTheme } from "themeCore/themeProvider";
 const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
   const navigation = useNavigation();
   const token = useSelector<RootState, any>((state) => state.user.token);
+  const user = useSelector<RootState, any>((state) => state);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>(fatherData.username || "");
   const [newPassword, setNewPassword] = useState<string>("");
@@ -68,7 +70,6 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
     const biometricsType = await Keychain.getSupportedBiometryType();
     setBiometricType(biometricsType);
     const checkWasAssigned = await getLocalData("biometrics");
-    console.log({ checkWasAssigned });
     if (checkWasAssigned === "true") {
       setDefinedBiometrics(true);
     } else {
@@ -77,7 +78,6 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
   };
 
   const handleSwitchBiometrics = async (value: boolean) => {
-    console.log({ value });
     if (!value) {
       await Keychain.resetGenericPassword({ service: "MoneyApp" });
       removeLocalData("biometrics");
@@ -85,9 +85,23 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
       // setShowSigninModal(true);
     }
   };
-
   const handleValidatePassword = (status: boolean) => {
     setPasswordIsValid(status);
+  };
+
+  const checkNickName = (input: string) => {
+    clearError()
+    let isSame = fatherData.children.find(
+      (item: any) => item.username === input
+    );
+    if (isSame) {
+      setError({
+        field: "nickname",
+        message: "این نام کاربری قبلا انتخاب شده است",
+      });
+    } else {
+      handleSetSettingData();
+    }
   };
 
   const handleSetSettingData = async (newAvatar: string | null = null) => {
@@ -181,6 +195,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         }}
         value={username}
         error={error.field === "username" ? error.message : null}
+        maxLength={32}
       />
     </>
   );
@@ -225,6 +240,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         }}
         value={nickname}
         error={error.field === "nickname" ? error.message : null}
+        maxLength={32}
       />
     </>
   );
@@ -261,7 +277,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
 
   return (
     <View style={style.container}>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled">
         <View style={style.head}>
           <View style={style.avatarWrapper}>
             <TouchableOpacity
@@ -309,7 +325,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
               style={style.bluePhoneNumber}
               onPress={() => setSupportModal(true)}
             >
-              02112345678
+              02187641
             </Text>
             <Text> تماس حاصل نمائید.</Text>
           </FormattedText>
@@ -327,7 +343,6 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
                       ? "ورود با تشخیص چهره"
                       : ""}
                   </FormattedText>
-                  {console.log({ definedBiometrics })}
                   <Switch
                     isActive={definedBiometrics}
                     activeColor={theme.ButtonBlueColor}
@@ -416,12 +431,19 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         setShowModal={() => setModal({ ...modal, visibility: false })}
         title={modal.title}
       >
-        <ScrollView contentContainerStyle={style.modalContent}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={style.modalContent}
+        >
           {renderModalContent()}
           {modal.activeContent !== "AVATAR" && (
             <Button
               title="ذخیره"
-              onPress={() => handleSetSettingData()}
+              onPress={() =>
+                modal.activeContent === "NICKNAME"
+                  ? checkNickName(nickname)
+                  : handleSetSettingData()
+              }
               color={theme.ButtonGreenColor}
               loading={loading}
               disabled={
@@ -442,7 +464,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         showModal={supportModal}
         setShowModal={() => setSupportModal(false)}
         title="پشتیبانی‌"
-        phoneNumber="02147474747"
+        phoneNumber="02187641"
       />
 
       <SigninModal

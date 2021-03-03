@@ -71,7 +71,13 @@ const AddNewTarget: FC<Props> = (props) => {
     if ($targetAmount >= 1 && $weeklyAmount >= 1 && changedBy !== "field") {
       const week = ($targetAmount / $weeklyAmount) * 7;
       let targetDate = moment().add(week, "days").format("jYYYY/jMM/jDD");
-      setTargetDate(targetDate);
+
+      if (targetDate === "Invalid date") {
+        setTargetDate("غیر قابل محاسبه");
+      } else {
+        setTargetDate(targetDate);
+      }
+
       if (moment(targetDate).isValid()) {
         setChangedBy("system");
       }
@@ -160,6 +166,9 @@ const AddNewTarget: FC<Props> = (props) => {
             "مبلغ پس انداز هفتگی نمی‌تواند بیشتر از مبلغ پول توجیبی باشد.";
         }
       }
+      if (targetDate === "غیر قابل محاسبه") {
+        errors.targetDate = "لطفا تاریخ صحیح را وارد نمایید";
+      }
 
       return errors;
     },
@@ -220,7 +229,10 @@ const AddNewTarget: FC<Props> = (props) => {
         staticTitle={"addNewTarget"}
         handleBack={() => props.navigation.goBack()}
       />
-      <ScrollView contentContainerStyle={[styles.container]}>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={[styles.container]}
+      >
         <FormattedText style={styles.targetDesc}>
           تعریف هدف پس انداز برای{" "}
           {isChild ? "شما" : selectedTargetData.childName}
@@ -230,7 +242,7 @@ const AddNewTarget: FC<Props> = (props) => {
           onSubmit={(values: any) => formik.handleSubmit(values)}
         >
           <>
-            <ScrollView>
+            <ScrollView keyboardShouldPersistTaps="handled">
               <View style={styles.titleInputWrapper}>
                 <MaterialTextField
                   label="عنوان هدف"
@@ -321,6 +333,7 @@ const AddNewTarget: FC<Props> = (props) => {
                 disabled={!formik.isValid || savingStore.loading}
                 title="تعریف هدف جدید"
                 color={theme.ButtonGreenColor}
+                loading={savingStore.loading}
               />
             </View>
           </>

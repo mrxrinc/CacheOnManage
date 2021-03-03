@@ -4,13 +4,22 @@ import { StyleSheet, Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
   container: {
-    justifyContent: "space-between",
-    alignItems: "center",
     flexGrow: 1,
+    justifyContent: "space-between",
+  },
+  content: {
+    alignItems: "center",
   },
   chargePackageBox: {
     height: height * 0.51,
     justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  columnWrapper: {
+    flex: 1,
+    justifyContent: "space-between",
+    width: width,
+    paddingHorizontal: width * 0.11,
     alignItems: "center",
   },
   descriptionBox: {
@@ -25,23 +34,23 @@ export default StyleSheet.create({
   },
   inputBox: {
     width: width * 0.89,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 30,
   },
 
   inputPack: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   inputBoxText: {
     fontSize: 20,
     color: colors.title,
-    flex:1,
-    textAlign: 'left',
+    flex: 1,
+    textAlign: "left",
   },
-  rial:{
+  rial: {
     fontSize: 16,
     color: colors.title,
   },
@@ -58,7 +67,7 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  flatList: { marginTop: 25, flex: 1, width: width * 0.8 },
+  flatList: { marginTop: 25 },
   flatListContent: {},
   amountBox: {
     width: width * 0.21,
@@ -68,7 +77,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   chargeTextAmount: { fontSize: 16 },
-  input:{
+  input: {
     height: 44,
     width: 150,
     borderRadius: 8,

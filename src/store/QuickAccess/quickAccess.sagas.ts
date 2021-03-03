@@ -30,7 +30,11 @@ function* fetchMobileBillPayment(action: Action) {
       yield put(
         setMobileBillPayment(
           //@ts-ignore
-          { data: error.response.data.details, hasError: true },
+          {
+            data: error.response.data.details,
+            message: error.response.data.message,
+            hasError: true,
+          },
           {
             sagas: false,
           }
@@ -57,7 +61,11 @@ function* fetchMobileTopUpPayment(action: Action) {
       yield put(
         setMobileTopUpPayment(
           //@ts-ignore
-          { data: error.response.data.details, hasError: true },
+          {
+            data: error.response.data.details,
+            message: error.response.data.message,
+            hasError: true,
+          },
           { sagas: false }
         )
       );

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { View, ScrollView, TouchableOpacity } from "react-native";
 import { colors } from "constants/index";
 import { useSelector } from "react-redux";
@@ -22,6 +22,10 @@ export const SelectCarrier: FC = (props: any) => {
   const mobileNumber = useSelector<RootStateType, any>(
     (state) => state.quickAccess.childPhone || ""
   );
+  const operatorName = useSelector<RootStateType, any>(
+    (state) => state.quickAccess.operatorName
+  );
+
   const [chosenCarrier, setChosenCarrier] = useState<Carrier | null>("MCI");
   const [simcardType, setSimcardType] = useState<SimcardType>("perpaid");
 
@@ -61,6 +65,10 @@ export const SelectCarrier: FC = (props: any) => {
       return <Irancell width={32} height={32} />;
     else return <Rightel width={32} height={32} />;
   };
+
+  useEffect(() => {
+    setChosenCarrier(operatorName);
+  }, []);
 
   const renderCarrierRow = (carrier: Carrier) => (
     <TouchableOpacity

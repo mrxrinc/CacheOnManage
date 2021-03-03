@@ -38,7 +38,10 @@ const ActionModalBottom: React.FC<Props> = ({
       backdropOpacity={backdropOpacity}
       useNativeDriver
     >
-      <ScrollView contentContainerStyle={style.scrollView}>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={style.scrollView}
+      >
         <View style={[style.modalContainer, containerStyle]}>
           {showHeader && (
             <View style={style.modalHead}>

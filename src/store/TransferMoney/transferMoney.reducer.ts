@@ -18,6 +18,7 @@ export const initialState: TransferMoneyState = {
   transactionResult: {
     data: {},
     hasError: false,
+    message: "",
   },
   loading: false,
 };

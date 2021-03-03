@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, ScrollView, ActivityIndicator } from "react-native";
-import { WebView } from "react-native-webview";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
 import Layout from "components/layout";
@@ -17,8 +16,8 @@ import { debounce } from "utils";
 import ActionModalBottom from "components/modal/actionModalBottom";
 import ActionModalFullScreen from "components/modal/actionModalFullScreen";
 import ChildrenPaymentLimits from "components/childrenPaymentLimits";
-import { POLICY_URL } from "constants/index";
 import { withTheme } from "themeCore/themeProvider";
+import Policy from "./Policy";
 
 type FormType = {
   nickname: string;
@@ -360,7 +359,7 @@ export const InquiryAddress = (props: any) => {
           setShowModal={() => setShowPolicyModal(false)}
           title="قوانین و مقررات"
         >
-          <WebView originWhitelist={["*"]} source={{ uri: POLICY_URL }} />
+          <Policy />
         </ActionModalFullScreen>
 
         <ChildrenPaymentLimits

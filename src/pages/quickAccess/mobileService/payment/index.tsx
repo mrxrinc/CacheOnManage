@@ -45,10 +45,9 @@ const Payment = (props: any) => {
   const rootPage = useSelector<RootStateType, any>(
     (state) => state.quickAccess.rootPage
   );
-  const [
-    showInquiryResponseModal,
-    setShowInquiryResponseModal,
-  ] = useState<boolean>(false);
+  const [showInquiryResponseModal, setShowInquiryResponseModal] = useState<
+    boolean
+  >(false);
   const translate = React.useContext(MessagesContext);
 
   const amount = data.amount + "";
@@ -77,7 +76,7 @@ const Payment = (props: any) => {
     const transactionMainKeys = [
       {
         key: "عملیات",
-        value: "خرید شارژ موبایل",
+        value: data.type == "mobileTopUp" ? "خرید شارژ موبایل" : "پرداخت قیض",
       },
     ];
     const result = R.map((key: string) => {
@@ -240,6 +239,8 @@ const Payment = (props: any) => {
         <PaymentTransactionResult
           data={transactionResults}
           hasError={quickAccessStore.paymentResult.hasError}
+          description={quickAccessStore.paymentResult.data.description}
+          message={quickAccessStore.paymentResult.message}
           onClose={handleCloseQrPayment}
         />
       </ActionModalCentered>

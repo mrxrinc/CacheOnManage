@@ -100,7 +100,7 @@ const Home: FC = ({ theme }: any) => {
           color={theme.home.bgColorButton}
           titleStyle={{ color: colors.white }}
           onPress={() => navigation.navigate("cashDeposit")}
-          title="افزایش حساب"
+          title="افزایش موجودی حساب"
         />
       </View>
     </View>

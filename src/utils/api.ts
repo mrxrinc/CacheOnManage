@@ -581,3 +581,9 @@ export const orderCard = (
       },
     }
   );
+export const getPolicy = (token: string) =>
+  instance.get(`/api/v1/users/term`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });

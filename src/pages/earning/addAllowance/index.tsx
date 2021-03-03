@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity, TextInput } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+  Text,
+} from "react-native";
 import { FormattedText } from "components/format-text";
 import { colors } from "constants/index";
 import Button from "components/button";
@@ -27,10 +33,12 @@ const AddAllowance = (props: any) => {
   const [deleteAllowance, setDeleteAllowance] = useState<boolean>(false);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
+  const [loading, setLoading] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
   const handleAddAllowance = ({ remove }: { remove: boolean }) => {
+    setLoading(true);
     const data = {
       paymentDay: paymentDay,
       childId: props.childInfo.id,
@@ -38,12 +46,14 @@ const AddAllowance = (props: any) => {
     };
     addAllowance(token, data)
       .then((response) => {
+        setLoading(false);
         dispatch(getEarningData(Math.random()));
         toggleModal();
         setDeleteAllowance(false);
         dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
       })
       .catch((err) => {
+        setLoading(false);
         setDeleteAllowance(false);
       });
   };
@@ -93,93 +103,91 @@ const AddAllowance = (props: any) => {
           </View>
         </View>
       )}
-      <View>
-        <Modal
-          useNativeDriver
-          isVisible={isModalVisible}
-          onBackdropPress={() => setModalVisible(false)}
-          backdropOpacity={0.3}
-          backdropTransitionOutTiming={10}
-          backdropTransitionInTiming={500}
-          style={{ justifyContent: "center", alignItems: "center" }}
-        >
-          <View style={styles.addAllowanceModal}>
-            <View style={styles.header}>
-              <View />
-              <FormattedText
-                style={{
-                  color: theme.titleColor,
-                  fontSize: 16,
-                  lineHeight: 20,
-                }}
-                fontFamily="Regular-FaNum"
-              >
-                پول توجیبی {props.childInfo.nickname}
-              </FormattedText>
-              <TouchableOpacity onPress={toggleModal}>
-                <Close width={14} height={14} fill={colors.title} />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.inputBox}>
-              <View />
-              <TextInput
-                style={styles.textInput}
-                returnKeyType="done"
-                placeholderTextColor="#c9cbcc"
-                keyboardType="numeric"
-                maxLength={11}
-                underlineColorAndroid={"transparent"}
-                onChangeText={(text) => {
-                  setAllowance(text.replace(/,/g, ""));
-                }}
-                value={formatNumber(allowance) ?? ""}
-              />
-              <FormattedText style={{ color: colors.title, fontSize: 12 }}>
-                ریال
-              </FormattedText>
-            </View>
-            <View
+      <Modal
+        useNativeDriver
+        isVisible={isModalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+        backdropOpacity={0.3}
+        backdropTransitionOutTiming={10}
+        backdropTransitionInTiming={500}
+        style={{ justifyContent: "center", alignItems: "center" }}
+      >
+        <View style={styles.addAllowanceModal}>
+          <View style={styles.header}>
+            <View />
+            <FormattedText
               style={{
-                justifyContent: "flex-start",
-                alignItems: "flex-start",
+                color: theme.titleColor,
+                fontSize: 16,
+                lineHeight: 20,
               }}
+              fontFamily="Regular-FaNum"
             >
-              <FormattedText
-                style={[styles.description, { color: theme.titleColor }]}
-              >
-                پول توجیبی به همراه درآمد فرزند شما هر هفته جمعه راس ساعت ۱۲ شب
-                واریز خواهد شد.
-              </FormattedText>
-            </View>
-            <View style={styles.unequalButtonsWrapper}>
-              <UnequalTwinButtons
-                mainText="ذخیره"
-                mainColor={theme.ButtonGreenColor}
-                mainOnPress={handleAddAllowance}
-                secondaryText="حذف"
-                secondaryColor={theme.ButtonRedColor}
-                secondaryOnPress={() => setDeleteAllowance(true)}
-              />
-            </View>
-
-            <AlertController
-              showModal={deleteAllowance}
-              setShowModal={() => setDeleteAllowance(false)}
-              title="حذف پول توجیبی"
-              description="با انجام این عمل دیگر پول توجیبی بصورت اتوماتیک از حساب شما کسر نمی‌شود.آیا از حذف پول توجیبی اطمینان دارید؟"
-              rightTitle="انصراف"
-              rightAction={() => setDeleteAllowance(false)}
-              leftTitle="حذف"
-              leftColor={colors.red}
-              leftAction={() => {
-                setAllowance("0");
-                handleAddAllowance({ remove: true });
-              }}
-              centerText
-            />
+              پول توجیبی {props.childInfo.nickname}
+            </FormattedText>
+            <TouchableOpacity onPress={toggleModal}>
+              <Close width={14} height={14} fill={colors.title} />
+            </TouchableOpacity>
           </View>
-        </Modal>
-      </View>
+          <View style={styles.inputBox}>
+            <View />
+            <TextInput
+              style={styles.textInput}
+              returnKeyType="done"
+              placeholderTextColor="#c9cbcc"
+              keyboardType="numeric"
+              maxLength={11}
+              underlineColorAndroid={"transparent"}
+              onChangeText={(text) => {
+                setAllowance(text.replace(/,/g, ""));
+              }}
+              value={formatNumber(allowance) ?? ""}
+            />
+            <FormattedText style={{ color: colors.title, fontSize: 12 }}>
+              ریال
+            </FormattedText>
+          </View>
+          <View
+            style={{
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+            }}
+          >
+            <FormattedText
+              style={[styles.description, { color: theme.titleColor }]}
+            >
+              پول توجیبی به همراه درآمد فرزند شما هر هفته جمعه راس ساعت ۱۲ شب
+              واریز خواهد شد.
+            </FormattedText>
+          </View>
+          <UnequalTwinButtons
+            style={styles.unequalButtonsWrapper}
+            mainText="ذخیره"
+            mainColor={theme.ButtonGreenColor}
+            mainOnPress={handleAddAllowance}
+            secondaryText="حذف"
+            secondaryColor={theme.ButtonRedColor}
+            secondaryOnPress={() => setDeleteAllowance(true)}
+            mainLoading={loading}
+          />
+
+          <AlertController
+            showModal={deleteAllowance}
+            setShowModal={() => setDeleteAllowance(false)}
+            title="حذف پول توجیبی"
+            description="با انجام این عمل دیگر پول توجیبی بصورت اتوماتیک از حساب شما کسر نمی‌شود.آیا از حذف پول توجیبی اطمینان دارید؟"
+            rightTitle="انصراف"
+            rightAction={() => setDeleteAllowance(false)}
+            leftTitle="حذف"
+            leftColor={colors.red}
+            leftAction={() => {
+              setAllowance("0");
+              handleAddAllowance({ remove: true });
+            }}
+            centerText
+          />
+        </View>
+      </Modal>
     </View>
   );
 };

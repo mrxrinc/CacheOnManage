@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, FlatList } from "react-native";
+import { View, TouchableOpacity, FlatList, ScrollView } from "react-native";
 import ChildCard from "./childCard";
 import CardItems from "./cardItems";
 import { FormattedText } from "components/format-text";
@@ -14,10 +14,9 @@ const MainPage = (props: any) => {
   const { cardsInfo, data } = props;
 
   const renderListHead = () => (
-    <>
+    <ScrollView keyboardShouldPersistTaps="handled">
       <ChildCard cardsInfo={props.cardsInfo} />
       <CardItems cardsInfo={props.cardsInfo} />
-
       <View style={styles.listSection}>
         <View style={styles.transactionHeader}>
           <FormattedText
@@ -40,20 +39,19 @@ const MainPage = (props: any) => {
           <FormattedText style={styles.categoryTitle}>هفته جاری</FormattedText>
         </View>
       </View>
-    </>
+    </ScrollView>
   );
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        contentContainerStyle={styles.flatList}
-        data={data}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={(item) => <Item data={item} />}
-        ListHeaderComponent={() => renderListHead()}
-        ListHeaderComponentStyle={{ backgroundColor: "white" }}
-      />
-    </View>
+    <FlatList
+      contentContainerStyle={styles.flatList}
+      data={data}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={(item) => <Item data={item} />}
+      ListHeaderComponent={() => renderListHead()}
+      ListHeaderComponentStyle={{ backgroundColor: "white" }}
+      keyboardShouldPersistTaps="handled"
+    />
   );
 };
 

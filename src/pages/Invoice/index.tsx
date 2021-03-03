@@ -1,6 +1,4 @@
 import React, { FC, useState, useEffect } from "react";
-import moment from "moment-jalaali";
-import { InvoiceData } from "constants/types";
 import { StateNetwork } from "store/index.reducer";
 import { InvoiceState } from "store/Invoice/invoice.reducer";
 import InvoiceActions from "store/Invoice/invoice.actions";
@@ -36,23 +34,16 @@ const Invoice: FC<Props> = (props) => {
   }, [invoiceState.invoiceList]);
 
   const getData = () => {
-    const currentDate = moment();
-
-    const filteredCurrentWeekData = invoiceState.invoiceList.filter(
-      (date: InvoiceData) => moment(date.date).isSame(currentDate, "week")
-    );
-    const filteredOthersData = invoiceState.invoiceList.filter(
-      (date: InvoiceData) => !moment(date.date).isSame(currentDate, "week")
-    );
-    if (invoiceState.invoiceList) {
+    const { currentWeek, others }: any = invoiceState.invoiceList;
+    if (currentWeek && others) {
       setRefinedData([
         {
           title: "هفته جاری",
-          data: filteredCurrentWeekData,
+          data: currentWeek,
         },
         {
           title: "سایر تراکنش ها",
-          data: filteredOthersData,
+          data: others,
         },
       ]);
     }
@@ -75,7 +66,7 @@ const Invoice: FC<Props> = (props) => {
           keyExtractor={(item, index) => index.toString()}
           onRefresh={pullToRefresh}
           refreshing={invoiceState.loading}
-          renderItem={(item) => <Item disable data={item} />}
+          renderItem={(item) => <Item data={item} />}
           renderSectionHeader={({ section }) => (
             <SectionHeader data={section} />
           )}
