@@ -22,16 +22,23 @@ type Props = {
     phone: string;
   }) => void;
   theme: any;
+  savedPostalCode?: string;
+  savedPhone?: string;
 };
 
-const PostalCodeInquiry = ({ handleGetAddressDetail, theme }: Props) => {
+const PostalCodeInquiry = ({
+  handleGetAddressDetail,
+  theme,
+  savedPostalCode,
+  savedPhone,
+}: Props) => {
   const [error, setError] = useState<any>({ field: "", message: "" });
   const [loading, setLoading] = useState(false);
   const postalCodeRef = useRef(null);
   const phoneRef = useRef(null);
   const token = useSelector<RootState, any>((state) => state.user.token);
-  const [postalCode, setPostalcode] = useState("");
-  const [phone, setPhone] = useState("");
+  const [postalCode, setPostalcode] = useState(savedPostalCode || "");
+  const [phone, setPhone] = useState(savedPhone || "");
 
   const clearError = () => {
     LayoutAnimation.configureNext(
@@ -52,7 +59,6 @@ const PostalCodeInquiry = ({ handleGetAddressDetail, theme }: Props) => {
     setLoading(true);
     getAddressByPostalCode(token, postalCode)
       .then((response: any) => {
-        logger(response);
         setLoading(false);
         if (response.status == 200) {
           const data = response.data;
@@ -89,12 +95,10 @@ const PostalCodeInquiry = ({ handleGetAddressDetail, theme }: Props) => {
               LayoutAnimation.Properties.opacity
             )
           );
-          setError({ field: "error", message: "خطای شبکه" });
         }
       })
       .catch((err) => {
-        console.log(err.response);
-        logger(err.response);
+        console.warn(err.response);
         LayoutAnimation.configureNext(
           LayoutAnimation.create(
             200,
@@ -102,7 +106,7 @@ const PostalCodeInquiry = ({ handleGetAddressDetail, theme }: Props) => {
             LayoutAnimation.Properties.opacity
           )
         );
-        setError({ field: "error", message: err.response.data.message });
+        setError({ field: "postalCode", message: err.response.data.message });
         setLoading(false);
       });
   };
@@ -135,6 +139,7 @@ const PostalCodeInquiry = ({ handleGetAddressDetail, theme }: Props) => {
           returnKeyType="next"
           onChange={clearError}
           onChangeText={onPostalCodeChanged}
+          error={error?.field === "postalCode" ? error.message : null}
         />
         <MaterialTextInput
           placeholder="شماره تلفن ثابت"

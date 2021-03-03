@@ -560,7 +560,7 @@ export const orderCard = (
   }: any
 ) =>
   instance.post(
-    `/api/v1/common/inquiryAddress`,
+    `/api/v1/cards/order`,
     {
       childId,
       province,

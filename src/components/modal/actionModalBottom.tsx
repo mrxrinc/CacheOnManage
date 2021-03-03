@@ -16,6 +16,7 @@ interface Props {
   backdropOpacity?: number;
   showHeader?: boolean;
   theme?: any;
+  containerStyle?: any;
 }
 const ActionModalBottom: React.FC<Props> = ({
   showModal,
@@ -26,6 +27,7 @@ const ActionModalBottom: React.FC<Props> = ({
   backdropOpacity,
   showHeader,
   theme,
+  containerStyle,
 }) => {
   return (
     <Modal
@@ -37,7 +39,7 @@ const ActionModalBottom: React.FC<Props> = ({
       useNativeDriver
     >
       <ScrollView contentContainerStyle={style.scrollView}>
-        <View style={style.modalContainer}>
+        <View style={[style.modalContainer, containerStyle]}>
           {showHeader && (
             <View style={style.modalHead}>
               <View

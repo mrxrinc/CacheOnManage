@@ -30,6 +30,20 @@ type PaymentMethodType = {
   amount: string;
 };
 
+type CardType = {
+  province?: string;
+  city?: string;
+  street?: string;
+  buildingNo?: string;
+  floor?: string;
+  address?: string;
+  postalCode?: string;
+  phone?: string;
+  avatar?: string;
+  template?: string;
+  vip?: string;
+};
+
 export const InquiryAddress = (props: any) => {
   const theme = props.theme.addChild;
   const token = useSelector<RootState, any>((state) => state.user.token);
@@ -41,6 +55,7 @@ export const InquiryAddress = (props: any) => {
   const [error, setError] = useState<any>({ field: "", message: "" });
   const [postalCode, setPostalCode] = useState<string>("");
   const [address, setAddress] = useState<string | null>(null);
+  const [card, setCard] = useState<CardType | null>(null);
   const [mobileNumber, setMobileNumber] = useState<string | null>(null);
   const [acceptPolicies, setAcceptPolicies] = useState<boolean>(false);
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
@@ -109,11 +124,16 @@ export const InquiryAddress = (props: any) => {
       address,
       paymentMethods,
       mobile: mobileNumber,
+      card,
     });
   };
 
   const handleGetPaymentLimits = (data: PaymentMethodType[]) => {
     setPaymentMethods(data);
+  };
+
+  const handleGetCardData = (data: CardType) => {
+    setCard(data);
   };
 
   return (
@@ -236,10 +256,22 @@ export const InquiryAddress = (props: any) => {
                   {address}
                 </FormattedText>
               )}
-              <View style={style.editAddressButtonWrapper}>
+              <View
+                style={[
+                  style.editAddressButtonWrapper,
+                  { width: "100%", marginTop: 20 },
+                ]}
+              >
                 <Button
-                  title="ویرایش آدرس ارسال "
-                  onPress={() => setShowInquiryAddressModal(true)}
+                  title={`سفارش کارت ${
+                    !!form?.nickname ? "برای " + form.nickname : ""
+                  }`}
+                  onPress={() => {
+                    // setShowInquiryAddressModal(true);
+                    props.navigation.navigate("defineCard", {
+                      fromAddChild: handleGetCardData,
+                    });
+                  }}
                   color={theme.itemsButton}
                   disabled={!form.enableAddress}
                 />

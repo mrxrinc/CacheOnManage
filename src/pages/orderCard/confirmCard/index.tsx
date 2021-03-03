@@ -37,43 +37,63 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const token = useSelector<RootState, any>((state) => state.user.token);
+  const fatherAddress = useSelector<RootState, any>(
+    (state) => state.home.homeData.address
+  );
 
   const handleConfirm = ({ province, city, address }: any) => {
-    setLoading(true);
-    orderCard(token, {
-      childId,
-      province,
-      city,
-      street,
-      buildingNo,
-      floor,
-      address,
-      postalCode,
-      phone,
-      avatar,
-      template,
-      vip,
-    })
-      .then((response) => {
-        setLoading(false);
-        setShowAddressInquiryModal(false);
-        if (fromAddChild) {
-          navigation.navigate("inquiryAddress", {
-            hasCard: true,
-          });
-        } else {
-          setShowSuccessModal(true);
-        }
-        logger(response);
+    if (typeof fromAddChild !== "function") {
+      setLoading(true);
+      orderCard(token, {
+        childId,
+        province,
+        city,
+        street,
+        buildingNo,
+        floor,
+        address,
+        postalCode,
+        phone,
+        avatar,
+        template,
+        vip,
       })
-      .catch((error) => {
-        logger(error.response);
-        console.warn(error.response);
-        setError(
-          `${error.response.data?.message} - ${error.response.data?.status}`
-        );
-        setLoading(false);
+        .then((response) => {
+          setLoading(false);
+          setShowAddressInquiryModal(false);
+          if (fromAddChild) {
+            navigation.navigate("inquiryAddress", {
+              hasCard: true,
+            });
+          } else {
+            setShowSuccessModal(true);
+          }
+          console.debug({ response });
+        })
+        .catch((error) => {
+          console.warn(error.response);
+          setShowAddressInquiryModal(false);
+          setError(
+            `${error.response.status} - ${error.response.data?.message}`
+          );
+          setLoading(false);
+        });
+    } else {
+      fromAddChild({
+        province,
+        city,
+        street,
+        buildingNo,
+        floor,
+        address,
+        postalCode,
+        phone,
+        avatar,
+        template,
+        vip,
       });
+      navigation.pop(2);
+    }
   };
 
   const handleGetAddressDetail = ({
@@ -86,16 +106,6 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
     postalCode,
     phone,
   }: any) => {
-    logger({
-      province,
-      city,
-      address,
-      postalCode,
-      phone,
-      street,
-      buildingNo,
-      floor,
-    });
     setPostalcode(postalCode);
     setPhone(phone);
     setProvince(province);
@@ -135,11 +145,10 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
 
         <View style={styles.addressSection}>
           <FormattedText style={styles.Title} fontFamily="Bold">
-            کارت سارا به آدرس زیر ارسال می‌شود:
+            کارت به آدرس زیر ارسال می‌شود:
           </FormattedText>
           <FormattedText style={styles.Description}>
-            با انتخاب این گزینه شما می‌توانید عکس فرزندتان را روی کارت او چاپ
-            کنید.
+            {fatherAddress || clientAddress}
           </FormattedText>
           <View style={styles.addressButtonWrapper}>
             <Button
@@ -177,16 +186,16 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
         {modalPage === "postalCode" && (
           <PostalCodeInquiry
             handleGetAddressDetail={handleGetAddressDetail}
-            postalCode={postalCode || null}
-            phone={phone || null}
+            savedPostalCode={postalCode || null}
+            savedPhone={phone || null}
           />
         )}
         {modalPage === "address" && (
           <Address
             handleConfirm={handleConfirm}
-            originalProvince={province}
-            originalCity={city}
-            originalAddress={clientAddress}
+            savedProvince={province}
+            savedCity={city}
+            savedAddress={clientAddress}
             loading={loading}
           />
         )}

@@ -35,7 +35,6 @@ type ActiveCard =
 const DefineCard: FC = ({ navigation, route, theme }: any) => {
   const childId = route.params?.childId;
   const fromAddChild = route.params?.fromAddChild;
-  logger({ childId });
   const [activeTab, setActiveTab] = useState<TabType>("VIP");
   const [flip, setFlip] = useState<boolean>(false);
   const [flipSecondary, setFlipSecondary] = useState<string | null>(null);
@@ -61,11 +60,6 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
     });
   };
 
-  // // use this coz Carousel has a reversed index duo to project being RTL!
-  // const reverseIndex = (min: number, max: number) => {
-  //   return max - min;
-  // };
-
   const switchTab = (tab: TabType) => {
     setActiveTab(tab);
     if (tab === "VIP") setActiveCard("VIP");
@@ -73,7 +67,6 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
   };
 
   const handleChosenCard = (index: number) => {
-    // index = reverseIndex(index, 4);
     switch (index) {
       case 0:
         return "BLUJR_1";
@@ -218,11 +211,6 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
               containerCustomStyle={{ height: 166 }}
               onSnapToItem={(i: number) => {
                 setActiveCard(handleChosenCard(i));
-                logger(handleChosenCard(i));
-                logger(
-                  CARDS_DATA.filter((n) => n.id === handleChosenCard(i))[0]
-                    .front
-                );
               }}
             />
           </View>
@@ -251,7 +239,6 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
         key={item.id}
         onPress={() => {
           setActiveCard(item.id);
-          logger(item);
         }}
       >
         <Image
@@ -322,6 +309,7 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
       <ActionModalButtom
         showModal={imagePickerModal}
         setShowModal={() => setImagePickerModal(false)}
+        containerStyle={{ height: 200 }}
       >
         {renderAvatarEdit()}
       </ActionModalButtom>

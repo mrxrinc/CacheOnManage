@@ -16,13 +16,13 @@ const Address = ({
   theme,
   handleConfirm,
   loading,
-  originalCity,
-  originalAddress,
-  originalProvince,
+  savedCity,
+  savedAddress,
+  savedProvince,
 }: any) => {
-  const [city, setCity] = useState(originalCity || "");
-  const [province, setProvince] = useState(originalProvince || "");
-  const [address, setAddress] = useState(originalAddress || "");
+  const [city, setCity] = useState(savedCity || "");
+  const [province, setProvince] = useState(savedProvince || "");
+  const [address, setAddress] = useState(savedAddress || "");
   const cityRef = useRef(null);
   const provinceRef = useRef(null);
   const addressRef = useRef(null);

@@ -23,13 +23,14 @@ import MaterialTextField from "components/materialTextfield";
 import Input from "components/input";
 import CardsActions from "store/Cards/cards.action";
 import { withTheme } from "themeCore/themeProvider";
-import { navigationRef } from "navigation/rootNavigation";
+import { useNavigation } from "@react-navigation/native";
 
 interface IResponse {
   description: String;
   isSuccess: any;
 }
 const OrderBabyCard = ({ theme, cardsInfo }: any) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const [modal, setModal] = useState<ModalType>(OFFLOAD_MODAL);
   // const cardInfo = props.cardsInfo;
@@ -75,12 +76,7 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
 
   const handleTouch = () => {
     if (cardsInfo.status == "NONE") {
-      // setModal({
-      //   title: response.isSuccess == null ? "سفارش کارت" : "",
-      //   activeContent: "ORDER",
-      //   visibility: true,
-      // });
-      navigationRef.navigate("defineCard");
+      navigation.navigate("defineCard");
     } else {
       //  set activation
       setModal({
