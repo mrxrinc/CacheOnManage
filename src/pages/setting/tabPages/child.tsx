@@ -257,7 +257,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
 
   return (
     <View style={style.container}>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled">
         <View style={style.head}>
           <View style={style.avatarWrapper}>
             <TouchableOpacity
@@ -415,7 +415,10 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
         setShowModal={() => setModal({ ...modal, visibility: false })}
         title={modal.title}
       >
-        <ScrollView contentContainerStyle={style.modalContent}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={style.modalContent}
+        >
           {renderModalContent()}
           {modal.activeContent !== "AVATAR" &&
             modal.activeContent !== "NICKNAME" && (
@@ -469,7 +472,7 @@ export const ChildSetting = ({ childData, handleUpdateData, theme }: any) => {
         showModal={supportModal}
         setShowModal={() => setSupportModal(false)}
         title="پشتیبانی‌"
-        phoneNumber="02147474747"
+        phoneNumber="02187641"
       />
     </View>
   );

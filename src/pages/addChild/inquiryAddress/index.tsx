@@ -33,9 +33,10 @@ type PaymentMethodType = {
 export const InquiryAddress = (props: any) => {
   const theme = props.theme.addChild;
   const token = useSelector<RootState, any>((state) => state.user.token);
-  const [showInquiryAddressModal, setShowInquiryAddressModal] = useState<
-    boolean
-  >(false);
+  const [
+    showInquiryAddressModal,
+    setShowInquiryAddressModal,
+  ] = useState<boolean>(false);
   const [showPolicyModal, setShowPolicyModal] = useState<boolean>(false);
   const [showMobileModal, setShowMobileModal] = useState<boolean>(false);
   const [error, setError] = useState<any>({ field: "", message: "" });

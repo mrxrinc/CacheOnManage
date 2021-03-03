@@ -63,7 +63,11 @@ function* fetchTransfetMoneyTransaction(action: Action) {
     if (error.response.data.details) {
       yield put(
         SavingActions.transferMoneyToTarget(
-          { data: error.response.data.details, hasError: true },
+          {
+            data: error.response.data.details,
+            hasError: true,
+            message: error.response.data.message,
+          },
           {
             sagas: false,
           }
@@ -78,6 +82,7 @@ function* fetchTransfetMoneyTransaction(action: Action) {
 }
 function* deleteTarget(action: Action<DeleteTarget>) {
   try {
+    yield put(SavingActions.setLoading(true));
     yield call(
       //@ts-ignore
       SavingService.deleteTarget.bind(SavingService),
@@ -88,6 +93,7 @@ function* deleteTarget(action: Action<DeleteTarget>) {
         sagas: false,
       })
     );
+    yield put(SavingActions.setLoading(false));
   } catch (error) {
     yield put(SavingActions.setLoading(false));
   }
@@ -95,6 +101,7 @@ function* deleteTarget(action: Action<DeleteTarget>) {
 
 function* addTarget(action: Action<AddTarget | TargetsData>) {
   try {
+    yield put(SavingActions.setLoading(true));
     yield call(
       SavingService.addTarget.bind(SavingService),
       action.payload as AddTarget
@@ -106,6 +113,7 @@ function* addTarget(action: Action<AddTarget | TargetsData>) {
       // @ts-ignore
       SavingActions.setSavingsDataList(savingListRes, { sagas: false })
     );
+    yield put(SavingActions.setLoading(false));
   } catch (error) {
     yield put(SavingActions.setLoading(false));
   }
@@ -113,6 +121,7 @@ function* addTarget(action: Action<AddTarget | TargetsData>) {
 
 function* finishTarget(action: Action<number>) {
   try {
+    yield put(SavingActions.setLoading(true));
     yield call(
       SavingService.finishTarget.bind(SavingService),
       action.payload as number
@@ -127,12 +136,15 @@ function* finishTarget(action: Action<number>) {
         sagas: false,
       })
     );
+    yield put(SavingActions.setLoading(false));
   } catch (error) {
     yield put(SavingActions.setLoading(false));
   }
 }
+
 function* updateTarget(action: Action<AddTarget>) {
   try {
+    yield put(SavingActions.setLoading(true));
     yield call(
       SavingService.updateTarget.bind(SavingService),
       action.payload as AddTarget
@@ -147,6 +159,7 @@ function* updateTarget(action: Action<AddTarget>) {
         sagas: false,
       })
     );
+    yield put(SavingActions.setLoading(false));
   } catch (error) {
     yield put(SavingActions.setLoading(false));
   }

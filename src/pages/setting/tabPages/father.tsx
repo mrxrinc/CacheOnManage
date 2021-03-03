@@ -68,7 +68,6 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
     const biometricsType = await Keychain.getSupportedBiometryType();
     setBiometricType(biometricsType);
     const checkWasAssigned = await getLocalData("biometrics");
-    console.log({ checkWasAssigned });
     if (checkWasAssigned === "true") {
       setDefinedBiometrics(true);
     } else {
@@ -77,7 +76,6 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
   };
 
   const handleSwitchBiometrics = async (value: boolean) => {
-    console.log({ value });
     if (!value) {
       await Keychain.resetGenericPassword({ service: "MoneyApp" });
       removeLocalData("biometrics");
@@ -261,7 +259,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
 
   return (
     <View style={style.container}>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled">
         <View style={style.head}>
           <View style={style.avatarWrapper}>
             <TouchableOpacity
@@ -327,7 +325,6 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
                       ? "ورود با تشخیص چهره"
                       : ""}
                   </FormattedText>
-                  {console.log({ definedBiometrics })}
                   <Switch
                     isActive={definedBiometrics}
                     activeColor={theme.ButtonBlueColor}
@@ -416,7 +413,10 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         setShowModal={() => setModal({ ...modal, visibility: false })}
         title={modal.title}
       >
-        <ScrollView contentContainerStyle={style.modalContent}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={style.modalContent}
+        >
           {renderModalContent()}
           {modal.activeContent !== "AVATAR" && (
             <Button
@@ -442,7 +442,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
         showModal={supportModal}
         setShowModal={() => setSupportModal(false)}
         title="پشتیبانی‌"
-        phoneNumber="02147474747"
+        phoneNumber="02187641"
       />
 
       <SigninModal

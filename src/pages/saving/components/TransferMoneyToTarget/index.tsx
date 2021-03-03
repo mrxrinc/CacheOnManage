@@ -269,6 +269,10 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
           data={transactionResults}
           hasError={savingStore.transferMoneyToTargetTransactionResult.hasError}
           onClose={handleCloseModal}
+          description={
+            savingStore.transferMoneyToTargetTransactionResult.data.description
+          }
+          message={savingStore.transferMoneyToTargetTransactionResult.message}
         />
       </ActionModalCentered>
     </Layout>

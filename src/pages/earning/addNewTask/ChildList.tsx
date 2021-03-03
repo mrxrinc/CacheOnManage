@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
   container: {
     flexWrap: "wrap",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
   },
 });

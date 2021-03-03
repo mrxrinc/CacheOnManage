@@ -34,13 +34,22 @@ import { colors } from "constants/index";
 // Styles
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
+import AlertController from "components/alertController";
+import { formatNumber } from "utils";
 
 const Saving: FC = ({ theme }: any) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
   const [selectedTab, setSelectedTab] = React.useState<number>(0);
   const [childName, setChildName] = React.useState<string>("");
+  const [childNameInFinishTarget, setChildNameInFinishTarget] = React.useState<
+    string
+  >("");
   const [childAllowance, setChildAllowance] = React.useState<string>("");
+  const [finishTargetId, setFinishTargetId] = React.useState(0);
+  const [deleteTargetId, setDeleteTargetId] = React.useState(0);
+  const [deleteChildId, setDeleteChildId] = React.useState(0);
+  const [showDeleteModal, setShowDeleteModal] = React.useState<boolean>(false);
 
   // Store
   const savingStore = useSelector<StateNetwork, SavingState>(
@@ -55,6 +64,8 @@ const Saving: FC = ({ theme }: any) => {
   const selectedTargetData = useSelector<StateNetwork, any>(
     (state) => state.saving.selectedTargetData
   );
+
+  console.log("selectedTargetData", selectedTargetData);
   useEffect(() => {
     dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
   }, []);
@@ -93,6 +104,40 @@ const Saving: FC = ({ theme }: any) => {
     dispatch(SavingActions.getTargetData(target));
   }
 
+  function handleCloseFinishTargetModal() {
+    dispatch(SavingActions.setFinishTargetModal(false));
+  }
+  function handleShowFinishTargetModal(target: TargetsData, childName: string) {
+    setFinishTargetId(target.id);
+    setChildNameInFinishTarget(childName);
+    dispatch(SavingActions.getTargetData(target));
+    dispatch(SavingActions.setFinishTargetModal(true));
+  }
+  function handleFinishTarget() {
+    dispatch(SavingActions.finishTarget(finishTargetId, { sagas: true }));
+    dispatch(SavingActions.setFinishTargetModal(false));
+    dispatch(SavingActions.setEditModal(false));
+  }
+  function handleShowDeleteModal(targetId: number, childId: number) {
+    console.log("deleteId", targetId);
+
+    setShowDeleteModal(true);
+    setDeleteTargetId(targetId);
+    setDeleteChildId(childId);
+  }
+
+  function handleDelete() {
+    console.log("TargetDeleteId", deleteTargetId);
+    dispatch(
+      SavingActions.deleteTarget(
+        // @ts-ignore
+        { targetId: deleteTargetId, childId: deleteChildId },
+        { sagas: true }
+      )
+    );
+    setShowDeleteModal(false);
+  }
+
   const ChildPage = (item: any) => {
     const filterActiveTargets: TargetsData[] =
       item.data.targets?.length > 0
@@ -105,6 +150,7 @@ const Saving: FC = ({ theme }: any) => {
       <View style={styles.content}>
         <ScrollView
           contentContainerStyle={contentContainerStyle}
+          keyboardShouldPersistTaps="handled"
           refreshControl={
             <RefreshControl
               refreshing={savingStore.loading}
@@ -113,7 +159,12 @@ const Saving: FC = ({ theme }: any) => {
           }
         >
           <SavingInfo data={item.data} />
-          <TargetList data={item.data} onEditTarget={handleEdit} />
+          <TargetList
+            data={item.data}
+            onEditTarget={handleEdit}
+            onShowFinishTargetModal={handleShowFinishTargetModal}
+            onShowDeleteModal={handleShowDeleteModal}
+          />
         </ScrollView>
         <View style={styles.buttonsWrapper}>
           <View style={styles.buttonBox}>
@@ -183,6 +234,32 @@ const Saving: FC = ({ theme }: any) => {
           childName={childName}
         />
       </ActionModalBottom>
+
+      <AlertController
+        showModal={showDeleteModal}
+        setShowModal={() => setShowDeleteModal(false)}
+        title="حذف هدف"
+        description="آیا از حذف هدف اطمینان دارید؟"
+        leftAction={handleDelete}
+        leftTitle="بله"
+        leftColor={colors.red}
+        rightTitle="انصراف"
+        rightAction={() => setShowDeleteModal(false)}
+      />
+      <AlertController
+        showModal={savingStore.showFinishTargetModal}
+        setShowModal={handleCloseFinishTargetModal}
+        title="اتمام هدف"
+        description={`با تایید اتمام هدف ${selectedTargetData.title} , مبلغ ${
+          selectedTargetData?.paidAmount
+            ? formatNumber(selectedTargetData?.paidAmount)
+            : "0"
+        } ریال از حساب پس انداز ${childNameInFinishTarget} کسر شده و به کارت ${childNameInFinishTarget} منتقل می شود.`}
+        rightAction={handleFinishTarget}
+        rightTitle="اتمام هدف"
+        leftTitle="انصراف"
+        leftAction={handleCloseFinishTargetModal}
+      />
     </Layout>
   );
 };

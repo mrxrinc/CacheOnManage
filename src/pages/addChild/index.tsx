@@ -38,9 +38,10 @@ const AddChild: FC = (props: any) => {
   const theme = props.theme;
   const token = useSelector<RootState, any>((state) => state.user.token);
   const noBackButton = props.route.params?.noBackButton;
-  const [showInquiryResponseModal, setShowInquiryResponseModal] = useState<
-    boolean
-  >(false);
+  const [
+    showInquiryResponseModal,
+    setShowInquiryResponseModal,
+  ] = useState<boolean>(false);
   const [inquiry, setInquiry] = useState<InquiryType>({
     status: null,
     data: null,
@@ -71,10 +72,8 @@ const AddChild: FC = (props: any) => {
     }
 
     const { nationalId, birthday } = form;
-    setShowInquiryResponseModal(true);
     postOfficeInqury(token, nationalId, birthday)
       .then((response: any) => {
-        setLoading(false);
         setInquiry({
           status: "success",
           data: {
@@ -82,13 +81,16 @@ const AddChild: FC = (props: any) => {
             birthday: response.data.birthday.replace(/-/g, "/"),
           },
         });
+        setShowInquiryResponseModal(true);
+        setLoading(false);
       })
       .catch((err: any) => {
-        setLoading(false);
         setInquiry({
           status: "fail",
           data: err.response.data,
         });
+        setShowInquiryResponseModal(true);
+        setLoading(false);
       });
   };
 
@@ -187,7 +189,10 @@ const AddChild: FC = (props: any) => {
         staticTitle={"addChild"}
         handleBack={!noBackButton ? () => props.navigation.goBack() : null}
       />
-      <ScrollView contentContainerStyle={[style.content]}>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={[style.content]}
+      >
         <FormattedText
           id="addChild.firstInput"
           style={[style.title, { color: props.theme.addChild.descriptionFont }]}

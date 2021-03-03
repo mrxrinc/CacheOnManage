@@ -7,6 +7,7 @@ export interface QrPayment {
 export interface QrPaymentResult {
   data: QrPaymentResultData;
   hasError: boolean;
+  message?: string;
 }
 interface QrPaymentResultData {
   amount: string;

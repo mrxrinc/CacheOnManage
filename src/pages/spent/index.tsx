@@ -27,26 +27,20 @@ const Invoice: FC = (props: any) => {
     try {
       setLoading(true);
       const { data } = await getDebit(token, childId);
-      const currentDate = moment();
-      const filteredCurrentWeekData = data.filter((date: InvoiceData) =>
-        moment(date.date).isSame(currentDate, "week")
-      );
-      const filteredOthersData = data.filter(
-        (date: InvoiceData) => !moment(date.date).isSame(currentDate, "week")
-      );
+      const { currentWeek, others }: any = data;
       if (data) {
         setRefinedData([
           {
             title: "هفته جاری",
-            data: filteredCurrentWeekData,
+            data: currentWeek,
           },
           {
             title: "سایر تراکنش ها",
-            data: filteredOthersData,
+            data: others,
           },
         ]);
+        setLoading(false);
       }
-      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.warn("ERROR ON GETTING CHILD SPENT DATA: ", error.response);
@@ -70,7 +64,7 @@ const Invoice: FC = (props: any) => {
           keyExtractor={(item, index) => index.toString()}
           onRefresh={pullToRefresh}
           refreshing={loading}
-          renderItem={(item) => <Item disable data={item} />}
+          renderItem={(item) => <Item data={item} />}
           renderSectionHeader={({ section }) => (
             <SectionHeader data={section} />
           )}

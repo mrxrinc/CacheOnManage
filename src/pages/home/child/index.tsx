@@ -112,7 +112,11 @@ const ChildHome = ({ route, theme }: any) => {
       <>
         {!isChild ? (
           <Header
-            dynamicTitle={childData?.name && `سلام ${childData?.name}!`}
+            dynamicTitle={
+              isChild
+                ? childData?.name && `سلام ${childData?.name}!`
+                : childData?.name
+            }
             handleBack={() => navigation.goBack()}
           />
         ) : (

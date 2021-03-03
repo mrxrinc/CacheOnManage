@@ -7,6 +7,7 @@ import { colors } from "constants/index";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/core";
 import { DrawerActions } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 const View = Animated.View;
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 
 export default ({ name }: Props) => {
   const navigation = useNavigation();
+  const isChild = useSelector<any, any>((state) => state.user.ischild);
   return (
     <LinearGradient
       colors={[colors.gradientRight, colors.gradientLeft]}

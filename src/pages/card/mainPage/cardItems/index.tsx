@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity, TextInput } from "react-native";
+import { View, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import { FormattedText } from "components/format-text";
 import styles from "./styles";
 import Activation from "images/cards/mainPage/activation.svg";
@@ -23,6 +23,7 @@ import UnequalTwinButtons from "components/unequalTwinButtons";
 import { colors } from "constants/index";
 import CardsActions from "store/Cards/cards.action";
 import Button from "components/button";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CardItems = (props: any) => {
   const dispatch = useDispatch();

@@ -116,7 +116,6 @@ const TaskList = (props: any) => {
   };
 
   const renderCart = (item: any) => {
-    console.log("renderCard>>", item);
     return (
       <View style={styles.taskItem}>
         <View style={styles.taskStatus}>

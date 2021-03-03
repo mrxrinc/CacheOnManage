@@ -59,6 +59,7 @@ const Earning = (props: any) => {
       <View>
         <ScrollView
           contentContainerStyle={styles.scrollView}
+          keyboardShouldPersistTaps="handled"
           refreshControl={
             <RefreshControl refreshing={loading} onRefresh={onRefresh} />
           }
@@ -83,7 +84,12 @@ const Earning = (props: any) => {
   };
   return (
     <Layout>
-      <MainHeader title={messages["earning.title"]} hasBack={hasBackButton} />
+      <MainHeader
+        title={
+          isChild ? messages["earning.child.title"] : messages["earning.title"]
+        }
+        hasBack={hasBackButton}
+      />
       <View style={styles.container}>
         {loading == false && childInfo != "" ? (
           <ScrollableTabView style={styles.tabView} hasTabbar={!isChild}>
