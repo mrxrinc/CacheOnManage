@@ -48,6 +48,7 @@ const Home: FC = ({ theme }: any) => {
     try {
       setLoading(true);
       const { cards, header } = await getHomePageData(token);
+      const data = await getHomePageData(token);
       dispatch(getHomeData(header));
       setCards(cards);
       setHeader(header);
@@ -58,7 +59,6 @@ const Home: FC = ({ theme }: any) => {
       }
     } catch (error) {
       setLoading(false);
-      console.warn(error.response);
     }
   };
 
