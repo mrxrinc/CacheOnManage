@@ -252,6 +252,7 @@ const AddNewTarget: FC<Props> = (props) => {
                     formik.setFieldValue("title", value)
                   }
                   error={formik.errors.title}
+                  maxLength={32}
                 />
               </View>
               <View style={styles.inputWrapper}>
