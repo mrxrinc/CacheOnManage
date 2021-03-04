@@ -60,9 +60,7 @@ const TargetList: React.FC<Props> = (props) => {
           return (
             <View style={styles.targetBox} key={index}>
               <View style={styles.row}>
-                <FormattedText
-                  style={[styles.targetTitle, { color: theme.titleColor }]}
-                >
+                <FormattedText style={[styles.targetTitle]}>
                   {target.title}
                 </FormattedText>
 
@@ -86,7 +84,7 @@ const TargetList: React.FC<Props> = (props) => {
                 <View style={styles.row}>
                   <View style={[styles.halfWidth]}>
                     <FormattedText
-                      style={{ fontSize: 12, color: colors.text }}
+                      style={{ fontSize: 12, color: colors.brownishGrey }}
                       fontFamily="Regular-FaNum"
                     >
                       هدف: {formatNumber(String(target.targetAmount))} ریال
@@ -101,7 +99,7 @@ const TargetList: React.FC<Props> = (props) => {
                       }}
                     >
                       <FormattedText
-                        style={{ color: "#999", fontSize: 12 }}
+                        style={{ color: colors.brownishGrey, fontSize: 12 }}
                         fontFamily="Regular-FaNum"
                       >
                         {targetPercent}
@@ -112,7 +110,7 @@ const TargetList: React.FC<Props> = (props) => {
                         style={{
                           marginLeft: "4%",
                           fontSize: 12,
-                          color: colors.text,
+                          color: colors.eggplant,
                         }}
                       >
                         {target.paidAmount

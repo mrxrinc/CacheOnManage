@@ -67,7 +67,6 @@ export const colors = {
   gray900: "#f4f6fa",
   gray950: "#fafafa",
   white: "#fff",
-
   // just for debugging purpose
   d: "#C8CA2633",
   f: "#ff00aa33",
@@ -79,4 +78,5 @@ export const colors = {
   cornflowerBlue: "#497edb",
   lightGreyBlue: "#bbbcbc",
   yellowOrange: "#f2a900",
+  brownishGrey: "#707070",
 };

@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import SavingActions from "store/Saving/saving.actions";
 // UI Frameworks
 import { View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 // Common Components
 import { FormattedText } from "components/format-text";
 import Input from "components/input";
@@ -322,7 +321,7 @@ const EditTarget: FC<Props> = (props) => {
                 handleChangeTargetDate(val);
                 setShowDateModal(false);
               }}
-              color={colors.title}
+              color={colors.eggplant}
             />
           </View>
           <FormattedText style={[styles.unit]}></FormattedText>

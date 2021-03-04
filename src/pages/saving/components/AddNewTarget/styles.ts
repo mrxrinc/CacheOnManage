@@ -21,13 +21,13 @@ export default StyleSheet.create({
   },
   input: {
     width: "100%",
-    color: "#00015d",
+    color: colors.eggplant,
     height: 30,
     padding: 0,
     margin: 0,
   },
   inputInner: {
-    color: "#00015d",
+    color: colors.eggplant,
     padding: 0,
     margin: 0,
     height: 30,
@@ -50,7 +50,7 @@ export default StyleSheet.create({
   targetDate: {
     lineHeight: 28,
     fontSize: 16,
-    color: "#00015d",
+    color: colors.eggplant,
   },
   alignLeft: {
     textAlign: "left",
@@ -77,7 +77,7 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   gray: {
-    color: "#8b8b8b",
+    color: colors.brownishGrey,
   },
   disabledButton: {
     backgroundColor: colors.disable,
@@ -112,6 +112,7 @@ export default StyleSheet.create({
   unit: {
     width: "10%",
     textAlign: "right",
+    marginTop: 12,
   },
   targetDesc: {
     fontSize: 14,

@@ -80,7 +80,7 @@ const Saving: FC = ({ theme }: any) => {
   const contentContainerStyle: StyleProp<ViewStyle> = {
     alignItems: "center",
     backgroundColor: "transparent",
-    paddingBottom: 70,
+    paddingBottom: 10,
   };
 
   function handleCloseModal() {
