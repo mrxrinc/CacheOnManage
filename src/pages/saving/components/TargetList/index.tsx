@@ -180,7 +180,11 @@ const TargetList: React.FC<Props> = (props) => {
                     />
                   ) : (
                     <FormattedText style={styles.targetInfo}>
-                      تا {target.targetDate}
+                      {target.state === "DONE" ||
+                      target.state === "SAVING" ||
+                      target.state === "COMPLETED"
+                        ? ""
+                        : `تا ${target.targetDate}`}
                     </FormattedText>
                   )}
                 </View>
