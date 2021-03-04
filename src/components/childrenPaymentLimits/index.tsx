@@ -165,7 +165,7 @@ const ChildrenPaymentLimits = ({
     setLoading(true);
     if (childId) {
       chargingPayments(token, childId, paymentMethods)
-        .then((response) => {
+        .then(() => {
           setLoading(false);
           setShowModal(false);
         })
