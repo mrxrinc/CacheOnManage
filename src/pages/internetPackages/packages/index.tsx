@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, ActivityIndicator } from "react-native";
 import ScrollableTabView from "components/scrollableTabView";
 import Header from "components/header";
 import Layout from "components/layout";
@@ -14,6 +14,7 @@ export const Packages: FC = (props: any) => {
   const operator = props.route.params?.chosenCarrier;
   const simcardType = props.route.params?.simcardType;
   const [packages, setPackages] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(true);
   const [planId, setPlanId] = useState<number>(0);
   const [chosenPackage, setChosenPackage] = useState<any>(null);
@@ -23,16 +24,19 @@ export const Packages: FC = (props: any) => {
   }, []);
 
   const getData = () => {
+    setLoading(true);
     getInternetPackages({
       mobileNumber,
       simcardType,
       operator,
     })
       .then((response: any) => {
+        setLoading(false);
         setPackages(response.data);
         setRefreshing(false);
       })
       .catch((err: any) => {
+        setLoading(false);
         console.warn("ERROR: ", err.response?.data);
         setRefreshing(false);
       });
