@@ -44,8 +44,10 @@ export default StyleSheet.create({
     minWidth: 80,
     maxWidth: 130,
     height: 28,
-    borderRadius: 100,
-    backgroundColor: colors.buttonSubmitActive,
+    borderRadius: 5,
+  },
+  btnStyle: {
+    borderRadius: 5,
   },
   targetInfo: {
     color: colors.brownishGrey,
@@ -113,8 +115,5 @@ export default StyleSheet.create({
     height: 34,
     justifyContent: "center",
     alignItems: "center",
-  },
-  btnStyle: {
-    borderRadius: 100,
   },
 });
