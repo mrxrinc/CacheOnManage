@@ -48,8 +48,9 @@ export default StyleSheet.create({
   },
   detailText: {
     fontSize: 12,
-    padding: 3,
+    paddingVertical: 3,
     color: colors.gray250,
+    marginLeft: 4,
   },
   circleVector: {
     width: 16,

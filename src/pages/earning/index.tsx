@@ -65,20 +65,17 @@ const Earning = (props: any) => {
           }
         >
           <AllowanceChart childInfo={item.data} />
-          <View style={styles.allowanceBox}>
-            <AddAllowance childInfo={item.data} />
-          </View>
+          <AddAllowance childInfo={item.data} />
           <ChildTaskList childInfo={item.data} />
         </ScrollView>
-        <View style={[styles.buttonWrapper]}>
-          <Button
-            color={theme.ButtonBlueColor}
-            title={messages["earning.button"]}
-            onPress={() =>
-              navigation.navigate("addNewTask", { ChildData: item.data })
-            }
-          />
-        </View>
+        <Button
+          color={theme.ButtonBlueColor}
+          style={styles.buttonWrapper}
+          title={messages["earning.button"]}
+          onPress={() =>
+            navigation.navigate("addNewTask", { ChildData: item.data })
+          }
+        />
       </View>
     );
   };
@@ -138,9 +135,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "transparent",
     paddingBottom: 54,
-  },
-  allowanceBox: {
-    width: width,
-    marginTop: 10,
   },
 });
