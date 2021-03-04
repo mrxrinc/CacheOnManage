@@ -13,6 +13,7 @@ import {
   // logLocalStorage,
 } from "utils/localStorage";
 import Update from "pages/update";
+import { colors } from "constants/index";
 
 const EntryType = ({ setTheme }: any) => {
   const dispatch = useDispatch();
@@ -56,8 +57,8 @@ const EntryType = ({ setTheme }: any) => {
             title="ورود والدین مانی"
           /> */}
           <Button
-            color={"#00bfb2"}
-            style={{ marginTop: 20, borderRadius: 10 }}
+            color={colors.turquoise}
+            style={styles.parent}
             onPress={() => {
               handleTouch(false);
             }}
@@ -65,8 +66,8 @@ const EntryType = ({ setTheme }: any) => {
           />
 
           <Button
-            color={"#00bfb2"}
-            style={{ marginTop: 20, borderRadius: 10 }}
+            color={colors.turquoise}
+            style={styles.parent}
             onPress={() => {
               handleTouch(true);
             }}
@@ -96,6 +97,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     width: width * 0.89,
+  },
+  parent: {
+    marginTop: 20,
+    borderRadius: 10,
   },
 });
 
