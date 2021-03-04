@@ -37,7 +37,7 @@ const Header: FC<Props> = ({
         animated
         translucent={isKyc ? false : true}
         hidden={false}
-        barStyle={"dark-content"}
+        barStyle={theme.statusBarContent}
       />
       <View style={[styles.navbar]}>
         {handleBack && (

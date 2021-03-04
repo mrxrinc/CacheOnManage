@@ -248,6 +248,7 @@ const EditTarget: FC<Props> = (props) => {
               formik.setFieldValue("title", value)
             }
             error={formik.errors.title}
+            maxLength={32}
           />
         </View>
 
@@ -366,9 +367,15 @@ const EditTarget: FC<Props> = (props) => {
           showModal={showInfoModal}
           setShowModal={() => setShowInfoModal(false)}
           title="ویرایش هدف پس انداز"
-          description={`شما تا حالا ${formatNumber(
-            String(props.data.paidAmount)
-          )} ریال پس انداز کرده اید. مبلغ جدید هدف نمی تواند از این مقدار کمتر باشد.`}
+          description={
+            isChild
+              ? `شما تا حالا ${formatNumber(
+                  String(props.data.paidAmount)
+                )} ریال پس انداز کرده اید. مبلغ جدید هدف نمی تواند از این مقدار کمتر باشد.`
+              : `${props.childName} تا حالا ${formatNumber(
+                  String(props.data.paidAmount)
+                )} ریال پس انداز کرده است. مبلغ جدید هدف نمی تواند از این مقدار کمتر باشد.`
+          }
           middleAction={() => setShowInfoModal(false)}
           middleTitle="متوجه شدم"
         />

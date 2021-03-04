@@ -79,7 +79,7 @@
     "titleColor":"#00015d",
     "fanBtnTextColor": "#00015d", 
     "backgroundColor": "#f4f6fa",
-    "statusBarContent": "dark-content",
+    "statusBarContent": "light-content",
     "support": "#000",
     "warningColor":"#f73e3e",
     "fanBtn": "#43e6c5",

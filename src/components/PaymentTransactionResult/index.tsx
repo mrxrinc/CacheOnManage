@@ -19,7 +19,6 @@ interface Props {
 }
 const PaymentTransactionResult: React.FC<Props> = (props) => {
   const { theme } = props;
-  const desss = null;
   return (
     <>
       <View style={[styles.inquiryResultWrapper]}>
@@ -59,7 +58,7 @@ const PaymentTransactionResult: React.FC<Props> = (props) => {
                       style={styles.modalResultKeyText}
                       fontFamily="Regular-FaNum"
                     >
-                      {item.value}
+                      {item.value} {item.unit ? item.unit : ""}
                     </FormattedText>
                   </View>
                 </View>
