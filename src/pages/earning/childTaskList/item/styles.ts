@@ -100,4 +100,7 @@ export default StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
+  confirmTaskRadius: {
+    borderRadius: 5,
+  },
 });

@@ -97,7 +97,7 @@ const Item = (props: any) => {
               fontSize={12}
               titleStyle={styles.taskItemConfirmButtonText}
               onPress={onDone}
-              btnStyle={{ borderRadius: 5 }}
+              btnStyle={styles.confirmTaskRadius}
             />
           )}
 

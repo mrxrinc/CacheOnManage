@@ -22,6 +22,7 @@ export default StyleSheet.create({
   },
   unit: {
     fontSize: 15,
+    marginTop: "2.2%",
   },
   weeklySavings: {
     textAlign: "center",

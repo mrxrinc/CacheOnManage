@@ -116,4 +116,8 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  targetItemstext: {
+    fontSize: 12,
+    color: colors.brownishGrey,
+  },
 });
