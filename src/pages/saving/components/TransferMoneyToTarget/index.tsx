@@ -158,6 +158,9 @@ const TransferMoneyToTarget: FC<Props> = (props) => {
       "amount",
       value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
     );
+    if (value.toString().charAt(0) === "0") {
+      formik.setFieldValue("amount", "");
+    }
   }
 
   function handleCloseModal() {
