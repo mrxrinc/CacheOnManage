@@ -18,5 +18,10 @@ export default StyleSheet.create({
     position: "absolute",
     bottom: 0,
   },
-  buttonBox:{ backgroundColor: "#fff", borderRadius: 30 }
+  buttonBox: { backgroundColor: "#fff", borderRadius: 30 },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

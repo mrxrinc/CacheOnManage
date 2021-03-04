@@ -25,8 +25,10 @@ const EntryType = ({ setTheme }: any) => {
     if (!firstLaunch) {
       await setLocalData("FIRST_LAUNCH", "1");
       navigation.navigate("intro");
+      child ? setTheme("CHILD MONEY") : setTheme("FATHER BLU JUNIOR");
     } else {
       navigation.navigate("login");
+      child ? setTheme("CHILD MONEY") : setTheme("FATHER BLU JUNIOR");
     }
   };
 
@@ -55,18 +57,18 @@ const EntryType = ({ setTheme }: any) => {
           /> */}
           <Button
             color={"#00bfb2"}
+            style={{ marginTop: 20, borderRadius: 10 }}
             onPress={() => {
               handleTouch(false);
-              setTheme("FATHER BLU JUNIOR");
             }}
             title=" ورود والدین"
           />
 
           <Button
             color={"#00bfb2"}
+            style={{ marginTop: 20, borderRadius: 10 }}
             onPress={() => {
               handleTouch(true);
-              setTheme("CHILD MONEY");
             }}
             title="ورود فرزندان"
           />
@@ -94,7 +96,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     width: width * 0.89,
-    height: height * 0.16,
   },
 });
 
