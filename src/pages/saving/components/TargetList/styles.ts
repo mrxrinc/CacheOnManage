@@ -113,4 +113,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  btnStyle: {
+    borderRadius: 100,
+  },
 });

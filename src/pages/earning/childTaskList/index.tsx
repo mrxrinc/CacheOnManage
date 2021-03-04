@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { View, FlatList, TouchableOpacity } from "react-native";
-import StarRating from "react-native-star-rating";
 import { FormattedText } from "components/format-text";
-import Button from "components/button";
-import { colors } from "constants/index";
-import Edit from "components/icons/editIcon.svg";
-import Trash from "components/icons/trashIcon.svg";
 import { useNavigation } from "@react-navigation/core";
 import AlertController from "components/alertController";
 import { deleteChildTask, childStatusTask } from "utils/api";
@@ -13,16 +8,14 @@ import { RootState } from "../../../../customType";
 import { useDispatch, useSelector } from "react-redux";
 import EditTask from "./editTaskModal";
 import { getEarningData } from "redux/actions/Earning";
-import { formatNumber, jalaliDate } from "utils";
-import SoilClockIcon from "components/icons/soilClock.svg";
-import SoilClockIconBr from "components/icons/soilClock-br.svg";
-import FailIcon from "components/icons/fail.svg";
-import FailIconBr from "components/icons/fail-br.svg";
+import { formatNumber } from "utils";
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
+import Item from "./item/Item";
 
 const TaskList = (props: any) => {
   const theme = props.theme;
+  const { childInfo } = props;
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [deleteTask, setDeleteTask] = useState<boolean>(false);
@@ -35,11 +28,10 @@ const TaskList = (props: any) => {
   const [icon, setIcon] = useState("");
   const [taskType, setTaskType] = useState<string | null>(null);
   const token = useSelector<RootState, any>((state) => state.user.token);
-  const isChild = useSelector<RootState, any>((state) => state.user.ischild);
 
   const handleDeleteTask = () => {
     deleteChildTask(token, taskId)
-      .then((response) => {
+      .then(() => {
         dispatch(getEarningData(taskId));
         setDeleteTask(false);
       })
@@ -54,7 +46,7 @@ const TaskList = (props: any) => {
       status: "DONE",
     };
     childStatusTask(token, data)
-      .then((response) => {
+      .then(() => {
         dispatch(getEarningData(id));
         setStatusTask(false);
       })
@@ -63,212 +55,7 @@ const TaskList = (props: any) => {
       });
   };
 
-  type TagType = {
-    status?: any;
-  };
-
-  const PaymentTag = ({ status }: TagType) => {
-    return (
-      <View
-        style={[
-          styles.paymentTag,
-          {
-            backgroundColor: status ? theme.ButtonGreenColor : colors.gray600,
-          },
-        ]}
-      >
-        <FormattedText
-          style={styles.paymentTagText}
-          id={status ? "earning.paid" : "earning.unpaid"}
-        />
-        <View style={styles.paymentTagTriangle} />
-        <View
-          style={[
-            styles.paymentTagTriangle,
-            styles.paymentTagTriangleSecondary,
-          ]}
-        />
-      </View>
-    );
-  };
-
-  const handleTaskRecurringType = (status: string) => {
-    if (status === "ONE_OFF") return "یک‌بار";
-    else if (status === "WEEKLY") return "هفتگی";
-    return;
-  };
-
-  const handleRecurringTitle = (status: string) => {
-    switch (status) {
-      case "FAILED":
-        return "تاریخ رد:";
-      case "DONE":
-        return "تاریخ انجام:";
-      case "TODO":
-        return "تاریخ ایجاد:";
-      case "ACCEPT":
-        return "تاریخ تائید:";
-      case "PAID":
-        return "تاریخ تائید:";
-      default:
-        return "تاریخ:";
-    }
-  };
-
-  const renderCart = (item: any) => {
-    return (
-      <View style={styles.taskItem}>
-        <View style={styles.taskStatus}>
-          {item.status == "FAILED" &&
-            (theme.key == "FATHER BLU JUNIOR" ? <FailIconBr /> : <FailIcon />)}
-          {item.status == "DONE" &&
-            (theme.key == "FATHER BLU JUNIOR" ? (
-              <SoilClockIconBr />
-            ) : (
-              <SoilClockIcon />
-            ))}
-          {item.status == "TODO" && (
-            <View
-              style={[styles.todoIcon, { borderColor: theme.ButtonGreenColor }]}
-            />
-          )}
-          {item.status == "ACCEPT" && <PaymentTag />}
-          {item.status == "PAIED" && <PaymentTag status />}
-        </View>
-        <View style={styles.taskItemMiddleLine} />
-        <View style={styles.taskItemContent}>
-          <View style={styles.taskItemNameDate}>
-            <FormattedText
-              style={[styles.taskItemTitle, { color: theme.titleColor }]}
-              fontFamily="Medium"
-            >
-              {item.taskName}
-            </FormattedText>
-            <FormattedText
-              style={styles.taskItemDate}
-              fontFamily="Regular-FaNum"
-            >
-              {handleRecurringTitle(item.status) + " " + jalaliDate(item.date)}
-            </FormattedText>
-          </View>
-          <View style={styles.taskItemAmountOptions}>
-            <View style={styles.taskTextWrapper}>
-              {item.status !== "ACCEPT" && item.type !== "PAID" && (
-                <FormattedText style={styles.recurringText}>
-                  {handleTaskRecurringType(item.type)}
-                </FormattedText>
-              )}
-              <FormattedText
-                style={styles.taskItemAmount}
-                fontFamily="Regular-FaNum"
-              >
-                {formatNumber(item.amount)}
-              </FormattedText>
-              <FormattedText style={styles.recurringText}>ريال</FormattedText>
-            </View>
-
-            <View style={styles.taskItemOptionsBox}>
-              {item.status == "ACCEPT" && (
-                <StarRating
-                  disabled
-                  maxStars={5}
-                  emptyStar={"star"}
-                  emptyStarColor={colors.gray650}
-                  fullStar={"star"}
-                  fullStarColor={colors.star}
-                  iconSet={"MaterialIcons"}
-                  rating={item.qualityStar || 2}
-                  reversed={true}
-                  starSize={22}
-                  containerStyle={{ flexDirection: "row-reverse" }}
-                />
-              )}
-
-              {item.status == "FAILED" && (
-                <FormattedText style={styles.taskItemFailedText}>
-                  رد شده
-                </FormattedText>
-              )}
-
-              {item.status == "DONE" && !isChild && (
-                <Button
-                  style={styles.taskItemConfirmButton}
-                  color={theme.ButtonGreenColor}
-                  title="تائید انجام مسئولیت"
-                  fontSize={12}
-                  titleStyle={styles.taskItemConfirmButtonText}
-                  onPress={() => {
-                    setTaskId(item.id);
-                    navigation.navigate("confirmTask", {
-                      item,
-                    });
-                  }}
-                />
-              )}
-
-              {item.status == "DONE" && isChild && (
-                <FormattedText style={styles.waitingToConfirmText}>
-                  در انتظار تائید
-                </FormattedText>
-              )}
-
-              {item.status == "TODO" && !isChild && (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    width: 70,
-                    justifyContent: "space-around",
-                    alignItems: "center",
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() => {
-                      setTaskId(item.id);
-                      setDeleteTask(true);
-                      setTaskName(item.taskName);
-                    }}
-                  >
-                    <Trash width={18} height={18} fill={theme.ButtonRedColor} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setTaskName(item.taskName);
-                      setIcon(item.icon);
-                      setTaskAmount(item.amount);
-                      setTaskId(item.id);
-                      setTaskType(item.type);
-                      setEditTask(true);
-                    }}
-                  >
-                    <Edit width={18} height={18} fill={theme.ButtonBlueColor} />
-                  </TouchableOpacity>
-                </View>
-              )}
-              {item.status == "TODO" && isChild && (
-                <TouchableOpacity
-                  style={[
-                    styles.taskItemConfirmButton,
-                    { backgroundColor: "#43e6c5", borderRadius: 10 },
-                  ]}
-                  onPress={() => {
-                    setTaskId(item.id);
-                    setTaskName(item.taskName);
-                    setEndTaskModal(true);
-                  }}
-                >
-                  <FormattedText style={styles.taskItemConfirmButtonText}>
-                    اتمام فعالیت
-                  </FormattedText>
-                </TouchableOpacity>
-              )}
-            </View>
-          </View>
-        </View>
-      </View>
-    );
-  };
-
-  const otherPayments = props.childInfo.incomes;
+  const otherPayments = childInfo.incomes;
   return (
     <View style={styles.container}>
       <FormattedText
@@ -277,7 +64,7 @@ const TaskList = (props: any) => {
       >
         فعالیت ها
       </FormattedText>
-      {props.childInfo.task == "" ? (
+      {childInfo.task == "" ? (
         <View style={styles.emptyTasksListContainer}>
           <View style={styles.emptyTasksList}>
             <FormattedText
@@ -287,14 +74,43 @@ const TaskList = (props: any) => {
           </View>
         </View>
       ) : (
-        <View style={{ flex: 1 }}>
-          <FlatList
-            numColumns={1}
-            contentContainerStyle={styles.taskItemsContainer}
-            data={props.childInfo.task}
-            renderItem={({ item, index }) => renderCart(item, index)}
-          />
-        </View>
+        <FlatList
+          numColumns={1}
+          contentContainerStyle={styles.taskItemsContainer}
+          data={childInfo.task}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <Item
+              status={item.status}
+              theme={theme}
+              item={item}
+              onDone={() => {
+                setTaskId(item.id);
+                navigation.navigate("confirmTask", {
+                  item,
+                });
+              }}
+              onDelete={() => {
+                setTaskId(item.id);
+                setDeleteTask(true);
+                setTaskName(item.taskName);
+              }}
+              onEdit={() => {
+                setTaskName(item.taskName);
+                setIcon(item.icon);
+                setTaskAmount(item.amount);
+                setTaskId(item.id);
+                setTaskType(item.type);
+                setEditTask(true);
+              }}
+              onToDo={() => {
+                setTaskId(item.id);
+                setTaskName(item.taskName);
+                setEndTaskModal(true);
+              }}
+            />
+          )}
+        />
       )}
 
       <View style={styles.otherPayments}>

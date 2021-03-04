@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, TouchableHighlight, ActivityIndicator } from "react-native";
 import { FormattedText } from "components/format-text";
 import { colors, IOS, width } from "constants/index";
@@ -15,6 +15,7 @@ type Props = {
   onPress: () => void;
   outline?: boolean;
   style?: any;
+  btnStyle?: any;
   titleStyle?: any;
   fontSize?: number;
   lineHeight?: number;
@@ -53,6 +54,7 @@ const Button = ({
   isFinger,
   isFaceId,
   isHide,
+  btnStyle,
   ...props
 }: Props) => {
   return !isHide ? (
@@ -71,7 +73,11 @@ const Button = ({
       ]}
     >
       <TouchableHighlight
-        style={[styles.button, { borderRadius: theme.buttonBorderRadius }]}
+        style={[
+          styles.button,
+          { borderRadius: theme.buttonBorderRadius },
+          btnStyle,
+        ]}
         underlayColor={!outline ? shadeColor(color, -10) : colors.gray850}
         disabled={disabled}
         onPress={onPress}
