@@ -82,15 +82,16 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
       await Keychain.resetGenericPassword({ service: "MoneyApp" });
       removeLocalData("biometrics");
     } else if (value && definedBiometrics) {
-      // setShowSigninModal(true);
+      setShowSigninModal(true);
     }
   };
+
   const handleValidatePassword = (status: boolean) => {
     setPasswordIsValid(status);
   };
 
   const checkNickName = (input: string) => {
-    clearError()
+    clearError();
     let isSame = fatherData.children.find(
       (item: any) => item.username === input
     );
@@ -345,10 +346,11 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
                   </FormattedText>
                   <Switch
                     isActive={definedBiometrics}
-                    activeColor={theme.ButtonBlueColor}
                     onChange={handleSwitchBiometrics}
+                    activeColor={theme.ButtonBlueColor}
                   />
                 </View>
+
                 {/* <View style={style.cardRow}>
                 <KeyValuePair
                   rowKey="نام کاربری:"

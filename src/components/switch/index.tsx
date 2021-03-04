@@ -18,8 +18,8 @@ export default ({ isActive = false, onChange, activeColor }: Props) => {
   }, [active]);
 
   useEffect(() => {
-    handleAnimation(true);
-  }, [isActive === true]);
+    setActive(isActive);
+  }, [isActive]);
 
   function handleChecked() {
     setActive(!active);
@@ -27,8 +27,8 @@ export default ({ isActive = false, onChange, activeColor }: Props) => {
     handleAnimation();
   }
 
-  function handleAnimation(perActive: boolean = false) {
-    if (active || perActive) {
+  function handleAnimation() {
+    if (active) {
       Animated.timing(movement, {
         toValue: 1,
         duration: 200,
