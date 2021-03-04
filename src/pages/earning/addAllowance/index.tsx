@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-  Text,
-} from "react-native";
+import { View, TouchableOpacity, TextInput } from "react-native";
 import { FormattedText } from "components/format-text";
 import { colors } from "constants/index";
 import Button from "components/button";
@@ -35,11 +29,13 @@ const AddAllowance = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
   const handleAddAllowance = ({ remove }: { remove: boolean }) => {
-    setLoading(true);
+    remove ? setDeleteLoading(true) : setLoading(true);
     const data = {
       paymentDay: paymentDay,
       childId: childInfo.id,
@@ -47,14 +43,14 @@ const AddAllowance = (props: any) => {
     };
     addAllowance(token, data)
       .then(() => {
-        setLoading(false);
+        remove ? setDeleteLoading(false) : setLoading(false);
         dispatch(getEarningData(Math.random()));
         toggleModal();
         setDeleteAllowance(false);
         dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
       })
       .catch(() => {
-        setLoading(false);
+        remove ? setDeleteLoading(false) : setLoading(false);
         setDeleteAllowance(false);
       });
   };
@@ -72,11 +68,11 @@ const AddAllowance = (props: any) => {
           </FormattedText>
           <View style={styles.addAllowanceButton}>
             <Button
-              color={theme.ButtonBlueColor}
+              color={colors.paleGrey}
               title="تعریف پول توجیبی"
-              outline
               onPress={toggleModal}
-              style={{ elevation: 0, shadowOpacity: 0 }}
+              style={styles.btn}
+              titleStyle={styles.btnText}
             />
           </View>
         </View>
@@ -109,30 +105,26 @@ const AddAllowance = (props: any) => {
         backdropOpacity={0.3}
         backdropTransitionOutTiming={10}
         backdropTransitionInTiming={500}
-        style={{ justifyContent: "center", alignItems: "center" }}
+        style={styles.modal}
       >
         <View style={styles.addAllowanceModal}>
           <View style={styles.header}>
-            <View />
             <FormattedText
-              style={{
-                color: theme.titleColor,
-                fontSize: 16,
-                lineHeight: 20,
-              }}
+              style={[
+                styles.title,
+                {
+                  color: theme.titleColor,
+                },
+              ]}
               fontFamily="Regular-FaNum"
             >
               پول توجیبی {childInfo.nickname}
             </FormattedText>
-            <Close
-              onPress={toggleModal}
-              width={14}
-              height={14}
-              fill={colors.title}
-            />
+            <TouchableOpacity style={styles.close} onPress={toggleModal}>
+              <Close style={styles.closeIcon} fill={colors.title} />
+            </TouchableOpacity>
           </View>
           <View style={styles.inputBox}>
-            <View />
             <TextInput
               style={styles.textInput}
               returnKeyType="done"
@@ -145,9 +137,7 @@ const AddAllowance = (props: any) => {
               }}
               value={formatNumber(allowance) ?? ""}
             />
-            <FormattedText style={{ color: colors.title, fontSize: 12 }}>
-              ریال
-            </FormattedText>
+            <FormattedText style={styles.rial}>ریال</FormattedText>
           </View>
           <View
             style={{
@@ -171,8 +161,8 @@ const AddAllowance = (props: any) => {
             secondaryColor={theme.ButtonRedColor}
             secondaryOnPress={() => setDeleteAllowance(true)}
             mainLoading={loading}
+            secondaryLoading={deleteLoading}
           />
-
           <AlertController
             showModal={deleteAllowance}
             setShowModal={() => setDeleteAllowance(false)}

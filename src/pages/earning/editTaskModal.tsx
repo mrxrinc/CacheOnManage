@@ -72,9 +72,9 @@ export default ({
       setFactorCheck(false);
     }
   };
-
   return (
     <Modal
+      useNativeDriver
       isVisible={showModal}
       onBackdropPress={() => setShowModal(false)}
       style={styles.modal}
@@ -120,7 +120,6 @@ export default ({
             <FormattedText style={styles.earningText}>
               درآمد حاصل از {taskName}
             </FormattedText>
-
             <View style={styles.factorWrapper}>
               <NoteIcon />
               <FormattedText

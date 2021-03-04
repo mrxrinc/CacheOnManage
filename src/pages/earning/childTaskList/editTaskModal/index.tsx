@@ -51,12 +51,12 @@ const EditTask = ({
       activityType,
     };
     childEditTask(token, data, taskId)
-      .then((response) => {
+      .then((res) => {
         setLoading(false);
         dispatch(getEarningData(Math.random()));
         setShowModal(false);
       })
-      .catch(function (error) {
+      .catch((error) => {
         setLoading(false);
         throw error;
       });
@@ -69,7 +69,6 @@ const EditTask = ({
       setFactorCheck(false);
     }
   };
-
   return (
     <Modal
       useNativeDriver

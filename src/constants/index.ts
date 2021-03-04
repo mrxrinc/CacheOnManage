@@ -50,7 +50,7 @@ export const colors = {
   brownishGrey: "#707070",
   gradientRight: "#BB6AFF",
   gradientLeft: "#397FFF",
-
+  paleGrey: "#f5f7fa",
   dark: "#000",
   gray100: "#191919",
   gray200: "#202020",

@@ -138,7 +138,8 @@ const AddNew = (props: any) => {
     !factorCheck ||
     loading ||
     childSelected.length === 0 ||
-    (amount && amount.toString().charAt(0) === "0");
+    (amount && amount.toString().charAt(0) === "0") ||
+    taskName === "";
 
   return (
     <Layout>
