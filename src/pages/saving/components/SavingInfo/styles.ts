@@ -1,3 +1,4 @@
+import { colors } from "constants/index";
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
@@ -11,6 +12,7 @@ export default StyleSheet.create({
     marginTop: 15,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 16,
   },
   totalAmount: {
     textAlign: "center",
@@ -20,9 +22,11 @@ export default StyleSheet.create({
   },
   unit: {
     fontSize: 15,
+    marginTop: "2.2%",
   },
   weeklySavings: {
     textAlign: "center",
     fontSize: 12,
+    color: colors.eggplant,
   },
 });

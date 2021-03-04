@@ -27,9 +27,7 @@ const SavingInfo: React.FC<Props> = (props) => {
         <FormattedText fontFamily="Bold-FaNum" style={styles.totalAmount}>
           {formatNumber(props.data.totalAmount)}
         </FormattedText>
-        <FormattedText style={[styles.unit, { marginTop: "1%" }]}>
-          ریال
-        </FormattedText>
+        <FormattedText style={styles.unit}> ریال</FormattedText>
       </View>
       <FormattedText fontFamily="Regular-FaNum" style={styles.weeklySavings}>
         پس انداز هفتگی : {formatNumber(props.data.weeklySavings)} ریال

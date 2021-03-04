@@ -1,7 +1,7 @@
 [
   {
     "key": "FATHER BLU JUNIOR",
-    "BlueGradient_Left": "#307fe2",
+    "BlueGradient_Left": "#1b66c3",
     "BlueGradient_Right": "#307fe2",
     "ButtonBlueColor":"#307fe2",
     "ButtonGreenColor":"#00bfb2",
@@ -21,7 +21,7 @@
       "contentColor":"#110820"
     },
     "text":{
-      "loginText":"#fff"
+      "loginText":"#fff",
     },
     "svg" : {
       "fingerprint": "#fff"

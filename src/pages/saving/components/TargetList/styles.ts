@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "constants/index";
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 export default StyleSheet.create({
   editContent: {
     padding: 20,
@@ -12,7 +12,7 @@ export default StyleSheet.create({
     minHeight: 125,
     padding: 15,
     elevation: 7,
-    marginVertical: 10,
+    marginBottom: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -24,6 +24,7 @@ export default StyleSheet.create({
   targetTitle: {
     fontSize: 14,
     marginBottom: 5,
+    color: colors.title,
   },
   halfWidth: {
     width: "50%",
@@ -43,11 +44,13 @@ export default StyleSheet.create({
     minWidth: 80,
     maxWidth: 130,
     height: 28,
-    borderRadius: 100,
-    backgroundColor: colors.buttonSubmitActive,
+    borderRadius: 5,
+  },
+  btnStyle: {
+    borderRadius: 5,
   },
   targetInfo: {
-    color: "#515c6f",
+    color: colors.brownishGrey,
     fontSize: 12,
   },
   noTarget: {
@@ -113,7 +116,8 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  btnStyle: {
-    borderRadius: 100,
+  targetItemstext: {
+    fontSize: 12,
+    color: colors.brownishGrey,
   },
 });
