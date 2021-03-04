@@ -47,22 +47,24 @@ export default ({
 
   const handleTouch = () => {
     setLoading(true);
+    console.log("data");
     let data = {
       id: taskId,
       amount: inputAmount,
       taskName: taskName,
       activityType,
     };
-    childEditTask(token, data, taskId)
-      .then((response) => {
-        setLoading(false);
-        dispatch(getEarningData(Math.random()));
-        setShowModal(false);
-      })
-      .catch(function (error) {
-        setLoading(false);
-        throw error;
-      });
+    console.log(data);
+    // childEditTask(token, data, taskId)
+    //   .then((response) => {
+    //     setLoading(false);
+    //     dispatch(getEarningData(Math.random()));
+    //     setShowModal(false);
+    //   })
+    //   .catch(function (error) {
+    //     setLoading(false);
+    //     throw error;
+    //   });
   };
 
   const handleFactorCheck = (value: string) => {
@@ -72,9 +74,9 @@ export default ({
       setFactorCheck(false);
     }
   };
-
   return (
     <Modal
+      useNativeDriver
       isVisible={showModal}
       onBackdropPress={() => setShowModal(false)}
       style={styles.modal}
@@ -120,7 +122,6 @@ export default ({
             <FormattedText style={styles.earningText}>
               درآمد حاصل از {taskName}
             </FormattedText>
-
             <View style={styles.factorWrapper}>
               <NoteIcon />
               <FormattedText

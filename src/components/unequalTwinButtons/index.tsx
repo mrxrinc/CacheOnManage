@@ -13,6 +13,7 @@ type Props = {
   secondaryOnPress: () => void;
   style: any;
   mainLoading?: boolean;
+  secondaryLoading?: boolean;
   titleSecondaryStyle?: any;
   mainStyle?: any;
   secondaryStyle?: any;
@@ -28,6 +29,7 @@ const UnequalTwinButtons: FC<Props> = ({
   secondaryOnPress,
   style,
   mainLoading,
+  secondaryLoading,
   titleSecondaryStyle,
   mainStyle,
   secondaryStyle,
@@ -65,6 +67,7 @@ const UnequalTwinButtons: FC<Props> = ({
               color={secondaryColor}
               title={secondaryText}
               onPress={secondaryOnPress}
+              loading={secondaryLoading}
               style={secondaryStyle}
             />
           </View>
