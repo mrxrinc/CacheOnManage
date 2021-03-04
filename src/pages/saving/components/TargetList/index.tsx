@@ -149,7 +149,7 @@ const TargetList: React.FC<Props> = (props) => {
                         ? target.state === "DONE" ||
                           target.state === "SAVING" ||
                           target.state === "COMPLETED"
-                          ? "شمابه هدفت رسیدی!"
+                          ? "شما به هدفت رسیدی!"
                           : target.state === "CANCELED"
                           ? "شما به هدفت خاتمه دادی"
                           : ""

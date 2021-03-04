@@ -104,9 +104,7 @@ const QRPayment: React.FC<Props> = (props) => {
         staticTitle={"qrHeader"}
         handleBack={() => props.navigation.goBack()}
       />
-      <ScrollView
-        style={[styles.container, showModal && styles.containerBgColor]}
-      >
+      <View style={[styles.container, showModal && styles.containerBgColor]}>
         {payAmount ? (
           <PayAmount guId={barcode ? barcode : ""} />
         ) : (
@@ -167,7 +165,7 @@ const QRPayment: React.FC<Props> = (props) => {
             )}
           </>
         )}
-      </ScrollView>
+      </View>
       <AlertController
         showModal={isModal}
         setShowModal={() => setIsModal(false)}

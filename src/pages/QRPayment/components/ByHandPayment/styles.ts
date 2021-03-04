@@ -1,13 +1,11 @@
-import background from "components/background";
 import { colors } from "constants/index";
 import { StyleSheet, Dimensions } from "react-native";
-const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    paddingTop: 100,
+    paddingTop: 70,
   },
 
   content: {
@@ -34,5 +32,9 @@ export default StyleSheet.create({
   },
   submitButtonTitle: {
     color: "#fff",
+  },
+  continueBtn: {
+    padding: 20,
+    paddingBottom: 50,
   },
 });
