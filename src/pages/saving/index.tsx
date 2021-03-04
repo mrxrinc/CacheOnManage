@@ -65,7 +65,6 @@ const Saving: FC = ({ theme }: any) => {
     (state) => state.saving.selectedTargetData
   );
 
-  console.log("selectedTargetData", selectedTargetData);
   useEffect(() => {
     dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
   }, []);
@@ -83,6 +82,7 @@ const Saving: FC = ({ theme }: any) => {
     backgroundColor: "transparent",
     paddingBottom: 70,
   };
+
   function handleCloseModal() {
     dispatch(SavingActions.setEditModal(false));
   }
@@ -119,15 +119,12 @@ const Saving: FC = ({ theme }: any) => {
     dispatch(SavingActions.setEditModal(false));
   }
   function handleShowDeleteModal(targetId: number, childId: number) {
-    console.log("deleteId", targetId);
-
     setShowDeleteModal(true);
     setDeleteTargetId(targetId);
     setDeleteChildId(childId);
   }
 
   function handleDelete() {
-    console.log("TargetDeleteId", deleteTargetId);
     dispatch(
       SavingActions.deleteTarget(
         // @ts-ignore
