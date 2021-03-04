@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, TouchableOpacity, Animated, Easing } from "react-native";
 import { colors } from "constants/index";
-import { AXIOS_LOG_REQUEST } from "config";
 const Clickable = Animated.createAnimatedComponent(TouchableOpacity);
 
 type Props = {
@@ -19,7 +18,6 @@ export default ({ isActive = false, onChange, activeColor }: Props) => {
   }, [active]);
 
   useEffect(() => {
-    // handleAnimation(true);
     setActive(isActive);
   }, [isActive]);
 
@@ -30,7 +28,6 @@ export default ({ isActive = false, onChange, activeColor }: Props) => {
   }
 
   function handleAnimation() {
-    logger({ active });
     if (active) {
       Animated.timing(movement, {
         toValue: 1,
