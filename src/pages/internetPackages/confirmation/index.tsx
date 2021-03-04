@@ -192,7 +192,7 @@ export const Confirmation: FC = (props: any) => {
         >
           <View style={styles.modalTextWrapper}>
             <FormattedText style={styles.modalText}>
-              موجودی شما جهت انجام این عملیات کافی‌ نمیباشد.
+              {failMessage}
             </FormattedText>
           </View>
           <Button
