@@ -68,11 +68,11 @@ export default StyleSheet.create({
   },
   taskItemDate: {
     fontSize: 12,
-    color: colors.gray500,
+    color: colors.brownishGrey,
   },
   taskItemAmount: {
     fontSize: 14,
-    color: colors.gray500,
+    color: colors.brownishGrey,
     textAlign: "right",
     marginLeft: 6,
     marginRight: 4,
@@ -87,11 +87,11 @@ export default StyleSheet.create({
   },
   recurringText: {
     fontSize: 12,
-    color: colors.gray500,
+    color: colors.brownishGrey,
   },
   waitingToConfirmText: {
     fontSize: 12,
-    color: colors.gray500,
+    color: colors.brownishGrey,
   },
   taskItemMiddleLine: {
     width: 3,
@@ -197,7 +197,7 @@ export default StyleSheet.create({
   otherPaymentsSecondaryText: {
     fontSize: 14,
     lineHeight: 22,
-    color: colors.gray500,
+    color: colors.brownishGrey,
     marginTop: 5,
   },
   taskTextWrapper: {

@@ -25,6 +25,7 @@ import styles from "./styles";
 
 const AddAllowance = (props: any) => {
   const theme = props.theme;
+  const { childInfo } = props;
   const dispatch = useDispatch();
   const [isModalVisible, setModalVisible] = useState(false);
   const [active, setActive] = useState("");
@@ -41,18 +42,18 @@ const AddAllowance = (props: any) => {
     setLoading(true);
     const data = {
       paymentDay: paymentDay,
-      childId: props.childInfo.id,
+      childId: childInfo.id,
       allowanceAmount: remove ? 0 : allowance,
     };
     addAllowance(token, data)
-      .then((response) => {
+      .then(() => {
         setLoading(false);
         dispatch(getEarningData(Math.random()));
         toggleModal();
         setDeleteAllowance(false);
         dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
       })
-      .catch((err) => {
+      .catch(() => {
         setLoading(false);
         setDeleteAllowance(false);
       });
@@ -60,7 +61,7 @@ const AddAllowance = (props: any) => {
 
   return (
     <View style={styles.container}>
-      {!props.childInfo.allowanceAmount ? (
+      {!childInfo.allowanceAmount ? (
         <View style={styles.noAllowanceBox}>
           <FormattedText
             style={[styles.noAllowanseTitle, { color: theme.titleColor }]}
@@ -82,25 +83,23 @@ const AddAllowance = (props: any) => {
       ) : (
         <View style={styles.yesAllowanceBox}>
           <FormattedText style={styles.textTitle} id="earning.allowance" />
-
-          <View style={styles.contentBox}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {
+              setActive(childInfo.paymentDay);
+              childInfo.allowanceAmount &&
+                setAllowance(childInfo.allowanceAmount + "");
+              toggleModal();
+            }}
+            style={styles.contentBox}
+          >
             <FormattedText style={styles.textTitle} fontFamily="Regular-FaNum">
-              {formatNumber(props.childInfo.allowanceAmount)} ریال
+              {formatNumber(childInfo.allowanceAmount)} ریال
             </FormattedText>
             {!isChild && (
-              <TouchableOpacity
-                style={styles.editButton}
-                onPress={() => {
-                  setActive(props.childInfo.paymentDay);
-                  props.childInfo.allowanceAmount &&
-                    setAllowance(props.childInfo.allowanceAmount + "");
-                  toggleModal();
-                }}
-              >
-                <Edit width={18} height={18} fill={theme.ButtonBlueColor} />
-              </TouchableOpacity>
+              <Edit style={styles.editIcon} fill={theme.ButtonBlueColor} />
             )}
-          </View>
+          </TouchableOpacity>
         </View>
       )}
       <Modal
@@ -123,11 +122,14 @@ const AddAllowance = (props: any) => {
               }}
               fontFamily="Regular-FaNum"
             >
-              پول توجیبی {props.childInfo.nickname}
+              پول توجیبی {childInfo.nickname}
             </FormattedText>
-            <TouchableOpacity onPress={toggleModal}>
-              <Close width={14} height={14} fill={colors.title} />
-            </TouchableOpacity>
+            <Close
+              onPress={toggleModal}
+              width={14}
+              height={14}
+              fill={colors.title}
+            />
           </View>
           <View style={styles.inputBox}>
             <View />

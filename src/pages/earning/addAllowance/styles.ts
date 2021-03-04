@@ -7,6 +7,7 @@ export default StyleSheet.create({
     alignItems: "center",
     width: width,
     backgroundColor: colors.white,
+    marginTop: 10,
   },
   noAllowanceBox: {
     padding: 16,
@@ -37,6 +38,7 @@ export default StyleSheet.create({
   },
   textTitle: {
     fontSize: 16,
+    marginRight: 4,
   },
   contentBox: {
     flexDirection: "row",
@@ -103,5 +105,10 @@ export default StyleSheet.create({
   unequalButtonsWrapper: {
     width: "100%",
     alignItems: "center",
+  },
+  editIcon: {
+    width: 18,
+    height: 18,
+    marginLeft: 4,
   },
 });

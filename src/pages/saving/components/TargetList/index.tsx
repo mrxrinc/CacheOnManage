@@ -178,6 +178,7 @@ const TargetList: React.FC<Props> = (props) => {
                       title="اتمام هدف"
                       loading={savingStore.loading}
                       color={theme.ButtonGreenColor}
+                      btnStyle={styles.btnStyle}
                     />
                   ) : (
                     <FormattedText style={styles.targetInfo}>

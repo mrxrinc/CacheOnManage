@@ -7,7 +7,7 @@ type Props = {
   buttonType?: "equal" | "unequal" | "single";
   mainColor: string;
   mainText: string;
-  mainOnPress: () => void;
+  mainOnPress: any;
   secondaryColor: string;
   secondaryText: string;
   secondaryOnPress: () => void;
