@@ -47,24 +47,22 @@ export default ({
 
   const handleTouch = () => {
     setLoading(true);
-    console.log("data");
     let data = {
       id: taskId,
       amount: inputAmount,
       taskName: taskName,
       activityType,
     };
-    console.log(data);
-    // childEditTask(token, data, taskId)
-    //   .then((response) => {
-    //     setLoading(false);
-    //     dispatch(getEarningData(Math.random()));
-    //     setShowModal(false);
-    //   })
-    //   .catch(function (error) {
-    //     setLoading(false);
-    //     throw error;
-    //   });
+    childEditTask(token, data, taskId)
+      .then((response) => {
+        setLoading(false);
+        dispatch(getEarningData(Math.random()));
+        setShowModal(false);
+      })
+      .catch(function (error) {
+        setLoading(false);
+        throw error;
+      });
   };
 
   const handleFactorCheck = (value: string) => {

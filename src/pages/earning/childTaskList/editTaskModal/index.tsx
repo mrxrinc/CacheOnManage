@@ -50,16 +50,13 @@ const EditTask = ({
       taskName: taskName,
       activityType,
     };
-    console.log(data);
     childEditTask(token, data, taskId)
       .then((res) => {
-        console.log(res);
         setLoading(false);
         dispatch(getEarningData(Math.random()));
         setShowModal(false);
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
         throw error;
       });
