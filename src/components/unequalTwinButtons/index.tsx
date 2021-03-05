@@ -17,6 +17,8 @@ type Props = {
   titleSecondaryStyle?: any;
   mainStyle?: any;
   secondaryStyle?: any;
+  mainDisable?: boolean;
+  secondaryDisable?: boolean;
 };
 
 const UnequalTwinButtons: FC<Props> = ({
@@ -33,6 +35,8 @@ const UnequalTwinButtons: FC<Props> = ({
   titleSecondaryStyle,
   mainStyle,
   secondaryStyle,
+  mainDisable,
+  secondaryDisable,
 }) => {
   return (
     <View
@@ -51,6 +55,7 @@ const UnequalTwinButtons: FC<Props> = ({
           onPress={mainOnPress}
           loading={mainLoading}
           style={mainStyle}
+          disabled={mainDisable}
         />
       </View>
       {buttonType !== "single" && (
@@ -69,6 +74,7 @@ const UnequalTwinButtons: FC<Props> = ({
               onPress={secondaryOnPress}
               loading={secondaryLoading}
               style={secondaryStyle}
+              disabled={secondaryDisable}
             />
           </View>
         </>

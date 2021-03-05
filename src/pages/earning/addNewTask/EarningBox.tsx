@@ -6,7 +6,7 @@ import { formatNumber } from "utils";
 import NoteIcon from "components/icons/note.svg";
 
 const EarningBox = (props: any) => {
-  const { amount, factorCheck, onChangeText, onLayout } = props;
+  const { amount, factorCheck, onChangeText, onLayout, theme } = props;
 
   return (
     <View style={styles.container}>
@@ -32,7 +32,8 @@ const EarningBox = (props: any) => {
           style={[
             styles.factorText,
             {
-              color: !amount || factorCheck ? colors.title : colors.red,
+              color:
+                !amount || factorCheck ? theme.earning.dscColor : colors.red,
             },
           ]}
         >
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
   },
   factorText: {
     fontSize: 12,
-    color: colors.title,
+    color: colors.brownishGrey,
     paddingTop: 0,
   },
 });

@@ -21,7 +21,7 @@
       "contentColor":"#110820"
     },
     "text":{
-      "loginText":"#fff",
+      "loginText":"#fff"
     },
     "svg" : {
       "fingerprint": "#fff"
@@ -62,7 +62,8 @@
       "chartBlue":"#307fe2",
       "chartGreen":"#00bfb2",
       "chartPurple":"#5f249f",
-      "chartGray":"#bbbcbc"
+      "chartGray":"#bbbcbc",
+      "dscColor": "#707070"
     },
     "transferMoney":{
       "backgroundInInput":"#f5f7fa",
@@ -132,7 +133,9 @@
         "chartBlue":"#00afff",
         "chartGreen":"#00bfb2",
         "chartPurple":"#5f249f",
-        "chartGray":"#bbbcbc"
+        "chartGray":"#bbbcbc",
+      "dscColor": "#00015d"
+
       },
       "transferMoney":{
         "backgroundInInput":"#01065d",
@@ -203,7 +206,9 @@
       "chartBlue":"#00afff",
       "chartGreen":"#00bfb2",
       "chartPurple":"#5f249f",
-      "chartGray":"#bbbcbc"
+      "chartGray":"#bbbcbc",
+      "dscColor": "#00015d"
+
     },
     "transferMoney":{
       "backgroundInInput":"#01065d",

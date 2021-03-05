@@ -5,7 +5,7 @@ import { colors } from "constants/index";
 
 type Props = {
   color?: string;
-  onChange: (state: boolean) => void;
+  onChange?: (state: boolean) => void;
   showActive: boolean;
   disabled?: boolean;
   size?: number;

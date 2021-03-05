@@ -16,10 +16,10 @@ export default StyleSheet.create({
     marginTop: 5,
   },
   taskText: {
-    color: "#515c6f",
-    fontSize: 14,
+    color: colors.eggplant,
+    fontSize: 16,
     lineHeight: 22,
-    marginLeft: 5,
+    marginLeft: 6,
   },
   taskNameBox: {
     flexDirection: "row",
@@ -42,5 +42,14 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     height: 50,
     marginHorizontal: -20,
+  },
+  activeItem: {
+    backgroundColor: colors.clearBlue5,
+    borderRadius: 10,
+  },
+  rial: {
+    color: colors.brownishGrey,
+    fontSize: 16,
+    marginLeft: 5,
   },
 });
