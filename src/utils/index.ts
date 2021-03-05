@@ -38,7 +38,7 @@ export const persianDigits = (text: string) => {
   return text;
 };
 
-export const formatNumber = (value: string | null = null) => {
+export const formatNumber = (value: string | number | null = null) => {
   if (value) {
     return `${value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
@@ -100,7 +100,7 @@ export const debounce = (callback: any, delay = 4000) => {
 };
 
 export const jalaliDate = (value: string) => {
-  return moment(value, 'YYYY-M-D').format('jYYYY/jM/jD')
+  return moment(value, "YYYY-M-D").format("jYYYY/jM/jD");
 };
 
 export const convertEpotchToDate = (date: number) => {
@@ -159,8 +159,8 @@ export const getTwoYearsDate = () => {
     ) {
       let convertToString = {
         year: year.toString(),
-        month: month.toString()
-      }
+        month: month.toString(),
+      };
       data.push(convertToString);
     }
   }
