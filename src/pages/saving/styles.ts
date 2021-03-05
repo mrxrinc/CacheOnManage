@@ -79,4 +79,5 @@ export default StyleSheet.create({
   modal: {
     margin: 0,
   },
+  tabView: { backgroundColor: "#f4f6fa" },
 });

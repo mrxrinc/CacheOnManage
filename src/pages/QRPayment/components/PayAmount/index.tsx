@@ -69,17 +69,20 @@ const PayAmount: React.FC<Props> = (props) => {
   });
 
   function handleChangeText(value: string) {
-    formik.setFieldValue("amount", value.replace(/,/g, ""));
+    formik.setFieldValue(
+      "amount",
+      value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
+    );
   }
 
   return (
-    <View style={[styles.container]}>
-      <ScrollView style={[styles.content]}>
+    <>
+      <ScrollView style={[styles.content, styles.container]}>
         <View style={styles.wrapper}>
           <View style={styles.icon}>
             <Shop height={60} width={60} />
           </View>
-          <View>
+          <View style={styles.storeDetailBox}>
             <FormattedText>{qrStore.merchantName}</FormattedText>
             <FormattedText fontFamily="Regular-FaNum">
               {qrStore.termID}
@@ -109,14 +112,16 @@ const PayAmount: React.FC<Props> = (props) => {
           </View>
         </Formik>
       </ScrollView>
-      <Button
-        title="تایید"
-        onPress={formik.handleSubmit}
-        loading={qrStore.loading}
-        disabled={!formik.isValid || qrStore.loading}
-        color={colors.buttonSubmitActive}
-      />
-    </View>
+      <View style={styles.confirmBtn}>
+        <Button
+          title="تایید"
+          onPress={formik.handleSubmit}
+          loading={qrStore.loading}
+          disabled={!formik.isValid || qrStore.loading}
+          color={colors.buttonSubmitActive}
+        />
+      </View>
+    </>
   );
 };
 

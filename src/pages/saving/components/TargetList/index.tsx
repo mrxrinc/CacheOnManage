@@ -71,6 +71,8 @@ const TargetList: React.FC<Props> = (props) => {
                     fill={theme.ButtonRedColor}
                     onPress={() => handleShowDeleteModal(target.id)}
                   />
+                ) : target.state === "COMPLETED" ? (
+                  <></>
                 ) : (
                   <TouchableOpacity
                     style={styles.editBox}
@@ -181,7 +183,7 @@ const TargetList: React.FC<Props> = (props) => {
                   ) : (
                     <FormattedText style={styles.targetInfo}>
                       {target.state === "DONE" ||
-                      target.state === "SAVING" ||
+                      target.state === "CANCELED" ||
                       target.state === "COMPLETED"
                         ? ""
                         : `تا ${target.targetDate}`}

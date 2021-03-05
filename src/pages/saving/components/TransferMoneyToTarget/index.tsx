@@ -28,7 +28,6 @@ import SavingActions from "store/Saving/saving.actions";
 import Tick from "components/icons/tick.svg";
 // Styles
 import style from "./styles";
-import { colors } from "constants/index";
 import { withTheme } from "themeCore/themeProvider";
 
 interface Props {

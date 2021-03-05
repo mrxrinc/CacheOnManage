@@ -1,6 +1,5 @@
 import { colors } from "constants/index";
 import { StyleSheet, Dimensions } from "react-native";
-const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   container: {
@@ -12,6 +11,7 @@ export default StyleSheet.create({
   title: {
     color: "#00015d",
     fontSize: 16,
+    marginBottom: 20,
   },
   submitButton: {
     height: 43,
@@ -41,9 +41,16 @@ export default StyleSheet.create({
   wrapper: {
     display: "flex",
     flexDirection: "row",
-    marginBottom: 20,
+    marginBottom: 30,
   },
   icon: {
     marginRight: 10,
+  },
+  confirmBtn: {
+    paddingBottom: 50,
+    padding: 20,
+  },
+  storeDetailBox: {
+    marginTop: 3,
   },
 });
