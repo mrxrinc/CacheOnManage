@@ -148,6 +148,15 @@ const TransferMoney: FC = (props: any) => {
     setChildName(nickname);
     setShowPicker(false);
   }
+  function handleAmountChange(value: string) {
+    formik.setFieldValue(
+      "amount",
+      value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
+    );
+    if (value.toString().charAt(0) === "0") {
+      formik.setFieldValue("amount", "");
+    }
+  }
   return (
     <Layout>
       <Header
@@ -265,12 +274,7 @@ const TransferMoney: FC = (props: any) => {
                 <MaterialTextField
                   label="مبلغ"
                   value={formatNumber(formik.values.amount)}
-                  onChangeText={(value: string) =>
-                    formik.setFieldValue(
-                      "amount",
-                      value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
-                    )
-                  }
+                  onChangeText={(value: string) => handleAmountChange(value)}
                   hasUnit
                   maxLength={13}
                   error={formik.errors.amount}

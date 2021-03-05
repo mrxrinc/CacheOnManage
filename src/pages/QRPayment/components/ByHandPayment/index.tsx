@@ -28,15 +28,17 @@ const ByHandPayment: React.FC<Props> = (props) => {
   const qrStore = useSelector<StateNetwork, QRPaymentState>(
     (state) => state.qrPayment
   );
+  const [firstSubmitted, setFirstSubmitted] = React.useState(false);
 
   const formik = useFormik({
     initialValues: {
       qrGuid: "",
     },
+    validateOnChange: firstSubmitted,
     validateOnBlur: false,
     validate: (values) => {
       const errors: Errors = {};
-
+      setFirstSubmitted(true);
       if (!values.qrGuid) {
         errors.qrGuid = "لطفا شماره پذیرنده را وارد نمایید.";
       }

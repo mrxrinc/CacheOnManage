@@ -73,6 +73,7 @@ export default StyleSheet.create({
     borderRadius: 3,
     borderBottomRightRadius: 0,
     borderTopRightRadius: 0,
+    width: 110,
   },
   activeButton2: {
     backgroundColor: "#1daffc",

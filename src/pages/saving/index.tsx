@@ -40,7 +40,6 @@ import { formatNumber } from "utils";
 const Saving: FC = ({ theme }: any) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
-  const [selectedTab, setSelectedTab] = React.useState<number>(0);
   const [childName, setChildName] = React.useState<string>("");
   const [childNameInFinishTarget, setChildNameInFinishTarget] = React.useState<
     string
@@ -68,10 +67,6 @@ const Saving: FC = ({ theme }: any) => {
   useEffect(() => {
     dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
   }, []);
-
-  function handleChangeTab(selectedTabId: number) {
-    setSelectedTab(selectedTabId);
-  }
 
   const handleRefresh = () => {
     dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
@@ -196,10 +191,8 @@ const Saving: FC = ({ theme }: any) => {
         <View style={styles.container}>
           {savingStore.savingList?.length > 0 ? (
             <ScrollableTabView
-              style={{ backgroundColor: "#f4f6fa" }}
+              style={styles.tabView}
               hasTabbar={isChild ? false : true}
-              page={selectedTab}
-              onChangeTab={handleChangeTab}
             >
               {savingStore.savingList.map(
                 (childData: SavingListData, index: number) => {
@@ -207,8 +200,8 @@ const Saving: FC = ({ theme }: any) => {
                     <ChildPage
                       tabLabel={childData.childName}
                       data={childData}
+                      i={index}
                       key={index}
-                      onRefresh={handleRefresh}
                     />
                   );
                 }
