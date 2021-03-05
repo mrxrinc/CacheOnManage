@@ -148,7 +148,7 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
             کارت به آدرس زیر ارسال می‌شود:
           </FormattedText>
           <FormattedText style={styles.Description}>
-            {fatherAddress || clientAddress}
+            {clientAddress || fatherAddress}
           </FormattedText>
           <View style={styles.addressButtonWrapper}>
             <Button

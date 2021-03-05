@@ -60,8 +60,8 @@ const ByHandPayment: React.FC<Props> = (props) => {
   });
 
   return (
-    <ScrollView contentContainerStyle={[styles.container]}>
-      <>
+    <>
+      <ScrollView contentContainerStyle={[styles.container]}>
         <FormattedText style={styles.title}>
           لطفا شماره پذیرنده را وارد کنید.
         </FormattedText>
@@ -70,7 +70,7 @@ const ByHandPayment: React.FC<Props> = (props) => {
           initialValues={formik.initialValues}
           onSubmit={(values: any) => formik.handleSubmit(values)}
         >
-          <ScrollView>
+          <View>
             <View>
               <MaterialTextField
                 label="شماره پذیرنده"
@@ -84,10 +84,10 @@ const ByHandPayment: React.FC<Props> = (props) => {
             <FormattedText style={{ color: "#00015d", fontSize: 13 }}>
               شماره پذیرنده را از فروشنده بخواهید.
             </FormattedText>
-          </ScrollView>
+          </View>
         </Formik>
-      </>
-      <View style={{ marginTop: 100 }}>
+      </ScrollView>
+      <View style={styles.continueBtn}>
         <Button
           onPress={formik.handleSubmit}
           disabled={!formik.isValid}
@@ -96,7 +96,7 @@ const ByHandPayment: React.FC<Props> = (props) => {
           loading={qrStore.loading}
         />
       </View>
-    </ScrollView>
+    </>
   );
 };
 

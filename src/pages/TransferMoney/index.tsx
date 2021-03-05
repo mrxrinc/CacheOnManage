@@ -87,11 +87,13 @@ const TransferMoney: FC = (props: any) => {
     if (transferMoneyStore.transactionResult?.data) {
       const result = R.map((key: string) => {
         const isAmount = key === "amount";
+
         return {
           key: translate[key],
           value: isAmount
             ? formatNumber(transferMoneyStore.transactionResult.data[key])
             : transferMoneyStore.transactionResult.data[key],
+          unit: isAmount ? "ریال" : null,
         };
       }, Object.keys(transferMoneyStore.transactionResult.data));
 
