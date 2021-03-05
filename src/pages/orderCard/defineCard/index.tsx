@@ -1,7 +1,7 @@
-import React, { FC, useState } from "react";
-import { View, TouchableOpacity, Image } from "react-native";
+import React, { FC, useState, useEffect } from "react";
+import { View, TouchableOpacity, Image, Platform, Linking } from "react-native";
 import Carousel from "react-native-snap-carousel";
-import { width } from "constants/index";
+import { colors, width } from "constants/index";
 import { FormattedText } from "components/format-text";
 import Header from "components/header";
 import Layout from "components/layout";
@@ -21,6 +21,8 @@ import {
   handleCamera,
   handleImagePicker,
 } from "pages/setting/tabPages/constants";
+import { check, PERMISSIONS, request, RESULTS } from "react-native-permissions";
+import AlertController from "components/alertController";
 
 type TabType = "VIP" | "OTHER";
 
@@ -41,6 +43,7 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
   const [activeCard, setActiveCard] = useState<ActiveCard>("VIP");
   const [avatar, setAvatar] = useState<string | null>(null);
   const [imagePickerModal, setImagePickerModal] = useState<boolean>(false);
+  const [isModal, setIsModal] = useState(false);
 
   const handleNextPage = () => {
     navigation.navigate("confirmCard", {
@@ -80,6 +83,25 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
         return "BLUJR_5";
       default:
         return "VIP";
+    }
+  };
+
+  useEffect(() => {
+    checkCameraAccess();
+  }, []);
+
+  const requestCameraAccess = async (status: string) => {
+    if (status === RESULTS.DENIED) {
+      await request(PERMISSIONS.IOS.CAMERA);
+    } else if (status === (RESULTS.BLOCKED || RESULTS.LIMITED)) {
+      setIsModal(true);
+    }
+  };
+
+  const checkCameraAccess = async () => {
+    if (Platform.OS === "ios") {
+      let status = await check(PERMISSIONS.IOS.CAMERA);
+      requestCameraAccess(status);
     }
   };
 
@@ -249,24 +271,21 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
     );
   };
 
+  const switchAvatar = (isCamera: boolean) => {
+    setImagePickerModal(false);
+    setTimeout(() => {
+      isCamera ? handleCamera(setAvatar) : handleImagePicker(setAvatar);
+    }, 500);
+  };
+
   const renderAvatarEdit = () => (
     <View>
       <View style={styles.imageUploadWrapper}>
-        <TouchableOpacity
-          onPress={() => {
-            handleCamera(setAvatar, () => null);
-            setImagePickerModal(false);
-          }}
-        >
+        <TouchableOpacity onPress={() => switchAvatar(true)}>
           <CameraIcon />
           <FormattedText style={styles.uploadTitle}>دوربین</FormattedText>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            handleImagePicker(setAvatar, () => null);
-            setImagePickerModal(false);
-          }}
-        >
+        <TouchableOpacity onPress={() => switchAvatar(false)}>
           <GalleryIcon />
           <FormattedText style={styles.uploadTitle}>آلبوم</FormattedText>
         </TouchableOpacity>
@@ -313,6 +332,19 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
       >
         {renderAvatarEdit()}
       </ActionModalButtom>
+      <AlertController
+        showModal={isModal}
+        setShowModal={() => setIsModal(false)}
+        title="عدم دسترسی به دوربین"
+        centerText
+        description={`لطفا دسترسی به دوربین را در تنظیمات ${"\n"} فعال کنید`}
+        leftAction={() => Linking.openURL("app-settings:")}
+        rightTitle="انصراف"
+        leftColor={colors.blujrBtnOpenActive}
+        leftTitle="ورود به تنظیمات"
+        rightColor={colors.blujrBtnOpenActive}
+        rightAction={() => setIsModal(false)}
+      />
     </Layout>
   );
 };

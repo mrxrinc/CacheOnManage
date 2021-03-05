@@ -21,7 +21,7 @@ const CAMERA_OPTIONS = {
 
 export function handleCamera(
   setAvatar: (T: string) => void,
-  handleSetSettingData: any
+  handleSetSettingData?: any
 ) {
   ImagePicker.openCamera(CAMERA_OPTIONS).then((image: any) => {
     setAvatar(image.data);
@@ -31,7 +31,7 @@ export function handleCamera(
 
 export function handleImagePicker(
   setAvatar: (T: string) => void,
-  handleSetSettingData: any
+  handleSetSettingData?: any
 ) {
   ImagePicker.openPicker(CAMERA_OPTIONS).then((image: any) => {
     setAvatar(image.data);
