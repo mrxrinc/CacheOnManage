@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { FormattedText } from "components/format-text";
-import Tick from "components/icons/tick.svg";
 import { withTheme } from "themeCore/themeProvider";
 import { colors } from "constants/index";
+import Checkbox from "components/checkbox";
 
 const ToggleOptionItem = (props: any) => {
   const {
@@ -21,24 +21,19 @@ const ToggleOptionItem = (props: any) => {
       onPress={setActivityTask}
       style={[styles.activityButton, style]}
     >
-      <View
-        style={[
-          styles.recurringCheckbox,
-          {
-            backgroundColor: isCustom
-              ? keyItem
-                ? theme.ButtonGreenColor
-                : "white"
-              : activityTask === keyItem
-              ? theme.ButtonGreenColor
-              : "white",
-            borderColor: theme.ButtonGreenColor,
-          },
-        ]}
-      >
-        <Tick width={14} height={14} fill={"white"} />
-      </View>
-
+      <Checkbox
+        color={theme.ButtonGreenColor}
+        disabled
+        showActive={
+          isCustom
+            ? keyItem
+              ? true
+              : false
+            : activityTask === keyItem
+            ? true
+            : false
+        }
+      />
       <FormattedText id={title} style={styles.activityText} />
     </TouchableOpacity>
   );
@@ -50,7 +45,6 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 14,
     marginLeft: 5,
-    // paddingVertical: 0,
   },
   activityButton: {
     flexDirection: "row",
