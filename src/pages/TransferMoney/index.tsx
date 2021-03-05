@@ -43,6 +43,7 @@ import style from "./styles";
 import ActionModalBottom from "components/modal/actionModalBottom";
 import PickerItem from "./components/PickerItem";
 import { withTheme } from "themeCore/themeProvider";
+import { getEarningData } from "redux/actions/Earning";
 
 const MessagesContext = React.createContext(messages);
 export interface Errors {
@@ -136,6 +137,7 @@ const TransferMoney: FC = (props: any) => {
     dispatch(
       TransferMoneyActions.transferMoney({ data: [] }, { sagas: false })
     );
+    dispatch(getEarningData(Math.random()));
     navigation.navigate("homeTab");
   }
 
@@ -265,12 +267,15 @@ const TransferMoney: FC = (props: any) => {
                 <MaterialTextField
                   label="مبلغ"
                   value={formatNumber(formik.values.amount)}
-                  onChangeText={(value: string) =>
+                  onChangeText={(value: string) => {
                     formik.setFieldValue(
                       "amount",
                       value.replace(/[- #*;,.<>\{\}\[\]\\\/]/gi, "")
-                    )
-                  }
+                    );
+                    if (value.toString().charAt(0) === "0") {
+                      formik.setFieldValue("amount", "");
+                    }
+                  }}
                   hasUnit
                   maxLength={13}
                   error={formik.errors.amount}
