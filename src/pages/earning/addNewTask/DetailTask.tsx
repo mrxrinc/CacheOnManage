@@ -23,6 +23,7 @@ const DetailTask = (props: any) => {
     onChangeText,
     onLayout,
     factorCheck,
+    theme,
   } = props;
   return (
     <View style={styles.container}>
@@ -34,6 +35,7 @@ const DetailTask = (props: any) => {
             setAmount={setAmount}
             amount={amount}
             factorCheck={factorCheck}
+            theme={theme}
           />
           <ChildList
             childSelected={childSelected}

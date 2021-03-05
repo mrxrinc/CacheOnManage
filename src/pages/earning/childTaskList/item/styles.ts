@@ -21,6 +21,7 @@ export default StyleSheet.create({
     marginRight: 8,
   },
   status: {},
+  confirmTaskToDoRadius: { borderRadius: 30 },
   detail: {
     flexGrow: 1,
     justifyContent: "space-between",
@@ -83,10 +84,13 @@ export default StyleSheet.create({
   },
   taskItemConfirmButtonToDo: {
     backgroundColor: colors.buttonSubmitActive,
-    borderRadius: 10,
+    height: 24,
+    width: 110,
+    justifyContent: "center",
+    borderRadius: 30,
   },
   taskItemConfirmButtonText: {
-    lineHeight: IOS ? 8 : 16,
+    lineHeight: IOS ? 10 : 16,
     textAlign: "center",
     color: colors.white,
   },

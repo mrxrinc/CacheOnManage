@@ -23,7 +23,7 @@ const TaskBox = (props: any) => {
       ) : (
         <View style={styles.textInputBox}>
           <MaterialTextField
-            label="نام فعالیت جدید"
+            label="نام فعالیت جدید را وارد کنید"
             keyboardType="default"
             maxLength={30}
             isOnFcous={isOnFcous}
@@ -32,7 +32,7 @@ const TaskBox = (props: any) => {
             editable={!isDefaultTask}
             value={taskName}
           />
-          <PlusIcon style={styles.plusIcon} />
+          {taskName === "" && <PlusIcon style={styles.plusIcon} />}
         </View>
       )}
     </View>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   plusIcon: {
     color: colors.gray600,
-    right: "50%",
+    right: "60%",
     bottom: "4%",
   },
 });

@@ -173,6 +173,7 @@ const AddNew = (props: any) => {
             childSelected={childSelected}
             isChild={isChild}
             amount={amount}
+            theme={theme}
             isVisible={onFocus}
             isDefaultTask={isDefaultTask}
             customDefault={customDefault}
@@ -204,6 +205,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    marginTop: 18,
   },
   container: {
     justifyContent: "space-between",

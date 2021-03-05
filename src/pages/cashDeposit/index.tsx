@@ -40,6 +40,7 @@ const CashDeposit: FC = (props: any) => {
   const theme = props.theme;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<string>("");
+  const [isErrorMessage, setIsErrorMessage] = useState<boolean>(false);
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
   const [cashDepositResponse, setCashDepositResponse] = useState<any>(null);
   const [timeLeft, setTimeLeft] = useState(0);
@@ -129,6 +130,7 @@ const CashDeposit: FC = (props: any) => {
       })
       .catch((err: any) => {
         setLoading(false);
+        setIsErrorMessage(true);
         setStatusMessage(err.response.data.message);
       });
   };
@@ -137,14 +139,17 @@ const CashDeposit: FC = (props: any) => {
     if (form.sourcePan && form.amount && timeLeft === 0) {
       const { sourcePan, amount } = form;
       harim(token, sourcePan, amount)
-        .then((response: any) => {
+        .then(() => {
+          setIsErrorMessage(false);
           setStatusMessage("رمز پویا برای شما ارسال شد.");
           setTimeLeft(COUNTER);
         })
         .catch((err: any) => {
+          setIsErrorMessage(true);
           setStatusMessage(err.response.data.message);
         });
     } else {
+      setIsErrorMessage(true);
       setStatusMessage("شماره کارت و مبلغ را وارد کنید!");
     }
   };
@@ -293,20 +298,10 @@ const CashDeposit: FC = (props: any) => {
             </View>
           </View>
           <View style={style.messageWrapper}>
-            <FormattedText style={[style.message]}>
-              {timeLeft !== 0 ? (
-                <FormattedText style={{ color: colors.accent }}>
-                  {statusMessage}
-                </FormattedText>
-              ) : form.sourcePan.length === 0 ||
-                !form.amount ||
-                statusMessage ? (
-                <FormattedText style={{ color: colors.red }}>
-                  {statusMessage}
-                </FormattedText>
-              ) : (
-                ""
-              )}
+            <FormattedText
+              style={{ color: isErrorMessage ? colors.red : colors.accent }}
+            >
+              {statusMessage}
             </FormattedText>
           </View>
         </ScrollView>
@@ -323,6 +318,7 @@ const CashDeposit: FC = (props: any) => {
         </View>
 
         <Modal
+          useNativeDriver
           isVisible={showModal}
           onBackdropPress={() => setShowModal(false)}
           style={style.modal}
