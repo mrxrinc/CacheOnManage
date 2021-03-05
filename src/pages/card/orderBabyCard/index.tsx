@@ -11,7 +11,7 @@ import Card from "images/cards/mainPage/ActiveCard.svg";
 import Plus from "images/cards/orderBabyCard/plus.svg";
 import Success from "images/cards/orderBabyCard/success.svg";
 import Button from "components/button";
-import { colors, width, height } from "constants/index";
+import { colors } from "constants/index";
 import ActionModalButtom from "components/modal/actionModalBottom";
 import UnequalTwinButtons from "components/unequalTwinButtons";
 import { ModalType, OFFLOAD_MODAL } from "../constants";
@@ -336,29 +336,25 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
       <View style={styles.cardBox}>
-        <View style={styles.cardPack}>
-          <View style={styles.imgBox}>
-            <Card />
-            <TouchableOpacity onPress={handleTouch}>
-              {cardsInfo.status == "NONE" && <Plus />}
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.description}>
-          <View style={styles.descriptionTextBox}>
-            <FormattedText
-              style={styles.descriptionText}
-              id={
-                cardsInfo.status == "NONE"
-                  ? isChild
-                    ? "orderBabyCard.orderChildDescription"
-                    : "orderBabyCard.orderDescription"
-                  : "orderBabyCard.activationDescription"
-              }
-            />
-          </View>
+        <Card />
+        <TouchableOpacity style={styles.plusBtn} onPress={handleTouch}>
+          {cardsInfo.status == "NONE" && <Plus />}
+        </TouchableOpacity>
+      </View>
+      <View style={styles.description}>
+        <View style={styles.descriptionTextBox}>
+          <FormattedText
+            style={styles.descriptionText}
+            id={
+              cardsInfo.status == "NONE"
+                ? isChild
+                  ? "orderBabyCard.orderChildDescription"
+                  : "orderBabyCard.orderDescription"
+                : "orderBabyCard.activationDescription"
+            }
+          />
         </View>
       </View>
       {!isChild && cardsInfo.status == "NONE" && (

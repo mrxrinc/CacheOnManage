@@ -1,39 +1,51 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "constants/index";
+import { colors, iosBoxShadow } from "constants/index";
 
 const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   container: {
-    width: "100%",
-    justifyContent: "space-between",
+    flexGrow: 1,
     alignItems: "center",
-    paddingBottom: 30,
+  },
+  plusBtn: {
+    position: "absolute",
+    zIndex: 10,
+    right: 0,
+    left: 0,
+    top: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
   cardBox: {
     justifyContent: "center",
     alignItems: "center",
-    height: height * 0.5,
+    borderRadius: 15,
+    elevation: 3,
+    ...iosBoxShadow,
   },
   cardPack: {
-    height: "40.8%",
-    width: "100%",
     alignItems: "center",
     justifyContent: "center",
+    flex: 1,
   },
   imgBox: {
-    position: "absolute",
     justifyContent: "center",
     alignItems: "center",
+    elevation: 3,
+    zIndex: 1,
+    ...iosBoxShadow,
   },
 
   description: {
     width: width,
     height: height * 0.14,
-    marginTop: "7%",
     backgroundColor: "#edf0f5",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 10,
   },
   descriptionTextBox: {
     width: width * 0.85,
@@ -42,6 +54,8 @@ export default StyleSheet.create({
   button: {
     width: width * 0.89,
     height: 44,
+    position: "absolute",
+    bottom: 40,
   },
   buttonsWrapper: {
     marginTop: 30,
