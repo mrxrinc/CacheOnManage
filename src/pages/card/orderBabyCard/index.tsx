@@ -270,6 +270,7 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
             style={{
               color: "#333333",
               fontSize: 14,
+              marginBottom: 15,
             }}
           >
             لطفا شماره کارت را وارد نمائید.
@@ -339,9 +340,11 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
     <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
       <View style={styles.cardBox}>
         <Card />
-        <TouchableOpacity style={styles.plusBtn} onPress={handleTouch}>
-          {cardsInfo.status == "NONE" && <Plus />}
-        </TouchableOpacity>
+        {cardsInfo.status == "NONE" && (
+          <TouchableOpacity style={styles.plusBtn} onPress={handleTouch}>
+            <Plus />
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.description}>
         <View style={styles.descriptionTextBox}>
