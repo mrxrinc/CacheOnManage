@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, FlatList, ScrollView } from "react-native";
+import { View, TouchableOpacity, FlatList, RefreshControl } from "react-native";
 import ChildCard from "./childCard";
 import CardItems from "./cardItems";
 import { FormattedText } from "components/format-text";
@@ -11,10 +11,10 @@ import { useNavigation } from "@react-navigation/core";
 const MainPage = (props: any) => {
   const navigation = useNavigation();
 
-  const { cardsInfo, data } = props;
+  const { cardsInfo, data, onRefresh, loading } = props;
 
   const renderListHead = () => (
-    <ScrollView keyboardShouldPersistTaps="handled">
+    <View>
       <ChildCard cardsInfo={props.cardsInfo} />
       <CardItems cardsInfo={props.cardsInfo} />
       <View style={styles.listSection}>
@@ -39,7 +39,7 @@ const MainPage = (props: any) => {
           <FormattedText style={styles.categoryTitle}>هفته جاری</FormattedText>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 
   return (
@@ -51,6 +51,9 @@ const MainPage = (props: any) => {
       ListHeaderComponent={() => renderListHead()}
       ListHeaderComponentStyle={{ backgroundColor: "white" }}
       keyboardShouldPersistTaps="handled"
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={onRefresh} />
+      }
     />
   );
 };

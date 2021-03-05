@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-  ActivityIndicator,
-  RefreshControl,
-} from "react-native";
+import { View, StyleSheet, Dimensions, ActivityIndicator } from "react-native";
 import MainHeader from "components/mainHeader";
 import Layout from "components/layout";
 import ScrollableTabView from "components/scrollableTabView";
@@ -70,29 +63,26 @@ const Cards = (props: any) => {
 
   const CardsPage = (item: any) => {
     return (
-      <ScrollView
-        contentContainerStyle={styles.cardsPageBox}
-        keyboardShouldPersistTaps="handled"
-        refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={onRefresh} />
-        }
+      <View
+        style={{
+          height: "100%",
+          width: "100%",
+          marginTop: 15,
+        }}
       >
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            marginTop: 15,
-          }}
-        >
-          {item.data.status == "NONE" ||
-          item.data.status == "FORCED_PIN_CHANGE" ||
-          item.data.status == "ORDERED" ? (
-            <OrderBabayCard cardsInfo={item.data} />
-          ) : (
-            <MainPage cardsInfo={item.data} data={transactions} />
-          )}
-        </View>
-      </ScrollView>
+        {item.data.status == "NONE" ||
+        item.data.status == "FORCED_PIN_CHANGE" ||
+        item.data.status == "ORDERED" ? (
+          <OrderBabayCard cardsInfo={item.data} />
+        ) : (
+          <MainPage
+            cardsInfo={item.data}
+            data={transactions}
+            onRefresh={onRefresh}
+            loading={loading}
+          />
+        )}
+      </View>
     );
   };
 
