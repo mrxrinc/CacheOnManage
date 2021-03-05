@@ -249,9 +249,7 @@ const ChildHome = ({ route, theme }: any) => {
                       fontFamily="Regular-FaNum"
                       style={style.twinChildTextValue}
                     >
-                      {formatNumber(
-                        childData.incomes - childData.weeklySpent
-                      ) || 0}{" "}
+                      {formatNumber(childData.cardRemaining) || 0}{" "}
                       <FormattedText style={style.currency} id={"home.rial"} />
                     </FormattedText>
                   </View>
