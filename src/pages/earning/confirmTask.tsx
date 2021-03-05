@@ -22,6 +22,8 @@ const confirmTaskPage = ({ route, theme }: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [rejectionModal, setRejectionModal] = useState(false);
+  const [rejectionLoading, setRejectionLoading] = useState(false);
+  const [confirmationLoading, setConfirmationLoading] = useState(false);
   const [stars, setStars] = useState(0);
   const [status, setStatus] = useState<"ACCEPT" | "FAILED">("ACCEPT");
 
@@ -33,6 +35,9 @@ const confirmTaskPage = ({ route, theme }: any) => {
   };
 
   const handleAction = (value: "ACCEPT" | "FAILED") => {
+    value === "ACCEPT"
+      ? setConfirmationLoading(true)
+      : setRejectionLoading(true);
     const data = {
       id: item.id,
       star: stars,
@@ -40,10 +45,18 @@ const confirmTaskPage = ({ route, theme }: any) => {
     };
     confirmTask(token, data)
       .then(() => {
+        value === "ACCEPT"
+          ? setConfirmationLoading(false)
+          : setRejectionLoading(false);
+
         dispatch(getEarningData(Math.random()));
         navigation.goBack();
       })
       .catch((err) => {
+        value === "ACCEPT"
+          ? setConfirmationLoading(false)
+          : setRejectionLoading(false);
+
         console.warn("ERROR: ", err.response);
       });
   };
@@ -63,16 +76,25 @@ const confirmTaskPage = ({ route, theme }: any) => {
                 style={styles.itemIcon}
               />
             </View>
-            <FormattedText>{item.taskName}</FormattedText>
+            <FormattedText style={styles.taskName} fontFamily="Regular-FaNum">
+              {item.taskName}
+            </FormattedText>
           </View>
-          <FormattedText
-            style={styles.titleAmount}
-            fontFamily="Regular-FaNum"
-          >{`${formatNumber(item.amount)} ریال`}</FormattedText>
+          <View style={styles.amount}>
+            <FormattedText
+              style={styles.titleAmount}
+              fontFamily="Regular-FaNum"
+            >
+              {formatNumber(item.amount)}
+            </FormattedText>
+            <FormattedText style={styles.rial} fontFamily="Regular-FaNum">
+              ریال
+            </FormattedText>
+          </View>
         </View>
 
         <FormattedText style={[styles.mainText, { color: theme.titleColor }]}>
-          لطفا کیفیت انجام مسئولیت را مشخص نمائید.
+          لطفا کیفیت انجام فعالیت را مشخص نمائید.
         </FormattedText>
         <FormattedText style={styles.description}>
           لطفا در امتیاز دهی‌ دقت کنید چراکه پس از تائید یا رد امکان تغییر در
@@ -95,21 +117,22 @@ const confirmTaskPage = ({ route, theme }: any) => {
           starSize={42}
           containerStyle={styles.stars}
         />
-
-        <View>
+        <View style={styles.amountStar}>
           <FormattedText
             style={[styles.rateAmount, { color: theme.titleColor }]}
             fontFamily="Regular-FaNum"
           >
             {formatNumber(`${Math.floor(item.amount / 5) * stars}`)}
-            <FormattedText
-              style={{
-                fontSize: 14,
+          </FormattedText>
+          <FormattedText
+            style={[
+              styles.rialStar,
+              {
                 color: theme.titleColor,
-              }}
-            >
-              ریال
-            </FormattedText>
+              },
+            ]}
+          >
+            ریال
           </FormattedText>
         </View>
       </ScrollView>
@@ -117,6 +140,7 @@ const confirmTaskPage = ({ route, theme }: any) => {
       <View style={styles.buttonsWrapper}>
         <Button
           title="تائید انجام فعالیت"
+          loading={confirmationLoading}
           onPress={() => handleConfirmation("ACCEPT")}
           color={theme.ButtonGreenColor}
           style={styles.buttons}
@@ -125,6 +149,7 @@ const confirmTaskPage = ({ route, theme }: any) => {
         <View style={styles.buttonsSpacer} />
         <Button
           title="رد انجام فعالیت"
+          loading={rejectionLoading}
           onPress={() => handleConfirmation("FAILED")}
           color={theme.ButtonRedColor}
           style={styles.buttons}
@@ -163,6 +188,29 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
   },
+  taskName: {
+    fontSize: 18,
+    color: colors.eggplant,
+  },
+  rialStar: {
+    fontSize: 16,
+    marginLeft: 25,
+  },
+  amountStar: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "center",
+    marginTop: 25,
+  },
+  amount: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rial: {
+    fontSize: 16,
+    color: colors.brownishGrey,
+    marginLeft: 6,
+  },
   titleWrapper: {
     width: "100%",
     height: 60,
@@ -189,8 +237,8 @@ const styles = StyleSheet.create({
     height: 32,
   },
   titleAmount: {
-    fontSize: 16,
-    color: colors.gray300,
+    fontSize: 18,
+    color: colors.eggplant,
   },
   mainText: {
     fontSize: 16,
@@ -201,7 +249,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 14,
-    color: colors.gray600,
+    color: colors.brownishGrey,
     textAlign: "center",
     marginBottom: 20,
     lineHeight: 25,
@@ -213,10 +261,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   rateAmount: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: "center",
-    marginTop: 10,
-    marginLeft: 10,
   },
   buttonsWrapper: {
     flexDirection: "row",

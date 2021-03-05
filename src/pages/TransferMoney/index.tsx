@@ -43,6 +43,7 @@ import style from "./styles";
 import ActionModalBottom from "components/modal/actionModalBottom";
 import PickerItem from "./components/PickerItem";
 import { withTheme } from "themeCore/themeProvider";
+import { getEarningData } from "redux/actions/Earning";
 
 const MessagesContext = React.createContext(messages);
 export interface Errors {
@@ -136,6 +137,7 @@ const TransferMoney: FC = (props: any) => {
     dispatch(
       TransferMoneyActions.transferMoney({ data: [] }, { sagas: false })
     );
+    dispatch(getEarningData(Math.random()));
     navigation.navigate("homeTab");
   }
 

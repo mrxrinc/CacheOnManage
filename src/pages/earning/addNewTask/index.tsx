@@ -67,6 +67,7 @@ const AddNew = (props: any) => {
       activityType: activityTask,
       childIds: childIdList,
       amount: amount,
+      icon: icon,
       customDefault,
     };
     addNewTask(token, data)
@@ -172,6 +173,7 @@ const AddNew = (props: any) => {
             childSelected={childSelected}
             isChild={isChild}
             amount={amount}
+            theme={theme}
             isVisible={onFocus}
             isDefaultTask={isDefaultTask}
             customDefault={customDefault}
@@ -203,6 +205,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    marginTop: 18,
   },
   container: {
     justifyContent: "space-between",

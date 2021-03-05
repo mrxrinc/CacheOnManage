@@ -35,12 +35,13 @@ const AddAllowance = (props: any) => {
     setModalVisible(!isModalVisible);
   };
   const handleAddAllowance = ({ remove }: { remove: boolean }) => {
-    remove ? setDeleteLoading(true) : setLoading(true);
     const data = {
       paymentDay: paymentDay,
       childId: childInfo.id,
       allowanceAmount: remove ? 0 : allowance,
     };
+
+    remove ? setDeleteLoading(true) : setLoading(true);
     addAllowance(token, data)
       .then(() => {
         remove ? setDeleteLoading(false) : setLoading(false);
@@ -54,7 +55,8 @@ const AddAllowance = (props: any) => {
         setDeleteAllowance(false);
       });
   };
-
+  let mainDisableBtn = childInfo.allowanceAmount.toString() === allowance;
+  let secondaryDisableBtn = allowance === "";
   return (
     <View style={styles.container}>
       {!childInfo.allowanceAmount ? (
@@ -102,6 +104,7 @@ const AddAllowance = (props: any) => {
         useNativeDriver
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}
+        onBackButtonPress={() => setModalVisible(false)}
         backdropOpacity={0.3}
         backdropTransitionOutTiming={10}
         backdropTransitionInTiming={500}
@@ -162,6 +165,8 @@ const AddAllowance = (props: any) => {
             secondaryOnPress={() => setDeleteAllowance(true)}
             mainLoading={loading}
             secondaryLoading={deleteLoading}
+            mainDisable={mainDisableBtn}
+            secondaryDisable={secondaryDisableBtn}
           />
           <AlertController
             showModal={deleteAllowance}

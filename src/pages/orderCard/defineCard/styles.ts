@@ -114,7 +114,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   avatarEdit: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#fff",
     lineHeight: 14,
   },
