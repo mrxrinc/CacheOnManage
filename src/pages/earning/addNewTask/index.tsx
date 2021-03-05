@@ -67,6 +67,7 @@ const AddNew = (props: any) => {
       activityType: activityTask,
       childIds: childIdList,
       amount: amount,
+      icon: icon,
       customDefault,
     };
     addNewTask(token, data)
