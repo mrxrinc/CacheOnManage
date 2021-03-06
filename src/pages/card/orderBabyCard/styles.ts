@@ -54,8 +54,6 @@ export default StyleSheet.create({
   button: {
     width: width * 0.89,
     height: 44,
-    position: "absolute",
-    bottom: 40,
   },
   buttonsWrapper: {
     marginTop: 30,

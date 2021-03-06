@@ -148,11 +148,13 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
             کارت به آدرس زیر ارسال می‌شود:
           </FormattedText>
           <FormattedText style={styles.Description}>
-            {clientAddress || fatherAddress}
+            {!!clientAddress || !!fatherAddress || "شما آدرس ثبت نکرده اید!"}
           </FormattedText>
           <View style={styles.addressButtonWrapper}>
             <Button
-              title="ویرایش آدرس"
+              title={
+                !clientAddress && !fatherAddress ? "ثبت آدرس" : "ویرایش آدرس"
+              }
               onPress={() => setShowAddressInquiryModal(true)}
               color={theme.ButtonBlueColor}
             />
@@ -172,7 +174,7 @@ const ConfirmCard: FC = ({ navigation, route, theme }: any) => {
           onPress={handleConfirm}
           color={theme.ButtonGreenColor}
           loading={loading}
-          disabled={loading}
+          disabled={loading || (!clientAddress && !fatherAddress)}
         />
       </View>
 

@@ -444,7 +444,7 @@ export const ChildSetting = ({
                 </TouchableOpacity>
               </View>
               <FormattedText style={style.cardRowDescription}>
-                فرزند شما در مانی با این نام شناخته خواهد شد.
+                فرزند شما در بلو جونیور با این نام شناخته خواهد شد.
               </FormattedText>
             </>
           </Card>

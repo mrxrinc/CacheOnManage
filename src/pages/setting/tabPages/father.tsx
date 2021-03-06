@@ -421,7 +421,7 @@ const FatherSetting = ({ fatherData, handleUpdateData, theme }: any) => {
                 </TouchableOpacity>
               </View>
               <FormattedText style={style.cardRowDescription}>
-                فرزند شما در برنامه مانی شما را با این نام خواهد دید.
+                فرزند شما در برنامه بلو جونیور شما را با این نام خواهد دید.
               </FormattedText>
             </>
           </Card>

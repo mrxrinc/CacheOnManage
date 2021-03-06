@@ -234,7 +234,7 @@ export const InquiryAddress = (props: any) => {
                 <Checkbox
                   color={colors.buttonSubmitActive}
                   onChange={(value: boolean) =>
-                    _updateForm("enableAddress", value)
+                    _updateForm("enableCard", value)
                   }
                 />
                 <FormattedText
