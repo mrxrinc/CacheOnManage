@@ -19,6 +19,7 @@ const DatePicker = ({
   theme,
   handleChosenDate = () => null,
   color,
+  limited,
 }: any) => {
   const [showDateModal, setShowDateModal] = useState<boolean>(false);
   const [tempValue, setTempValue] = useState<string>("");
@@ -125,7 +126,10 @@ const DatePicker = ({
         <View style={styles.modalContainer}>
           <View style={styles.modalSwipeHandle} />
           <FormattedText style={styles.ageWarning}>{modalTitle}</FormattedText>
-          <DatePickerWheel value={(value: any) => setTempValue(value)} />
+          <DatePickerWheel
+            limited={limited}
+            value={(value: any) => setTempValue(value)}
+          />
           <View style={styles.modalButtonWrapper}>
             <Button
               title="انتخاب"

@@ -360,7 +360,7 @@ export const ChildSetting = ({
               style={style.bluePhoneNumber}
               onPress={() => setSupportModal(true)}
             >
-              02112345678
+              02187641
             </Text>
             <Text> تماس حاصل نمائید.</Text>
           </FormattedText>

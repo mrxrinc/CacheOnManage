@@ -207,8 +207,9 @@ const AddChild: FC = (props: any) => {
         />
         <DatePicker
           label="تاریخ تولد"
-          modalTitle="محدوده سن فرزند باید بین ۹ تا ۱۵ سال باشد"
+          modalTitle="محدوده سن فرزند باید بین ۷ تا ۱۵ سال باشد"
           handleChosenDate={(val: string) => _updateForm("birthday", val)}
+          // limited
         />
         <Button
           title="استعلام"

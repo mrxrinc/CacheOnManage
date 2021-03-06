@@ -75,7 +75,7 @@ export const Confirmation: FC = (props: any) => {
         setLoading(false);
         const data = response.data;
         props.navigation.navigate("transactionResult", {
-          success: data.success,
+          success: true,
           description: data.description,
           mobile: data.mobile,
           amount: data.amount,
