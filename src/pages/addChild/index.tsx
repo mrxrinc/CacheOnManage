@@ -209,7 +209,7 @@ const AddChild: FC = (props: any) => {
           label="تاریخ تولد"
           modalTitle="محدوده سن فرزند باید بین ۷ تا ۱۵ سال باشد"
           handleChosenDate={(val: string) => _updateForm("birthday", val)}
-          // limited
+          limited
         />
         <Button
           title="استعلام"

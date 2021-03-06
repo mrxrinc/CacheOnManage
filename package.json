@@ -1,6 +1,6 @@
 {
   "name": "allowance",
-  "version": "1.5.17",
+  "version": "0.9.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
