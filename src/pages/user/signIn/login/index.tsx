@@ -112,6 +112,7 @@ const Login = ({ theme }: any) => {
         .then((response: any) => {
           setLoading(false);
           if (response.status == 200) {
+            console.log(response);
             dispatch(otpTokenChanged(response.data.access_token));
             AsyncStorage.setItem("token", response.data.access_token);
             isChild
@@ -125,13 +126,37 @@ const Login = ({ theme }: any) => {
                 } else {
                   setUsername("");
                   setPassword("");
-                  navigation.navigate("app");
+                  if (response.data.firstLogin) {
+                    navigation.reset({
+                      index: 0,
+                      routes: [
+                        {
+                          name: "fetchData",
+                          params: { token: response.data.access_token },
+                        },
+                      ],
+                    });
+                  } else {
+                    navigation.navigate("app");
+                  }
                 }
               })();
             } else {
               setUsername("");
               setPassword("");
-              navigation.navigate("app");
+              if (response.data.firstLogin) {
+                navigation.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: "fetchData",
+                      params: { token: response.data.access_token },
+                    },
+                  ],
+                });
+              } else {
+                navigation.navigate("app");
+              }
             }
           } else {
             setError({

@@ -587,3 +587,10 @@ export const getPolicy = (token: string) =>
       authorization: `Bearer ${token}`,
     },
   });
+
+export const initUser = (token: string) =>
+  instance.post(`/api/v1/users/init`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
