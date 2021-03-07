@@ -6,6 +6,7 @@ import Layout from "components/layout";
 import { colors } from "constants/index";
 import style from "./style";
 import Button from "components/button";
+import { useNavigation } from "@react-navigation/core";
 
 const resultKeys: any = {
   firstname: "نام",
@@ -19,6 +20,7 @@ const resultKeys: any = {
 };
 
 export default (props: any) => {
+  const navigation = useNavigation();
   const { params } = props.route;
   const result: any = [];
   for (const [key, value] of Object.entries(params)) {
@@ -92,7 +94,7 @@ export default (props: any) => {
                 color={colors.buttonSubmitActive}
                 title="بازگشت به صفحه اصلی‌"
                 onPress={() => {
-                  props.navigation.navigate("homeTab");
+                  navigation.navigate("homeTab");
                 }}
               />
             </View>

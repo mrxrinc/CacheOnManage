@@ -21,7 +21,6 @@ export default StyleSheet.create({
   },
   inputStyle: {
     fontFamily: "IRANSansMobileFaNum",
-    fontSize: 18,
   },
   unit: {
     color: colors.gray500,
@@ -46,6 +45,7 @@ export default StyleSheet.create({
     fontFamily: "IRANYekanMobileFaNum",
     textAlign: "right",
     height: 44,
+    fontSize: 19,
   },
   errorFont: {
     color: colors.red,
