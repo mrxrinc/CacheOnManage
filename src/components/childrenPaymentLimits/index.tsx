@@ -3,7 +3,6 @@ import { View, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import ActionModalFullScreen from "components/modal/actionModalFullScreen";
 import { FormattedText } from "components/format-text";
-import { colors } from "constants/index";
 import Button from "components/button";
 import Input from "components/input";
 import Checkbox from "components/checkbox";
@@ -165,20 +164,20 @@ const ChildrenPaymentLimits = ({
     setLoading(true);
     if (childId) {
       chargingPayments(token, childId, paymentMethods)
-        .then(() => {
+        .then((response) => {
           setLoading(false);
           setShowModal(false);
         })
         .catch((err: any) => {
           setLoading(false);
           setErrorMessage(err.response.data.message);
-          // console.warn("err", err.response.data.message);
         });
     } else {
+      setLoading(false);
+      setShowModal(false);
       if (typeof handleGetPaymentLimits === "function") {
         handleGetPaymentLimits(paymentMethods);
       }
-      setShowModal(false);
     }
   };
   useEffect(() => {

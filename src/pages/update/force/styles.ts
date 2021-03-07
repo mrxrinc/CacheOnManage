@@ -1,8 +1,4 @@
-
-import {
-    StyleSheet,
-    Dimensions,
-  } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 const { width } = Dimensions.get("screen");
 import { colors } from "constants/index";
 
@@ -26,7 +22,6 @@ export default StyleSheet.create({
     width: "89%",
     height: 44,
     backgroundColor: colors.buttonSubmitActive,
-    borderRadius: 30,
     marginBottom: 50,
   },
   title: {
@@ -45,8 +40,8 @@ export default StyleSheet.create({
     justifyContent: "center",
     flex: 1,
   },
-  titleBtn:{
-    fontWeight: 'bold',
+  titleBtn: {
+    fontWeight: "bold",
     fontSize: 16,
   },
 });

@@ -78,7 +78,9 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
 
   const handleTouch = () => {
     if (cardsInfo.status == "NONE") {
-      navigation.navigate("defineCard");
+      navigation.navigate("defineCard", {
+        childId: cardsInfo.childId,
+      });
     } else {
       //  set activation
       setModal({
