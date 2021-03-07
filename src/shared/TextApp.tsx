@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, Platform } from "react-native";
 import { withTheme } from "themeCore/themeProvider";
 import { selectionFontFamily } from "./selectionFontFamily";
 import { selectionFontSize } from "./selectionFontSize";
@@ -14,13 +14,12 @@ const TextApp = (props: any) => {
     <Text
       style={[
         styles.text,
-        style,
         {
           fontFamily: selectionFontFamily(isFatherTheme, fontfamily),
           fontSize: selectionFontSize(isFatherTheme, fontSize),
         },
+        style,
       ]}
-      {...props}
     >
       {children}
     </Text>
@@ -32,5 +31,6 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "left",
     paddingVertical: 0,
+    marginTop: Platform.OS === "ios" ? 0 : -5,
   },
 });

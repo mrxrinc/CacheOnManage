@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, SafeAreaView } from "react-native";
+import { View, SafeAreaView, Text } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { useSelector, useDispatch } from "react-redux";
 import * as Keychain from "react-native-keychain";
@@ -26,6 +26,9 @@ import StatusLogin from "./StatusLogin";
 import BioModal from "./BioModal";
 import ButtonLogin from "./ButtonLogin";
 import ErrorLogin from "./ErrorLogin";
+import { bold, miniSize } from "global/fontType";
+import InputFather from "shared/inputs/InputFather";
+import InputChild from "shared/inputs/InputChild";
 
 interface IError {
   errorText: string;
@@ -201,6 +204,10 @@ const Login = ({ theme }: any) => {
       }
     }
   };
+
+  const eyeIcon = () => {
+    return <Text>eye</Text>;
+  };
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.backgroundColor }]}
@@ -217,6 +224,8 @@ const Login = ({ theme }: any) => {
           ) : (
             <Logo width={105} height={50} />
           )}
+          <InputFather placeholder="نام کاربری" leftComponent={eyeIcon()} />
+          <InputChild label="رمز عبور" />
           <View style={styles.inputPack}>
             <MaterialTextField
               label="نام کاربری"
