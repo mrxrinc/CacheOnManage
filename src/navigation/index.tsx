@@ -51,6 +51,7 @@ import Total from "pages/transactions/total";
 import DetailItem from "pages/transactions/detailItem";
 import SpendParent from "pages/spend-parent";
 import AddNewTask from "pages/earning/addNewTask";
+import FetchData from "pages/user/signIn/login/FetchData";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -113,6 +114,7 @@ function AuthStack() {
       {/* <Stack.Screen name="login" component={Login} /> */}
       <Stack.Screen name="entryType" component={EntryType} />
       <Stack.Screen name="login" component={LoginNavigator} />
+      <Stack.Screen name="fetchData" component={FetchData} />
       <Stack.Screen name="intro" component={Intro} />
       <Stack.Screen name="quickAccess" component={QuickAccess} />
       <Stack.Screen name="QRPayment" component={QRPayment} />
