@@ -6,6 +6,7 @@ import UnequalTwinButtons from "components/unequalTwinButtons";
 import RNRestart from "react-native-restart";
 import styles from "./styles";
 import { colors } from "constants/index";
+export const codePush = require("react-native-code-push");
 
 const ModalUpdate = (props: any) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -37,7 +38,7 @@ const ModalUpdate = (props: any) => {
           })}
         </ScrollView>
         <UnequalTwinButtons
-          mainText={isCodePush ? "خروج از برنامه" : "دانلود جدیدترین نسخه"}
+          mainText={isCodePush ? "راه اندازی مجدد" : "دانلود جدیدترین نسخه"}
           mainColor={colors.buttonSubmitActive}
           secondaryText="بعدا"
           secondaryColor={colors.buttonOpenActive}
@@ -48,7 +49,7 @@ const ModalUpdate = (props: any) => {
           secondaryOnPress={() => setIsOpen(false)}
           mainOnPress={() =>
             isCodePush
-              ? RNRestart.Restart()
+              ? codePush.restartApp()
               : Linking.openURL(data.downloadLink)
           }
         />
