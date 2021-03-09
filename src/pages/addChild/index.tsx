@@ -80,7 +80,6 @@ const AddChild: FC = (props: any) => {
             birthday: response.data.birthday.replace(/-/g, "/"),
           },
         });
-        logger(response);
         setShowInquiryResponseModal(true);
         setLoading(false);
       })
