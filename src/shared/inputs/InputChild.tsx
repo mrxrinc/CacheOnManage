@@ -1,34 +1,80 @@
 import { colors } from "constants/index";
 import { bold, largeSize, regular, smallSize } from "global/fontType";
-import React, { useState, useRef, forwardRef } from "react";
-import { Animated, StyleSheet, TextInput, View } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Animated,
+  StyleSheet,
+  TextInput,
+  View,
+  Platform,
+  UIManager,
+} from "react-native";
 import { selectionFontFamily } from "shared/selectionFontFamily";
 import { selectionFontSize } from "shared/selectionFontSize";
 import { withTheme } from "themeCore/themeProvider";
+import PasswordVisibleIcon from "components/icons/passwordVisible.svg";
+import PasswordIcon from "components/icons/password.svg";
+
 const FATHER = "FATHER BLU JUNIOR";
 
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 const InputChild = (props: any) => {
-  const { placeholder, inputStyle, isPassword, isError, theme } = props;
+  const {
+    inputStyle,
+    label,
+    containerStyle,
+    isPassword,
+    isError,
+    leftComponent,
+    theme,
+    value,
+  } = props;
   let isFatherTheme = theme.key === FATHER;
 
   const [isFocus, setIsFocus] = useState(false);
-  const [isBorder, setIsBorder] = useState(false);
+  const [isSecure, setIsSecure] = useState<boolean>(true);
   const Visible = useRef(new Animated.Value(0)).current;
-  const [inputText, setInputText] = useState("");
+  const inputRef = useRef<any>(null);
+
+  const passwordVisible = () => {
+    return isSecure ? (
+      <PasswordIcon width={22} height={22} onPress={() => setIsSecure(false)} />
+    ) : (
+      <PasswordVisibleIcon
+        width={22}
+        height={22}
+        onPress={() => setIsSecure(true)}
+      />
+    );
+  };
 
   const animationIn = () => {
-    setIsBorder(true);
     setIsFocus(true);
+    inputRef.current.focus();
     Animated.timing(Visible, {
       toValue: 1,
       duration: 200,
       useNativeDriver: true,
     }).start();
   };
+
+  useEffect(() => {
+    console.warn(value);
+    if (value !== "") {
+      animationIn;
+    }
+  }, []);
+
   const animationOut = () => {
-    setIsBorder(false);
-    if (inputText === "") {
+    if (value === "") {
       setIsFocus(false);
+      inputRef.current.blur();
       Animated.timing(Visible, {
         toValue: 0,
         duration: 200,
@@ -37,31 +83,25 @@ const InputChild = (props: any) => {
     }
   };
 
-  const onChange = (text: any) => {
-    setInputText(text);
-  };
+  console.log(props);
+
   return (
-    <View
-      style={[
-        styles.container,
-        isBorder ? styles.active : isError ? styles.error : null,
-        inputStyle,
-      ]}
-    >
+    <View style={[styles.container, containerStyle]}>
       <TextInput
-        onChangeText={onChange}
-        value={inputText}
+        value={value}
         onBlur={animationOut}
         onFocus={animationIn}
-        secureTextEntry={isPassword}
+        secureTextEntry={isPassword && isSecure}
         style={[
           styles.input,
-          isFocus && inputText !== "" ? styles.activeInput : null,
+          isFocus && value !== "" ? styles.activeInput : null,
           {
-            fontFamily: selectionFontFamily(isFatherTheme, bold),
-            fontSize: selectionFontSize(isFatherTheme, largeSize),
+            fontFamily: selectionFontFamily(isFatherTheme, regular),
+            fontSize: selectionFontSize(isFatherTheme, smallSize),
           },
+          inputStyle,
         ]}
+        ref={inputRef}
         {...props}
       />
       <Animated.Text
@@ -75,7 +115,7 @@ const InputChild = (props: any) => {
               {
                 translateY: Visible.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [0, -16],
+                  outputRange: [0, -20],
                 }),
               },
             ],
@@ -84,8 +124,9 @@ const InputChild = (props: any) => {
           },
         ]}
       >
-        {placeholder}
+        {label}
       </Animated.Text>
+      {isPassword ? passwordVisible() : leftComponent}
     </View>
   );
 };
@@ -109,32 +150,29 @@ const styles = StyleSheet.create({
     borderColor: "red",
   },
   label: {
-    color: "blue",
+    color: colors.warmGrey,
     flex: 1,
     textAlign: "left",
   },
   activeLabel: {
-    color: "white",
-    opacity: 0.65,
-    marginLeft: 13,
+    color: colors.warmGrey,
     textAlign: "left",
   },
   input: {
-    color: "white",
-    opacity: 0.01,
-    flex: 1,
+    color: colors.gray250,
+    opacity: 0,
     position: "absolute",
+    flex: 1,
     right: 0,
+    left: 0,
     bottom: 0,
     textAlignVertical: "bottom",
     marginBottom: 8,
     paddingVertical: 0,
     textAlign: "right",
-    backgroundColor: "red",
     fontWeight: "normal",
   },
   activeInput: {
     opacity: 1,
-    backgroundColor: "red",
   },
 });

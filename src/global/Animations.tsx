@@ -1,8 +1,6 @@
 import { LayoutAnimation } from "react-native";
-export const animConfig = LayoutAnimation.configureNext(
-  LayoutAnimation.create(
-    400,
-    LayoutAnimation.Types.easeInEaseOut,
-    LayoutAnimation.Properties.opacity
-  )
+export const customAnim = LayoutAnimation.create(
+  150,
+  LayoutAnimation.Types.easeInEaseOut,
+  LayoutAnimation.Properties.opacity
 );

@@ -230,10 +230,9 @@ const Login = ({ theme }: any) => {
             username={username}
             setPassword={setPassword}
             password={password}
+            isError={error.isError}
+            errorMsg={error.errorText}
           />
-          {/* <View style={styles.inputPack}>
-            <ErrorLogin theme={theme} error={error} />
-          </View> */}
           <ButtonLogin
             username={username}
             password={password}

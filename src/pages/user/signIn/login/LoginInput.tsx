@@ -1,14 +1,21 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import InputApp from "shared/inputs/InputApp";
-import InputFather from "shared/inputs/InputFather";
 
 const LoginInput = (props: any) => {
-  const { clearError, setUsername, setPassword, username, password } = props;
+  const {
+    clearError,
+    setUsername,
+    setPassword,
+    username,
+    password,
+    isError,
+    errorMsg,
+  } = props;
   return (
     <View style={styles.container}>
       <InputApp
-        placeholder="نام کاربری"
+        label="نام کاربری"
         maxLength={30}
         onChange={clearError}
         onChangeText={setUsername}
@@ -20,9 +27,11 @@ const LoginInput = (props: any) => {
         onChange={clearError}
         onChangeText={setPassword}
         value={password}
-        placeholder="رمز عبور"
+        label="رمز عبور"
         containerStyle={styles.input}
         isPassword
+        isError={isError}
+        errorMsg={errorMsg}
       />
     </View>
   );
