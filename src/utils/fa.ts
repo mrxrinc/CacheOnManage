@@ -46,7 +46,7 @@ const messages: Record<string, string> = {
   addChild: "افزودن فرزند",
   "addChild.firstInput":
     " لطفا کدملی‌ و تاریخ تولد فرزند خود را جهت استعلام وارد نمائید.",
-  "addCild.ageWarning": "محدوده سن فرزند باید بین ۹ تا ۱۵ سال باشد",
+  "addCild.ageWarning": "محدوده سن فرزند باید بین ۶ تا ۱۵ سال باشد",
   "addChild.nickNameDescription":
     "در صورتی که فرزند خود را به نام دیگری صدا می زنید آن را وارد کنید.",
   "addCild.mobilePaymentTitle": "امکان پرداخت موبایلی برای فرزند",
