@@ -69,6 +69,7 @@ export const InquiryAddress = (props: any) => {
     Array<PaymentMethodType>
   >([]);
   const { params } = props.route;
+  logger({ params });
 
   useEffect(() => {
     handleBeingReadyToSubmit();
