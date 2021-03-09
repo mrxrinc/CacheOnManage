@@ -38,10 +38,9 @@ const AddChild: FC = (props: any) => {
   const theme = props.theme;
   const token = useSelector<RootState, any>((state) => state.user.token);
   const noBackButton = props.route.params?.noBackButton;
-  const [
-    showInquiryResponseModal,
-    setShowInquiryResponseModal,
-  ] = useState<boolean>(false);
+  const [showInquiryResponseModal, setShowInquiryResponseModal] = useState<
+    boolean
+  >(false);
   const [inquiry, setInquiry] = useState<InquiryType>({
     status: null,
     data: null,
