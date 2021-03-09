@@ -16,7 +16,7 @@ const FetchData = (props: any) => {
 
   const getData = () => {
     setIsError(false);
-    initUser(token)
+    initUser(token, {})
       .then(() => {
         navigation.navigate("app");
         setIsError(false);

@@ -588,8 +588,8 @@ export const getPolicy = (token: string) =>
     },
   });
 
-export const initUser = (token: string) =>
-  instance.post(`/api/v1/users/init`, {
+export const initUser = (token: string, data: any) =>
+  instance.post(`/api/v1/users/init`, data, {
     headers: {
       authorization: `Bearer ${token}`,
     },

@@ -133,31 +133,36 @@ const AddChild: FC = (props: any) => {
       for (const [key, value] of Object.entries(inquiry.data)) {
         result.push({ key, value });
       }
+
       return (
         <>
           <View style={style.inquiryResultWrapper}>
             {result.map((item: any) => (
               <View style={style.modalResultRow} key={item.key}>
-                <FormattedText
-                  style={[
-                    style.modalResultKeyText,
-                    { color: theme.addChild.subjectFont },
-                  ]}
-                >
-                  {resultKeys[item.key]}
-                </FormattedText>
-                <View style={style.modalResultMiddleLine} />
-                <View style={style.modalResultValueTextWrapper}>
-                  <FormattedText
-                    style={[
-                      style.modalResultValueText,
-                      { color: theme.addChild.subjectFont },
-                    ]}
-                    fontFamily="Regular-FaNum"
-                  >
-                    {item.value}
-                  </FormattedText>
-                </View>
+                {item.key != "gender" && item.key != "birthPlace" && (
+                  <>
+                    <FormattedText
+                      style={[
+                        style.modalResultKeyText,
+                        { color: theme.addChild.subjectFont },
+                      ]}
+                    >
+                      {resultKeys[item.key]}
+                    </FormattedText>
+                    <View style={style.modalResultMiddleLine} />
+                    <View style={style.modalResultValueTextWrapper}>
+                      <FormattedText
+                        style={[
+                          style.modalResultValueText,
+                          { color: theme.addChild.subjectFont },
+                        ]}
+                        fontFamily="Regular-FaNum"
+                      >
+                        {item.value}
+                      </FormattedText>
+                    </View>
+                  </>
+                )}
               </View>
             ))}
           </View>
@@ -207,7 +212,7 @@ const AddChild: FC = (props: any) => {
         />
         <DatePicker
           label="تاریخ تولد"
-          modalTitle="محدوده سن فرزند باید بین ۷ تا ۱۵ سال باشد"
+          modalTitle="محدوده سن فرزند باید بین ۶ تا ۱۵ سال باشد"
           handleChosenDate={(val: string) => _updateForm("birthday", val)}
           limited
         />
