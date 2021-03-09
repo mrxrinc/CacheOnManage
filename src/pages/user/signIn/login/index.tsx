@@ -26,9 +26,7 @@ import StatusLogin from "./StatusLogin";
 import BioModal from "./BioModal";
 import ButtonLogin from "./ButtonLogin";
 import ErrorLogin from "./ErrorLogin";
-import { bold, miniSize } from "global/fontType";
-import InputFather from "shared/inputs/InputFather";
-import InputChild from "shared/inputs/InputChild";
+import LoginInput from "./LoginInput";
 
 interface IError {
   errorText: string;
@@ -39,7 +37,7 @@ const Login = ({ theme }: any) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [username, setUsername] = useState<string>("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showBiometricModal, setShowBiometricModal] = useState<boolean>(false);
@@ -219,33 +217,23 @@ const Login = ({ theme }: any) => {
       >
         <Header theme={theme} onPress={() => setSupportModal(true)} />
         <View style={styles.content}>
-          {bljTheme ? (
-            <WhiteLogo width={105} height={50} />
-          ) : (
-            <Logo width={105} height={50} />
-          )}
-          <InputFather placeholder="نام کاربری" leftComponent={eyeIcon()} />
-          <InputChild label="رمز عبور" />
-          <View style={styles.inputPack}>
-            <MaterialTextField
-              label="نام کاربری"
-              keyboardType="default"
-              maxLength={30}
-              onChange={clearError}
-              onChangeText={setUsername}
-              value={username}
-            />
-            <MaterialTextField
-              label="رمز عبور"
-              keyboardType="default"
-              maxLength={30}
-              icon="password"
-              onChange={clearError}
-              onChangeText={setPassword}
-              value={password}
-            />
-            <ErrorLogin theme={theme} error={error} />
+          <View style={styles.logo}>
+            {bljTheme ? (
+              <WhiteLogo width={105} height={50} />
+            ) : (
+              <Logo width={105} height={50} />
+            )}
           </View>
+          <LoginInput
+            clearError={clearError}
+            setUsername={setUsername}
+            username={username}
+            setPassword={setPassword}
+            password={password}
+          />
+          {/* <View style={styles.inputPack}>
+            <ErrorLogin theme={theme} error={error} />
+          </View> */}
           <ButtonLogin
             username={username}
             password={password}

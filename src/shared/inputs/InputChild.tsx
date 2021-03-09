@@ -8,15 +8,7 @@ import { withTheme } from "themeCore/themeProvider";
 const FATHER = "FATHER BLU JUNIOR";
 
 const InputChild = (props: any) => {
-  const {
-    label,
-    inputStyle,
-    onSubmit,
-    type,
-    isPassword,
-    isError,
-    theme,
-  } = props;
+  const { placeholder, inputStyle, isPassword, isError, theme } = props;
   let isFatherTheme = theme.key === FATHER;
 
   const [isFocus, setIsFocus] = useState(false);
@@ -47,7 +39,6 @@ const InputChild = (props: any) => {
 
   const onChange = (text: any) => {
     setInputText(text);
-    // onSubmit(text);
   };
   return (
     <View
@@ -63,7 +54,6 @@ const InputChild = (props: any) => {
         onBlur={animationOut}
         onFocus={animationIn}
         secureTextEntry={isPassword}
-        keyboardType={type}
         style={[
           styles.input,
           isFocus && inputText !== "" ? styles.activeInput : null,
@@ -72,6 +62,7 @@ const InputChild = (props: any) => {
             fontSize: selectionFontSize(isFatherTheme, largeSize),
           },
         ]}
+        {...props}
       />
       <Animated.Text
         numberOfLines={1}
@@ -93,7 +84,7 @@ const InputChild = (props: any) => {
           },
         ]}
       >
-        {label}
+        {placeholder}
       </Animated.Text>
     </View>
   );
@@ -140,6 +131,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     textAlign: "right",
     backgroundColor: "red",
+    fontWeight: "normal",
   },
   activeInput: {
     opacity: 1,

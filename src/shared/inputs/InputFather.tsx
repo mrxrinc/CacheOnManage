@@ -5,24 +5,46 @@ import { TextInput, StyleSheet, View } from "react-native";
 import { selectionFontFamily } from "shared/selectionFontFamily";
 import { selectionFontSize } from "shared/selectionFontSize";
 import { withTheme } from "themeCore/themeProvider";
+import PasswordIcon from "components/icons/password.svg";
+import PasswordVisibleIcon from "components/icons/passwordVisible.svg";
+
 const FATHER = "FATHER BLU JUNIOR";
 
 const InputFather = forwardRef((props: any, ref) => {
   const {
-    style,
+    inputStyle,
+    containerStyle,
     theme,
-    fontfamily,
-    fontSize,
     leftComponent,
     isBordered,
     placeholder,
+    isPassword,
   } = props;
   let isFatherTheme = theme.key === FATHER;
 
   const [isFocus, setIsFocus] = useState(false);
+  const [isSecure, setIsSecure] = useState<boolean>(true);
+
+  const passwordVisible = () => {
+    return isSecure ? (
+      <PasswordIcon width={22} height={22} onPress={() => setIsSecure(false)} />
+    ) : (
+      <PasswordVisibleIcon
+        width={22}
+        height={22}
+        onPress={() => setIsSecure(true)}
+      />
+    );
+  };
 
   return (
-    <View style={[styles.container, isFocus && isBordered && styles.bordered]}>
+    <View
+      style={[
+        styles.container,
+        isFocus && isBordered && styles.bordered,
+        containerStyle,
+      ]}
+    >
       <TextInput
         selectionColor={colors.blujrBtnOpenActive}
         placeholderTextColor={colors.lightGreyBlue}
@@ -35,12 +57,13 @@ const InputFather = forwardRef((props: any, ref) => {
             fontFamily: selectionFontFamily(isFatherTheme, bold),
             fontSize: selectionFontSize(isFatherTheme, largeSize),
           },
-          style,
+          inputStyle,
         ]}
         placeholder={placeholder}
+        secureTextEntry={isPassword && isSecure}
         {...props}
       />
-      {leftComponent}
+      {isPassword ? passwordVisible() : leftComponent}
     </View>
   );
 });
@@ -53,16 +76,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.paleGrey,
     borderRadius: 10,
     paddingHorizontal: 12,
-    // borderWidth: 2,
     borderColor: colors.paleGrey,
+    height: 52,
   },
   input: {
     padding: 0,
-    height: 52,
     flex: 1,
     textAlign: "right",
+    fontWeight: "normal",
   },
   bordered: {
     borderColor: colors.blujrBtnOpenActive,
+    borderWidth: 2,
   },
+  password: { color: colors.gray650 },
 });
