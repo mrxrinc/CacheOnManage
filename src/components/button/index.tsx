@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  TouchableHighlight,
-  ActivityIndicator,
-  Platform,
-} from "react-native";
+import { View, TouchableHighlight, ActivityIndicator } from "react-native";
 import { colors } from "constants/index";
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
@@ -12,7 +7,7 @@ import Fingerprint from "components/icons/fingerprint.svg";
 import FaceIDIcon from "components/icons/face-id.svg";
 import { shadeColor } from "utils";
 import TextApp from "shared/TextApp";
-import { bold, largeSize, miniSize } from "global/fontType";
+import { bold, mediumSize } from "global/fontType";
 
 const defaultColor = colors.buttonOpenActive;
 
@@ -98,7 +93,7 @@ const Button = ({
               <Fingerprint fill={colors.white} width={16} height={16} />
             )}
             <TextApp
-              fontSize={largeSize}
+              fontSize={mediumSize}
               fontfamily={bold}
               style={{
                 marginLeft: isFinger || isFaceId ? 8 : 0,

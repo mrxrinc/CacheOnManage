@@ -55,7 +55,10 @@ const Home: FC = ({ theme }: any) => {
       setLoading(false);
       setRefreshing(false);
       if (cards.cards.length === 0) {
-        navigation.navigate("addChild", { noBackButton: true });
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "addChild", params: { noBackButton: true } }],
+        });
       }
     } catch (error) {
       setLoading(false);

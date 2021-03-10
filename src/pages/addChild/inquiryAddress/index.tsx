@@ -21,7 +21,7 @@ import Policy from "./Policy";
 
 type FormType = {
   nickname: string;
-  enableAddress: boolean;
+  enableCard: boolean;
   enableMobile: boolean;
 };
 type PaymentMethodType = {
@@ -61,7 +61,7 @@ export const InquiryAddress = (props: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [form, setForm] = useState<FormType>({
     nickname: "",
-    enableAddress: false,
+    enableCard: false,
     enableMobile: false,
   });
   const [paymentMethods, setPaymentMethods] = useState<
@@ -117,7 +117,7 @@ export const InquiryAddress = (props: any) => {
     props.navigation.push("username", {
       ...params,
       nickname: form.nickname,
-      enableAddress: form.enableAddress,
+      enableCard: form.enableCard,
       enableMobile: form.enableMobile,
       postalCode,
       address,
@@ -233,9 +233,9 @@ export const InquiryAddress = (props: any) => {
               >
                 <Checkbox
                   color={colors.buttonSubmitActive}
-                  onChange={(value: boolean) =>
-                    _updateForm("enableCard", value)
-                  }
+                  onChange={(value: boolean) => {
+                    _updateForm("enableCard", value);
+                  }}
                 />
                 <FormattedText
                   id="addCild.cardTitle"
@@ -272,7 +272,7 @@ export const InquiryAddress = (props: any) => {
                     });
                   }}
                   color={theme.itemsButton}
-                  disabled={!form.enableAddress}
+                  disabled={!form.enableCard}
                 />
               </View>
             </View>
