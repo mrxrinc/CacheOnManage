@@ -70,13 +70,18 @@ export default (props: any) => {
                 renderRow(item)
             )}
 
-            <FormattedText style={style.description} fontFamily="Regular-FaNum">
-              <FormattedText>
-                کارت بانکی‌ فرزند شما حداکثر تا ۱۰ روز دیگر به آدرس{": "}
+            {params?.address && (
+              <FormattedText
+                style={style.description}
+                fontFamily="Regular-FaNum"
+              >
+                <FormattedText>
+                  کارت بانکی‌ فرزند شما حداکثر تا ۱۰ روز دیگر به آدرس{": "}
+                </FormattedText>
+                <FormattedText>{params.address}</FormattedText>
+                <FormattedText> ارسال خواهد شد.</FormattedText>
               </FormattedText>
-              <FormattedText>{params?.address}</FormattedText>
-              <FormattedText> ارسال خواهد شد.</FormattedText>
-            </FormattedText>
+            )}
 
             <View style={style.buttonsWrapper}>
               <Button
