@@ -70,7 +70,7 @@ export default (props: any) => {
                 renderRow(item)
             )}
 
-            {params?.address && (
+            {!!params?.address && (
               <FormattedText
                 style={style.description}
                 fontFamily="Regular-FaNum"
