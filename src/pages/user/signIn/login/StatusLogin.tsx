@@ -9,7 +9,7 @@ const StatusLogin = (props: any) => {
       animated
       translucent={false}
       hidden={false}
-      barStyle={theme.statusBarContent}
+      barStyle={theme.statusBarContentLogin}
     />
   );
 };

@@ -11,7 +11,9 @@ const LoginInput = (props: any) => {
     password,
     isError,
     errorMsg,
+    isChild,
   } = props;
+
   return (
     <View style={styles.container}>
       <InputApp
@@ -28,7 +30,7 @@ const LoginInput = (props: any) => {
         onChangeText={setPassword}
         value={password}
         label="رمز عبور"
-        containerStyle={styles.input}
+        containerStyle={isChild ? styles.inputPass : styles.input}
         isPassword
         isError={isError}
         errorMsg={errorMsg}
@@ -44,5 +46,8 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: 44,
+  },
+  inputPass: {
+    marginBottom: 32,
   },
 });

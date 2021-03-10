@@ -1,5 +1,5 @@
 import { colors } from "constants/index";
-import { bold, largeSize, regular, smallSize } from "global/fontType";
+import { regular, smallSize } from "global/fontType";
 import React, { useState, useRef, useEffect } from "react";
 import {
   Animated,
@@ -8,20 +8,21 @@ import {
   View,
   Platform,
   UIManager,
+  LayoutAnimation,
 } from "react-native";
 import { selectionFontFamily } from "shared/selectionFontFamily";
 import { selectionFontSize } from "shared/selectionFontSize";
 import { withTheme } from "themeCore/themeProvider";
-import PasswordVisibleIcon from "components/icons/passwordVisible.svg";
-import PasswordIcon from "components/icons/password.svg";
+import TextApp from "shared/TextApp";
+import { customAnim } from "global/Animations";
+import ShowPassword from "./ShowPassword";
 
 const FATHER = "FATHER BLU JUNIOR";
 
-if (
-  Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
+if (Platform.OS === "android") {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
 }
 
 const InputChild = (props: any) => {
@@ -34,29 +35,22 @@ const InputChild = (props: any) => {
     leftComponent,
     theme,
     value,
+    errorStyle,
+    errorMsg,
   } = props;
   let isFatherTheme = theme.key === FATHER;
 
-  const [isFocus, setIsFocus] = useState(false);
+  const [isFocus, setIsFocus] = useState<boolean>(false);
   const [isSecure, setIsSecure] = useState<boolean>(true);
+  const [hasError, setHasError] = useState<boolean>(false);
   const Visible = useRef(new Animated.Value(0)).current;
   const inputRef = useRef<any>(null);
 
-  const passwordVisible = () => {
-    return isSecure ? (
-      <PasswordIcon width={22} height={22} onPress={() => setIsSecure(false)} />
-    ) : (
-      <PasswordVisibleIcon
-        width={22}
-        height={22}
-        onPress={() => setIsSecure(true)}
-      />
-    );
-  };
-
-  const animationIn = () => {
+  const animationIn = (isFocus: boolean) => {
     setIsFocus(true);
-    inputRef.current.focus();
+    if (isFocus) {
+      inputRef.current.focus();
+    }
     Animated.timing(Visible, {
       toValue: 1,
       duration: 200,
@@ -65,11 +59,15 @@ const InputChild = (props: any) => {
   };
 
   useEffect(() => {
-    console.warn(value);
-    if (value !== "") {
-      animationIn;
+    if (value) {
+      animationIn(false);
     }
-  }, []);
+  }, [value]);
+
+  useEffect(() => {
+    LayoutAnimation.configureNext(customAnim);
+    setHasError(isError);
+  }, [isError]);
 
   const animationOut = () => {
     if (value === "") {
@@ -83,50 +81,62 @@ const InputChild = (props: any) => {
     }
   };
 
-  console.log(props);
-
   return (
-    <View style={[styles.container, containerStyle]}>
-      <TextInput
-        value={value}
-        onBlur={animationOut}
-        onFocus={animationIn}
-        secureTextEntry={isPassword && isSecure}
-        style={[
-          styles.input,
-          isFocus && value !== "" ? styles.activeInput : null,
-          {
-            fontFamily: selectionFontFamily(isFatherTheme, regular),
-            fontSize: selectionFontSize(isFatherTheme, smallSize),
-          },
-          inputStyle,
-        ]}
-        ref={inputRef}
-        {...props}
-      />
-      <Animated.Text
-        numberOfLines={1}
-        onPress={animationIn}
-        style={[
-          styles.label,
-          !isFocus ? styles.activeLabel : null,
-          {
-            transform: [
-              {
-                translateY: Visible.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, -20],
-                }),
-              },
-            ],
-            fontFamily: selectionFontFamily(isFatherTheme, regular),
-            fontSize: selectionFontSize(isFatherTheme, smallSize),
-          },
-        ]}
+    <View>
+      <View
+        style={[styles.container, isFocus && styles.active, containerStyle]}
       >
-        {label}
-      </Animated.Text>
-      {isPassword ? passwordVisible() : leftComponent}
+        <TextInput
+          value={value}
+          onBlur={animationOut}
+          onFocus={() => animationIn(true)}
+          secureTextEntry={isPassword && isSecure}
+          style={[
+            styles.input,
+            {
+              fontFamily: selectionFontFamily(isFatherTheme, regular),
+              fontSize: selectionFontSize(isFatherTheme, smallSize),
+            },
+            inputStyle,
+          ]}
+          ref={inputRef}
+          {...props}
+        />
+        <Animated.Text
+          numberOfLines={1}
+          onPress={animationIn}
+          style={[
+            styles.label,
+            !isFocus ? styles.activeLabel : null,
+            {
+              transform: [
+                {
+                  translateY: Visible.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [10, -16],
+                  }),
+                },
+              ],
+              fontFamily: selectionFontFamily(isFatherTheme, regular),
+              fontSize: selectionFontSize(isFatherTheme, smallSize),
+            },
+          ]}
+        >
+          {label}
+        </Animated.Text>
+        {isPassword ? (
+          <ShowPassword
+            onShow={() => setIsSecure(false)}
+            onHide={() => setIsSecure(true)}
+            isSecure={isSecure}
+          />
+        ) : (
+          leftComponent
+        )}
+      </View>
+      {hasError && (
+        <TextApp style={[styles.errorMsg, errorStyle]}>{errorMsg}</TextApp>
+      )}
     </View>
   );
 };
@@ -144,13 +154,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   active: {
-    borderColor: colors.warmGrey,
-  },
-  error: {
-    borderColor: "red",
+    borderBottomColor: colors.warmGrey,
   },
   label: {
-    color: colors.warmGrey,
+    color: colors.brownGrey,
     flex: 1,
     textAlign: "left",
   },
@@ -160,7 +167,6 @@ const styles = StyleSheet.create({
   },
   input: {
     color: colors.gray250,
-    opacity: 0,
     position: "absolute",
     flex: 1,
     right: 0,
@@ -174,5 +180,12 @@ const styles = StyleSheet.create({
   },
   activeInput: {
     opacity: 1,
+  },
+  errorMsg: {
+    color: colors.buttonDestructivePressed,
+    textAlign: "left",
+    marginBottom: 5,
+    marginLeft: 3,
+    marginTop: -5,
   },
 });

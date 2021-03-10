@@ -5,8 +5,7 @@ import {
   ActivityIndicator,
   Platform,
 } from "react-native";
-import { FormattedText } from "components/format-text";
-import { colors, IOS, width } from "constants/index";
+import { colors } from "constants/index";
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
 import Fingerprint from "components/icons/fingerprint.svg";
@@ -108,18 +107,6 @@ const Button = ({
             >
               {title}
             </TextApp>
-            {/* <FormattedText
-              fontFamily="Bold"
-              style={{
-                lineHeight: lineHeight ? lineHeight : IOS ? 15 : 25,
-                fontSize: fontSize ? fontSize : 16,
-                marginLeft: isFinger || isFaceId ? 8 : 0,
-                color: disabled ? colors.white : outline ? color : colors.white,
-                ...titleStyle,
-              }}
-            >
-              {title}
-            </FormattedText> */}
           </>
         ) : (
           <ActivityIndicator color={colors.white} />

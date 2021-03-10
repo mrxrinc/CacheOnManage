@@ -14,9 +14,9 @@ const InputApp = (props: any) => {
     isPassword,
     isError,
     errorMsg,
+    value,
   } = props;
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
-
   return isChild ? (
     <InputChild
       containerStyle={containerStyle}
@@ -26,6 +26,7 @@ const InputApp = (props: any) => {
       isError={isError}
       errorMsg={errorMsg}
       label={label}
+      value={value}
       {...props}
     />
   ) : (
@@ -38,6 +39,7 @@ const InputApp = (props: any) => {
       isPassword={isPassword}
       isError={isError}
       errorMsg={errorMsg}
+      value={value}
       {...props}
     />
   );

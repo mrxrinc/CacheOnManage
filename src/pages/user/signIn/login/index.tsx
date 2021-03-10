@@ -25,7 +25,6 @@ import FooterLogin from "./FooterLogin";
 import StatusLogin from "./StatusLogin";
 import BioModal from "./BioModal";
 import ButtonLogin from "./ButtonLogin";
-import ErrorLogin from "./ErrorLogin";
 import LoginInput from "./LoginInput";
 
 interface IError {
@@ -96,7 +95,7 @@ const Login = ({ theme }: any) => {
   const setData = async () => {
     const parentUsername: any = await AsyncStorage.getItem("parentUsername");
     const childUsername: any = await AsyncStorage.getItem("childUsername");
-    let user = isChild ? childUsername : parentUsername;
+    let user = isChild ? childUsername ?? "" : parentUsername ?? "";
     setUsername(user);
     const childPhone = await AsyncStorage.getItem("childPhone");
     dispatch(childPhoneNumber(childPhone));
@@ -203,9 +202,14 @@ const Login = ({ theme }: any) => {
     }
   };
 
-  const eyeIcon = () => {
-    return <Text>eye</Text>;
+  const handleLogin = () => {
+    password
+      ? handleTouch(username, password, false)
+      : isFace || isFinger
+      ? handleBiometricsAction()
+      : handleTouch(username, password, false);
   };
+
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.backgroundColor }]}
@@ -232,17 +236,12 @@ const Login = ({ theme }: any) => {
             password={password}
             isError={error.isError}
             errorMsg={error.errorText}
+            isChild={isChild}
           />
           <ButtonLogin
             username={username}
             password={password}
-            onPress={() =>
-              password
-                ? handleTouch(username, password, false)
-                : isFace || isFinger
-                ? handleBiometricsAction()
-                : handleTouch(username, password, false)
-            }
+            onPress={handleLogin}
             loading={loading}
             isFace={isFace}
             isFinger={isFinger}

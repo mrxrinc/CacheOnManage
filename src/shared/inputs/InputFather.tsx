@@ -1,29 +1,27 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useEffect } from "react";
 import {
   TextInput,
   StyleSheet,
   View,
-  Text,
   Platform,
   UIManager,
   LayoutAnimation,
 } from "react-native";
-import PasswordVisibleIcon from "components/icons/passwordVisible.svg";
-import { bold, faNum, largeSize, miniSize } from "global/fontType";
+import { bold, largeSize } from "global/fontType";
 import { selectionFontFamily } from "shared/selectionFontFamily";
 import { selectionFontSize } from "shared/selectionFontSize";
 import { withTheme } from "themeCore/themeProvider";
-import PasswordIcon from "components/icons/password.svg";
 import { customAnim } from "global/Animations";
 import { colors } from "constants/index";
+import ShowPassword from "./ShowPassword";
+import TextApp from "shared/TextApp";
 
 const FATHER = "FATHER BLU JUNIOR";
 
-if (
-  Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
+if (Platform.OS === "android") {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
 }
 
 const InputFather = forwardRef((props: any, ref) => {
@@ -38,28 +36,23 @@ const InputFather = forwardRef((props: any, ref) => {
     isError,
     errorMsg,
     errorStyle,
+    value,
   } = props;
+
   let isFatherTheme = theme.key === FATHER;
 
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const [isSecure, setIsSecure] = useState<boolean>(true);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   LayoutAnimation.configureNext(customAnim);
-
-  const passwordVisible = () => {
-    return isSecure ? (
-      <PasswordIcon width={22} height={22} onPress={() => setIsSecure(false)} />
-    ) : (
-      <PasswordVisibleIcon
-        width={22}
-        height={22}
-        onPress={() => setIsSecure(true)}
-      />
-    );
-  };
+  useEffect(() => {
+    LayoutAnimation.configureNext(customAnim);
+    setHasError(isError);
+  }, [isError]);
 
   return (
-    <View style={styles.container}>
+    <View>
       <View
         style={[
           styles.content,
@@ -69,6 +62,7 @@ const InputFather = forwardRef((props: any, ref) => {
         ]}
       >
         <TextInput
+          value={value}
           selectionColor={colors.blujrBtnOpenActive}
           placeholderTextColor={colors.lightGreyBlue}
           onFocus={() => setIsFocus(true)}
@@ -86,21 +80,18 @@ const InputFather = forwardRef((props: any, ref) => {
           secureTextEntry={isPassword && isSecure}
           {...props}
         />
-        {isPassword ? passwordVisible() : leftComponent}
+        {isPassword ? (
+          <ShowPassword
+            onShow={() => setIsSecure(false)}
+            onHide={() => setIsSecure(true)}
+            isSecure={isSecure}
+          />
+        ) : (
+          leftComponent
+        )}
       </View>
-      {isError && (
-        <Text
-          style={[
-            styles.errorMsg,
-            {
-              fontFamily: selectionFontFamily(isFatherTheme, miniSize),
-              fontSize: selectionFontSize(isFatherTheme, faNum),
-            },
-            errorStyle,
-          ]}
-        >
-          {errorMsg}
-        </Text>
+      {hasError && (
+        <TextApp style={[styles.errorMsg, errorStyle]}>{errorMsg}</TextApp>
       )}
     </View>
   );
@@ -108,7 +99,6 @@ const InputFather = forwardRef((props: any, ref) => {
 export default withTheme(InputFather);
 
 const styles = StyleSheet.create({
-  container: {},
   content: {
     flexDirection: "row",
     alignItems: "center",
