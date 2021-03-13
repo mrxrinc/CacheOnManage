@@ -20,9 +20,9 @@ abstract class BaseAPI {
   protected constructor({
     suffix,
     //baseURL = process.env.APP_BASE_URL,
-    // baseURL = "http://91.245.228.78:8080",
-    baseURL = "https://Blujr-api.sdb247.com",
-  }: Config) {
+    baseURL = "http://91.245.228.78:8080",
+  }: // baseURL = "https://Blujr-api.sdb247.com",
+  Config) {
     // create a new instance of the Axios with custom config.
     this.httpService = axios.create({
       baseURL: `${baseURL}/${suffix ? `${suffix}/` : ""}`,

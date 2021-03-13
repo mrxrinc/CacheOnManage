@@ -1,19 +1,17 @@
 import Layout from "components/layout";
 import Header from "components/header";
 import React, { FC, useEffect, useState } from "react";
-import { ActivityIndicator, SectionList } from "react-native";
+import { SectionList } from "react-native";
 import { getSpendParent } from "utils/api";
 import { RootState } from "../../../customType";
 import { useSelector } from "react-redux";
-import moment from "moment-jalaali";
 import styles from "./styles";
-import { InvoiceData } from "constants/types";
 import ScrollableTabView from "components/scrollableTabView";
 import EmptyComponent from "components/emptyComponent";
 import Item from "pages/transactions/item";
 import SectionFooter from "./sectionFooter";
 import SectionHeader from "./sectionHeader";
-import { colors } from "constants/index";
+import Skeleton from "components/skeleton/cardsList";
 
 const SpendParent: FC = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
@@ -94,11 +92,7 @@ const SpendParent: FC = (props: any) => {
           })}
         </ScrollableTabView>
       ) : (
-        <ActivityIndicator
-          color={colors.gray600}
-          style={styles.loading}
-          size="large"
-        />
+        <Skeleton />
       )}
     </Layout>
   );

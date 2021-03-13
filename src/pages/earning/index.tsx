@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
-  ActivityIndicator,
   RefreshControl,
 } from "react-native";
 import MainHeader from "components/mainHeader";
@@ -16,11 +15,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../customType";
 import AddAllowance from "./addAllowance";
 import ChildTaskList from "./childTaskList";
-import { colors } from "constants/index";
 import { useNavigation } from "@react-navigation/core";
 import Button from "components/button";
 import { withTheme } from "themeCore/themeProvider";
 import messages from "utils/fa";
+import Skeleton from "components/skeleton/earning";
 
 const { width } = Dimensions.get("window");
 const Earning = (props: any) => {
@@ -102,9 +101,7 @@ const Earning = (props: any) => {
             })}
           </ScrollableTabView>
         ) : (
-          <View style={styles.loading}>
-            <ActivityIndicator color={colors.gray600} size="large" />
-          </View>
+          <Skeleton />
         )}
       </View>
     </Layout>
