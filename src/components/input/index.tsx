@@ -68,6 +68,7 @@ const style = StyleSheet.create({
   },
   input: {
     height: 45,
+    width:"100%",
     textAlign: "center",
     fontSize: 16,
     textAlignVertical: "center",

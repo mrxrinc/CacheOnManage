@@ -375,7 +375,7 @@ export const ChildSetting = ({
                   value={childData.username}
                   enNum
                 />
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() =>
                     setModal({
                       title: "ویرایش نام کاربری",
@@ -390,7 +390,7 @@ export const ChildSetting = ({
                     height={20}
                     fill={theme.setting.editIconColor}
                   />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
               <View style={style.cardRow}>
                 <KeyValuePair rowKey="رمز ورود:" value="********" />
