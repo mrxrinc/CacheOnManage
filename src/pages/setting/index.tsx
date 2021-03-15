@@ -24,8 +24,14 @@ export default (props: any) => {
   async function handleGetData(dynamicToken?: string) {
     setLoading(true);
     try {
-      const { data } = await getSettingData(dynamicToken || token);
-      setSettingData(data);
+      const { status, statusText, data } = await getSettingData(
+        dynamicToken || token
+      );
+      if (status === 200) {
+        setSettingData(data);
+      } else {
+        console.warn(" Status is not 200!", status, statusText);
+      }
     } catch (err) {
       console.warn(err.response);
     } finally {
