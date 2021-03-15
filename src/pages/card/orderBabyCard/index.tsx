@@ -303,6 +303,7 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
                 boxMode
                 keyboardType="number-pad"
                 customStyle={styles.itemInput}
+                maxLength={4}
                 value={password}
                 onChangeText={(value: string) => {
                   setPassword(value);
@@ -318,6 +319,7 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
               <Input
                 boxMode
                 keyboardType="number-pad"
+                maxLength={4}
                 customStyle={styles.itemInput}
                 value={reEnterPassword}
                 onChangeText={(value: string) => {

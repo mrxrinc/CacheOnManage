@@ -125,7 +125,7 @@ export default StyleSheet.create({
   },
   itemInput: {
     width: 128,
-    height: 25,
+    height: 35,
     marginRight: 10,
     justifyContent: "center",
     alignItems: "center",
