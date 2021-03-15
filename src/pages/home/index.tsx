@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { View, FlatList, ActivityIndicator } from "react-native";
+import { View, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "components/button";
@@ -14,6 +14,7 @@ import { getHomeData } from "redux/actions/Home";
 import { RootState } from "../../../customType";
 import style from "./style";
 import { withTheme } from "themeCore/themeProvider";
+import Skeleton from "components/skeleton/home";
 
 type Cards = {
   cards: Array<BalanceCardType>;
@@ -55,7 +56,10 @@ const Home: FC = ({ theme }: any) => {
       setLoading(false);
       setRefreshing(false);
       if (cards.cards.length === 0) {
-        navigation.navigate("addChild", { noBackButton: true });
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "addChild", params: { noBackButton: true } }],
+        });
       }
     } catch (error) {
       setLoading(false);
@@ -112,9 +116,7 @@ const Home: FC = ({ theme }: any) => {
         <MainHeader homePage {...header} />
         <View style={[style.content]}>
           {loading ? (
-            <View style={style.loading}>
-              <ActivityIndicator color={colors.gray600} size="large" />
-            </View>
+            <Skeleton />
           ) : (
             <FlatList
               data={cards.cards}

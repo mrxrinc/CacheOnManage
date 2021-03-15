@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "constants/index";
+import { colors, IOS } from "constants/index";
 
 export default StyleSheet.create({
   container: {
@@ -21,7 +21,6 @@ export default StyleSheet.create({
   },
   inputStyle: {
     fontFamily: "IRANSansMobileFaNum",
-    fontSize: 18,
   },
   unit: {
     color: colors.gray500,
@@ -46,6 +45,7 @@ export default StyleSheet.create({
     fontFamily: "IRANYekanMobileFaNum",
     textAlign: "right",
     height: 44,
+    fontSize: IOS ? 19 : 16,
   },
   errorFont: {
     color: colors.red,

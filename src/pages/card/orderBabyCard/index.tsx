@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { FormattedText } from "components/format-text";
 import Card from "images/cards/mainPage/ActiveCard.svg";
+import Orderd from "images/cards/orderBabyCard/Orderd.svg";
 import Plus from "images/cards/orderBabyCard/plus.svg";
 import Success from "images/cards/orderBabyCard/success.svg";
 import Button from "components/button";
@@ -346,6 +347,11 @@ const OrderBabyCard = ({ theme, cardsInfo }: any) => {
           <TouchableOpacity style={styles.plusBtn} onPress={handleTouch}>
             <Plus />
           </TouchableOpacity>
+        )}
+        {cardsInfo.status == "ORDERED" && (
+          <View style={styles.plusBtn}>
+            <Orderd />
+          </View>
         )}
       </View>
       <View style={styles.description}>

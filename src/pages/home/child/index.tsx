@@ -5,7 +5,6 @@ import {
   Image,
   TouchableOpacity,
   RefreshControl,
-  ActivityIndicator,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { useNavigation } from "@react-navigation/core";
@@ -27,6 +26,7 @@ import { getHomeData } from "redux/actions/Home";
 import ChildrenPaymentLimits from "components/childrenPaymentLimits";
 import { childPhoneNumber } from "store/QuickAccess/quickAccess.actions";
 import { withTheme } from "themeCore/themeProvider";
+import Skeleton from "components/skeleton/homeChild";
 
 type ChildData = {
   id: number;
@@ -380,9 +380,7 @@ const ChildHome = ({ route, theme }: any) => {
             />
           </>
         ) : loading ? (
-          <View style={style.loading}>
-            <ActivityIndicator color={colors.gray600} size="large" />
-          </View>
+          <Skeleton />
         ) : (
           <View style={style.loading}>
             <FormattedText>دیتای این فرزند ناقص است!</FormattedText>

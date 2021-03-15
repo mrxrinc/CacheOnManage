@@ -6,6 +6,7 @@ import Layout from "components/layout";
 import { colors } from "constants/index";
 import style from "./style";
 import Button from "components/button";
+import { useNavigation } from "@react-navigation/core";
 
 const resultKeys: any = {
   firstname: "نام",
@@ -19,6 +20,7 @@ const resultKeys: any = {
 };
 
 export default (props: any) => {
+  const navigation = useNavigation();
   const { params } = props.route;
   const result: any = [];
   for (const [key, value] of Object.entries(params)) {
@@ -68,13 +70,18 @@ export default (props: any) => {
                 renderRow(item)
             )}
 
-            <FormattedText style={style.description} fontFamily="Regular-FaNum">
-              <FormattedText>
-                کارت بانکی‌ فرزند شما حداکثر تا ۱۰ روز دیگر به آدرس{": "}
+            {!!params?.address && (
+              <FormattedText
+                style={style.description}
+                fontFamily="Regular-FaNum"
+              >
+                <FormattedText>
+                  کارت بانکی‌ فرزند شما حداکثر تا ۱۰ روز دیگر به آدرس{": "}
+                </FormattedText>
+                <FormattedText>{params.address}</FormattedText>
+                <FormattedText> ارسال خواهد شد.</FormattedText>
               </FormattedText>
-              <FormattedText>{params?.address}</FormattedText>
-              <FormattedText> ارسال خواهد شد.</FormattedText>
-            </FormattedText>
+            )}
 
             <View style={style.buttonsWrapper}>
               <Button
@@ -92,7 +99,10 @@ export default (props: any) => {
                 color={colors.buttonSubmitActive}
                 title="بازگشت به صفحه اصلی‌"
                 onPress={() => {
-                  props.navigation.navigate("homeTab");
+                  props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: "app" }],
+                  });
                 }}
               />
             </View>

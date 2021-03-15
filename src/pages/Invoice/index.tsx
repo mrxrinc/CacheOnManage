@@ -11,6 +11,8 @@ import styles from "./styles";
 import Item from "pages/transactions/item";
 import SectionFooter from "pages/spend-parent/sectionFooter";
 import SectionHeader from "pages/spend-parent/sectionHeader";
+import Skeleton from "components/skeleton/cardsList";
+
 interface Props {
   navigation: any;
 }
@@ -59,27 +61,31 @@ const Invoice: FC<Props> = (props) => {
         staticTitle={"invoice"}
         handleBack={() => props.navigation.goBack()}
       />
-      <View style={[styles.container]}>
-        <SectionList
-          stickySectionHeadersEnabled
-          sections={refinedData}
-          keyExtractor={(item, index) => index.toString()}
-          onRefresh={pullToRefresh}
-          refreshing={invoiceState.loading}
-          renderItem={(item) => <Item data={item} />}
-          renderSectionHeader={({ section }) => (
-            <SectionHeader data={section} />
-          )}
-          renderSectionFooter={({ section }) => (
-            <SectionFooter data={section} />
-          )}
-          ListEmptyComponent={() =>
-            !invoiceState.loading ? (
-              <EmptyComponent text="هیج موردی یافت نشد!" />
-            ) : null
-          }
-        />
-      </View>
+      {invoiceState?.loading ? (
+        <Skeleton />
+      ) : (
+        <View style={[styles.container]}>
+          <SectionList
+            stickySectionHeadersEnabled
+            sections={refinedData}
+            keyExtractor={(item, index) => index.toString()}
+            onRefresh={pullToRefresh}
+            refreshing={invoiceState.loading}
+            renderItem={(item) => <Item data={item} />}
+            renderSectionHeader={({ section }) => (
+              <SectionHeader data={section} />
+            )}
+            renderSectionFooter={({ section }) => (
+              <SectionFooter data={section} />
+            )}
+            ListEmptyComponent={() =>
+              !invoiceState.loading ? (
+                <EmptyComponent text="هیج موردی یافت نشد!" />
+              ) : null
+            }
+          />
+        </View>
+      )}
     </Layout>
   );
 };
