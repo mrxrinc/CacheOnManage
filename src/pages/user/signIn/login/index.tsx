@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, SafeAreaView } from "react-native";
+import { View, SafeAreaView, Text } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { useSelector, useDispatch } from "react-redux";
 import * as Keychain from "react-native-keychain";
@@ -25,7 +25,7 @@ import FooterLogin from "./FooterLogin";
 import StatusLogin from "./StatusLogin";
 import BioModal from "./BioModal";
 import ButtonLogin from "./ButtonLogin";
-import ErrorLogin from "./ErrorLogin";
+import LoginInput from "./LoginInput";
 
 interface IError {
   errorText: string;
@@ -36,7 +36,7 @@ const Login = ({ theme }: any) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [username, setUsername] = useState<string>("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showBiometricModal, setShowBiometricModal] = useState<boolean>(false);
@@ -95,7 +95,7 @@ const Login = ({ theme }: any) => {
   const setData = async () => {
     const parentUsername: any = await AsyncStorage.getItem("parentUsername");
     const childUsername: any = await AsyncStorage.getItem("childUsername");
-    let user = isChild ? childUsername : parentUsername;
+    let user = isChild ? childUsername ?? "" : parentUsername ?? "";
     setUsername(user);
     const childPhone = await AsyncStorage.getItem("childPhone");
     dispatch(childPhoneNumber(childPhone));
@@ -226,6 +226,15 @@ const Login = ({ theme }: any) => {
       }
     }
   };
+
+  const handleLogin = () => {
+    password
+      ? handleTouch(username, password, false)
+      : isFace || isFinger
+      ? handleBiometricsAction()
+      : handleTouch(username, password, false);
+  };
+
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.backgroundColor }]}
@@ -237,41 +246,27 @@ const Login = ({ theme }: any) => {
       >
         <Header theme={theme} onPress={() => setSupportModal(true)} />
         <View style={styles.content}>
-          {bljTheme ? (
-            <WhiteLogo width={105} height={50} />
-          ) : (
-            <Logo width={105} height={50} />
-          )}
-          <View style={styles.inputPack}>
-            <MaterialTextField
-              label="نام کاربری"
-              keyboardType="default"
-              maxLength={30}
-              onChange={clearError}
-              onChangeText={setUsername}
-              value={username}
-            />
-            <MaterialTextField
-              label="رمز عبور"
-              keyboardType="default"
-              maxLength={30}
-              icon="password"
-              onChange={clearError}
-              onChangeText={setPassword}
-              value={password}
-            />
-            <ErrorLogin theme={theme} error={error} />
+          <View style={styles.logo}>
+            {bljTheme ? (
+              <WhiteLogo width={105} height={50} />
+            ) : (
+              <Logo width={105} height={50} />
+            )}
           </View>
+          <LoginInput
+            clearError={clearError}
+            setUsername={setUsername}
+            username={username}
+            setPassword={setPassword}
+            password={password}
+            isError={error.isError}
+            errorMsg={error.errorText}
+            isChild={isChild}
+          />
           <ButtonLogin
             username={username}
             password={password}
-            onPress={() =>
-              password
-                ? handleTouch(username, password, false)
-                : isFace || isFinger
-                ? handleBiometricsAction()
-                : handleTouch(username, password, false)
-            }
+            onPress={handleLogin}
             loading={loading}
             isFace={isFace}
             isFinger={isFinger}

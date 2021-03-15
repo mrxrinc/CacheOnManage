@@ -57,6 +57,8 @@ export const colors = {
   gray950: "#fafafa",
   white: "#fff",
   clearBlue5: "rgba(48,127,226,0.05)",
+  brownGrey: "#afafaf",
+  warmGrey: "#8d8b8b",
   // just for debugging purpose
   d: "#C8CA2633",
   f: "#ff00aa33",
