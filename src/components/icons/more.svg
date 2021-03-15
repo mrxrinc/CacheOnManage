@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">
+    <defs>
+        <filter id="Path_1602" width="56" height="56" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-color="#e7eaf0" flood-opacity=".631"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="Group_2935" transform="translate(-160 -587)">
+        <g id="home" filter="url(#Path_1602)" transform="translate(160 587)">
+            <path id="Path_1602-2" fill="#00afff" d="M19 0A19 19 0 1 1 0 19 19 19 0 0 1 19 0z" transform="translate(9 6)"/>
+        </g>
+        <g id="Group_2934">
+            <circle id="Ellipse_817" cx="3" cy="3" r="3" class="cls-2" transform="translate(178 609)"/>
+            <circle id="Ellipse_818" cx="3" cy="3" r="3" class="cls-2" transform="translate(185 609)"/>
+            <circle id="Ellipse_819" cx="3" cy="3" r="3" class="cls-2" transform="translate(192 609)"/>
+        </g>
+    </g>
+</svg>

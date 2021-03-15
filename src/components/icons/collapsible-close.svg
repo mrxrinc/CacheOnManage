@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">
+    <defs>
+        <filter id="Path_1602" width="56" height="56" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-color="#e7eaf0" flood-opacity=".631"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-3{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.4px}
+        </style>
+    </defs>
+    <g id="Group_3136" transform="translate(-160 -603)">
+        <g id="home" filter="url(#Path_1602)" transform="translate(160 603)">
+            <path id="Path_1602-2" fill="#00afff" d="M19 0A19 19 0 1 1 0 19 19 19 0 0 1 19 0z" transform="translate(9 6)"/>
+        </g>
+        <g id="close" transform="translate(172 612)">
+            <g id="Group_176" transform="rotate(90 16 16)">
+                <path id="Rectangle_408" fill="none" d="M0 0H32V32H0z"/>
+                <g id="Group_352" transform="translate(1.484 2.971)">
+                    <g id="Group_353" transform="translate(7.5 -.471)">
+                        <path id="Path_131" d="M9.9 9.9V0H0" class="cls-3" transform="rotate(135 5.552 6.4)"/>
+                        <path id="Path_1456" d="M0 9.9V0h9.9" class="cls-3" transform="rotate(45 -13.432 15.464)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

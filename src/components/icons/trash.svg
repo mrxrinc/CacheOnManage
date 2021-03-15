@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="82" height="83" viewBox="0 0 82 83">
+    <defs>
+        <style>
+            .cls-2{fill:#f73e3e}
+        </style>
+    </defs>
+    <g id="Group_951" data-name="Group 951" transform="translate(.78)">
+        <ellipse id="Ellipse_151" cx="41" cy="41.5" fill="none" data-name="Ellipse 151" rx="41" ry="41.5" transform="translate(-.78)"/>
+        <g id="iconfinder_trash_bin_1370026" transform="translate(22.82 23.356)">
+            <g id="Group_2300" data-name="Group 2300" transform="translate(5.573 13.597)">
+                <path id="Path_1583" d="M25.933 37.661H11.248A5.358 5.358 0 0 1 5.9 32.313V15.906A.856.856 0 0 1 6.806 15a.856.856 0 0 1 .906.906v16.407a3.54 3.54 0 0 0 3.535 3.535h14.686a3.54 3.54 0 0 0 3.535-3.535V15.906a.906.906 0 0 1 1.813 0v16.407a5.417 5.417 0 0 1-5.348 5.348z" class="cls-2" data-name="Path 1583" transform="translate(-5.9 -15)"/>
+            </g>
+            <g id="Group_2301" data-name="Group 2301" transform="translate(2.4)">
+                <path id="Path_1584" d="M30.409 4.442H23.52a5.332 5.332 0 0 0-10.515 0H6.116A3.676 3.676 0 0 0 2.4 8.158a3.6 3.6 0 0 0 3.716 3.626H30.5a3.672 3.672 0 1 0-.091-7.342zM18.263 1.813a3.407 3.407 0 0 1 3.354 2.629h-6.8a3.59 3.59 0 0 1 3.446-2.629zm12.146 8.158H6.116a1.9 1.9 0 1 1 0-3.807H30.5a1.915 1.915 0 0 1 1.9 1.9 1.994 1.994 0 0 1-1.991 1.907z" class="cls-2" data-name="Path 1584" transform="translate(-2.4)"/>
+            </g>
+            <g id="Group_2302" data-name="Group 2302" transform="translate(11.011 14.866)">
+                <path id="Path_1585" d="M12.806 33.351a.856.856 0 0 1-.906-.906V17.306a.906.906 0 1 1 1.813 0v15.138a.975.975 0 0 1-.907.907z" class="cls-2" data-name="Path 1585" transform="translate(-11.9 -16.4)"/>
+            </g>
+            <g id="Group_2303" data-name="Group 2303" transform="translate(23.702 14.866)">
+                <path id="Path_1586" d="M26.806 33.351a.856.856 0 0 1-.906-.906V17.306a.906.906 0 1 1 1.813 0v15.138a.975.975 0 0 1-.907.907z" class="cls-2" data-name="Path 1586" transform="translate(-25.9 -16.4)"/>
+            </g>
+            <g id="Group_2304" data-name="Group 2304" transform="translate(17.356 14.866)">
+                <path id="Path_1587" d="M19.806 33.351a.856.856 0 0 1-.906-.906V17.306a.906.906 0 1 1 1.813 0v15.138a.975.975 0 0 1-.907.907z" class="cls-2" data-name="Path 1587" transform="translate(-18.9 -16.4)"/>
+            </g>
+        </g>
+    </g>
+</svg>

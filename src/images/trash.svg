@@ -1,0 +1,31 @@
+<svg id="trash" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #f73e3e;
+      }
+    </style>
+  </defs>
+  <rect id="Rectangle_17273" data-name="Rectangle 17273" class="cls-1" width="24" height="24"/>
+  <g id="iconfinder_trash_bin_1370026" transform="translate(2.6 4.356)">
+    <g id="Group_2300" data-name="Group 2300" transform="translate(3.778 5.904)">
+      <path id="Path_1583" data-name="Path 1583" class="cls-2" d="M14.6,24.841H8.222A2.327,2.327,0,0,1,5.9,22.518V15.394a.394.394,0,0,1,.787,0v7.125a1.537,1.537,0,0,0,1.535,1.535H14.6a1.537,1.537,0,0,0,1.535-1.535V15.394a.394.394,0,0,1,.787,0v7.125A2.353,2.353,0,0,1,14.6,24.841Z" transform="translate(-5.9 -15)"/>
+    </g>
+    <g id="Group_2301" data-name="Group 2301" transform="translate(2.4)">
+      <path id="Path_1584" data-name="Path 1584" class="cls-2" d="M14.563,1.929H11.572a2.316,2.316,0,0,0-4.566,0H4.014A1.6,1.6,0,0,0,2.4,3.543,1.564,1.564,0,0,0,4.014,5.117H14.6a1.595,1.595,0,1,0-.039-3.188ZM9.288.787a1.479,1.479,0,0,1,1.456,1.142H7.793A1.559,1.559,0,0,1,9.288.787ZM14.563,4.33H4.014a.827.827,0,1,1,0-1.653H14.6a.831.831,0,0,1,.827.827A.866.866,0,0,1,14.563,4.33Z" transform="translate(-2.4)"/>
+    </g>
+    <g id="Group_2302" data-name="Group 2302" transform="translate(6.139 6.455)">
+      <path id="Path_1585" data-name="Path 1585" class="cls-2" d="M12.294,23.761a.372.372,0,0,1-.394-.394V16.794a.394.394,0,1,1,.787,0v6.574A.423.423,0,0,1,12.294,23.761Z" transform="translate(-11.9 -16.4)"/>
+    </g>
+    <g id="Group_2303" data-name="Group 2303" transform="translate(11.65 6.455)">
+      <path id="Path_1586" data-name="Path 1586" class="cls-2" d="M26.294,23.761a.372.372,0,0,1-.394-.394V16.794a.394.394,0,1,1,.787,0v6.574A.423.423,0,0,1,26.294,23.761Z" transform="translate(-25.9 -16.4)"/>
+    </g>
+    <g id="Group_2304" data-name="Group 2304" transform="translate(8.895 6.455)">
+      <path id="Path_1587" data-name="Path 1587" class="cls-2" d="M19.294,23.761a.372.372,0,0,1-.394-.394V16.794a.394.394,0,1,1,.787,0v6.574A.423.423,0,0,1,19.294,23.761Z" transform="translate(-18.9 -16.4)"/>
+    </g>
+  </g>
+</svg>

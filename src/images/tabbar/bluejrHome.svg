@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72">
+    <defs>
+        <linearGradient id="linear-gradient" x1=".619" x2=".28" y1="-.158" y2="1.046" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#307fe2"/>
+            <stop offset="1" stop-color="#1b66c3"/>
+        </linearGradient>
+        <filter id="Path_1602" width="72" height="72" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-color="#e7eaf0" flood-opacity=".631"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g id="home" transform="translate(9 6)">
+        <g filter="url(#Path_1602)" transform="translate(-9 -6)">
+            <path id="Path_1602-2" fill="url(#linear-gradient)" d="M27 0A27 27 0 1 1 0 27 27 27 0 0 1 27 0z" data-name="Path 1602" transform="translate(9 6)"/>
+        </g>
+        <g id="icon" transform="translate(17 18)">
+            <path id="home_1_" fill="#fff" stroke="#fff" stroke-width="0.3px" d="M19.968 21.858L10.7 14.607a.954.954 0 0 0-1.149 0L.283 21.858a.619.619 0 0 0-.254.706.619.619 0 0 0 .635.4H2.51v8.931a.839.839 0 0 0 .839.839h4.34a.84.84 0 0 0 .839-.839v-4h3.2v4a.839.839 0 0 0 .839.839H16.9a.839.839 0 0 0 .839-.839v-8.931h1.845a.6.6 0 0 0 .381-1.106z" data-name="home (1)" transform="translate(0 -14.415)"/>
+        </g>
+    </g>
+</svg>

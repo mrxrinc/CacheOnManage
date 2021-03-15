@@ -1,0 +1,147 @@
+import { StyleSheet } from "react-native";
+import { colors, width, height } from "constants/index";
+
+export default StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: width,
+    backgroundColor: colors.white,
+    marginTop: 10,
+  },
+  modal: {
+    margin: 0,
+    alignItems: "center",
+  },
+  noAllowanceBox: {
+    padding: 16,
+    paddingHorizontal: 20,
+    width: "100%",
+  },
+  noAllowanseTitle: {
+    fontSize: 14,
+    lineHeight: 17,
+  },
+  noAllowanseDescription: {
+    color: colors.text,
+    fontSize: 12,
+    textAlign: "left",
+    lineHeight: 17,
+    marginTop: 10,
+  },
+  addAllowanceButton: {
+    paddingHorizontal: 36,
+    paddingTop: 16,
+  },
+  yesAllowanceBox: {
+    width: width * 0.89,
+    height: height * 0.083,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  textTitle: {
+    fontSize: 16,
+    marginRight: 4,
+  },
+  contentBox: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  editButton: {
+    width: 30,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 3,
+  },
+  daysContainer: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    width: 65,
+    margin: "2%",
+    flexDirection: "row",
+  },
+  activeBox: {
+    width: 20,
+    height: 20,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#43e6c5",
+  },
+  addAllowanceModal: {
+    width: "90%",
+    justifyContent: "space-around",
+    alignItems: "center",
+    borderRadius: 15,
+    backgroundColor: colors.white,
+    paddingHorizontal: 16,
+    paddingTop: 13,
+    paddingBottom: 15,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  inputBox: {
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    flexDirection: "row",
+    marginVertical: 30,
+  },
+  textInput: {
+    width: 128,
+    height: 27,
+    borderRadius: 5,
+    backgroundColor: colors.gray900,
+    textAlign: "center",
+    fontFamily: "IRANSansMobileFaNum",
+    paddingVertical: 0,
+    fontSize: 16,
+  },
+  description: {
+    fontSize: 16,
+    textAlign: "center",
+    lineHeight: 24,
+  },
+  unequalButtonsWrapper: {
+    marginTop: 30,
+    paddingHorizontal: 0,
+  },
+  editIcon: {
+    width: 18,
+    height: 18,
+    marginLeft: 4,
+  },
+  btn: { elevation: 0, shadowOpacity: 0 },
+  btnText: { color: colors.blujrBtnOpenActive },
+  rial: {
+    color: colors.brownishGrey,
+    fontSize: 14,
+    marginBottom: 2,
+    marginLeft: 6,
+  },
+  title: {
+    fontSize: 18,
+    lineHeight: 20,
+    flex: 1,
+    textAlign: "center",
+  },
+  closeIcon: {
+    width: 12,
+    height: 12,
+  },
+  close: {
+    zIndex: 3,
+    position: "absolute",
+    right: 0,
+    alignItems: "center",
+    width: 24,
+    height: 24,
+    justifyContent: "center",
+  },
+});

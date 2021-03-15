@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <linearGradient id="linear-gradient" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#397fff"/>
+            <stop offset="1" stop-color="#bb6aff"/>
+        </linearGradient>
+        <style>
+            .cls-2{fill:#f2f2f2}
+        </style>
+    </defs>
+    <g id="Group_3494" transform="translate(-313 -1868)">
+        <rect id="Rectangle_17560" width="20" height="20" fill="url(#linear-gradient)" rx="5" transform="translate(313 1868)"/>
+        <g id="Group_3493" transform="translate(177.869 1575.122)">
+            <path id="Path_2830" d="M148.118 298.886a3.943 3.943 0 0 0-3.015 1.4 3.951 3.951 0 1 0-.007 5.1 3.951 3.951 0 1 0 3.022-6.5zm-3.949 3.957a2.092 2.092 0 0 1-2.7 2 1.042 1.042 0 0 1-1.269.11l.384-.383s-1.381.077-1.458-1a2.464 2.464 0 0 0 .991-.007 2.091 2.091 0 0 1 3.324-2.308l.979-.14-.434.868a2.085 2.085 0 0 1 .183.859zm3.946 2.1a2.086 2.086 0 1 1 2.087-2.086 2.087 2.087 0 0 1-2.087 2.083z" class="cls-2"/>
+            <path id="Path_2831" d="M389.553 453.31a.2.2 0 1 0 .2.2.2.2 0 0 0-.2-.2z" class="cls-2" transform="translate(-246.552 -151.56)"/>
+        </g>
+    </g>
+</svg>

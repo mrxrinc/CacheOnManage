@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38">
+    <defs>
+        <filter id="e3114zo8ra" width="38" height="38" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g>
+        <g filter="url(#e3114zo8ra)" transform="translate(-310 -802) translate(310 802)">
+            <rect width="20" height="20" fill="#43e6c5" rx="10" transform="translate(9 6)"/>
+        </g>
+        <g>
+            <path fill="#fff" d="M7.843 9.319v1.373H7v.421h7.585v-.421h-.843V9.319a1.465 1.465 0 0 0-.432-1.043l-2.22-2.22 2.22-2.22a1.465 1.465 0 0 0 .432-1.043V1.421h.843V1H7v.421h.843v1.373a1.465 1.465 0 0 0 .432 1.043l2.22 2.22-2.22 2.22a1.465 1.465 0 0 0-.432 1.042zm.73-5.78a1.046 1.046 0 0 1-.309-.745V1.421h5.057v1.373a1.047 1.047 0 0 1-.309.745l-2.22 2.22zm2.22 2.816l2.22 2.22a1.046 1.046 0 0 1 .309.745v1.373H8.264V9.319a1.047 1.047 0 0 1 .309-.745z" transform="translate(-310 -802) translate(318.694 812.593) translate(-.694 -.593)"/>
+        </g>
+    </g>
+</svg>
