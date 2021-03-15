@@ -4,34 +4,38 @@ import Header from "components/header";
 import Layout from "components/layout";
 import style from "./style";
 import { RootState } from "../../../customType";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ScrollableTabView from "components/scrollableTabView";
 import Father from "./tabPages/father";
 import Child from "./tabPages/child";
 import { getSettingData } from "utils/api";
 import { colors } from "constants/index";
+import Skeleton from "components/skeleton/setting";
 
 export default (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
   const [settingData, setSettingData] = useState<any | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     handleGetData();
   }, []);
 
   async function handleGetData(dynamicToken?: string) {
+    setLoading(true);
     try {
       const { status, statusText, data } = await getSettingData(
         dynamicToken || token
       );
       if (status === 200) {
         setSettingData(data);
-        logger("SETTING DATA:", data);
       } else {
         console.warn(" Status is not 200!", status, statusText);
       }
     } catch (err) {
       console.warn(err.response);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -41,7 +45,6 @@ export default (props: any) => {
       setSettingData(null);
       setSettingData(data);
     } else if (!!data && typeof data === "string") {
-      logger("INSIDE ELSE : ");
       handleGetData(data);
     }
   }
@@ -52,26 +55,30 @@ export default (props: any) => {
         staticTitle={"setting"}
         handleBack={() => props.navigation.goBack()}
       />
-      <View style={style.content}>
-        {settingData && (
-          <ScrollableTabView tabbarBG={colors.gray900} hasTabbar>
-            <Father
-              tabLabel={settingData.nickname}
-              fatherData={settingData}
-              handleUpdateData={handleUpdateData}
-            />
-            {settingData.children.map((child: any) => (
-              <Child
-                tabLabel={child.nickname}
-                key={child.username}
-                childData={child}
-                settingData={settingData}
+      {loading ? (
+        <Skeleton />
+      ) : (
+        <View style={style.content}>
+          {settingData && (
+            <ScrollableTabView tabbarBG={colors.gray900} hasTabbar>
+              <Father
+                tabLabel={settingData.nickname}
+                fatherData={settingData}
                 handleUpdateData={handleUpdateData}
               />
-            ))}
-          </ScrollableTabView>
-        )}
-      </View>
+              {settingData.children.map((child: any) => (
+                <Child
+                  tabLabel={child.nickname}
+                  key={child.username}
+                  childData={child}
+                  settingData={settingData}
+                  handleUpdateData={handleUpdateData}
+                />
+              ))}
+            </ScrollableTabView>
+          )}
+        </View>
+      )}
     </Layout>
   );
 };

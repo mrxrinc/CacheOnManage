@@ -8,6 +8,7 @@ import styles from "./styles";
 import Button from "components/button";
 import { getInternetPackages } from "utils/api";
 import PackageItem from "./components/packageItem";
+import Skeleton from "components/skeleton/cardsList";
 
 export const Packages: FC = (props: any) => {
   const mobileNumber = props.route.params?.mobileNumber;
@@ -31,14 +32,15 @@ export const Packages: FC = (props: any) => {
       operator,
     })
       .then((response: any) => {
-        setLoading(false);
         setPackages(response.data);
         setRefreshing(false);
       })
       .catch((err: any) => {
-        setLoading(false);
         console.warn("ERROR: ", err.response?.data);
         setRefreshing(false);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -91,11 +93,13 @@ export const Packages: FC = (props: any) => {
   );
   return (
     <Layout>
-      <>
-        <Header
-          staticTitle={"internetPackage"}
-          handleBack={() => props.navigation.goBack()}
-        />
+      <Header
+        staticTitle={"internetPackage"}
+        handleBack={() => props.navigation.goBack()}
+      />
+      {loading ? (
+        <Skeleton />
+      ) : (
         <View style={styles.container}>
           {packages && (
             <ScrollableTabView tabbarBG={colors.gray900} hasTabbar={true}>
@@ -114,7 +118,7 @@ export const Packages: FC = (props: any) => {
             </View>
           </View>
         </View>
-      </>
+      )}
     </Layout>
   );
 };

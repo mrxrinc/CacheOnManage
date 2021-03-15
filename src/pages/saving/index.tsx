@@ -15,13 +15,7 @@ import MainHeader from "components/mainHeader";
 import ScrollableTabView from "components/scrollableTabView";
 import ActionModalBottom from "components/modal/actionModalBottom";
 // UI Frameworks
-import {
-  RefreshControl,
-  StyleProp,
-  View,
-  ViewStyle,
-  ActivityIndicator,
-} from "react-native";
+import { RefreshControl, StyleProp, View, ViewStyle } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 // Local components
 import TargetList from "./components/TargetList";
@@ -35,6 +29,7 @@ import { colors } from "constants/index";
 import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
 import AlertController from "components/alertController";
+import Skeleton from "components/skeleton/saving";
 import { formatNumber } from "utils";
 
 const Saving: FC = ({ theme }: any) => {
@@ -184,9 +179,7 @@ const Saving: FC = ({ theme }: any) => {
     <Layout>
       <MainHeader title={"پس انداز"} />
       {savingStore.loading ? (
-        <View style={styles.loading}>
-          <ActivityIndicator color={colors.gray600} size="large" />
-        </View>
+        <Skeleton />
       ) : (
         <View style={styles.container}>
           {savingStore.savingList?.length > 0 ? (

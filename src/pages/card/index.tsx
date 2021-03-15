@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Dimensions, ActivityIndicator } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import MainHeader from "components/mainHeader";
 import Layout from "components/layout";
 import ScrollableTabView from "components/scrollableTabView";
@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState, RootStateType } from "../../../customType";
 import OrderBabayCard from "./orderBabyCard";
 import MainPage from "./mainPage";
-import { colors } from "constants/index";
+import Skeleton from "components/skeleton/cards";
 
 const { width } = Dimensions.get("window");
 
@@ -108,9 +108,7 @@ const Cards = (props: any) => {
             })}
           </ScrollableTabView>
         ) : (
-          <View style={styles.loading}>
-            <ActivityIndicator color={colors.gray600} size="large" />
-          </View>
+          <Skeleton />
         )}
       </View>
     </Layout>
