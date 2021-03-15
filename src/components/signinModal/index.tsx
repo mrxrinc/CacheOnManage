@@ -54,9 +54,12 @@ const SigninModal: FC<Props> = ({
   };
 
   const dispatch = useDispatch();
-  AsyncStorage.getItem("childPhone").then((childPhone) => {
-    dispatch(childPhoneNumber(childPhone));
-  });
+
+  useEffect(() => {
+    AsyncStorage.getItem("childPhone").then((childPhone) => {
+      dispatch(childPhoneNumber(childPhone));
+    });
+  }, []);
 
   useEffect(() => {
     if (showModal === true) {
