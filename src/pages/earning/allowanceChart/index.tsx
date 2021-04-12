@@ -7,13 +7,13 @@ import styles from "./styles";
 import { withTheme } from "themeCore/themeProvider";
 import Item from "./Item";
 
-const AllowanceChart = ({ childInfo, theme }: any) => {
+const cacheonthegoChart = ({ childInfo, theme }: any) => {
   const themes = theme.earning;
   const remaining = childInfo.doneTaskAmount + childInfo.acceptTaskAmount;
   const incomes = childInfo.incoms;
   const paidTaskAmount = childInfo.paiedTaskAmount;
-  const paiedAllowance = childInfo.paiedAllowance;
-  const sum = paiedAllowance + remaining + incomes + paidTaskAmount;
+  const paiedcacheonthego = childInfo.paiedcacheonthego;
+  const sum = paiedcacheonthego + remaining + incomes + paidTaskAmount;
 
   const handleChartValueWidth = (val1: number, val2: number) => {
     const res = (val1 / val2) * 100;
@@ -29,7 +29,7 @@ const AllowanceChart = ({ childInfo, theme }: any) => {
             fontFamily="Bold-FaNum"
             style={{ fontSize: 28, color: colors.gray250 }}
           >
-            {formatNumber(paiedAllowance + incomes + paidTaskAmount) || 0}
+            {formatNumber(paiedcacheonthego + incomes + paidTaskAmount) || 0}
           </FormattedText>
           <FormattedText style={styles.rial} fontFamily="Regular">
             ریال
@@ -40,7 +40,7 @@ const AllowanceChart = ({ childInfo, theme }: any) => {
           <View
             style={{
               backgroundColor: themes.chartBlue,
-              width: handleChartValueWidth(paiedAllowance, sum) + "%",
+              width: handleChartValueWidth(paiedcacheonthego, sum) + "%",
               borderTopLeftRadius: 15,
               borderBottomLeftRadius: 15,
             }}
@@ -75,7 +75,7 @@ const AllowanceChart = ({ childInfo, theme }: any) => {
           <Item
             bubbleColor={themes.chartBlue}
             title="پول توجیبی واریز شده"
-            amount={paiedAllowance}
+            amount={paiedcacheonthego}
           />
           <Item
             bubbleColor={themes.chartGreen}
@@ -98,4 +98,4 @@ const AllowanceChart = ({ childInfo, theme }: any) => {
   );
 };
 
-export default withTheme(AllowanceChart);
+export default withTheme(cacheonthegoChart);

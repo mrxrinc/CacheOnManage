@@ -174,9 +174,9 @@ const QRPayment: React.FC<Props> = (props) => {
         description={`لطفا دسترسی به دوربین را در تنظیمات ${"\n"} فعال کنید`}
         leftAction={() => Linking.openURL("app-settings:")}
         rightTitle="انصراف"
-        leftColor={colors.blujrBtnOpenActive}
+        leftColor={colors.cacheonmanageBtnOpenActive}
         leftTitle="ورود به تنظیمات"
-        rightColor={colors.blujrBtnOpenActive}
+        rightColor={colors.cacheonmanageBtnOpenActive}
         rightAction={() => setIsModal(false)}
       />
     </Layout>

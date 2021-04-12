@@ -1,5 +1,5 @@
 const messages: Record<string, string> = {
-  "app.name": "allowance",
+  "app.name": "cacheonthego",
   "otp.mobileNumber": "شماره همراه",
   "otp.handleClick": "تایید و ادامه",
   "otp.verifyCode": "کد ارسال شده را وارد کنید",
@@ -77,7 +77,7 @@ const messages: Record<string, string> = {
   homeTab: "خانه",
   cardTab: "کارتها",
   moreTab: "بیشتر",
-  "earning.allowance": "پول توجیبی‌:",
+  "earning.cacheonthego": "پول توجیبی‌:",
   "earning.title": "درآمد فرزندان",
   "earning.child.title": "درآمد",
   "earning.button": "افزودن فعالیت جدید",

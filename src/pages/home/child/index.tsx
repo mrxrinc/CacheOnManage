@@ -43,7 +43,7 @@ type ChildData = {
     amount: string;
     method: string;
   }[];
-  allowance: {
+  cacheonthego: {
     days: number;
     amount: number;
   };
@@ -292,7 +292,7 @@ const ChildHome = ({ route, theme }: any) => {
                         style={style.twinChildTextKey}
                         fontFamily="Regular-FaNum"
                       >
-                        {childData.allowance.days} روز تا پرداخت پول توجیبی
+                        {childData.cacheonthego.days} روز تا پرداخت پول توجیبی
                       </FormattedText>
                       <ArrowIcon
                         width={20}
@@ -304,7 +304,7 @@ const ChildHome = ({ route, theme }: any) => {
                       style={style.twinChildTextValue}
                       fontFamily="Regular-FaNum"
                     >
-                      {formatNumber(childData.allowance.amount) || 0}{" "}
+                      {formatNumber(childData.cacheonthego.amount) || 0}{" "}
                       <FormattedText style={style.currency} id={"home.rial"} />
                     </FormattedText>
                   </View>

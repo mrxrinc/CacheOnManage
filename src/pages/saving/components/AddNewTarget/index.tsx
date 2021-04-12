@@ -146,7 +146,7 @@ const AddNewTarget: FC<Props> = (props) => {
           errors.targetAmount =
             "مبلغ هدف نمی تواند کمتر از مبلغ پس انداز هفتگی باشد";
         } else if (
-          Number(removeCommas(selectedTargetData.allowance)) <
+          Number(removeCommas(selectedTargetData.cacheonthego)) <
           Number(removeCommas(values.weeklySavings))
         ) {
           errors.weeklySavings =
@@ -159,7 +159,7 @@ const AddNewTarget: FC<Props> = (props) => {
           errors.weeklySavings =
             "مبلغ پس انداز نمی تواند بیشتر از مبلغ هدف باشد";
         } else if (
-          Number(selectedTargetData.allowance) <
+          Number(selectedTargetData.cacheonthego) <
           Number(removeCommas(values.weeklySavings))
         ) {
           errors.weeklySavings =

@@ -102,7 +102,7 @@ const renderPaymentMethodItem = (
           </View>
         </View>
         <View style={styles.itemInputWrapper}>
-          <View>
+          <View>∑
             <Input
               boxMode
               maxLength={11}

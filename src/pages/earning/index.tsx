@@ -8,12 +8,12 @@ import {
 } from "react-native";
 import MainHeader from "components/mainHeader";
 import Layout from "components/layout";
-import AllowanceChart from "./allowanceChart";
+import cacheonthegoChart from "./cacheonthegoChart";
 import ScrollableTabView from "components/scrollableTabView";
 import { getChildInfo } from "utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../customType";
-import AddAllowance from "./addAllowance";
+import Addcacheonthego from "./addcacheonthego";
 import ChildTaskList from "./childTaskList";
 import { useNavigation } from "@react-navigation/core";
 import Button from "components/button";
@@ -63,8 +63,8 @@ const Earning = (props: any) => {
             <RefreshControl refreshing={loading} onRefresh={onRefresh} />
           }
         >
-          <AllowanceChart childInfo={item.data} />
-          <AddAllowance childInfo={item.data} />
+          <cacheonthegoChart childInfo={item.data} />
+          <Addcacheonthego childInfo={item.data} />
           <ChildTaskList childInfo={item.data} />
         </ScrollView>
         <Button

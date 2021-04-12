@@ -36,10 +36,11 @@ const Saving: FC = ({ theme }: any) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
   const [childName, setChildName] = React.useState<string>("");
-  const [childNameInFinishTarget, setChildNameInFinishTarget] = React.useState<
-    string
-  >("");
-  const [childAllowance, setChildAllowance] = React.useState<string>("");
+  const [
+    childNameInFinishTarget,
+    setChildNameInFinishTarget,
+  ] = React.useState<string>("");
+  const [childcacheonthego, setChildcacheonthego] = React.useState<string>("");
   const [finishTargetId, setFinishTargetId] = React.useState(0);
   const [deleteTargetId, setDeleteTargetId] = React.useState(0);
   const [deleteChildId, setDeleteChildId] = React.useState(0);
@@ -89,7 +90,7 @@ const Saving: FC = ({ theme }: any) => {
 
   function handleEdit(target: TargetsData, data: any) {
     setChildName(data.childName);
-    setChildAllowance(data.allowance);
+    setChildcacheonthego(data.cacheonthego);
     dispatch(SavingActions.setEditModal(true));
     dispatch(SavingActions.getTargetData(target));
   }
@@ -213,7 +214,7 @@ const Saving: FC = ({ theme }: any) => {
       >
         <EditTarget
           data={selectedTargetData}
-          allowance={childAllowance}
+          cacheonthego={childcacheonthego}
           childName={childName}
         />
       </ActionModalBottom>

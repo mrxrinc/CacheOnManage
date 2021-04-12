@@ -17,31 +17,31 @@ import design_5_back from "images/card-design/design-5-back.png";
 
 const cards = [
   {
-    id: "BLUJR_1",
+    id: "cacheonmanage_1",
     frontName: true,
     front: design_1_front,
     back: design_1_back,
   },
   {
-    id: "BLUJR_2",
+    id: "cacheonmanage_2",
     frontName: true,
     front: design_2_front,
     back: design_2_back,
   },
   {
-    id: "BLUJR_3",
+    id: "cacheonmanage_3",
     frontName: false,
     front: design_3_front,
     back: design_3_back,
   },
   {
-    id: "BLUJR_4",
+    id: "cacheonmanage_4",
     frontName: false,
     front: design_4_front,
     back: design_4_back,
   },
   {
-    id: "BLUJR_5",
+    id: "cacheonmanage_5",
     frontName: true,
     front: design_5_front,
     back: design_5_back,

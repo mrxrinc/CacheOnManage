@@ -28,11 +28,11 @@ type TabType = "VIP" | "OTHER";
 
 type ActiveCard =
   | "VIP"
-  | "BLUJR_1"
-  | "BLUJR_2"
-  | "BLUJR_3"
-  | "BLUJR_4"
-  | "BLUJR_5";
+  | "cacheonmanage_1"
+  | "cacheonmanage_2"
+  | "cacheonmanage_3"
+  | "cacheonmanage_4"
+  | "cacheonmanage_5";
 
 const DefineCard: FC = ({ navigation, route, theme }: any) => {
   const childId = route.params?.childId;
@@ -66,21 +66,21 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
   const switchTab = (tab: TabType) => {
     setActiveTab(tab);
     if (tab === "VIP") setActiveCard("VIP");
-    else if (tab === "OTHER") setActiveCard("BLUJR_1");
+    else if (tab === "OTHER") setActiveCard("cacheonmanage_1");
   };
 
   const handleChosenCard = (index: number) => {
     switch (index) {
       case 0:
-        return "BLUJR_1";
+        return "cacheonmanage_1";
       case 1:
-        return "BLUJR_2";
+        return "cacheonmanage_2";
       case 2:
-        return "BLUJR_3";
+        return "cacheonmanage_3";
       case 3:
-        return "BLUJR_4";
+        return "cacheonmanage_4";
       case 4:
-        return "BLUJR_5";
+        return "cacheonmanage_5";
       default:
         return "VIP";
     }
@@ -340,9 +340,9 @@ const DefineCard: FC = ({ navigation, route, theme }: any) => {
         description={`لطفا دسترسی به دوربین را در تنظیمات ${"\n"} فعال کنید`}
         leftAction={() => Linking.openURL("app-settings:")}
         rightTitle="انصراف"
-        leftColor={colors.blujrBtnOpenActive}
+        leftColor={colors.cacheonmanageBtnOpenActive}
         leftTitle="ورود به تنظیمات"
-        rightColor={colors.blujrBtnOpenActive}
+        rightColor={colors.cacheonmanageBtnOpenActive}
         rightAction={() => setIsModal(false)}
       />
     </Layout>

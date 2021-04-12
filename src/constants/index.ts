@@ -20,7 +20,7 @@ export const colors = {
   disable: "#c9cbcc",
 
   // new colors
-  blujrBtnOpenActive: "#307fe2",
+  cacheonmanageBtnOpenActive: "#307fe2",
   buttonOpenActive: "#00afff",
   buttonOpenActive50: "#00afff80",
   buttonOpenPressed: "#0498db",

@@ -19,7 +19,7 @@ export default StyleSheet.create({
     borderBottomWidth: 2,
     borderColor: colors.title,
   },
-  buttonBlujr: {
+  buttoncacheonmanage: {
     width: "100%",
     height: 52,
     backgroundColor: "#f5f7fa",

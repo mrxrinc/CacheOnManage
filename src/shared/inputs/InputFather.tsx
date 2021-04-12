@@ -63,7 +63,7 @@ const InputFather = forwardRef((props: any, ref) => {
       >
         <TextInput
           value={value}
-          selectionColor={colors.blujrBtnOpenActive}
+          selectionColor={colors.cacheonmanageBtnOpenActive}
           placeholderTextColor={colors.lightGreyBlue}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
   },
   bordered: {
-    borderColor: colors.blujrBtnOpenActive,
+    borderColor: colors.cacheonmanageBtnOpenActive,
     borderWidth: 2,
   },
   password: { color: colors.gray650 },

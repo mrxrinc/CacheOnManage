@@ -22,7 +22,7 @@ const License = () => {
       <View>
         <View style={styles.switch}>
           <Switch
-            activeColor={colors.blujrBtnOpenActive}
+            activeColor={colors.cacheonmanageBtnOpenActive}
             onChange={toggleSwitch}
           />
           <Text style={styles.roles}>
@@ -31,7 +31,7 @@ const License = () => {
         </View>
         <Button
           style={{ borderRadius: 10, marginTop: 25 }}
-          color={colors.blujrBtnOpenActive}
+          color={colors.cacheonmanageBtnOpenActive}
           title="ادامه"
         />
       </View>

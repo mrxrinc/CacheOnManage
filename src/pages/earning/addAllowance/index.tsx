@@ -8,7 +8,7 @@ import Close from "components/icons/close.svg";
 import Modal from "react-native-modal";
 import AlertController from "components/alertController";
 import { formatNumber } from "utils";
-import { addAllowance } from "utils/api";
+import { addcacheonthego } from "utils/api";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../customType";
 import { getEarningData } from "redux/actions/Earning";
@@ -17,15 +17,15 @@ import SavingActions from "store/Saving/saving.actions";
 import { withTheme } from "themeCore/themeProvider";
 import styles from "./styles";
 
-const AddAllowance = (props: any) => {
+const Addcacheonthego = (props: any) => {
   const theme = props.theme;
   const { childInfo } = props;
   const dispatch = useDispatch();
   const [isModalVisible, setModalVisible] = useState(false);
   const [active, setActive] = useState("");
-  const [allowance, setAllowance] = useState("");
+  const [cacheonthego, setcacheonthego] = useState("");
   const [paymentDay, setPaymentDay] = useState("0");
-  const [deleteAllowance, setDeleteAllowance] = useState<boolean>(false);
+  const [deletecacheonthego, setDeletecacheonthego] = useState<boolean>(false);
   const token = useSelector<RootState, any>((state) => state.user.token);
   const isChild = useSelector<RootState, any>((state) => state.user.ischild);
   const [loading, setLoading] = useState(false);
@@ -34,41 +34,41 @@ const AddAllowance = (props: any) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  const handleAddAllowance = ({ remove }: { remove: boolean }) => {
+  const handleAddcacheonthego = ({ remove }: { remove: boolean }) => {
     const data = {
       paymentDay: paymentDay,
       childId: childInfo.id,
-      allowanceAmount: remove ? 0 : allowance,
+      cacheonthegoAmount: remove ? 0 : cacheonthego,
     };
 
     remove ? setDeleteLoading(true) : setLoading(true);
-    addAllowance(token, data)
+    addcacheonthego(token, data)
       .then(() => {
         remove ? setDeleteLoading(false) : setLoading(false);
         dispatch(getEarningData(Math.random()));
         toggleModal();
-        setDeleteAllowance(false);
+        setDeletecacheonthego(false);
         dispatch(SavingActions.setSavingsDataList([], { sagas: true }));
       })
       .catch(() => {
         remove ? setDeleteLoading(false) : setLoading(false);
-        setDeleteAllowance(false);
+        setDeletecacheonthego(false);
       });
   };
-  let mainDisableBtn = childInfo.allowanceAmount.toString() === allowance;
-  let secondaryDisableBtn = allowance === "";
+  let mainDisableBtn = childInfo.cacheonthegoAmount.toString() === cacheonthego;
+  let secondaryDisableBtn = cacheonthego === "";
   return (
     <View style={styles.container}>
-      {!childInfo.allowanceAmount ? (
-        <View style={styles.noAllowanceBox}>
+      {!childInfo.cacheonthegoAmount ? (
+        <View style={styles.nocacheonthegoBox}>
           <FormattedText
             style={[styles.noAllowanseTitle, { color: theme.titleColor }]}
-            id="earning.allowance"
+            id="earning.cacheonthego"
           />
           <FormattedText style={styles.noAllowanseDescription}>
             مقداری برای پول توجیبی فرزندتان تعیین نکرده‌اید.
           </FormattedText>
-          <View style={styles.addAllowanceButton}>
+          <View style={styles.addcacheonthegoButton}>
             <Button
               color={colors.paleGrey}
               title="تعریف پول توجیبی"
@@ -79,20 +79,20 @@ const AddAllowance = (props: any) => {
           </View>
         </View>
       ) : (
-        <View style={styles.yesAllowanceBox}>
-          <FormattedText style={styles.textTitle} id="earning.allowance" />
+        <View style={styles.yescacheonthegoBox}>
+          <FormattedText style={styles.textTitle} id="earning.cacheonthego" />
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
               setActive(childInfo.paymentDay);
-              childInfo.allowanceAmount &&
-                setAllowance(childInfo.allowanceAmount + "");
+              childInfo.cacheonthegoAmount &&
+                setcacheonthego(childInfo.cacheonthegoAmount + "");
               toggleModal();
             }}
             style={styles.contentBox}
           >
             <FormattedText style={styles.textTitle} fontFamily="Regular-FaNum">
-              {formatNumber(childInfo.allowanceAmount)} ریال
+              {formatNumber(childInfo.cacheonthegoAmount)} ریال
             </FormattedText>
             {!isChild && (
               <Edit style={styles.editIcon} fill={theme.ButtonBlueColor} />
@@ -110,7 +110,7 @@ const AddAllowance = (props: any) => {
         backdropTransitionInTiming={500}
         style={styles.modal}
       >
-        <View style={styles.addAllowanceModal}>
+        <View style={styles.addcacheonthegoModal}>
           <View style={styles.header}>
             <FormattedText
               style={[
@@ -136,9 +136,9 @@ const AddAllowance = (props: any) => {
               maxLength={11}
               underlineColorAndroid={"transparent"}
               onChangeText={(text) => {
-                setAllowance(text.replace(/,/g, ""));
+                setcacheonthego(text.replace(/,/g, ""));
               }}
-              value={formatNumber(allowance) ?? ""}
+              value={formatNumber(cacheonthego) ?? ""}
             />
             <FormattedText style={styles.rial}>ریال</FormattedText>
           </View>
@@ -159,27 +159,27 @@ const AddAllowance = (props: any) => {
             style={styles.unequalButtonsWrapper}
             mainText="ذخیره"
             mainColor={theme.ButtonGreenColor}
-            mainOnPress={handleAddAllowance}
+            mainOnPress={handleAddcacheonthego}
             secondaryText="حذف"
             secondaryColor={theme.ButtonRedColor}
-            secondaryOnPress={() => setDeleteAllowance(true)}
+            secondaryOnPress={() => setDeletecacheonthego(true)}
             mainLoading={loading}
             secondaryLoading={deleteLoading}
             mainDisable={mainDisableBtn}
             secondaryDisable={secondaryDisableBtn}
           />
           <AlertController
-            showModal={deleteAllowance}
-            setShowModal={() => setDeleteAllowance(false)}
+            showModal={deletecacheonthego}
+            setShowModal={() => setDeletecacheonthego(false)}
             title="حذف پول توجیبی"
             description="با انجام این عمل دیگر پول توجیبی بصورت اتوماتیک از حساب شما کسر نمی‌شود.آیا از حذف پول توجیبی اطمینان دارید؟"
             rightTitle="انصراف"
-            rightAction={() => setDeleteAllowance(false)}
+            rightAction={() => setDeletecacheonthego(false)}
             leftTitle="حذف"
             leftColor={colors.red}
             leftAction={() => {
-              setAllowance("0");
-              handleAddAllowance({ remove: true });
+              setcacheonthego("0");
+              handleAddcacheonthego({ remove: true });
             }}
             centerText
           />
@@ -188,4 +188,4 @@ const AddAllowance = (props: any) => {
     </View>
   );
 };
-export default withTheme(AddAllowance);
+export default withTheme(Addcacheonthego);

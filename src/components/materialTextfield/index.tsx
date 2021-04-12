@@ -47,15 +47,20 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
   return (
     <View style={[style.container, props.style]}>
       {theme.key === FATHER_BLU_JR ? (
-        <View style={[style.blujrInputBox, !props.multiline && { height: 62 }]}>
+        <View
+          style={[
+            style.cacheonmanageInputBox,
+            !props.multiline && { height: 62 },
+          ]}
+        >
           <View
             style={[
-              style.blujrInputWrapper,
+              style.cacheonmanageInputWrapper,
               !props.multiline && { height: 52 },
             ]}
           >
             <TextInput
-              style={[style.blujrInput, props.inputStyle]}
+              style={[style.cacheonmanageInput, props.inputStyle]}
               placeholder={props.initValue ?? props.label}
               placeholderTextColor="#bbbcbc"
               value={props.value}

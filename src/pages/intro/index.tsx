@@ -106,7 +106,7 @@ export default () => {
                 dispatch(signUpStepChanged("signIn"));
                 navigation.navigate("login");
               }}
-              color={colors.blujrBtnOpenActive}
+              color={colors.cacheonmanageBtnOpenActive}
               style={{
                 width: isChild ? "98%" : "48.5%",
               }}
@@ -120,7 +120,7 @@ export default () => {
                   dispatch(signUpStepChanged("otp"));
                   navigation.navigate("login");
                 }}
-                color={colors.blujrBtnOpenActive}
+                color={colors.cacheonmanageBtnOpenActive}
                 style={styles.button}
               />
             )}

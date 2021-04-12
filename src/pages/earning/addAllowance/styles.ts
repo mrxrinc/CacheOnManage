@@ -13,7 +13,7 @@ export default StyleSheet.create({
     margin: 0,
     alignItems: "center",
   },
-  noAllowanceBox: {
+  nocacheonthegoBox: {
     padding: 16,
     paddingHorizontal: 20,
     width: "100%",
@@ -29,11 +29,11 @@ export default StyleSheet.create({
     lineHeight: 17,
     marginTop: 10,
   },
-  addAllowanceButton: {
+  addcacheonthegoButton: {
     paddingHorizontal: 36,
     paddingTop: 16,
   },
-  yesAllowanceBox: {
+  yescacheonthegoBox: {
     width: width * 0.89,
     height: height * 0.083,
     justifyContent: "space-between",
@@ -72,7 +72,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: "#43e6c5",
   },
-  addAllowanceModal: {
+  addcacheonthegoModal: {
     width: "90%",
     justifyContent: "space-around",
     alignItems: "center",
@@ -118,7 +118,7 @@ export default StyleSheet.create({
     marginLeft: 4,
   },
   btn: { elevation: 0, shadowOpacity: 0 },
-  btnText: { color: colors.blujrBtnOpenActive },
+  btnText: { color: colors.cacheonmanageBtnOpenActive },
   rial: {
     color: colors.brownishGrey,
     fontSize: 14,

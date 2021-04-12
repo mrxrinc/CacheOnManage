@@ -21,7 +21,7 @@ abstract class BaseAPI {
     suffix,
     //baseURL = process.env.APP_BASE_URL,
     // baseURL = "http://91.245.228.78:8080",
-    baseURL = "https://Blujr-api.sdb247.com",
+    baseURL = "https://cacheonmanage-api.sdb247.com",
   }: Config) {
     // create a new instance of the Axios with custom config.
     this.httpService = axios.create({

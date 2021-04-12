@@ -30,17 +30,17 @@ export default StyleSheet.create({
     right: 5,
     bottom: 12,
   },
-  blujrInputBox: {
+  cacheonmanageInputBox: {
     width: "100%",
     justifyContent: "center",
   },
-  blujrInputWrapper: {
+  cacheonmanageInputWrapper: {
     width: "100%",
     backgroundColor: "#f5f7fa",
     borderRadius: 10,
     justifyContent: "center",
   },
-  blujrInput: {
+  cacheonmanageInput: {
     marginLeft: 10,
     fontFamily: "IRANYekanMobileFaNum",
     textAlign: "right",

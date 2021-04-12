@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.samanpr.blujr",
+    package = "com.cacheonmanage",
 )
 
 android_resource(
     name = "res",
-    package = "com.samanpr.blujr",
+    package = "com.cacheonmanage",
     res = "src/main/res",
 )
 

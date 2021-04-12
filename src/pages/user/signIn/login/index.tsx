@@ -19,7 +19,7 @@ import { setLocalData, getLocalData } from "utils/localStorage";
 import { withTheme } from "themeCore/themeProvider";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Logo from "components/icons/appIcon.svg";
-import WhiteLogo from "components/icons/bluJrLogo.svg";
+import WhiteLogo from "components/icons/cacheonmanageLogo.svg";
 import Header from "./header";
 import FooterLogin from "./FooterLogin";
 import StatusLogin from "./StatusLogin";

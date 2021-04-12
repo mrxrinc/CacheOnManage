@@ -24,7 +24,7 @@ const DatePicker = ({
   const [showDateModal, setShowDateModal] = useState<boolean>(false);
   const [tempValue, setTempValue] = useState<string>("");
   const [value, setValue] = useState<string>("");
-  const blujr = theme.key === "FATHER BLU JUNIOR";
+  const cacheonmanage = theme.key === "FATHER BLU JUNIOR";
 
   useEffect(() => {
     setValue(defaultValue);
@@ -42,8 +42,8 @@ const DatePicker = ({
         style={[
           light
             ? styles.buttonLight
-            : blujr
-            ? styles.buttonBlujr
+            : cacheonmanage
+            ? styles.buttoncacheonmanage
             : !showDateModal
             ? styles.buttonMoneyInactive
             : styles.buttonMoneyActive,
@@ -61,7 +61,7 @@ const DatePicker = ({
           >
             {value}
           </FormattedText>
-        ) : blujr ? (
+        ) : cacheonmanage ? (
           <FormattedText
             style={[
               styles.label,
@@ -102,7 +102,7 @@ const DatePicker = ({
             style={[
               styles.iconWrapper,
               {
-                paddingTop: blujr ? 0 : 10,
+                paddingTop: cacheonmanage ? 0 : 10,
               },
             ]}
           >

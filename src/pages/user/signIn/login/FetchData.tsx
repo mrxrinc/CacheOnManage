@@ -78,7 +78,7 @@ export default FetchData;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: colors.blujrBtnOpenActive,
+    backgroundColor: colors.cacheonmanageBtnOpenActive,
   },
   contentContainer: {
     flexGrow: 1,

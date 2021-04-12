@@ -3,7 +3,7 @@ export interface SavingListData {
   weeklySavings: string;
   targets: TargetsData[];
   childId: number;
-  allowance: number | string;
+  cacheonthego: number | string;
   childName: string;
 }
 
@@ -20,7 +20,7 @@ export interface EditTargetData extends AddTarget {
 export interface SelectedTargetData {
   targets: any[];
   childId: number;
-  allowance: number | string;
+  cacheonthego: number | string;
   childName: string;
 }
 

@@ -35,7 +35,10 @@ const Policy = () => {
   return (
     <ScrollView style={{ flex: 1 }}>
       {loading ? (
-        <ActivityIndicator size="large" color={colors.blujrBtnOpenActive} />
+        <ActivityIndicator
+          size="large"
+          color={colors.cacheonmanageBtnOpenActive}
+        />
       ) : (
         <HTML
           containerStyle={{ padding: 20 }}

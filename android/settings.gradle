@@ -1,4 +1,4 @@
-rootProject.name = 'allowance'
+rootProject.name = 'cacheonthego'
 include ':blinkid-react-native'
 project(':blinkid-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/blinkid-react-native/src/android')
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)

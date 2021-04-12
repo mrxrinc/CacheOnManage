@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { View, StyleSheet, StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import LinearGradient from "react-native-linear-gradient";
-import BluJrLogo from "components/icons/bluJrLogo.svg";
+import cacheonmanageLogo from "components/icons/cacheonmanageLogo.svg";
 import { withTheme } from "themeCore/themeProvider";
 
 const Splash = ({ setTheme }: any) => {
@@ -23,7 +23,7 @@ const Splash = ({ setTheme }: any) => {
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 0 }}
       >
-        <BluJrLogo />
+        <cacheonmanageLogo />
       </LinearGradient>
     </View>
   );

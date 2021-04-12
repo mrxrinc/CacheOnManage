@@ -36,7 +36,7 @@ export interface Errors {
 interface Props {
   data: TargetsData;
   childName: string;
-  allowance: number | string;
+  cacheonthego: number | string;
   theme: any;
 }
 const EditTarget: FC<Props> = (props) => {
@@ -140,7 +140,7 @@ const EditTarget: FC<Props> = (props) => {
         ) {
           errors.targetAmount = "مبلغ هدف نمی تواند کمتر از مبلغ پس انداز باشد";
         } else if (
-          Number(removeCommas(props.allowance)) <
+          Number(removeCommas(props.cacheonthego)) <
           Number(removeCommas(values.weeklySavings))
         ) {
           errors.weeklySavings =
@@ -153,7 +153,8 @@ const EditTarget: FC<Props> = (props) => {
           errors.weeklySavings =
             "مبلغ پس انداز نمی تواند بیشتر از مبلغ هدف باشد";
         } else if (
-          Number(props.allowance) < Number(removeCommas(values.weeklySavings))
+          Number(props.cacheonthego) <
+          Number(removeCommas(values.weeklySavings))
         ) {
           errors.weeklySavings =
             "مبلغ پس انداز هفتگی نمی‌تواند بیشتر از مبلغ پول توجیبی باشد.";

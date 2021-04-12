@@ -141,7 +141,7 @@ android {
     defaultConfig {
         missingDimensionStrategy 'react-native-camera', 'mlkit'
         multiDexEnabled true
-        applicationId "com.samanpr.blujr"
+        applicationId "com.cacheonmanage"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

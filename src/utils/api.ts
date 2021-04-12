@@ -276,8 +276,8 @@ export const getDefaultTask = (token: any) =>
       authorization: `Bearer ${token}`,
     },
   });
-export const addAllowance = (token: string, data: any) =>
-  instance.post("/api/v1/earnings/allowance", data, {
+export const addcacheonthego = (token: string, data: any) =>
+  instance.post("/api/v1/earnings/cacheonthego", data, {
     headers: {
       authorization: `Bearer ${token}`,
     },

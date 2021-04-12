@@ -1,5 +1,5 @@
 {
-  "name": "allowance",
+  "name": "CacheOnManage",
   "version": "0.9.4",
   "private": true,
   "scripts": {
@@ -10,8 +10,8 @@
     "lint": "eslint .",
     "postinstall": "patch-package",
     "adb-reverse": "adb reverse tcp:8081 tcp:8081 && npm start",
-    "codepush-android": "NODE_ENV=production appcenter codepush release-react -d Production -a NIuniverse/blujr-1  --debug && echo '\nTry: git tag codepush-vXX'",
-    "codepush-ios": "NODE_ENV=production appcenter codepush release-react -d Production -a NIuniverse/blujr  --debug && echo '\nTry: git tag codepush-vXX'"
+    "codepush-android": "NODE_ENV=production appcenter codepush release-react -d Production -a NIuniverse/cacheonmanage-1  --debug && echo '\nTry: git tag codepush-vXX'",
+    "codepush-ios": "NODE_ENV=production appcenter codepush release-react -d Production -a NIuniverse/cacheonmanage  --debug && echo '\nTry: git tag codepush-vXX'"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",

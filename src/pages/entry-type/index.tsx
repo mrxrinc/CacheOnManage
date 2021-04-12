@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, StatusBar } from "react-native";
-import BluJrLogo from "components/icons/bluJrLogo.svg";
+import cacheonmanageLogo from "components/icons/cacheonmanageLogo.svg";
 import { useNavigation } from "@react-navigation/core";
 import Button from "components/button";
 import LinearGradient from "react-native-linear-gradient";
@@ -45,7 +45,7 @@ const EntryType = ({ setTheme }: any) => {
         }}
       >
         <View style={styles.logoBox}>
-          <BluJrLogo />
+          <cacheonmanageLogo />
         </View>
         <View style={styles.bouttonBox}>
           {/* <Button
