@@ -15,7 +15,7 @@ const ScrollableTabViewComp = (props: any) => {
           <TabBar
             textStyle={{
               fontFamily:
-                props.theme.key === "FATHER BLU JUNIOR"
+                props.theme.key === "FATHER CASH JUNIOR"
                   ? "IRANYekanMobileFaNum"
                   : "IRANSansMobileFaNum",
               fontWeight: "100",

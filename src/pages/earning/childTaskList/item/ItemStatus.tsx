@@ -11,13 +11,13 @@ const ItemStatus = (props: any) => {
   return (
     <View style={styles.container}>
       {item.status == "FAILED" &&
-        (theme.key == "FATHER BLU JUNIOR" ? (
+        (theme.key == "FATHER CASH JUNIOR" ? (
           <FailIconBr style={styles.failIcon} />
         ) : (
           <FailIcon style={styles.failIcon} />
         ))}
       {item.status == "DONE" &&
-        (theme.key == "FATHER BLU JUNIOR" ? (
+        (theme.key == "FATHER CASH JUNIOR" ? (
           <SoilClockIconBr style={styles.failIcon} />
         ) : (
           <SoilClockIcon style={styles.failIcon} />

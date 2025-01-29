@@ -93,7 +93,7 @@ const TabBar = (props: any) => {
                   ) : (
                     <View style={styles.homeBox}>
                       <Curve style={styles.curve} />
-                      {props.theme.theme.key == "FATHER BLU JUNIOR" ? (
+                      {props.theme.theme.key == "FATHER CASH JUNIOR" ? (
                         <BluejrHome
                           width={62}
                           height={62}

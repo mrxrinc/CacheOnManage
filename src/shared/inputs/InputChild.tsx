@@ -17,7 +17,7 @@ import TextApp from "shared/TextApp";
 import { customAnim } from "global/Animations";
 import ShowPassword from "./ShowPassword";
 
-const FATHER = "FATHER BLU JUNIOR";
+const FATHER = "FATHER CASH JUNIOR";
 
 if (Platform.OS === "android") {
   if (UIManager.setLayoutAnimationEnabledExperimental) {

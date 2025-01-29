@@ -4,7 +4,7 @@ import { withTheme } from "themeCore/themeProvider";
 import { selectionFontFamily } from "./selectionFontFamily";
 import { selectionFontSize } from "./selectionFontSize";
 
-const FATHER = "FATHER BLU JUNIOR";
+const FATHER = "FATHER CASH JUNIOR";
 
 const TextApp = (props: any) => {
   const { children, style, theme, fontfamily, fontSize } = props;

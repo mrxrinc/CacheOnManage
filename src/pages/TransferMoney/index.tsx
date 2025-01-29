@@ -264,7 +264,7 @@ const TransferMoney: FC = (props: any) => {
                 </View>
                 <View style={style.leftCol}>
                   <TouchableOpacity onPress={handleSwitch}>
-                    {theme.key == "FATHER BLU JUNIOR" ? (
+                    {theme.key == "FATHER CASH JUNIOR" ? (
                       <SwitchBr height={60} width={60} />
                     ) : (
                       <Switch height={60} width={60} />

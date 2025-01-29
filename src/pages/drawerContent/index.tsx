@@ -59,7 +59,7 @@ const DrawerContent = (props: any) => {
       end={{ x: 1, y: 0 }}
     >
       <View style={styles.container}>
-        {theme.key == "FATHER BLU JUNIOR" && (
+        {theme.key == "FATHER CASH JUNIOR" && (
           <BluPattern
             height={height}
             width={"100%"}
@@ -68,7 +68,7 @@ const DrawerContent = (props: any) => {
         )}
         <View style={styles.contentBox}>
           <View style={[styles.drawerHeader, {}]}>
-            {theme.key != "FATHER BLU JUNIOR" && (
+            {theme.key != "FATHER CASH JUNIOR" && (
               <HighDesign
                 height={140}
                 width={110}
@@ -167,7 +167,7 @@ const DrawerContent = (props: any) => {
             >
               {pkg.version}
             </FormattedText>
-            {theme.key != "FATHER BLU JUNIOR" && (
+            {theme.key != "FATHER CASH JUNIOR" && (
               <BottomDesign
                 height={120}
                 width={100}

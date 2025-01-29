@@ -9,7 +9,7 @@ import PasswordVisibleIcon from "components/icons/passwordVisible.svg";
 import style from "./style";
 import { withTheme } from "../../themeCore/themeProvider";
 
-const FATHER_BLU_JR = "FATHER BLU JUNIOR";
+const FATHER_BLU_JR = "FATHER CASH JUNIOR";
 
 const MaterialTextField = forwardRef((props: any, ref: any) => {
   let theme = props.theme;
@@ -124,7 +124,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
       <TouchableOpacity
         style={[
           style.iconWrapper,
-          { height: theme.key === "FATHER BLU JUNIOR" ? 47 : 67 },
+          { height: theme.key === "FATHER CASH JUNIOR" ? 47 : 67 },
         ]}
         onPress={() =>
           typeof props.iconAction === "function"

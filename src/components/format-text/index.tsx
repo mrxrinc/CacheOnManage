@@ -4,7 +4,7 @@ import messages from "../../utils/fa";
 import { withTheme } from "themeCore/themeProvider";
 
 const MessagesContext = React.createContext(messages);
-const FATHER_BLU_JR = "FATHER BLU JUNIOR";
+const FATHER_BLU_JR = "FATHER CASH JUNIOR";
 
 const FormattedText = withTheme(
   ({

@@ -16,7 +16,7 @@ import { colors } from "constants/index";
 import ShowPassword from "./ShowPassword";
 import TextApp from "shared/TextApp";
 
-const FATHER = "FATHER BLU JUNIOR";
+const FATHER = "FATHER CASH JUNIOR";
 
 if (Platform.OS === "android") {
   if (UIManager.setLayoutAnimationEnabledExperimental) {

@@ -26,10 +26,10 @@ const EntryType = ({ setTheme }: any) => {
     if (!firstLaunch) {
       await setLocalData("FIRST_LAUNCH", "1");
       navigation.navigate("intro");
-      child ? setTheme("CHILD MONEY") : setTheme("FATHER BLU JUNIOR");
+      child ? setTheme("CHILD MONEY") : setTheme("FATHER CASH JUNIOR");
     } else {
       navigation.navigate("login");
-      child ? setTheme("CHILD MONEY") : setTheme("FATHER BLU JUNIOR");
+      child ? setTheme("CHILD MONEY") : setTheme("FATHER CASH JUNIOR");
     }
   };
 

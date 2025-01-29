@@ -8,7 +8,7 @@ import { withTheme } from "themeCore/themeProvider";
 const Splash = ({ setTheme }: any) => {
   const navigation = useNavigation();
   useEffect(() => {
-    setTheme("FATHER BLU JUNIOR");
+    setTheme("FATHER CASH JUNIOR");
     const timer = setTimeout(() => {
       navigation.navigate("auth");
     }, 3000);

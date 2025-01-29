@@ -58,7 +58,7 @@ const Login = ({ theme }: any) => {
   const isFinger =
     biometricType === "TouchID" || biometricType === "Fingerprint";
   const isFace = biometricType === "FaceID";
-  const bljTheme = theme.key === "FATHER BLU JUNIOR" ? true : false;
+  const bljTheme = theme.key === "FATHER CASH JUNIOR" ? true : false;
 
   useEffect(() => {
     setData();

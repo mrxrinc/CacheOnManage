@@ -24,7 +24,7 @@ const DatePicker = ({
   const [showDateModal, setShowDateModal] = useState<boolean>(false);
   const [tempValue, setTempValue] = useState<string>("");
   const [value, setValue] = useState<string>("");
-  const cacheonmanage = theme.key === "FATHER BLU JUNIOR";
+  const cacheonmanage = theme.key === "FATHER CASH JUNIOR";
 
   useEffect(() => {
     setValue(defaultValue);

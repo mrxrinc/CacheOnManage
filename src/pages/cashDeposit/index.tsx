@@ -33,7 +33,7 @@ type CardNumberType = {
 };
 
 const COUNTER = 120;
-const FATHER_BLU_JR = "FATHER BLU JUNIOR";
+const FATHER_BLU_JR = "FATHER CASH JUNIOR";
 
 const CashDeposit: FC = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
