@@ -9,7 +9,7 @@ import PasswordVisibleIcon from "components/icons/passwordVisible.svg";
 import style from "./style";
 import { withTheme } from "../../themeCore/themeProvider";
 
-const FATHER_BLU_JR = "FATHER CASH JUNIOR";
+const FATHER_CASH_JR = "FATHER CASH JUNIOR";
 
 const MaterialTextField = forwardRef((props: any, ref: any) => {
   let theme = props.theme;
@@ -17,7 +17,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
   const inputRef = ref ?? useRef(null);
 
   useEffect(() => {
-    if (inputRef && theme.key !== FATHER_BLU_JR)
+    if (inputRef && theme.key !== FATHER_CASH_JR)
       inputRef.current.setValue(props.value);
   }, [props.value]);
 
@@ -46,7 +46,7 @@ const MaterialTextField = forwardRef((props: any, ref: any) => {
 
   return (
     <View style={[style.container, props.style]}>
-      {theme.key === FATHER_BLU_JR ? (
+      {theme.key === FATHER_CASH_JR ? (
         <View
           style={[
             style.cacheonmanageInputBox,

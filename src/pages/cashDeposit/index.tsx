@@ -33,7 +33,7 @@ type CardNumberType = {
 };
 
 const COUNTER = 120;
-const FATHER_BLU_JR = "FATHER CASH JUNIOR";
+const FATHER_CASH_JR = "FATHER CASH JUNIOR";
 
 const CashDeposit: FC = (props: any) => {
   const token = useSelector<RootState, any>((state) => state.user.token);
@@ -207,7 +207,7 @@ const CashDeposit: FC = (props: any) => {
                   style.input,
                   {
                     fontFamily:
-                      theme.key === FATHER_BLU_JR
+                      theme.key === FATHER_CASH_JR
                         ? "IRANYekanMobileFaNum"
                         : "IRANSansMobileFaNum",
                   },
@@ -227,7 +227,7 @@ const CashDeposit: FC = (props: any) => {
                   style.input,
                   {
                     fontFamily:
-                      theme.key === FATHER_BLU_JR
+                      theme.key === FATHER_CASH_JR
                         ? "IRANYekanMobileFaNum"
                         : "IRANSansMobileFaNum",
                   },
@@ -253,7 +253,7 @@ const CashDeposit: FC = (props: any) => {
                   style.input,
                   {
                     fontFamily:
-                      theme.key === FATHER_BLU_JR
+                      theme.key === FATHER_CASH_JR
                         ? "IRANYekanMobileFaNum"
                         : "IRANSansMobileFaNum",
                   },

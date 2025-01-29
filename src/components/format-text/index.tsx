@@ -4,7 +4,7 @@ import messages from "../../utils/fa";
 import { withTheme } from "themeCore/themeProvider";
 
 const MessagesContext = React.createContext(messages);
-const FATHER_BLU_JR = "FATHER CASH JUNIOR";
+const FATHER_CASH_JR = "FATHER CASH JUNIOR";
 
 const FormattedText = withTheme(
   ({
@@ -21,29 +21,29 @@ const FormattedText = withTheme(
   }) => {
     const _messages = React.useContext(MessagesContext);
     const Bold =
-      theme.key === FATHER_BLU_JR
+      theme.key === FATHER_CASH_JR
         ? "IRANYekanMobile-Bold"
         : "IRANSansMobile-Bold";
     const Light =
-      theme.key === FATHER_BLU_JR ? "IRANYekanMobile" : "IRANSansMobile-Light";
+      theme.key === FATHER_CASH_JR ? "IRANYekanMobile" : "IRANSansMobile-Light";
 
     const Medium =
-      theme.key === FATHER_BLU_JR
+      theme.key === FATHER_CASH_JR
         ? "IRANYekanMobile-Medium"
         : "IRANSansMobile-Medium";
 
     const RegularFaNum =
-      theme.key === FATHER_BLU_JR
+      theme.key === FATHER_CASH_JR
         ? "IRANYekanMobileFaNum"
         : "IRANSansMobileFaNum";
 
     const BoldFaNum =
-      theme.key === FATHER_BLU_JR
+      theme.key === FATHER_CASH_JR
         ? "IRANYekanMobileFaNum-Bold"
         : "IRANSansFaNum-Bold";
 
     const Regular =
-      theme.key === FATHER_BLU_JR ? "IRANYekanMobile" : "IRANSansMobile";
+      theme.key === FATHER_CASH_JR ? "IRANYekanMobile" : "IRANSansMobile";
 
     const setFont = {
       fontFamily:
